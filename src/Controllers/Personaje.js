@@ -1,24 +1,8 @@
 import Phaser from 'phaser'
 
-export default class MainMenu extends Phaser.Scene
-{
-	//constructor()
-	//{
-
-	//}
-
-	preload()
-    {
-
-    }
-
-    create()
-    {
-
-    }
-
-    update()
-    {
-
+export default class Personaje {
+    #sprite
+	constructor(sprite) {
+        this.sprite = sprite
     }
 }
