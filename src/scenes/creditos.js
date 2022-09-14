@@ -1,9 +1,9 @@
 import Phaser from 'phaser'
 
-export class Preloads extends Phaser.Scene {
+export class Creditos extends Phaser.Scene {
     constructor() {
   
-      super("Preloads");
+      super("Creditos");
     }
 
     preload(){
