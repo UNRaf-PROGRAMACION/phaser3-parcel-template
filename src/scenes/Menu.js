@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
-
-
+let scoreText;
+let score = 0;
 // Manejador de eventos centralizados para comunicacion de componentes
 
 // Importacion
@@ -19,16 +19,11 @@ export default class HelloWorldScene extends Phaser.Scene
 {
 	constructor()
 	{
-		super('hello-world')
+		super('Menu')
 	}
 
 	preload()
     {
-        this.load.setBaseURL('http://labs.phaser.io')
-
-        this.load.image('sky', 'assets/skies/space3.png')
-        this.load.image('logo', 'assets/sprites/phaser3-logo.png')
-        this.load.image('red', 'assets/particles/red.png')
     }
 
     create()
@@ -43,12 +38,29 @@ export default class HelloWorldScene extends Phaser.Scene
             blendMode: 'ADD'
         })
 
-        const logo = this.physics.add.image(400, 100, 'logo')
+        const logo = this.physics.add.image(250, 150, 'logo')
 
         logo.setVelocity(100, 200)
         logo.setBounce(1, 1)
         logo.setCollideWorldBounds(true)
 
         emitter.startFollow(logo)
+        scoreText = this.add.text(30, 6, "Score: 0", {
+            fontSize: "32px",
+          });
+          setTimeout(() => {
+            // Instrucción que sera llamada despues del segundo
+            this.scene.switch(
+              "Custom",
+            );
+          }, 10000); // Ese número es la cantidad de milisegundos
+        }
+        
+    update()
+    {
+        setTimeout(() => {
+            // Instrucción que sera llamada despues del segundo
+            score +=1, scoreText.setText("Score: " + score);
+          }, 5000); // Ese número es la cantidad de milisegundos
     }
 }

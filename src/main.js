@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 
-import HelloWorldScene from './scenes/HelloWorldScene'
+import Preload from './scenes/Preload'
+import Menu from './scenes/Menu'
+import Custom from './scenes/Custom'
 
 const config = {
 	type: Phaser.AUTO,
@@ -25,7 +27,7 @@ const config = {
 			debug: false,
 		}
 	},
-	scene: [HelloWorldScene]
+	scene: [Preload, Menu, Custom]
 }
 
 export default new Phaser.Game(config)
