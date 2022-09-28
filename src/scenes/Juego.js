@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 
 
 
-export default class MapaNiveles extends Phaser.Scene
+export default class Juego extends Phaser.Scene
 {
 	preload()
     {
