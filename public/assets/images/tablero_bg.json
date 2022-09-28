@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "tablero_bg.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1427,
+				"h": 849
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "tablero_bg.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1425,
+						"h": 847
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1425,
+						"h": 847
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 1425,
+						"h": 847
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:d3973309b378b7afb95d7fcc7d299835:10a99f049c6fd2c8e2f3ec039ec97cf2:7c794a69cbbb758811844409019e4808$"
+	}
+}
