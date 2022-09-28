@@ -8,7 +8,9 @@ class Jugador {
 
     animaciones(){
         //imagenes
+        aa
     }
+
 
     saltar(){
    //     if (cursors.up.isDown && player.body.blocked.down) {
