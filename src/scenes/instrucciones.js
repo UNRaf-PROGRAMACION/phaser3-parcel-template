@@ -7,11 +7,11 @@ export class Instrucciones extends Phaser.Scene {
     }
 
     preload(){
-
+      //imagenes
     }
     
     create(){
-
+      //boton
     }
 
     update(){

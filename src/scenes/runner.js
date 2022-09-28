@@ -1,8 +1,9 @@
 class Runner{
-    constructor(jugador, tiempo){
+    constructor(jugador, tiempo, vida){
 
         jugador= jugador;
         this.tiempo= tiempo;
+        this.vida=vida
     }
 
     tiempoDescuento(){
@@ -33,6 +34,7 @@ class RunnerNoche extends Runner{
         this.obstaculosNoche= obstaculosNoche;
         this.plataformasNoche= plataformasNoche;
         this.enemigosNoche= enemigosNoche;
+   
     }
 
     //FinJuego(){}

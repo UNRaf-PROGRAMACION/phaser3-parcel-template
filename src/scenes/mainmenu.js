@@ -1,10 +1,11 @@
 import Phaser from 'phaser'
 
 export class MainMenu extends Phaser.Scene {
-    constructor() {
-  
-      
+    constructor(interactuar) {
       super("MainMenu");
+      
+      this.interactuar=interactuar;
+
     }
 
     preload(){

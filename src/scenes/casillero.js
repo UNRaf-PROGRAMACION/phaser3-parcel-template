@@ -7,6 +7,10 @@ class Casillero{
     animacion(){
         
     }
+    numero(){
+
+    }
+    
 }
 
 export default Casillero;

@@ -7,7 +7,7 @@ class Jefe{
     }
 
     animacion(){
-
+        //imagenes
     }
 
     ataque(){

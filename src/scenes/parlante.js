@@ -6,7 +6,7 @@ class Parlante{
     }
 
     animacion(){
-
+        //imagen
     }
 
     boton(){
