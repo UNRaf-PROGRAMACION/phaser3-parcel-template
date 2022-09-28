@@ -1,12 +1,13 @@
 import Phaser from 'phaser'
 
-import MainMenu from './scenes/MainMenu'
 import Preloads from './scenes/Preloads'
+import MainMenu from './scenes/MainMenu'
+import Creditos from './scenes/Creditos'
 
 const config = {
 	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
+	width: 1280,
+	height: 720,
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -26,7 +27,7 @@ const config = {
 			debug: false,
 		}
 	},
-	scene: [Preloads, MainMenu]
+	scene: [Preloads, MainMenu, Creditos]
 }
 
 export default new Phaser.Game(config)

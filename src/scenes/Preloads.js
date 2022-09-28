@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 
+
+
 export default class Preloads extends Phaser.Scene
 {
 	constructor()
@@ -9,17 +11,20 @@ export default class Preloads extends Phaser.Scene
 
     preload(){
         //MENUS
-        this.load.image('menuInicio', 'public/assets/images/menuInicio.png')
-        this.load.image('elegirFaccion', 'public/assets/images/elegirFaccion.png')
-        this.load.image('creditos', 'public/assets/images/creditos.png')
+        this.load.image('menuInicio', 'assets/images/menuInicio.png')
+        this.load.image('elegirFaccion', 'assets/images/elegirFaccion.png')
+        this.load.image('creditos', 'assets/images/creditos.png')
 
+        // Interfaz
+        this.load.image('botonMarco', 'assets/interfaz/botonMarco.png')
 
 
 
     }
 
-    create() {
-        this.scene.start('MainMenu')
+    create(){
+        this.scene.start('MainMenu');
+
     } 
 
 
