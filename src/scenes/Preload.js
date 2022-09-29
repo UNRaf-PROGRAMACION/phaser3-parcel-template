@@ -48,8 +48,6 @@ export class Preload extends Phaser.Scene {
      this.scene.start("MenuPrincipal");
     }
 
-    update()
-    {
-    }
+   
 
 }
