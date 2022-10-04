@@ -16,8 +16,15 @@ export class Preload extends Phaser.Scene {
         this.load.image("boton_menu", "public/assets/images/boton_menu.png");
         this.load.image("siguiente", "public/assets/images/siguiente.png");
         this.load.image("atras", "public/assets/images/atras.png");
-        this.load.image("fondonivel1", "public/assets/images/fondonivel1.png");
-        this.load.image("fondonivel2", "public/assets/images/fondonivel2.png");
+        this.load.image("fondo1", "public/assets/images2/fondo1.png");
+        this.load.image("fondo2", "public/assets/images2/fondo2.png");
+        this.load.image("fondo3", "public/assets/images2/fondo3.png");
+        this.load.image("fondo4", "public/assets/images2/fondo4.png");
+        this.load.image("lago", "public/assets/images2/lago.png");
+        this.load.image("bosque", "public/assets/images2/bosque.png");
+        this.load.image("montaña", "public/assets/images2/montaña.png");
+        this.load.image("alicia", "public/assets/images2/alicia.png");
+        this.load.image("reina", "public/assets/images2/reina.png");
         this.load.image("pausa", "public/assets/images/pausa.png");
         this.load.image("puntos", "public/assets/images/puntos.png");
         this.load.image("temporizador", "public/assets/images/temporizador.png");
