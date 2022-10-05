@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import Button from "../js/button.js";
-import Carta from "../js/cartas.js";
 //Variables de la escena
 var JTurno; //Para que funcione el movimiento
 var CTurno; //Para que funcione el score
@@ -377,14 +376,6 @@ export class Play extends Phaser.Scene {
           fill: '#000000', 
           fontFamily: 'Arial'
       });
-    }
-    Carta(NCarta){
-      new Carta( //carta?
-      this.cameras.main.centerX,
-      this.cameras.main.centerY,
-      NCarta, 'alanpp', "xd",
-      this,
-      () => {this.roja()});
     }
     Ganador(Jugador){
       this.add.text(this.cameras.main.centerX*0.5, this.cameras.main.centerY, Jugador.toUpperCase())
