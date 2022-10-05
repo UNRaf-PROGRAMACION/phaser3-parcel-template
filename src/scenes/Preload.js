@@ -1,11 +1,14 @@
+// @ts-ignore
 import Phaser from 'phaser'
 
 
 
-export class Preload extends Phaser.Scene {
+export default class Preload extends Phaser.Scene {
   constructor() {
     // Se asigna una key para despues poder llamar a la escena
     super("Preload");
+    this.load = undefined;
+    this.scene = undefined;
   }
 
 	preload()

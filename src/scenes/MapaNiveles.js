@@ -1,3 +1,4 @@
+// @ts-ignore
 import Phaser from 'phaser'
 
 
@@ -6,10 +7,12 @@ import Phaser from 'phaser'
 export default class MapaNiveles extends Phaser.Scene
 {
     nivelActual = 0
-    imagenes = ['imagenniv1', 'imagenniuv2']
+    imagenes = ['mapa']
 
     constructor(){
         super('MapaNiveles')
+        this.scene = undefined
+        this.add = undefined
     }
 
 	preload()
@@ -26,6 +29,11 @@ export default class MapaNiveles extends Phaser.Scene
             this.scene.start('juego', {nivel: this.nivelActual});
         }
 
+        // comenzar a jugar
+        let juego = this.add.image(350, 600, 'siguiente').setScale(0.26)
+        juego.setInteractive()
+        juego.on('pointerdown', () => this.scene.start('Juego'));
+        this.clic.play();
             
     }
 

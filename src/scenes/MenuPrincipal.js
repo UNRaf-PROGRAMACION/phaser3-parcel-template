@@ -1,3 +1,4 @@
+// @ts-ignore
 import Phaser from 'phaser'
 let musica = false;
 
@@ -7,10 +8,14 @@ export default class MenuPrincipal extends Phaser.Scene
 {
     constructor() {
     // Se asigna una key para despues poder llamar a la escena
-    super("MaMenuPrincipal");
+    super("MenuPrincipal");
+      this.add = undefined;
+      this.scene = undefined;
+      this.cameras = undefined;
+      this.sound = undefined;
   }
 	
-  preload()
+  create()
     {
     // Fondo del menú principal
     this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "menu").setScale(1.1);

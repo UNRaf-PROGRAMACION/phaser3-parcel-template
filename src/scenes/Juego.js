@@ -51,10 +51,31 @@ export default class Juego extends Phaser.Scene
                 break;
             }
         }
+
+        // Fondo del nivel
+    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'bosque', 'lago', 'montaña').setScale(1.1);
+    this.add.image(400, 100, 'temporizador');
+    this.add.image(120, 100, 'puntos');
+    this.puntos = this.add.text(130, 60, '0', { fontFamily: 'Rockwell', fontSize: 70, color: '#000000' })
+
+    //clic
+    this.clic = this.sound.add('clic');
+
+    // Boton para volver al menu principal
+    const menu = this.add.image(600, 100, "boton_menu").setScale(1.1);
+    menu.setInteractive();
+    menu.on("pointerdown", () => this.scene.start("MenuPrincipal"));
+    this.clic.play();
+
+    // Si no junta todas las cartas en 20 segundos --> Game Over
+    this.initialTime = 40
+    this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onSecond, callbackScope: this, loop: true });
+    this.timeText = this.add.text(340, 60, '40', { fontFamily: 'Rockwell', fontSize: 70, color: '#000000' });
     
-        //Para ir a la pantalla de ganaste una vez que se dan vuelta todas las cartas
-        if (coincidencias === 2) {
-           scene.ganaste();
+        
+    //Para ir a la pantalla de ganaste una vez que se dan vuelta todas las cartas
+        if (this.coincidencias === 2) {
+           this.ganaste();
           }
     }
 

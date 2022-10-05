@@ -16,7 +16,7 @@ export default class Ganaste extends Phaser.Scene
         let win = false;
 
         // Fondo del menú principal
-        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "ganaste").setScale(1.1);
+        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "alicia").setScale(1.1);
 
         //clic
         this.clic = this.sound.add('clic');

@@ -14,7 +14,7 @@ export default class Perdiste extends Phaser.Scene
     create()
     {
     // Fondo del menú principal
-    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "perdiste").setScale(1.1);
+    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "reina").setScale(1.1);
 
     //clic
     this.clic = this.sound.add('clic');
