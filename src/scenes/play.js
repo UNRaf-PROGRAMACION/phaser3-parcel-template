@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Button from "../js/button.js";
-import ButtonFont from "../js/buttonfont.js";
+import Carta from "../js/cartas.js";
 //Variables de la escena
 var JTurno; //Para que funcione el movimiento
 var CTurno; //Para que funcione el score
@@ -135,7 +135,7 @@ export class Play extends Phaser.Scene {
       "dadoicon",
       this,
       () => {
-          BotonDado.inputEnabled = false;
+          //BotonDado.inputEnabled = false;
           sonid4.play();
           sonidorana.play();
           var randomNumber = Math.floor(Math.random()*4) + 1;
@@ -157,10 +157,10 @@ export class Play extends Phaser.Scene {
           if (proxcas>=41) {
             var casPoint = tablero.findObject("Objetos", (obj) => obj.type === "41");
             Players[JTurno].setPosition(casPoint.x+1, casPoint.y+1)
-            BotonDado.inputEnabled = false;
-            BotonSalto.inputEnabled = false;
-            //victoria = this.sound.add('victoria');
-            //victoria.play();
+            //BotonDado.inputEnabled = false;
+            //BotonSalto.inputEnabled = false;
+            victoria = this.sound.add('victoria');
+            victoria.play();
             if (JTurno == '0') {
               this.Ganador("GANASTE "+ "Jugador 1");
                 this.JugadorTurno("Jugador 1");
@@ -179,7 +179,7 @@ export class Play extends Phaser.Scene {
             this.Casilla(proxcas);
             this.Carta(proxcas);
             setTimeout(() => {
-              BotonDado.inputEnabled = true;
+              //BotonDado.inputEnabled = true;
             }, 3000);
           }
       });
@@ -200,7 +200,7 @@ export class Play extends Phaser.Scene {
         }
           if (scoreac>=20 && proxcas+8<40)
           {
-            BotonSalto.inputEnabled = true;
+            //BotonSalto.inputEnabled = true;
             saltotesonido.play();
               if (JTurno == '0') {
               this.JugadorTurno("Jugador 2");
@@ -224,7 +224,7 @@ export class Play extends Phaser.Scene {
             this.Casilla(proxcas);
             this.turno();
         } else {
-          BotonSalto.inputEnabled = false;
+          //BotonSalto.inputEnabled = false;
         } 
         });
 
@@ -236,7 +236,7 @@ export class Play extends Phaser.Scene {
       this.add.image(spawnPoint.x, spawnPoint.y, 'ContMoscas').setScale(0.2);
       scoretext = this.add.text(spawnPoint.x*1.05, spawnPoint.y*0.60, "", { //Texto Score
         fontSize: "36px",
-        fill: "#000000",
+        //fill: "#000000",
         fontFamily: 'Arial'
       });
 
@@ -246,7 +246,6 @@ export class Play extends Phaser.Scene {
       "tuerca",
       this,
       () => {
-        // Instrucción para pasar a la escena opcion
         this.scene.switch("Opcion");
       });
      
@@ -256,7 +255,6 @@ export class Play extends Phaser.Scene {
        "ayuda",
       this,
       () => {
-        // Instrucción para pasar a la escena ayuda
         this.scene.switch("Ayuda");
       });
 
