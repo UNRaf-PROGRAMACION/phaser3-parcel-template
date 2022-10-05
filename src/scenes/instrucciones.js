@@ -11,7 +11,7 @@ export class Instrucciones extends Phaser.Scene {
     }
     
     create(){
-      //boton
+    
     }
 
     update(){
