@@ -379,12 +379,12 @@ export class Play extends Phaser.Scene {
       });
     }
     Carta(NCarta){
-      let Carta = this.add.image(this.cameras.main.centerX,
-        this.cameras.main.centerY, NCarta).setScale(0.5);
-        Carta.visible = true;
-        setTimeout(() => {
-          Carta.visible = false;
-        }, 3000);
+      new Carta( //carta?
+      this.cameras.main.centerX,
+      this.cameras.main.centerY,
+      NCarta, 'alanpp', "xd",
+      this,
+      () => {this.roja()});
     }
     Ganador(Jugador){
       this.add.text(this.cameras.main.centerX*0.5, this.cameras.main.centerY, Jugador.toUpperCase())
