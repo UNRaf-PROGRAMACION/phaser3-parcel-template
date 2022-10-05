@@ -9,7 +9,7 @@ export class Cartas extends Phaser.Scene {
       this.tipo= tipo;
 
     }
-
+a
     animacion(){
 
     }
