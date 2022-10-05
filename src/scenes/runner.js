@@ -1,9 +1,13 @@
 class Runner{
-    constructor(jugador, tiempo, vida){
+    constructor(jugador, tiempo, vida, obstaculos, plataformas, enemigos, meta){
 
-        jugador= jugador;
+        this.jugador= jugador;
         this.tiempo= tiempo;
-        this.vida=vida
+        this.vida=vida;
+        this.obstaculos= obstaculos;
+        this.plataformas= plataformas;
+        this.enemigos= enemigos;
+        this.meta= meta;
     }
 
     tiempoDescuento(){
@@ -15,31 +19,4 @@ class Runner{
     }
 }
 
-class RunnerJungla extends Runner{
-    constructor(obstaculosJungla, plataformasJungla, enemigosJungla, metarunneer){
-        super();
-
-        this.obstaculosJungla= obstaculosJungla;
-        this.plataformasJungla= plataformasJungla;
-        this.enemigosJungla= enemigosJungla;
-        this.metarunner= metarunneer;
-        
-    }
-
-    //FinJuego(){}
-}
-
-class RunnerNoche extends Runner{
-    constructor(obstaculosNoche, plataformasNoche, enemigosNoche){
-        super();
-
-        this.obstaculosNoche= obstaculosNoche;
-        this.plataformasNoche= plataformasNoche;
-        this.enemigosNoche= enemigosNoche;
-   
-    }
-
-    //FinJuego(){}
-}
-
-export default {Runner, RunnerJungla, RunnerNoche};
+export default Runner;
