@@ -7,8 +7,11 @@ class Jugador {
     }
 
     animaciones(){
-        //imagenes
-        aa
+        //this.load.spritesheet("dude", "public/assets/images/spritesheet (5).png", {
+        //    frameWidth: 150,
+        //    frameHeight: 155,
+        //  });
+        
     }
 
 

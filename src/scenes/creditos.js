@@ -7,7 +7,7 @@ export class Creditos extends Phaser.Scene {
     }
 
     preload(){
-
+      //imagen
     }
     
     create(){
@@ -18,3 +18,17 @@ export class Creditos extends Phaser.Scene {
 
     }
 }
+
+
+
+//class BotonInicio extends Creditos{
+ // constructor(volvermenu){
+ //     super();
+
+ //     this.volvermenu= volvermenu;
+      
+ // }
+
+//}
+
+//export default {Creditos, BotonInicio};

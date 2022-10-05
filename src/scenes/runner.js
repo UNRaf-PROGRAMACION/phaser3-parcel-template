@@ -16,12 +16,14 @@ class Runner{
 }
 
 class RunnerJungla extends Runner{
-    constructor(obstaculosJungla, plataformasJungla, enemigosJungla){
+    constructor(obstaculosJungla, plataformasJungla, enemigosJungla, metarunneer){
         super();
 
         this.obstaculosJungla= obstaculosJungla;
         this.plataformasJungla= plataformasJungla;
         this.enemigosJungla= enemigosJungla;
+        this.metarunner= metarunneer;
+        
     }
 
     //FinJuego(){}
