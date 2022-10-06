@@ -10,7 +10,7 @@ import {Instrucciones} from './scenes/instrucciones'
 import {MainMenu} from './scenes/mainmenu'
 import {Preloads} from './scenes/preloads'
 import {Tablero} from './scenes/tablero'
-import Jugador from './scenes/jugador'
+
 
 const config = {
 	type: Phaser.AUTO,
@@ -35,7 +35,7 @@ const config = {
 			debug: false,
 		}
 	},
-	scene: [Jugador , HelloWorldScene, Cartas, Instrucciones, Escenario1, Escenario2, Configuraciones, Tablero, Preloads, MainMenu, Creditos]
+	scene: [HelloWorldScene, Cartas, Instrucciones, Escenario1, Escenario2, Configuraciones, Tablero, Preloads, MainMenu, Creditos]
 }
 
 export default new Phaser.Game(config)

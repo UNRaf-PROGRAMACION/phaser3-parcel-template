@@ -1,3 +1,4 @@
+
 class Jugador {
     constructor(nombre, posicionTablero, posicionEscenario, player){
         
@@ -26,6 +27,13 @@ class Jugador {
         frames: [{ key: "dude", frame: 1 }],
         frameRate: 20,
       });
+    
+    
+    
+    
+    
+    
+    
     }
 
 
