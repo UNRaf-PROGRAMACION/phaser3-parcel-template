@@ -28,7 +28,9 @@ export default class Juego extends Phaser.Scene {
         this.cameras.main.centerY,
         "bosque",
         "lago",
-        "montaña"
+        "montaña",
+        "jardin",
+        "castillo",
       )
       .setScale(1.1);
 
@@ -50,14 +52,14 @@ export default class Juego extends Phaser.Scene {
     //this.clic.play();
 
     // Si no junta todas las cartas en 20 segundos --> Game Over
-    this.initialTime = 40;
+    this.initialTime = 10;
     this.timedEvent = this.time.addEvent({
       delay: 1000,
       callback: this.onSecond,
       callbackScope: this,
       loop: true,
     });
-    this.timeText = this.add.text(340, 60, "40", {
+    this.timeText = this.add.text(340, 60, "10", {
       fontFamily: "Rockwell",
       fontSize: 70,
       color: "#000000",

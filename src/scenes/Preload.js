@@ -19,9 +19,16 @@ export default class Preload extends Phaser.Scene {
         this.load.image("boton_menu", "assets/images/boton_menu.png");
         this.load.image("siguiente", "assets/images/siguiente.png");
         this.load.image("atras", "assets/images/atras.png");
-        this.load.image("nivel", "assets/images2/nivel.png");;
+        this.load.image("nivel", "assets/images2/nivel.png");
+        this.load.image("ajustes", "assets/images2/ajustes.png");
+        this.load.image("ayuda", "assets/images2/ayuda.png");
+        this.load.image("jugar_boton", "assets/images2/jugar_boton.png");
+        this.load.image("pantalla_ajustes", "assets/images2/pantalla_ajustes.png");
+        this.load.image("pantalla_creditos", "assets/images2/pantalla_creditos.png");
         this.load.image("menu", "assets/images2/menu.png");
+        this.load.image("castillo", "assets/images2/castillo.png");
         this.load.image("lago", "assets/images2/lago.png");
+        this.load.image("jardin", "assets/images2/jardin.png");
         this.load.image("bosque", "assets/images2/bosque.png");
         this.load.image("montaña", "assets/images2/montaña.png");
         this.load.image("alicia", "assets/images2/alicia.png");
@@ -43,6 +50,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image("torta", "assets/images/torta.png");
         this.load.image("ganaste", "assets/images/ganaste.png");
         this.load.image("perdiste", "assets/images/perdiste.png");
+        this.load.image("alicia", "assets/images2/alicia.gif");
+        this.load.image("gato", "assets/images2/gato.gif");
+        
         //this.load.audio('alicia_al_rescate', 'assets/sounds/alicia_al_rescate.mp3',
         //'assets/sounds/alicia_al_rescate.ogg', 'assets/sounds/alicia_al_rescate.m4a');
         //this.load.audio('win', 'assets/sounds/win.mp3');

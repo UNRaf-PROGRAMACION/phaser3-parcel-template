@@ -26,9 +26,22 @@ export default class MenuPrincipal extends Phaser.Scene
     
 
     // Boton para comenzar a jugar
-    let jugar = this.add.image(360, 400, 'jugar').setScale(0.26)
+    let jugar = this.add.image(360, 400, 'jugar_boton').setScale(0.1)
     jugar.setInteractive()
     jugar.on('pointerdown', () => this.scene.start('MapaNiveles'));
+    //this.clic.play();
+
+    //Boton ayuda
+    let ayuda = this.add.image(200,1300, 'ayuda').setScale(0.1)
+    ayuda.setInteractive()
+    ayuda.on('pointerdown', () => this.scene.start('Ayuda'));
+    //this.clic.play();
+
+
+    //Boton ajustes
+    let ajustes = this.add.image(500,1300, 'ajustes').setScale(0.1)
+    ajustes.setInteractive()
+    ajustes.on('pointerdown', () => this.scene.start('Ajustes'));
     //this.clic.play();
   };
 
