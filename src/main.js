@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 
-import HelloWorldScene from './scenes/HelloWorldScene'
 import {Cartas} from './scenes/cartas'
 import {Configuraciones} from './scenes/configuraciones'
 import {Creditos} from './scenes/creditos'
@@ -14,8 +13,8 @@ import {Tablero} from './scenes/tablero'
 
 const config = {
 	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
+	width: 1920,
+	height: 1080,
 	scale: {
 		mode: Phaser.Scale.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -24,18 +23,18 @@ const config = {
 			height: 600,
 		},
 		max: {
-			width: 1600,
-			height: 1200,
+			width: 1920,
+			height: 1080,
 		},
 	},
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: { y: 200 },
+			gravity: { y: 450 },
 			debug: false,
 		}
 	},
-	scene: [HelloWorldScene, Cartas, Instrucciones, Escenario1, Escenario2, Configuraciones, Tablero, Preloads, MainMenu, Creditos]
+	scene: [Preloads, MainMenu, Instrucciones, Escenario1, Escenario2, Configuraciones, Tablero, Cartas, Creditos]
 }
 
 export default new Phaser.Game(config)
