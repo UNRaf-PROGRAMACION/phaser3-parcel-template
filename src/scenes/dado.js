@@ -1,12 +1,10 @@
 class Dado{
-    constructor(numero, posicion){
-        this.numero= numero;
-        this.posicion= posicion;
+    constructor(scene, x, y, texture){
+   
+        
     }
 
-    animacion(){
-        //por ahora no tiene animacion el dado
-    }
+
 
     boton(){
         //imagen interactiva
