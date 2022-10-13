@@ -19,7 +19,11 @@ export default class Preload extends Phaser.Scene {
         this.load.image("boton_menu", "assets/images/boton_menu.png");
         this.load.image("siguiente", "assets/images/siguiente.png");
         this.load.image("atras", "assets/images/atras.png");
-        this.load.image("nivel", "assets/images2/nivel.png");
+        this.load.image("fondo_nivel1", "assets/images2/nivel.png");
+        this.load.image("fondo_nivel2", "assets/images2/montana.png");
+        this.load.image("fondo_nivel3", "assets/images2/nivel.png");
+        this.load.image("fondo_nivel4", "assets/images2/nivel.png");
+        this.load.image("fondo_nivel5", "assets/images2/nivel.png");
         this.load.image("ajustes", "assets/images2/ajustes.png");
         this.load.image("ayuda", "assets/images2/ayuda.png");
         this.load.image("jugar_boton", "assets/images2/jugar_boton.png");
@@ -30,7 +34,7 @@ export default class Preload extends Phaser.Scene {
         this.load.image("lago", "assets/images2/lago.png");
         this.load.image("jardin", "assets/images2/jardin.png");
         this.load.image("bosque", "assets/images2/bosque.png");
-        this.load.image("montaña", "assets/images2/montaña.png");
+        this.load.image("montana", "assets/images2/montana.png");
         this.load.image("alicia", "assets/images2/alicia.png");
         this.load.image("reina", "assets/images2/reina.png");
         this.load.image("pausa", "assets/images/pausa.png");

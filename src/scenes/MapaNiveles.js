@@ -1,6 +1,9 @@
 // @ts-ignore
 import Phaser from "phaser";
 
+import { cartasPorNivel } from "../utilites/cartasPorNivel.js";
+
+
 export default class MapaNiveles extends Phaser.Scene {
   constructor() {
     super("MapaNiveles");
@@ -8,10 +11,19 @@ export default class MapaNiveles extends Phaser.Scene {
 
   nivelActual = 0;
   //imagenes = ["nivel"];
+  
+  init(data) {
+    this.nivel = data.nivel  ?? 1;
+    this.corazones = data.corazones;
+    
+    this.fondo_nivel = cartasPorNivel[String(this.nivel)].fondo_nivel;
+    this.fondo_mapa = cartasPorNivel[String(this.nivel)].fondo_mapa;
+  }
 
   create() {
+
     this.add
-      .image(this.cameras.main.centerX, this.cameras.main.centerY, "nivel")
+      .image(this.cameras.main.centerX, this.cameras.main.centerY, this.fondo_mapa)
       .setScale(1.1);
 
     //crear imagen
@@ -22,7 +34,7 @@ export default class MapaNiveles extends Phaser.Scene {
     // comenzar a jugar
     let juego = this.add.image(500, 950, "siguiente").setScale(0.26);
     juego.setInteractive();
-    juego.on("pointerdown", () => this.scene.start("Juego", {nivel: 1}));
+    juego.on("pointerdown", () => this.scene.start("Juego", {nivel: this.nivel, corazones: this.corazones}));
     //this.click.play();
   }
 
