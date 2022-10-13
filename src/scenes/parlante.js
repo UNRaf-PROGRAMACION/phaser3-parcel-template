@@ -1,25 +1,19 @@
-//import Button from "./button.js"
-
-
 class Parlante extends Phaser.GameObjects.Sprite{
-    constructor(scene, x, y, texture){
+    constructor(scene, x, y, activo = true){
         
-      super(scene, x, y, texture)
+      super(scene, x, y, activo ? 'music' : 'mute')
+
+      this.activo = activo;
 
       scene.add.existing(this);
 
-      if (this.iconoSonido= "mute") {
-        this.contar = 1
-      }else{
-        if (this.iconoSonido= "music") {
-          this.contar= 0
-        }
-      }
-
       this.setInteractive()
       .on('pointerdown', () => {
+
+        this.activo = !this.activo
+        this.setTexture(this.activo ? 'music' : 'mute')
           
-        if(this.contar===0){
+/*         if(this.contar===0){
           this.iconoSonido= "mute"
           this.contar = 1
           this.setTexture(this.iconoSonido)
@@ -31,7 +25,7 @@ class Parlante extends Phaser.GameObjects.Sprite{
             this.setTexture(this.iconoSonido)
             //this.audio.resume()
           }
-        }
+        } */
             
       })
       

@@ -1,4 +1,24 @@
+
+let player;
+let enemys;
+let rooks;
+let snakes;
+let final;
+let cursors;
+let gameOver;
+let count;
+let number;
+let isJumping;
+let distancia;
+let distancia2;
+let turno;
+let audio3;
+let audio2;
+var texto;
+
 import Phaser from 'phaser'
+
+
 
 export class Escenario1 extends Phaser.Scene {
     constructor() {
@@ -90,8 +110,8 @@ export class Escenario1 extends Phaser.Scene {
         }
       } 
     });
-    /*
-      count = 0;
+
+    count = 0;
       number= 3;
        
       this.physics.add.collider(player, worldLayer);
@@ -218,8 +238,8 @@ export class Escenario1 extends Phaser.Scene {
         boton.setScale(1)
       })
 
-    }
-*/
+  }
+    
   update(){
     
     player.setVelocityX(100);

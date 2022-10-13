@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import Parlante from './parlante';
 
 export class MainMenu extends Phaser.Scene {
+  #parlante
     constructor() {
       super("MainMenu");
       
@@ -10,7 +11,7 @@ export class MainMenu extends Phaser.Scene {
     init(data) {
       
       //this.audio = data.audio;
-      this.contar= data.contar;
+      this.activo = data.activo;
       console.log(data)
   
     }
@@ -27,7 +28,7 @@ export class MainMenu extends Phaser.Scene {
     
     .on('pointerdown', () => {
         //this.audio.stop();
-        this.scene.start("Instrucciones",{contar:this.contar})
+        this.scene.start("Instrucciones",{activo:this.activo})
       })
   
     .on('pointerover', () => {
@@ -43,8 +44,8 @@ export class MainMenu extends Phaser.Scene {
       creditos = this.add.image(this.cameras.main.centerX/1.04,this.cameras.main.centerY/0.535,"credito").setInteractive()
     
       .on('pointerdown', () => {
-          
-          this.scene.start("Creditos", {audio:null, contar:this.contar})
+        console.log("pointerdown", this.activo)
+          this.scene.start("Creditos", {audio:null, activo: this.activo})
         })
     
       .on('pointerover', () => {
@@ -55,13 +56,8 @@ export class MainMenu extends Phaser.Scene {
           creditos.setScale(1)
         })
 
-        let iconoSonido= "music"
-      
-        if (this.contar === 1) {
-          iconoSonido= "mute"
-        }
-
-      new Parlante (this, 1830, 80, iconoSonido )
+        
+      this.#parlante = new Parlante (this, 1830, 80, this.activo)
       
   /*
       
@@ -70,7 +66,7 @@ export class MainMenu extends Phaser.Scene {
   
         .on('pointerdown', () => {
           
-          if(this.contar===0){
+          if(this.activo===0){
             iconoSonido= "mute"
             this.contar = 1
             //this.audio.pause()
@@ -96,7 +92,7 @@ export class MainMenu extends Phaser.Scene {
         */
     }
     update(){
-      
+      this.activo=this.#parlante.activo
       
     }
   }

@@ -1,3 +1,9 @@
+let distancia;
+let distancia2
+let audio2;
+let turno;
+let valor; 
+
 import Phaser from 'phaser'
 
 export class Cartas extends Phaser.Scene {

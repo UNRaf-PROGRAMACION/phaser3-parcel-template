@@ -1,4 +1,16 @@
+
+let number;
+let valor;
+let distancia;
+let distancia2;
+let boton;
+let final;
+let turno;
+let audio2;
+
 import Phaser from 'phaser'
+import Jugador from './jugador';
+import Parlante from './parlante';
 
 export class Tablero extends Phaser.Scene {
     constructor() {
@@ -45,60 +57,47 @@ export class Tablero extends Phaser.Scene {
       final = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "banderaTablero");
 
 // creacion del jugador y collides
+        console.log(distancia2)
+      let player2 = new Jugador(this, this.distancia2, 862.83, "prota2", 1)
+      let player = new Jugador(this, this.distancia , 862.83, "prota", 0)
+      
 
-//this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+this.cameras.main.startFollow(player, true, 0.08, 0.08);
 
 this.cameras.main.setZoom(2);
 
 this.cameras.main.setBounds(0, 0, 1952, 1080); 
 
-//this.parlante = new Parlante (//datos)
+let iconoSonido= "music2"
+      
+      if (this.contar === 1) {
+        iconoSonido= "mute2"
     }
 
-    update(){
+  //parlante distinto
 
+
+
+  }
+
+/*   update(){
+    if (turno===0) {
+      this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+      this.player.setScale(1.1);
     }
+
+    if (turno===1) {
+      this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);
+      this.player2.setScale(1.1);
+    }
+
+  } */
+  
 }
 
 /*
-preload() {
-      this.load.tilemapTiledJSON("map", "public/assets/tilemaps/tablero.json");
-      this.load.image("tilesBelow", "public/assets/images/cueva-atlas.png");
-      this.load.image("tilesPlatform", "public/assets/images/casilas atlas.png");
-    }
-
-    init(data) {
-      
-      distancia = data.distancia;
-      distancia2 = data.distancia2;
-      turno = data.turno;
-      this.movimiento = data.movimiento;
-      this.contar = data.contar;
-      audio2 = data.audio2;
-      console.log(data)
-      
-    }
 
     create() {
-
-      const map = this.make.tilemap({ key: "map" });
-
-      const tilesetBelow = map.addTilesetImage("cueva-atlas", "tilesBelow");
-  
-      const tilesetPlatform = map.addTilesetImage(
-        "casilas atlas",
-        "tilesPlatform"
-      );
-  
-      const belowLayer = map.createLayer("Fondo", tilesetBelow, 0, 0);
-      const worldLayer = map.createLayer("Plataformas", tilesetPlatform, 0, 0);
-      const objectsLayer = map.getObjectLayer("Objetos");
-  
-      worldLayer.setCollisionByProperty({ collides: true });
-
-
-      const spawnPoint = map.findObject("Objetos", (obj) => obj.name === "final");
-      final = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "banderaTablero");
 
       this.player2 = this.physics.add.sprite(distancia2, 862.83, "prota2").setCollideWorldBounds(true);
       this.player = this.physics.add.sprite(distancia, 862.83, "prota").setCollideWorldBounds(true);
@@ -109,11 +108,6 @@ preload() {
       this.physics.add.collider(final, worldLayer);
 
       this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-
-      this.cameras.main.setZoom(2);
-
-      this.cameras.main.setBounds(0, 0, 1952, 1080); 
-
 
       let iconoSonido= "music2"
       
@@ -292,17 +286,5 @@ preload() {
          
        }, 3000)
     }
-
-    update(){
-      if (turno===0) {
-        this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-        this.player.setScale(1.1);
-      }
-
-      if (turno===1) {
-        this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);
-        this.player2.setScale(1.1);
-      }
-
-  }
 */
+

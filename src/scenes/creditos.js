@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
+import Parlante from './parlante';
 
 export class Creditos extends Phaser.Scene {
+  #parlante
     constructor() {
   
       super("Creditos");
@@ -13,7 +15,7 @@ export class Creditos extends Phaser.Scene {
     init(data) {
       
       this.audio = data.audio;
-      this.contar= data.contar;
+      this.activo= data.activo;
       console.log(data)
   
   
@@ -27,7 +29,7 @@ export class Creditos extends Phaser.Scene {
 
     .on('pointerdown', () => {
         
-        this.scene.start("MainMenu", {audio:this.audio, contar:this.contar,})
+        this.scene.start("MainMenu", {audio:this.audio, activo:this.activo,})
         
       })
   
@@ -39,61 +41,14 @@ export class Creditos extends Phaser.Scene {
         retroceso.setScale(1)
       })
 
-      let iconoSonido= "music"
-      if (this.contar === 1) {
-        iconoSonido= "mute"
-        
-      }
-
-      let musica = this.add.image(1830,80,iconoSonido).setInteractive({ useHandCursor: true})
-
-      .on('pointerdown', () => {
-
-        if(this.contar===0){
-          iconoSonido= "mute"
-          this.contar = 1
-          this.audio.pause()
-          musica.setTexture("mute")
-          
-          
-        }else{
-          if (this.contar === 1){
-            iconoSonido= "music"
-            this.contar = 0
-            this.audio.resume()
-            musica.setTexture("music")
-           
-          }
-        }
-        
-      })
-  
-      .on('pointerover', () => {
-        musica.setScale(1.1)
-        
-      })
-  
-      .on('pointerout', () => {
-        musica.setScale(1)
-       
-      })
+      console.log("parlante", this.activo)
+     this.#parlante = new Parlante (this, 1830, 80, this.activo)
   }
 
     update(){
-
+      this.activo=this.#parlante.activo
     }
 }
 
 
-
-//class BotonInicio extends Creditos{
- // constructor(volvermenu){
- //     super();
-
- //     this.volvermenu= volvermenu;
-      
- // }
-
-//}
-
-//export default {Creditos, BotonInicio};
+export default Creditos;
