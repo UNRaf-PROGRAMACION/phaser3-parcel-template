@@ -32,14 +32,14 @@ export default class MenuPrincipal extends Phaser.Scene
     //this.clic.play();
 
     //Boton ayuda
-    let ayuda = this.add.image(200,1300, 'ayuda').setScale(0.1)
+    let ayuda = this.add.image(200,1300, 'boton_info').setScale(0.26)
     ayuda.setInteractive()
     ayuda.on('pointerdown', () => this.scene.start('Ayuda'));
     //this.clic.play();
 
 
     //Boton ajustes
-    let ajustes = this.add.image(500,1300, 'ajustes').setScale(0.1)
+    let ajustes = this.add.image(500,1300, 'ajustes').setScale(0.26)
     ajustes.setInteractive()
     ajustes.on('pointerdown', () => this.scene.start('Ajustes'));
     //this.clic.play();

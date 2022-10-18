@@ -19,7 +19,12 @@ export default class Preload extends Phaser.Scene {
         this.load.image("boton_menu", "assets/images/boton_menu.png");
         this.load.image("siguiente", "assets/images/siguiente.png");
         this.load.image("atras", "assets/images/atras.png");
-        this.load.image("fondo_nivel1", "assets/images2/nivel.png");
+        this.load.image("boton_bosque", "assets/images2/boton_bosque.png");
+        this.load.image("boton_info", "assets/images2/boton_info.png");
+        this.load.image("boton_menu", "assets/images2/boton_menu.png");
+        this.load.image("carta_bloqueada", "assets/images2/carta_bloqueada.png");
+        this.load.image("reverso", "assets/images2/reverso.png");
+        this.load.image("fondo_nivel1", "assets/images2/fondo_nivel1.png");
         this.load.image("fondo_nivel2", "assets/images2/montana.png");
         this.load.image("fondo_nivel3", "assets/images2/nivel.png");
         this.load.image("fondo_nivel4", "assets/images2/nivel.png");
@@ -40,10 +45,6 @@ export default class Preload extends Phaser.Scene {
         this.load.image("pausa", "assets/images/pausa.png");
         this.load.image("puntos", "assets/images/puntos.png");
         this.load.image("temporizador", "assets/images/temporizador.png");
-        this.load.image("reverso", "assets/images/reverso.png");
-        this.load.image("reverso1", "assets/images/reverso1.png");
-        this.load.image("conejo_grande", "assets/images/conejo_grande.png");
-        this.load.image("flor_grande", "assets/images/flor_grande.png");
         this.load.image("corazon", "assets/images/corazon.png");
         this.load.image("flor", "assets/images/flor.png");
         this.load.image("girasol", "assets/images/girasol.png");
@@ -54,7 +55,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image("torta", "assets/images/torta.png");
         this.load.image("ganaste", "assets/images/ganaste.png");
         this.load.image("perdiste", "assets/images/perdiste.png");
-        this.load.image("alicia", "assets/images2/alicia.gif");
+        this.load.spritesheet("sprite_alicia", "assets/images2/sprite_alicia.png",
+        { frameWidth: 48, frameHeight: 48 });
+    
         this.load.image("gato", "assets/images2/gato.gif");
         
         //this.load.audio('alicia_al_rescate', 'assets/sounds/alicia_al_rescate.mp3',

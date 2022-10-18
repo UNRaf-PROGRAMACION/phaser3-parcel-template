@@ -70,7 +70,7 @@ export default class Juego extends Phaser.Scene {
     menu.on("pointerdown", () => this.scene.start("MenuPrincipal"));
     //this.clic.play();
 
-    // Si no junta todas las cartas en 10 segundos --> Game Over
+    // Si no junta todas las cartas en el tiempo determinado por nivel --> Game Over
     
     this.timedEvent = this.time.addEvent({
       delay: 1000,
@@ -112,6 +112,13 @@ export default class Juego extends Phaser.Scene {
           if (tarjeta1.tipo == tarjeta2.tipo) {
             corazones += 1;            
             this.escena.puntos.setText(corazones);
+            //para hacer que cuando coinciden dos cartas estas desaparezcan de la pantalla
+            //tarjetasDestapadas.disableBody(true, true);
+
+            //si se juntan dos parejas de cartas seguidas se suman 5 puntos extra
+            //corazones+= 5;
+            //this.escena.puntos.setText(corazones);
+
             
             this.escena.coincidencias++;
             setTimeout(() => {
@@ -131,28 +138,29 @@ export default class Juego extends Phaser.Scene {
           //TODO
           //Agregar evento de 1 o2 segundo que cuando se cumpla ese tiempo
           // Haga lo de abajo 
-          
+          setTimeout(() => {
           this.escena.scene.start("Ganaste", {
             nivel: this.escena.nivel, 
-            corazones:  corazones});
-        }
-      })
+            corazones:  corazones},1500);
+        })
+        };
+      
 
     })}
 
 
   update() {
     //si gane va a la escena ganaste y luego se pasa al siguiente nivel
-    events.emit("pasar-nivel");
+   events.emit("pasar-nivel");
     
     //si se pierde se muestra la escena perdiste y se vuelve a comenzar el juego
-    //if (perdiste) {
-    //  return this.nivel,
-    //}
+    if (perdiste) {
+      return this.nivel,
+    }
   }
 
   perdiste() {
-    this.scene.start("Perdiste");
+   this.scene.start("Perdiste");
   }
 
   ganaste() {
@@ -161,12 +169,13 @@ export default class Juego extends Phaser.Scene {
 
   onSecond() {
     if (!this.perdiste) {
-      this.tiempo = this.tiempo - 1; // One second
-      this.timeText.setText(this.tiempo);
+     this.tiempo = this.tiempo - 1; // One second
+     this.timeText.setText(this.tiempo);
       if (this.tiempo == 0) {
         this.timedEvent.paused = true;
         this.perdiste();
-      }
-    }
-  }
+      };
+    };
+  };
 }
+

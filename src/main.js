@@ -4,6 +4,8 @@ import Phaser from 'phaser'
 //import HelloWorldScene from './scenes/HelloWorldScene'
 import Preload from "./scenes/Preload";
 import MenuPrincipal from './scenes/MenuPrincipal'
+import Ajustes from './scenes/Ajustes'
+import Creditos from './scenes/Creditos'
 import MapaNiveles from './scenes/MapaNiveles'
 import Juego from './scenes/Juego'
 import Ganaste from "./scenes/Ganaste";
@@ -33,7 +35,7 @@ const config = {
       debug: false,
     },
   },
-  scene: [Preload, MenuPrincipal, MapaNiveles, Juego, Ganaste, Perdiste],
+  scene: [Preload, MenuPrincipal, Ajustes, Creditos, MapaNiveles, Juego, Ganaste, Perdiste],
 };
 
 export default new Phaser.Game(config)
