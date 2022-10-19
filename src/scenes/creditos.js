@@ -9,7 +9,7 @@ export class Creditos extends Phaser.Scene {
     }
 
     preload(){
-      //imagen
+      
     }
     
     init(data) {

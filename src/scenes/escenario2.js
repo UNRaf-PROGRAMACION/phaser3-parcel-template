@@ -1,7 +1,6 @@
 
 let player;
 let tachos;
-//let rooks;
 let gatos;
 let final;
 let cursors;

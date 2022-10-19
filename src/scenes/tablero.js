@@ -1,16 +1,10 @@
-
-let number;
-let valor;
-let distancia;
-let distancia2;
-let boton;
-let final;
-let turno;
 let audio2;
 
 import Phaser from 'phaser'
 import Jugador from './jugador';
-import Parlante from './parlante';
+import Dado from './dado';
+
+
 
 export class Tablero extends Phaser.Scene {
     constructor() {
@@ -30,7 +24,7 @@ export class Tablero extends Phaser.Scene {
       this.distancia = data.distancia;
       this.distancia2 = data.distancia2;
       this.turno = data.turno;
-      this.contar = data.contar;
+      this.activo = data.activo;
       this.audio2 = data.audio2;
      
   
@@ -54,44 +48,117 @@ export class Tablero extends Phaser.Scene {
 
 
       const spawnPoint = map.findObject("Objetos", (obj) => obj.name === "final");
-      final = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "banderaTablero");
+      this.final = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "banderaTablero");
 
 // creacion del jugador y collides
-        console.log(distancia2)
-      let player2 = new Jugador(this, this.distancia2, 862.83, "prota2", 1)
-      let player = new Jugador(this, this.distancia , 862.83, "prota", 0)
+
+      this.player2 = new Jugador(this, this.distancia2, 862.83, "prota2", 1)
+      this.player = new Jugador(this, this.distancia , 862.83, "prota", 0)
       
+      this.physics.add.collider(this.player, worldLayer);
+      this.physics.add.collider(this.player2, worldLayer);
+      this.physics.add.collider(this.final, worldLayer);
 
-this.cameras.main.startFollow(player, true, 0.08, 0.08);
+    this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
 
-this.cameras.main.setZoom(2);
+    this.cameras.main.setZoom(2);
 
-this.cameras.main.setBounds(0, 0, 1952, 1080); 
+    this.cameras.main.setBounds(0, 0, 1952, 1080); 
 
-let iconoSonido= "music2"
+//parlante distinto
+    this.activo= true ? 'music2' : 'mute2'
+
+    this.musica = this.add.image(1395, 310 ,this.activo).setInteractive()
       
-      if (this.contar === 1) {
-        iconoSonido= "mute2"
+    .on('pointerdown', () => {
+
+      this.activo = !this.activo
+      this.musica.setTexture(this.activo ? 'music2' : 'mute2')
+    })
+
+    .on('pointerover', () => {
+      this.musica.setScale(1.1)
+    })
+
+    .on('pointerout', () => {
+      this.musica.setScale(1)
+    })
+
+    this.musica.setScrollFactor(0);
+
+
+    this.dado = new Dado (this ,535, 320, 'dado')
+    this.dado.setScrollFactor(0);
+    }
+    updateTexto(){
+      this.valor = Phaser.Math.Between(1, 6);
+     
     }
 
-  //parlante distinto
+    hitFinal(player, final){
 
+      this.dado.destroy();
+      this.musica.destroy();
+      setTimeout(() => {
+        this.add.image(this.distancia -400, this.player.y-100, "completo");
 
+        let otro = this.add.image(this.distancia -410, this.player.y + 25, "botone").setInteractive()
+        
+        .on('pointerdown', () => {
+          
+          this.scene.start(
+            "Preloads")
+        })
+      
+      .on('pointerover', () => {
+          otro.setScale(1.1)
+        })
+      
+      .on('pointerout', () => {
+          otro.setScale(1)
+        })
+         
+       }, 3000)
+    }
 
-  }
+    hitFinal2(player2, final){
 
-/*   update(){
-    if (turno===0) {
+      this.dado.destroy();
+      this.musica.destroy();
+      setTimeout(() => {
+        this.add.image(this.distancia2 -400, this.player2.y-100, "completo");
+
+        let otro = this.add.image(this.distancia2 -410, this.player2.y + 25, "botone").setInteractive()
+        
+        .on('pointerdown', () => {
+          
+          this.scene.start(
+            "Preloads")
+        })
+      
+      .on('pointerover', () => {
+          otro.setScale(1.1)
+        })
+      
+      .on('pointerout', () => {
+          otro.setScale(1)
+        })
+         
+       }, 3000)
+    }
+    
+    update(){
+    if (this.turno===0) {
       this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
       this.player.setScale(1.1);
     }
 
-    if (turno===1) {
+    if (this.turno===1) {
       this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);
       this.player2.setScale(1.1);
     }
 
-  } */
+  } 
   
 }
 
@@ -230,61 +297,6 @@ let iconoSonido= "music2"
  
     }
     
-    updateTexto(){
-      valor = Phaser.Math.Between(1, 6);
-     
-    }
-
-    hitFinal(player, final){
-
-      boton.destroy();
-      musica.destroy();
-      setTimeout(() => {
-        this.add.image(distancia -400, this.player.y-100, "completo");
-
-        let otro = this.add.image(distancia -410, this.player.y + 25, "botone").setInteractive()
-        
-        .on('pointerdown', () => {
-          
-          this.scene.start(
-            "Preloads")
-        })
-      
-      .on('pointerover', () => {
-          otro.setScale(1.1)
-        })
-      
-      .on('pointerout', () => {
-          otro.setScale(1)
-        })
-         
-       }, 3000)
-    }
-
-    hitFinal2(player2, final){
-
-      boton.destroy();
-      musica.destroy();
-      setTimeout(() => {
-        this.add.image(distancia2 -400, this.player2.y-100, "completo");
-
-        let otro = this.add.image(distancia2 -410, this.player2.y + 25, "botone").setInteractive()
-        
-        .on('pointerdown', () => {
-          
-          this.scene.start(
-            "Preloads")
-        })
-      
-      .on('pointerover', () => {
-          otro.setScale(1.1)
-        })
-      
-      .on('pointerout', () => {
-          otro.setScale(1)
-        })
-         
-       }, 3000)
-    }
+  
 */
 

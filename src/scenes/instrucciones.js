@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import Parlante from './parlante';
 
 export class Instrucciones extends Phaser.Scene {
+  #parlante
     constructor() {
   
       super("Instrucciones");
@@ -14,6 +15,7 @@ export class Instrucciones extends Phaser.Scene {
     init(data) {
       
       this.contar= data.contar;
+      this.activo= data.activo;
       console.log(data)
   
     }
@@ -30,7 +32,7 @@ export class Instrucciones extends Phaser.Scene {
     .on('pointerdown', () => {
     
       this.scene.start(
-        "Tablero",{distancia : 75,distancia2:65, turno:0, movimiento: 0 , contar:this.contar}
+        "Tablero",{distancia : 75,distancia2:65, turno:0, movimiento: 0 , contar:this.contar, activo:true}
     );
     })
   
@@ -50,11 +52,11 @@ export class Instrucciones extends Phaser.Scene {
         //audio2.pause();
       }
   
-      new Parlante (this, 1830, 80, iconoSonido)
+      this.#parlante = new Parlante (this, 1830, 80, this.activo)
   
     }
 
     update(){
-
+      this.activo=this.#parlante.activo
     }
 }

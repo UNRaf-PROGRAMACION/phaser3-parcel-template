@@ -40,13 +40,6 @@ class Jugador extends Phaser.GameObjects.Sprite{
 
     animaciones(){
 
-        
-    
-    
-    
-    
-    
-    
     
     }
 
