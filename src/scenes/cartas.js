@@ -63,7 +63,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartabuena");
   
           setTimeout(() => {
-            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar  }
+            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar }
           )}, 3000); 
           
         }
@@ -174,7 +174,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartabuena");
 
           setTimeout(() => {
-            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar  }
+            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar }
           )}, 3000); 
         }
         

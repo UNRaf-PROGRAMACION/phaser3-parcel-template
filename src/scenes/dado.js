@@ -3,62 +3,61 @@ class Dado extends Phaser.GameObjects.Sprite{
 
         super(scene, x, y, texture = 'dado')
         
-        scene.add.existing(this);
-
+        scene.add.existing(this);;
 
         this.setInteractive()
 
         .on('pointerdown', () => {
         
-            musica.destroy()
+            scene.musica.destroy()
             this.destroy()
-            this.updateTexto()
+            scene.updateTexto()
            
-            if (turno === 0) {
-              
-              let number = this.add.text(this.cameras.main.midPoint.x ,this.cameras.main.midPoint.y - 100, valor, { stroke: 'black', strokeThickness: 5, fontSize: '75px Arial', fill: 'white' })
+            if (scene.turno === 0) {
+              scene.player.setScale(1.1);
+              let number = scene.add.text(scene.cameras.main.midPoint.x ,scene.cameras.main.midPoint.y - 100, scene.valor, { stroke: 'black', strokeThickness: 5, fontSize: '75px Arial', fill: 'white' })
             
-            setTimeout(() => {
-              number.destroy()
-              this.player.setX(distancia + 128 * valor)
-              this.player.setScale(1)
-              turno === 1
-              //this.cameras.main.stopFollow()
-              }, 3000)
-    
-            setTimeout(() => {
-              //this.cameras.main.setPosition(distancia - 128 * valor,0)
-              this.player2.setScale(1.1)
-              
-              }, 5000)
-    
-            setTimeout(() => {
-              this.scene.start("Cartas", { distancia : this.player.x, distancia2: this.player2.x, audio2:audio2, contar:this.contar, turno:1, movimiento: 1, valor:valor   }
-             )}, 8000)
+              setTimeout(() => {
+                number.destroy()
+                scene.player.setX(scene.distancia + 128 * scene.valor)
+                scene.player.setScale(1)
+                scene.turno === 1              
+                }, 3000)
+      
+              setTimeout(() => {
+                //this.cameras.main.setPosition(distancia - 128 * valor,0)
+                scene.cameras.main.startFollow(scene.player2, true, 0.08, 0.08);
+                scene.player2.setScale(1.1)
+                
+                }, 5000)
+      
+              setTimeout(() => {
+                scene.scene.start("Cartas", { distancia : scene.player.x, distancia2: scene.player2.x, audio2:null, contar:scene.contar, turno:1, movimiento: 1, valor:scene.valor   }
+              )}, 8000)
     
              
             }
             
-            if (turno === 1) {
-              
-              let number = this.add.text(this.cameras.main.midPoint.x ,this.cameras.main.midPoint.y-100, valor, { stroke: 'black', strokeThickness: 5, fontSize: '75px Arial', fill: 'white' })
+            if (scene.turno === 1) {
+              scene.player2.setScale(1.1)
+              let number = scene.add.text(scene.cameras.main.midPoint.x ,scene.cameras.main.midPoint.y-100, scene.valor, { stroke: 'black', strokeThickness: 5, fontSize: '75px Arial', fill: 'white' })
             
             setTimeout(() => {
               number.destroy()
-              this.player2.setX(distancia2 + 128 * valor)
-              this.player2.setScale(1)
-              turno === 0
+              scene.player2.setX(scene.distancia2 + 128 * scene.valor)
+              scene.player2.setScale(1)
+              scene.turno === 0
               //this.cameras.main.stopFollow()
               }, 3000)
     
             setTimeout(() => {
-              //this.cameras.main.setPosition(this.player.x ,this.player.y)
-              this.player.setScale(1.1)
+              scene.cameras.main.startFollow(scene.player, true, 0.08, 0.08);
+              scene.player.setScale(1.1)
               
               }, 5000)
     
             setTimeout(() => {
-                this.scene.start("Cartas", { distancia : this.player.x, distancia2: this.player2.x, audio2:audio2, contar:this.contar, turno:0, movimiento: 1, valor:valor   }
+                scene.scene.start("Cartas", { distancia : scene.player.x, distancia2: scene.player2.x, audio2:null, contar:scene.contar, turno:0, movimiento: 1, valor:scene.valor   }
                )}, 8000)
              
             }

@@ -7,10 +7,22 @@ import Dado from './dado';
 
 
 export class Tablero extends Phaser.Scene {
-    constructor() {
+  player
+  player2
+  turno
+  musica
+  distancia
+  valor
+  distancia2    
+  audio2
+  
+
+  constructor() {
   
       super("Tablero");
     }
+
+    
 
     preload(){
       this.load.tilemapTiledJSON("map", "assets/tilemaps/tablero.json");
@@ -26,7 +38,7 @@ export class Tablero extends Phaser.Scene {
       this.turno = data.turno;
       this.activo = data.activo;
       this.audio2 = data.audio2;
-     
+    
   
     }
 
@@ -59,39 +71,58 @@ export class Tablero extends Phaser.Scene {
       this.physics.add.collider(this.player2, worldLayer);
       this.physics.add.collider(this.final, worldLayer);
 
-    this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-
-    this.cameras.main.setZoom(2);
-
-    this.cameras.main.setBounds(0, 0, 1952, 1080); 
-
-//parlante distinto
-    this.activo= true ? 'music2' : 'mute2'
-
-    this.musica = this.add.image(1395, 310 ,this.activo).setInteractive()
+      this.physics.add.overlap(this.player, this.final, this.hitFinal, null, this);
+      this.physics.add.overlap(this.player2, this.final, this.hitFinal2, null, this);
       
-    .on('pointerdown', () => {
+      
+      if (this.turno == 0 ){
+        console.log("jugador a seguir 1")
+        this.cameras.main.startFollow(this.player, true, 0.08, 0.08);  
+      } else {
+        console.log("jugador a seguir 2")
+        this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);  
+      }
 
-      this.activo = !this.activo
-      this.musica.setTexture(this.activo ? 'music2' : 'mute2')
-    })
+      
 
-    .on('pointerover', () => {
-      this.musica.setScale(1.1)
-    })
+      this.cameras.main.setZoom(2);
 
-    .on('pointerout', () => {
-      this.musica.setScale(1)
-    })
+      this.cameras.main.setBounds(0, 0, 1952, 1080); 
 
-    this.musica.setScrollFactor(0);
+  //parlante distinto
+      this.activo= true ? 'music2' : 'mute2'
+
+      this.musica = this.add.image(1395, 310 ,this.activo).setInteractive()
+        
+      .on('pointerdown', () => {
+
+        this.activo = !this.activo
+        this.musica.setTexture(this.activo ? 'music2' : 'mute2')
+      })
+
+      .on('pointerover', () => {
+        this.musica.setScale(1.1)
+      })
+
+      .on('pointerout', () => {
+        this.musica.setScale(1)
+      })
+
+      this.musica.setScrollFactor(0);
 
 
-    this.dado = new Dado (this ,535, 320, 'dado')
-    this.dado.setScrollFactor(0);
+      this.dado = new Dado (this ,535, 320, 'dado')
+      this.dado.setScrollFactor(0);
     }
+
+    
     updateTexto(){
-      this.valor = Phaser.Math.Between(1, 6);
+      if (this.turno == 0) {
+        this.valor = Phaser.Math.Between(6,6);
+      } else {
+        this.valor = Phaser.Math.Between(3,3);
+      }
+      
      
     }
 
@@ -149,12 +180,12 @@ export class Tablero extends Phaser.Scene {
     
     update(){
     if (this.turno===0) {
-      this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+      //this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
       this.player.setScale(1.1);
     }
 
     if (this.turno===1) {
-      this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);
+      //this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);
       this.player2.setScale(1.1);
     }
 
