@@ -1,7 +1,6 @@
-// @ts-ignore
 import Phaser from 'phaser'
 
-//import HelloWorldScene from './scenes/HelloWorldScene'
+
 import Preload from "./scenes/Preload";
 import MenuPrincipal from './scenes/MenuPrincipal'
 import Ajustes from './scenes/Ajustes'

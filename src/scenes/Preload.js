@@ -56,9 +56,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image("ganaste", "assets/images/ganaste.png");
         this.load.image("perdiste", "assets/images/perdiste.png");
         this.load.spritesheet("sprite_alicia", "assets/images2/sprite_alicia.png",
-        { frameWidth: 48, frameHeight: 48 });
+        { frameWidth: 122, frameHeight: 208 });
     
-        this.load.image("gato", "assets/images2/gato.gif");
+        
         
         //this.load.audio('alicia_al_rescate', 'assets/sounds/alicia_al_rescate.mp3',
         //'assets/sounds/alicia_al_rescate.ogg', 'assets/sounds/alicia_al_rescate.m4a');
@@ -69,8 +69,20 @@ export default class Preload extends Phaser.Scene {
 
     create()
     {
-        // Pasa directamente a la escena del menú principal
-     this.scene.start("MenuPrincipal");
+      // Pasa directamente a la escena del menú principal
+      this.scene.start("MenuPrincipal");
+
+      //agregar animación Alicia
+      this.add.sprite(200, 1200, "sprite_alicia");
+      this.anims.create({
+        key: "animacion_alicia",
+        frames: this.anims.generateFrameNumbers("sprite_alicia", {
+          start: 0,
+          end: 4,
+        }),
+        frameRate: 4,
+        repeat: -1,
+      });
     }
 
    

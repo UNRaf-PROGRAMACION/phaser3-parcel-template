@@ -26,17 +26,8 @@ export default class Ganaste extends Phaser.Scene
         this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "jardin").setScale(1.1);
 
         
-        //agregar animación Alicia
-        this.add.sprite(200, 1200, 'sprite_alicia');
-        this.anims.create({
-            key: 'sprite_alicia',
-            frames: this.anims.generateFrameNumbers('sprite_alicia', { start: 0, end: 4 }),
-            frameRate: 4,
-            repeat: -1,
-         });
-
-         //this.miSprite = this.add.sprite(200, 1200, 'sprite_alicia');
-         //this.miSprite.anims.play('animacion_alicia');
+        let miSprite = this.add.sprite(this.cameras.main.centerX, 700,"sprite_alicia").setScale(3.5);
+         miSprite.anims.play('animacion_alicia',true);
 
   
         

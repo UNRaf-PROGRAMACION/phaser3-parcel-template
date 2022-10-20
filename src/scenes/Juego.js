@@ -97,6 +97,7 @@ export default class Juego extends Phaser.Scene {
       //console.log(tipo)
       let carta = new Carta(this, posx, posy, tipo);    
 
+      
       carta.imagen.on('pointerdown', function (pointer) {        
         tarjetasDestapadas++
         
@@ -116,8 +117,11 @@ export default class Juego extends Phaser.Scene {
             //tarjetasDestapadas.disableBody(true, true);
 
             //si se juntan dos parejas de cartas seguidas se suman 5 puntos extra
-            //corazones+= 5;
+            //if (tarjetasdestapadas>=4){
+             //corazones+= 5;
             //this.escena.puntos.setText(corazones);
+            //}
+           
 
             
             this.escena.coincidencias++;
@@ -135,8 +139,7 @@ export default class Juego extends Phaser.Scene {
 
         //Para ir a la pantalla de ganaste una vez que se dan vuelta todas las cartas
         if (this.escena.coincidencias === this.escena.coincidenciasNivel) {
-          //TODO
-          //Agregar evento de 1 o2 segundo que cuando se cumpla ese tiempo
+          //Agregar evento de 1 o2 segundos que cuando se cumpla ese tiempo
           // Haga lo de abajo 
           setTimeout(() => {
           this.escena.scene.start("Ganaste", {
@@ -148,34 +151,24 @@ export default class Juego extends Phaser.Scene {
 
     })}
 
+  )}
 
-  update() {
+  update(){
     //si gane va a la escena ganaste y luego se pasa al siguiente nivel
    events.emit("pasar-nivel");
-    
-    //si se pierde se muestra la escena perdiste y se vuelve a comenzar el juego
-    if (perdiste) {
-      return this.nivel,
-    }
+
   }
 
-  perdiste() {
-   this.scene.start("Perdiste");
-  }
-
-  ganaste() {
-    this.scene.start("Ganaste");
-  }
-
-  onSecond() {
+  onSecond(){
     if (!this.perdiste) {
      this.tiempo = this.tiempo - 1; // One second
      this.timeText.setText(this.tiempo);
       if (this.tiempo == 0) {
         this.timedEvent.paused = true;
-        this.perdiste();
+         this.scene.start("Perdiste",{
+          return: this.nivel,});
       };
     };
-  };
+  }; 
 }
 

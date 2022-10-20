@@ -22,10 +22,10 @@ export default class Perdiste extends Phaser.Scene
     //clic
     //this.clic = this.sound.add('clic');
 
-    if (!derrota) {
-      this.derrota = this.sound.add('derrota', { loop: false });
+    //if (!derrota) {
+     // this.derrota = this.sound.add('derrota', { loop: false });
       //derrota.play();
-    }
+    //}
 
     // Boton para volver a Menu principal
     var menu = this.add.image(600, 1400, 'atras').setScale(0.26)

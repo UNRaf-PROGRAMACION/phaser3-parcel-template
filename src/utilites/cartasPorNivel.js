@@ -109,7 +109,10 @@ const cartasPorNivel = {
       [595, 1255],
     ],
     //En el segundo 25 aparece la reina y mezcla las cartas que quedan
-    //numeros16 = numeros16.sort(() => (Math.random() > 0.5 ? 1 : -1));
+    //if (this.tiempo ===25){
+    //this.numeros = cartasPorNivel[String(this.nivel)].tipos;
+    //this.numeros = this.numeros.sort(() => (Math.random() > 0.5 ? 1 : -1));
+    //}
   },
 };
 
