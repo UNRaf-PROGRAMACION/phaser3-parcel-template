@@ -17,7 +17,7 @@ let audio2;
 var texto;
 
 import Phaser from 'phaser'
-
+import Jugador from './jugador';
 
 
 export class Escenario1 extends Phaser.Scene {
@@ -39,16 +39,14 @@ export class Escenario1 extends Phaser.Scene {
       turno = data.turno;
       this.movimiento = data.movimiento;
       this.contar=data.contar;
-      audio2=data.audio2;
+      //audio2=data.audio2;
       
   
     }
     create() {
-
-      
   
-      audio3 = this.sound.add('theme3', {loop: true});
-      audio3.play();
+      //audio3 = this.sound.add('theme3', {loop: true});
+      //audio3.play();
   
       const map1 = this.make.tilemap({ key: "map1" });
 
@@ -67,8 +65,8 @@ export class Escenario1 extends Phaser.Scene {
   
       const spawnPoint = map1.findObject("Objetos", (obj) => obj.name === "dude");
 
-      player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude")
-      .setCircle(50, 40, 40);
+      this.player= new Jugador (this, spawnPoint.x,spawnPoint.y, 'dude')
+      
     
       //player.setCollideWorldBounds(true);
       player.anims.play("run");

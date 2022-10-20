@@ -15,7 +15,9 @@ class Jugador extends Phaser.GameObjects.Sprite{
           }
 */
         if (texture === "dude") {
-            
+
+          scene.player.setCircle(50, 40, 40);
+          
             this.texture, {
                 frameWidth: 150,
                 frameHeight: 155,

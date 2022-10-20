@@ -84,7 +84,6 @@ export class Tablero extends Phaser.Scene {
       }
 
       
-
       this.cameras.main.setZoom(2);
 
       this.cameras.main.setBounds(0, 0, 1952, 1080); 
