@@ -32,11 +32,24 @@ export default class MapaNiveles extends Phaser.Scene {
     //this.scene.start("juego", { nivel: this.nivelActual });
 
     // comenzar a jugar
-    let juego = this.add.image(500, 950, "siguiente").setScale(0.26);
+    let juego = this.add.image(this.cameras.main.centerX, 820, "boton_mapa").setScale(0.5);
+    this.jugar = this.add.text(240, 800, 'BOSQUE', {
+      fontFamily: "Rockwell",
+      fontSize: 60,
+      color: "#FCE4CA",
+    });
     juego.setInteractive();
     juego.on("pointerdown", () => this.scene.start("Juego", {nivel: this.nivel, corazones: this.corazones}));
     //this.click.play();
-  }
+  
+
+  // Boton para volver al menu principal
+  const menu = this.add.image(350, 1000, "boton_menu").setScale(1.0);
+  menu.setInteractive();
+  menu.on("pointerdown", () => this.scene.start("MenuPrincipal"));
+  //this.clic.play();
+
+}
 
   update() {}
 }

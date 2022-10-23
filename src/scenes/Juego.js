@@ -53,19 +53,19 @@ export default class Juego extends Phaser.Scene {
       )
       .setScale(1.1);
 
-    this.add.image(400, 100, "temporizador");
-    this.add.image(120, 100, "puntos");
-    this.puntos = this.add.text(130, 60, corazones.toString(), {
+    this.add.image(400, 100, "boton_temporizador").setScale(1.0);
+    this.add.image(150, 100, "boton_puntos").setScale(1.0);
+    this.puntos = this.add.text(150, 70, corazones.toString(), {
       fontFamily: "Rockwell",
-      fontSize: 70,
-      color: "#000000",
+      fontSize: 60,
+      color: "#FCE4CA",
     });
 
     //clic
     //this.clic = this.sound.add("clic");
 
     // Boton para volver al menu principal
-    const menu = this.add.image(600, 100, "boton_menu").setScale(1.1);
+    const menu = this.add.image(650, 100, "boton_menu").setScale(1.0);
     menu.setInteractive();
     menu.on("pointerdown", () => this.scene.start("MenuPrincipal"));
     //this.clic.play();
@@ -78,10 +78,10 @@ export default class Juego extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
-    this.timeText = this.add.text(340, 60, this.tiempo.toString(), {
+    this.timeText = this.add.text(390, 70, this.tiempo.toString(), {
       fontFamily: "Rockwell",
-      fontSize: 70,
-      color: "#000000",
+      fontSize: 60,
+      color: "#FCE4CA",
     });  
 
     //console.log("coincidencias ", this.coincidencias)

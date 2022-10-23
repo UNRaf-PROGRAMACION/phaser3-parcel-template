@@ -14,14 +14,19 @@ export default class Preload extends Phaser.Scene {
 	preload()
     {
         //this.load.image("menu", "assets/images/menu.png");
-        this.load.image("jugar", "assets/images/jugar.png", 120, 40);
-        this.load.image("mapa", "assets/images/mapa.png");
-        this.load.image("boton_menu", "assets/images/boton_menu.png");
-        this.load.image("siguiente", "assets/images/siguiente.png");
-        this.load.image("atras", "assets/images/atras.png");
-        this.load.image("boton_bosque", "assets/images2/boton_bosque.png");
+        //this.load.image("jugar", "assets/images/jugar.png", 120, 40);
+        //this.load.image("mapa", "assets/images/mapa.png");
+        //this.load.image("boton_menu", "assets/images/boton_menu.png");
+        //this.load.image("siguiente", "assets/images/siguiente.png");
+        //this.load.image("atras", "assets/images/atras.png");
+        this.load.image("boton_mapa", "assets/images2/boton_mapa.png");
+        this.load.image("boton_flecha", "assets/images2/boton_flecha.png");
+        this.load.image("boton_pausa", "assets/images2/boton_pausa.png");
+        this.load.image("boton_puntos", "assets/images2/boton_puntos.png");
+        this.load.image("boton_temporizador", "assets/images2/boton_temporizador.png");
         this.load.image("boton_info", "assets/images2/boton_info.png");
         this.load.image("boton_menu", "assets/images2/boton_menu.png");
+        this.load.image("creditos_ajustes", "assets/images2/creditos_ajustes.png");
         this.load.image("carta_bloqueada", "assets/images2/carta_bloqueada.png");
         this.load.image("reverso", "assets/images2/reverso.png");
         this.load.image("fondo_nivel1", "assets/images2/fondo_nivel1.png");
@@ -55,9 +60,13 @@ export default class Preload extends Phaser.Scene {
         this.load.image("torta", "assets/images/torta.png");
         this.load.image("ganaste", "assets/images/ganaste.png");
         this.load.image("perdiste", "assets/images/perdiste.png");
+        
         this.load.spritesheet("sprite_alicia", "assets/images2/sprite_alicia.png",
-        { frameWidth: 122, frameHeight: 208 });
-    
+        { frameWidth: 123, frameHeight: 208 });
+
+        this.load.spritesheet("sprite_gato", "assets/images2/sprite_gato.png",
+        { frameWidth: 85, frameHeight: 55 });
+      
         
         
         //this.load.audio('alicia_al_rescate', 'assets/sounds/alicia_al_rescate.mp3',
@@ -72,7 +81,7 @@ export default class Preload extends Phaser.Scene {
       // Pasa directamente a la escena del menú principal
       this.scene.start("MenuPrincipal");
 
-      //agregar animación Alicia
+      //agregar animación Alicia (en pantalla Ganaste)
       this.add.sprite(200, 1200, "sprite_alicia");
       this.anims.create({
         key: "animacion_alicia",
@@ -81,6 +90,18 @@ export default class Preload extends Phaser.Scene {
           end: 4,
         }),
         frameRate: 4,
+        repeat: -1,
+      });
+
+      //agregar animacioón Gato (en pantalla Perdiste)
+      this.add.sprite(200, 1800, "sprite_gato");
+      this.anims.create({
+        key: "animacion_gato",
+        frames: this.anims.generateFrameNumbers("sprite_gato", {
+          start: 0,
+          end: 7,
+        }),
+        frameRate: 7,
         repeat: -1,
       });
     }

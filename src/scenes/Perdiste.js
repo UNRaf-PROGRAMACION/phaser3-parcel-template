@@ -17,7 +17,17 @@ export default class Perdiste extends Phaser.Scene
       let derrota = false;
     
       // Fondo del menú principal
-    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "reina").setScale(1.1);
+    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "castillo").setScale(1.1);
+    this.perdiste= this.add.image (this.cameras.main.centerX, 300, 'creditos_ajustes').setScale(0.7);
+        this.perdiste = this.add.text(100, 245, '¡PERDISTE!', {
+            fontFamily: "Rockwell",
+            fontSize: 100,
+            color: "#000000",
+          });
+
+    let miSprite = this.add.sprite(this.cameras.main.centerX, 900,"sprite_gato").setScale(3.5);
+    miSprite.anims.play('animacion_gato',true);
+
 
     //clic
     //this.clic = this.sound.add('clic');
@@ -28,7 +38,7 @@ export default class Perdiste extends Phaser.Scene
     //}
 
     // Boton para volver a Menu principal
-    var menu = this.add.image(600, 1400, 'atras').setScale(0.26)
+    var menu = this.add.image(600, 1400, 'boton_flecha').setScale(0.25)
     menu.setInteractive()
     menu.on('pointerdown', () => this.scene.start('MenuPrincipal'));
     //this.clic.play();
