@@ -18,6 +18,7 @@ export default class MapaNiveles extends Phaser.Scene {
     
     this.fondo_nivel = cartasPorNivel[String(this.nivel)].fondo_nivel;
     this.fondo_mapa = cartasPorNivel[String(this.nivel)].fondo_mapa;
+    this.texto = cartasPorNivel[String(this.nivel)].texto;
   }
 
   create() {
@@ -33,7 +34,7 @@ export default class MapaNiveles extends Phaser.Scene {
 
     // comenzar a jugar
     let juego = this.add.image(this.cameras.main.centerX, 820, "boton_mapa").setScale(0.5);
-    this.jugar = this.add.text(240, 800, 'BOSQUE', {
+    this.jugar = this.add.text(260, 800, this.texto, {
       fontFamily: "Rockwell",
       fontSize: 60,
       color: "#FCE4CA",

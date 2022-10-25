@@ -14,7 +14,7 @@ export default class MenuPrincipal extends Phaser.Scene
   create()
     {
     // Fondo del menú principal
-    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "menu").setScale(1.1);
+    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "fondo_menu").setScale(1.1);
 
     //clic
     //this.clic = this.sound.add('clic');
@@ -26,8 +26,8 @@ export default class MenuPrincipal extends Phaser.Scene
     
 
     // Boton para comenzar a jugar
-    let jugar = this.add.image(this.cameras.main.centerX, 600, 'jugar_boton').setScale(0.5);
-    this.jugar = this.add.text(265, 575, 'JUGAR', {
+    let jugar = this.add.image(this.cameras.main.centerX, 625, 'jugar_boton').setScale(0.5);
+    this.jugar = this.add.text(265, 600, 'JUGAR', {
       fontFamily: "Rockwell",
       fontSize: 60,
       color: "#FCE4CA",
@@ -48,6 +48,16 @@ export default class MenuPrincipal extends Phaser.Scene
     ajustes.setInteractive()
     ajustes.on('pointerdown', () => this.scene.start('Ajustes'));
     //this.clic.play();
+  
+    let SpriteGato = this.add.sprite(this.cameras.main.centerX, 150,"sprite_gato").setScale(3.5);
+    SpriteGato.anims.play('animacion_gato',true);
+  
+    let SpriteAlicia = this.add.sprite(this.cameras.main.centerX, 1200,"sprite_alicia").setScale(2.5);
+    SpriteAlicia.anims.play('animacion_alicia',true);
+  
+  
   };
+
+
 
 }

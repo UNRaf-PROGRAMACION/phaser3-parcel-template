@@ -4,6 +4,7 @@ const cartasPorNivel = {
     coincidencias: 2,
     fondo_mapa: "fondo_nivel1",
     fondo_nivel: "bosque", 
+    texto: "BOSQUE",
     tiempo: 10,
     tipos: [1, 1, 2, 2],
     coordenadas: [
@@ -19,6 +20,7 @@ const cartasPorNivel = {
     coincidencias: 3,
     fondo_mapa: "fondo_nivel2",
     fondo_nivel: "lago",
+    texto: "LAGO",
     tiempo: 15,
     tipos: [1, 1, 2, 2, 3, 3],
     coordenadas: [
@@ -36,6 +38,7 @@ const cartasPorNivel = {
     coincidencias: 4,
     fondo_mapa: "fondo_nivel3",
     fondo_nivel: "montana",
+    texto: "MONTAÑA",
     tiempo: 25,
     tipos: [1, 1, 2, 2, 3, 3, 4, 4],
     coordenadas: [
@@ -49,8 +52,8 @@ const cartasPorNivel = {
       [435, 1255],
     ],
     //si no se encuentran dos pares de cartas iguales seguidas, se descuentan 5 segundos del temporizador
-    //if (tarjeta1.tipo !== tarjeta2.tipo) {
-      //this.tiempo = this.tiempo - 5000
+    //if (tarjeta1.tipo !== tarjeta2.tipo)*=2 {
+      //this.tiempo = (this.tiempo %= 5000)
       //callback: this.onSecond,
       //callbackScope: this,
       //loop: true,
@@ -62,6 +65,7 @@ const cartasPorNivel = {
     coincidencias: 6,
     fondo_mapa: "fondo_nivel4",
     fondo_nivel: "jardin",
+    texto: "JARDIN",
     tiempo: 30,
     tipos: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
     coordenadas: [
@@ -88,6 +92,7 @@ const cartasPorNivel = {
     coincidencias: 8,
     fondo_mapa: "fondo_nivel5",
     fondo_nivel: "castillo",
+    texto: "CASTILLO",
     tiempo: 40,
     tipos: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8],
     coordenadas: [

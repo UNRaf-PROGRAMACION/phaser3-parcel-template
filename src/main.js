@@ -8,7 +8,8 @@ import Creditos from './scenes/Creditos'
 import MapaNiveles from './scenes/MapaNiveles'
 import Juego from './scenes/Juego'
 import Ganaste from "./scenes/Ganaste";
-import Perdiste from './scenes/Perdiste'
+import Perdiste from './scenes/Perdiste';
+import Final from './scenes/Final';
 
 
 const config = {
@@ -34,7 +35,7 @@ const config = {
       debug: false,
     },
   },
-  scene: [Preload, MenuPrincipal, Ajustes, Creditos, MapaNiveles, Juego, Ganaste, Perdiste],
+  scene: [Preload, MenuPrincipal, Ajustes, Creditos, MapaNiveles, Juego, Ganaste, Perdiste, Final],
 };
 
 export default new Phaser.Game(config)
