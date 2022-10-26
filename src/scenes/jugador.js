@@ -33,7 +33,7 @@ class Jugador extends Phaser.Physics.Arcade.Sprite{
 // or en if ( == || ==)
     }
 
-    update(scene, texture){
+ /*    update(scene, texture){
 
         this.setVelocityX(100);
 
@@ -49,7 +49,7 @@ class Jugador extends Phaser.Physics.Arcade.Sprite{
                   scene.isJumping = false;
                 }        
             }
-    }
+    } */
 
  /*     saltar(scene,texture){
         if (scene.cursors.up.isDown && this.body.blocked.down && texture === 'dude') {
