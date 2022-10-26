@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import Jugador from "./jugador";
 
 let player;
@@ -13,22 +14,27 @@ let isJumping;
 let distancia;
 let distancia2;
 let turno;
-let valor;
-let audio3;
-let audio2;
+//let audio3;
+//let audio2;
 var texto;
 
 
 export class Escenario1 extends Phaser.Scene {
+
+  player
+  cursors
+  isJumping
+  
+  
     constructor() {
 
       super("Escenario1");
     }
 
     preload() {
-      this.load.tilemapTiledJSON("map1", "public/assets/tilemaps/esc1.json");
-      this.load.image("tilesBelow1", "public/assets/images/jungla-atlas.png");
-      this.load.image("tilesPlatform1", "public/assets/images/plataforma.png");
+      this.load.tilemapTiledJSON("map1", "assets/tilemaps/esc1.json");
+      this.load.image("tilesBelow1", "assets/images/jungla-atlas.png");
+      this.load.image("tilesPlatform1", "assets/images/plataforma.png");
     
     }
     init(data) {
@@ -38,14 +44,11 @@ export class Escenario1 extends Phaser.Scene {
       turno = data.turno;
       this.movimiento = data.movimiento;
       this.contar=data.contar;
-      audio2=data.audio2;
+      //audio2=data.audio2;
       
   
     }
     create() {
-
-      
-  
       //audio3 = this.sound.add('theme3', {loop: true});
       //audio3.play();
   
@@ -66,11 +69,8 @@ export class Escenario1 extends Phaser.Scene {
   
       const spawnPoint = map1.findObject("Objetos", (obj) => obj.name === "dude");
 
-      player= new Jugador(this, spawnPoint.x,spawnPoint.y,'dude')
-      
-      
-    
-      player.anims.play("run");
+      player = new Jugador(this, spawnPoint.x, spawnPoint.y,'dude')
+       
       
       isJumping = false;
 
@@ -247,7 +247,7 @@ export class Escenario1 extends Phaser.Scene {
       return;
     };
 
-    if (cursors.up.isDown && player.body.blocked.down) {
+     if (cursors.up.isDown && player.body.blocked.down) {
       player.setVelocityY(-520);
       player.setVelocityX(200);
       player.anims.play("jump");
@@ -258,7 +258,7 @@ export class Escenario1 extends Phaser.Scene {
         player.setVelocityX(100);
         isJumping = false;
       }
-    }
+    }  
 
 
     if (count === 3){

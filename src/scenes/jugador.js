@@ -1,13 +1,12 @@
-class Jugador extends Phaser.GameObjects.Sprite{
+class Jugador extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture , turno){
         super(scene, x, y, texture, turno)
 
         scene.add.existing(this);
+        scene.physics.add.existing(this)
 
         if (texture === "dude") {
 
-          scene.player.setCircle(50, 40, 40);
-          
             this.texture, {
                 frameWidth: 150,
                 frameHeight: 155,
@@ -23,33 +22,49 @@ class Jugador extends Phaser.GameObjects.Sprite{
           this.anims.create({
             key: "jump",
             frames: [{ key: "dude", frame: 1 }],
-            frameRate: 20,
+            frameRate: 20,  
           });
+
+          this.setCircle(50, 40, 40);
+          this.anims.play("run");
+
+ 
         }
 // or en if ( == || ==)
-
     }
 
-     saltar(scene,texture){
-        if (scene.cursors.up.isDown && scene.player.body.blocked.down && texture === 'dude') {
-        scene.player.setVelocityY(-520);
-        scene.player.setVelocityX(200);
-        scene.player.anims.play("jump");
+    update(scene, texture){
+
+        this.setVelocityX(100);
+
+        if ( scene.cursors.up.isDown && this.body.blocked.down && texture === 'dude') {
+            this.setVelocityY(-520);
+            this.setVelocityX(200);
+            this.anims.play("jump");
+            scene.isJumping = true;
+            }else {
+                if (scene.isJumping && this.body.blocked.down && texture === 'dude') {
+                  this.anims.play("run");
+                  this.setVelocityX(100);
+                  scene.isJumping = false;
+                }        
+            }
+    }
+
+ /*     saltar(scene,texture){
+        if (scene.cursors.up.isDown && this.body.blocked.down && texture === 'dude') {
+        this.setVelocityY(-520);
+        this.setVelocityX(200);
+        this.anims.play("jump");
         scene.isJumping = true;
-        }
-    }
-
-    correr(scene,texture){
-       if (scene.isJumping && scene.player.body.blocked.down && texture === 'dude') {
-            scene.player.anims.play("run");
-            scene.player.setVelocityX(100);
-            scene.isJumping = false;
-        }
-    } 
-
-
-
-
+        }else {
+            if (scene.isJumping && this.body.blocked.down && texture === 'dude') {
+              this.anims.play("run");
+              this.setVelocityX(100);
+              scene.isJumping = false;
+            }        
+        } 
+    }       */
     perderVida(){
 
     }
