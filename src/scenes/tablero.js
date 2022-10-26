@@ -38,6 +38,7 @@ export class Tablero extends Phaser.Scene {
       this.turno = data.turno;
       this.activo = data.activo;
       this.audio2 = data.audio2;
+      this.movimiento=data.movimiento;
     
   
     }
@@ -78,9 +79,13 @@ export class Tablero extends Phaser.Scene {
       if (this.turno == 0 ){
         console.log("jugador a seguir 1")
         this.cameras.main.startFollow(this.player, true, 0.08, 0.08);  
+        this.player.setScale(1.1);
+
       } else {
         console.log("jugador a seguir 2")
         this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);  
+        this.player2.setScale(1.1);
+
       }
 
       
@@ -112,6 +117,15 @@ export class Tablero extends Phaser.Scene {
 
       this.dado = new Dado (this ,535, 320, 'dado')
       this.dado.setScrollFactor(0);
+
+      if (this.movimiento === 0) {
+        this.dado.destroy();
+
+        setTimeout(() => {
+          this.scene.start("Cartas", { distancia : this.player.x, distancia2: this.player2.x, audio2:null, turno:this.turno, movimiento: 1, valor:this.valor   })
+  
+          }, 3000)
+      }
     }
 
     
@@ -178,155 +192,11 @@ export class Tablero extends Phaser.Scene {
     }
     
     update(){
-    if (this.turno===0) {
-      //this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-      this.player.setScale(1.1);
-    }
 
-    if (this.turno===1) {
-      //this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);
-      this.player2.setScale(1.1);
-    }
 
   } 
   
 }
 
-/*
 
-    create() {
-
-      this.player2 = this.physics.add.sprite(distancia2, 862.83, "prota2").setCollideWorldBounds(true);
-      this.player = this.physics.add.sprite(distancia, 862.83, "prota").setCollideWorldBounds(true);
-      
-  
-      this.physics.add.collider(this.player, worldLayer);
-      this.physics.add.collider(this.player2, worldLayer);
-      this.physics.add.collider(final, worldLayer);
-
-      this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-
-      let iconoSonido= "music2"
-      
-      if (this.contar === 1) {
-        iconoSonido= "mute2"
-        audio2.play();
-        audio2.pause();
-      }
-
-      let musica = this.add.image(1395, 310 ,iconoSonido).setInteractive()
-      
-      .on('pointerdown', () => {
-
-        if(this.contar === 0){
-          iconoSonido= "mute2"
-          this.contar = 1
-          audio2.pause()
-          musica.setTexture("mute2")
-        }else{
-          if (this.contar === 1){
-            iconoSonido= "music2"
-            this.contar = 0
-            audio2.resume()
-            musica.setTexture("music2")
-          }
-        }
-      })
-
-      .on('pointerover', () => {
-        musica.setScale(1.1)
-      })
-
-      .on('pointerout', () => {
-        musica.setScale(1)
-      })
-
-      musica.setScrollFactor(0);
-
-      this.physics.add.overlap(this.player, final, this.hitFinal, null, this);
-      this.physics.add.overlap(this.player2, final, this.hitFinal2, null, this);
-
-      boton = this.add.image(535, 320  ,"dado").setInteractive()
-      
-      .on('pointerdown', () => {
-        
-        musica.destroy()
-        boton.destroy()
-        this.updateTexto()
-       
-        if (turno === 0) {
-          
-          number = this.add.text(this.cameras.main.midPoint.x ,this.cameras.main.midPoint.y - 100, valor, { stroke: 'black', strokeThickness: 5, fontSize: '75px Arial', fill: 'white' })
-        
-        setTimeout(() => {
-          number.destroy()
-          this.player.setX(distancia + 128 * valor)
-          this.player.setScale(1)
-          turno === 1
-          //this.cameras.main.stopFollow()
-          }, 3000)
-
-        setTimeout(() => {
-          //this.cameras.main.setPosition(distancia - 128 * valor,0)
-          this.player2.setScale(1.1)
-          
-          }, 5000)
-
-        setTimeout(() => {
-          this.scene.start("Cartas", { distancia : this.player.x, distancia2: this.player2.x, audio2:audio2, contar:this.contar, turno:1, movimiento: 1, valor:valor   }
-         )}, 8000)
-
-         
-        }
-        
-        if (turno === 1) {
-          
-          number = this.add.text(this.cameras.main.midPoint.x ,this.cameras.main.midPoint.y-100, valor, { stroke: 'black', strokeThickness: 5, fontSize: '75px Arial', fill: 'white' })
-        
-        setTimeout(() => {
-          number.destroy()
-          this.player2.setX(distancia2 + 128 * valor)
-          this.player2.setScale(1)
-          turno === 0
-          //this.cameras.main.stopFollow()
-          }, 3000)
-
-        setTimeout(() => {
-          //this.cameras.main.setPosition(this.player.x ,this.player.y)
-          this.player.setScale(1.1)
-          
-          }, 5000)
-
-        setTimeout(() => {
-            this.scene.start("Cartas", { distancia : this.player.x, distancia2: this.player2.x, audio2:audio2, contar:this.contar, turno:0, movimiento: 1, valor:valor   }
-           )}, 8000)
-         
-        }
-        
-        
-        })
-        .on('pointerover', () => {
-          boton.setScale(1.1)
-        })
-    
-        .on('pointerout', () => {
-          boton.setScale(1)
-        })
-
-        
-        boton.setScrollFactor(0);
-
-        if (this.movimiento === 0) {
-          boton.destroy();
-
-          setTimeout(() => {
-            this.scene.start("Cartas", { distancia : this.player.x, distancia2: this.player2.x, audio2:audio2, contar:this.contar, turno:turno, movimiento: 1, valor:valor   })
-    
-            }, 3000)
-        }
- 
-    }
-    
-  
-*/
 

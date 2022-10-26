@@ -51,8 +51,8 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartacorrer");
           
           setTimeout(() => {
-            audio2.stop();
-            this.scene.start("Escenario1", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar, valor:valor  }
+            //audio2.stop();
+            this.scene.start("Escenario1", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:null, contar:this.contar, valor:valor  }
           )}, 3000); 
         }
 
@@ -63,7 +63,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartabuena");
   
           setTimeout(() => {
-            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar }
+            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:null, contar:this.contar }
           )}, 3000); 
           
         }
@@ -75,7 +75,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartacorrer");
 
           setTimeout(() => {
-            this.scene.start("Escenario2", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar  }
+            this.scene.start("Escenario2", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:null, contar:this.contar  }
           )}, 3000); 
         }
       })
@@ -100,8 +100,8 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartacorrer");
           
           setTimeout(() => {
-            audio2.stop()
-            this.scene.start("Escenario2", { distancia : distancia, distancia2: distancia2, turno : turno, movimiento : this.movimiento, audio2:audio2, contar:this.contar, valor:valor  }
+            //audio2.stop()
+            this.scene.start("Escenario2", { distancia : distancia, distancia2: distancia2, turno : turno, movimiento : this.movimiento, audio2:null, contar:this.contar, valor:valor  }
           )}, 3000); 
         }
 
@@ -112,7 +112,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartabuena");
 
           setTimeout(() => {
-            this.scene.start("Tablero", { distancia : distancia,distancia2: distancia2,turno : turno, movimiento : this.movimiento, audio2:audio2, contar:this.contar  }
+            this.scene.start("Tablero", { distancia : distancia,distancia2: distancia2,turno : turno, movimiento : this.movimiento, audio2:null, contar:this.contar  }
        
           )}, 3000); 
         }
@@ -124,7 +124,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartacorrer");
 
           setTimeout(() => {
-            this.scene.start("Escenario1", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar  }
+            this.scene.start("Escenario1", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:null, contar:this.contar  }
           )}, 3000); 
         }
 
@@ -150,8 +150,8 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartacorrer");
           
           setTimeout(() => {
-            audio2.stop()
-            this.scene.start("Escenario1", { distancia : distancia, distancia2: distancia2, turno : turno, movimiento : this.movimiento, audio2:audio2, contar:this.contar, valor:valor  }
+            //audio2.stop()
+            this.scene.start("Escenario1", { distancia : distancia, distancia2: distancia2, turno : turno, movimiento : this.movimiento, audio2:null, contar:this.contar, valor:valor  }
           )}, 3000); 
 
         }
@@ -163,7 +163,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartacorrer");
 
           setTimeout(() => {
-            this.scene.start("Escenario2", { distancia : distancia,distancia2: distancia2,turno : turno, movimiento : this.movimiento, audio2:audio2, contar:this.contar  }
+            this.scene.start("Escenario2", { distancia : distancia,distancia2: distancia2,turno : turno, movimiento : this.movimiento, audio2:null, contar:this.contar  }
           )}, 3000); 
         }
         
@@ -174,7 +174,7 @@ export class Cartas extends Phaser.Scene {
           this.add.image(this.cameras.main.centerX, this.cameras.main.centerY,"cartabuena");
 
           setTimeout(() => {
-            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:audio2, contar:this.contar }
+            this.scene.start("Tablero", { distancia : distancia, distancia2: distancia2,turno : turno, movimiento : this.movimiento ,audio2:null, contar:this.contar }
           )}, 3000); 
         }
         

@@ -3,17 +3,7 @@ class Jugador extends Phaser.GameObjects.Sprite{
         super(scene, x, y, texture, turno)
 
         scene.add.existing(this);
-/*
-        if (turno===0) {
-            this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-            this.player.setScale(1.1);
-          }
-    
-          if (turno===1) {
-            this.cameras.main.startFollow(this.player2, true, 0.08, 0.08);
-            this.player2.setScale(1.1);
-          }
-*/
+
         if (texture === "dude") {
 
           scene.player.setCircle(50, 40, 40);
@@ -40,28 +30,22 @@ class Jugador extends Phaser.GameObjects.Sprite{
 
     }
 
-    animaciones(){
-
-    
-    }
-
-
-    /* saltar(){
-        if (cursors.up.isDown && this.player.body.blocked.down) {
-        this.player.setVelocityY(-520);
-        this.player.setVelocityX(200);
-        this.player.anims.play("jump");
-        this.isJumping = true;
+     saltar(scene,texture){
+        if (scene.cursors.up.isDown && scene.player.body.blocked.down && texture === 'dude') {
+        scene.player.setVelocityY(-520);
+        scene.player.setVelocityX(200);
+        scene.player.anims.play("jump");
+        scene.isJumping = true;
         }
     }
 
-    correr(){
-       if (this.isJumping && this.player.body.blocked.down) {
-            this.player.anims.play("run");
-            this.player.setVelocityX(100);
-            this.isJumping = false;
+    correr(scene,texture){
+       if (scene.isJumping && scene.player.body.blocked.down && texture === 'dude') {
+            scene.player.anims.play("run");
+            scene.player.setVelocityX(100);
+            scene.isJumping = false;
         }
-    } */
+    } 
 
 
 
