@@ -70,7 +70,7 @@ export class Escenario1 extends Phaser.Scene {
       const spawnPoint = map1.findObject("Objetos", (obj) => obj.name === "dude");
 
       player = new Jugador(this, spawnPoint.x, spawnPoint.y,'dude')
-       
+      player.correr(); 
       
       isJumping = false;
 
@@ -241,24 +241,20 @@ export class Escenario1 extends Phaser.Scene {
 
   update(){
     
-    player.setVelocityX(100);
+
+    //player.setVelocityX(100);
 
     if (gameOver) {
       return;
     };
 
-     if (cursors.up.isDown && player.body.blocked.down) {
-      player.setVelocityY(-520);
-      player.setVelocityX(200);
-      player.anims.play("jump");
-      isJumping = true;
+    if (cursors.up.isDown && player.body.blocked.down) {
+      player.saltar();
     } else {
-      if (isJumping && player.body.blocked.down) {
-        player.anims.play("run");
-        player.setVelocityX(100);
-        isJumping = false;
+      if (player.isJumping && player.body.blocked.down) {
+        player.correr();
       }
-    }  
+    } 
 
 
     if (count === 3){
