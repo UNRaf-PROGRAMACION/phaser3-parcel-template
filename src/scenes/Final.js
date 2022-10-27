@@ -1,3 +1,4 @@
+// @ts-ignore
 import Phaser from 'phaser'
 
 
@@ -25,7 +26,7 @@ export default class Final extends Phaser.Scene
         let win = false;
 
         // Fondo de la pantalla final
-        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "fondo_ganaste").setScale(1.1);
+        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "fondo_nivel1").setScale(1.1);
         this.final = this.add.image ( this.cameras.main.centerX, 500, 'creditos_ajustes').setScale(0.7);
         this.final = this.add.text(175, 475, '¡FELICIDADES!', {
             fontFamily: "Rockwell",
@@ -34,7 +35,7 @@ export default class Final extends Phaser.Scene
           });
 
         this.puntaje = this.add.image ( this.cameras.main.centerX, 800, 'jugar_boton').setScale(0.7);
-        this.puntaje = this.add.text (175,775, 'Corazones obtenidos:', this.puntajeFinal, {
+        this.puntajeFinal = this.add.text (175,775, 'Corazones obtenidos:', this.corazones, {
             fontFamily: "Rockwell",
             fontSize: 70,
             color: "#FCE4CA",
@@ -45,9 +46,7 @@ export default class Final extends Phaser.Scene
         // Boton para volver al menu principal
         let menu = this.add.image(600, 1400, 'boton_menu').setScale(0.25)
         menu.setInteractive()        
-        menu.on('pointerdown', () => this.scene.start('MenuPrincipal', {
-            nivel: this.nivel, 
-            corazones: this.corazones}));
+        menu.on('pointerdown', () => this.scene.start('MenuPrincipal'));
         //this.clic.play();
 
     }

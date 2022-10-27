@@ -3,7 +3,7 @@ const cartasPorNivel = {
   1: {
     coincidencias: 2,
     fondo_mapa: "fondo_nivel1",
-    fondo_nivel: "bosque", 
+    fondo_nivel: "bosque",
     texto: "BOSQUE",
     tiempo: 10,
     tipos: [1, 1, 2, 2],
@@ -13,7 +13,6 @@ const cartasPorNivel = {
       [220, 1100],
       [500, 1100],
     ],
-    
   },
 
   2: {
@@ -31,7 +30,6 @@ const cartasPorNivel = {
       [275, 1110],
       [435, 1110],
     ],
-    
   },
 
   3: {
@@ -51,14 +49,7 @@ const cartasPorNivel = {
       [275, 1255],
       [435, 1255],
     ],
-    //si no se encuentran dos pares de cartas iguales seguidas, se descuentan 5 segundos del temporizador
-    //if (tarjeta1.tipo !== tarjeta2.tipo)*=2 {
-      //this.tiempo = (this.tiempo %= 5000)
-      //callback: this.onSecond,
-      //callbackScope: this,
-      //loop: true,
-    //});
-    
+   
   },
 
   4: {
@@ -82,9 +73,10 @@ const cartasPorNivel = {
       [365, 1255],
       [525, 1255],
     ],
-    //En el segundo 25 aparece el gato y bloquea un par de cartas al azar, 
+    //En el segundo 25 aparece el gato y bloquea un par de cartas al azar,
     //tardan 5 segundos en desbloquearse nuevamente
     //this.cartasBloqueadas = this.physics.add.staticGroup();
+    //this.imagen = escena.add.image(x,y, "carta_bloqueada").setInteractive()
     //numeros8 = numeros8.sort(() => (Math.random() > 0.5 ? 1 : -1));
   },
 
@@ -113,11 +105,7 @@ const cartasPorNivel = {
       [435, 1255],
       [595, 1255],
     ],
-    //En el segundo 25 aparece la reina y mezcla las cartas que quedan
-    //if (this.tiempo === 25) {
-    //this.numeros = cartasPorNivel[String(this.nivel)].tipos;
-    //this.numeros = this.numeros.sort(() => (Math.random() > 0.5 ? 1 : -1));
-    //},
+    
   },
 };
 

@@ -72,6 +72,19 @@ export default class Preload extends Phaser.Scene {
         this.load.spritesheet("sprite_gato", "assets/images2/sprite_gato.png",
         { frameWidth: 83.5, frameHeight: 54.5 });
       
+        //const PROJECT_ID = '42';
+          //let translations = null;
+          //let language = ES_AR;
+          //export async function getTranslations(lang = language) {
+          //language = lang;
+         // return await
+          //fetch(`https://traduci-la-strapi.herokuapp.com/api/translations/${42}/${ES_AR}`)
+          //.then(response => response.json())
+         // .then(data => {
+          //console.log(`FETCH TRANSLATIONS --- ${JSON.stringify(data)}`);
+          //localStorage.setItem('translations', data);
+          //});
+         // }
         
         
         //this.load.audio('alicia_al_rescate', 'assets/sounds/alicia_al_rescate.mp3',

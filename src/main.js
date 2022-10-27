@@ -1,3 +1,4 @@
+// @ts-ignore
 import Phaser from 'phaser'
 
 

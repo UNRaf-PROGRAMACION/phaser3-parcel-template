@@ -40,7 +40,7 @@ export default class MapaNiveles extends Phaser.Scene {
       color: "#FCE4CA",
     });
     juego.setInteractive();
-    juego.on("pointerdown", () => this.scene.start("Juego", {nivel: this.nivel, corazones: this.corazones}));
+    juego.on("pointerdown", () => this.scene.start("Juego", {nivel: this.nivel , corazones: this.corazones}));
     //this.click.play();
   
 

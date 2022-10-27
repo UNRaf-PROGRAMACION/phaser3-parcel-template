@@ -27,7 +27,7 @@ export default class MenuPrincipal extends Phaser.Scene
 
     // Boton para comenzar a jugar
     let jugar = this.add.image(this.cameras.main.centerX, 625, 'jugar_boton').setScale(0.5);
-    this.jugar = this.add.text(265, 600, 'JUGAR', {
+    this.jugar = this.add.text(265, 600,'JUGAR', {
       fontFamily: "Rockwell",
       fontSize: 60,
       color: "#FCE4CA",
