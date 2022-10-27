@@ -1,3 +1,5 @@
+import Phaser from 'phaser';
+import Jugador from "./jugador";
 
 let player;
 let enemys;
@@ -12,24 +14,27 @@ let isJumping;
 let distancia;
 let distancia2;
 let turno;
-let audio3;
-let audio2;
+//let audio3;
+//let audio2;
 var texto;
-
-import Phaser from 'phaser'
-import Jugador from './jugador';
 
 
 export class Escenario1 extends Phaser.Scene {
+
+  player
+  cursors
+  isJumping
+  
+  
     constructor() {
+
       super("Escenario1");
-    
     }
 
     preload() {
-      this.load.tilemapTiledJSON("map1", "public/assets/tilemaps/esc1.json");
-      this.load.image("tilesBelow1", "public/assets/images/jungla-atlas.png");
-      this.load.image("tilesPlatform1", "public/assets/images/plataforma.png");
+      this.load.tilemapTiledJSON("map1", "assets/tilemaps/esc1.json");
+      this.load.image("tilesBelow1", "assets/images/jungla-atlas.png");
+      this.load.image("tilesPlatform1", "assets/images/plataforma.png");
     
     }
     init(data) {
@@ -44,7 +49,6 @@ export class Escenario1 extends Phaser.Scene {
   
     }
     create() {
-  
       //audio3 = this.sound.add('theme3', {loop: true});
       //audio3.play();
   
@@ -65,11 +69,8 @@ export class Escenario1 extends Phaser.Scene {
   
       const spawnPoint = map1.findObject("Objetos", (obj) => obj.name === "dude");
 
-      this.player= new Jugador (this, spawnPoint.x,spawnPoint.y, 'dude')
-      
-    
-      //player.setCollideWorldBounds(true);
-      player.anims.play("run");
+      player = new Jugador(this, spawnPoint.x, spawnPoint.y,'dude')
+      player.correr(); 
       
       isJumping = false;
 
@@ -108,8 +109,8 @@ export class Escenario1 extends Phaser.Scene {
         }
       } 
     });
-
-    count = 0;
+    
+      count = 0;
       number= 3;
        
       this.physics.add.collider(player, worldLayer);
@@ -216,16 +217,16 @@ export class Escenario1 extends Phaser.Scene {
     hitFinal(player,final) {
       texto.destroy();
       
-
+      
       this.physics.pause();
       player.anims.play("jump");
       let victory=this.add.image(this.cameras.main.midPoint.x - 6 ,this.cameras.main.midPoint.y, "victoria");
       let boton=this.add.image(this.cameras.main.midPoint.x - 20,this.cameras.main.midPoint.y + 120, "botone").setInteractive()
 
       .on('pointerdown', () => {
-        audio3.stop()
-        audio2.play()
-        this.scene.start("Tablero", { distancia : distancia, distancia2:distancia2, turno:turno, movimiento : 1, audio2:audio2, contar:this.contar }
+        //audio3.stop()
+        //audio2.play()
+        this.scene.start("Tablero", { distancia : distancia, distancia2:distancia2, turno:turno, movimiento : 1, audio2:null, contar:this.contar }
       )
       })
       .on('pointerover', () => {
@@ -236,28 +237,24 @@ export class Escenario1 extends Phaser.Scene {
         boton.setScale(1)
       })
 
-  }
-    
+    }
+
   update(){
     
-    player.setVelocityX(100);
+
+    //player.setVelocityX(100);
 
     if (gameOver) {
       return;
     };
 
     if (cursors.up.isDown && player.body.blocked.down) {
-      player.setVelocityY(-520);
-      player.setVelocityX(200);
-      player.anims.play("jump");
-      isJumping = true;
+      player.saltar();
     } else {
-      if (isJumping && player.body.blocked.down) {
-        player.anims.play("run");
-        player.setVelocityX(100);
-        isJumping = false;
+      if (player.isJumping && player.body.blocked.down) {
+        player.correr();
       }
-    }
+    } 
 
 
     if (count === 3){
@@ -274,8 +271,8 @@ export class Escenario1 extends Phaser.Scene {
         let boton =this.add.image(this.cameras.main.midPoint.x -6,this.cameras.main.midPoint.y + 120, "botone").setInteractive()
         .on('pointerdown', () => {
 
-          audio3.stop()
-          audio2.play()
+          //audio3.stop()
+          //audio2.play()
           
           if (turno === 1) {
             turno= 0
@@ -285,7 +282,7 @@ export class Escenario1 extends Phaser.Scene {
             } 
           }
       
-          this.scene.start("Tablero", {distancia : distancia, distancia2:distancia2, turno:turno, movimiento: 0, audio2:audio2, contar:this.contar})
+          this.scene.start("Tablero", {distancia : distancia, distancia2:distancia2, turno:turno, movimiento: 0, audio2:null, contar:this.contar})
         })
         .on('pointerover', () => {
           boton.setScale(1.1)

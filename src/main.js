@@ -31,7 +31,7 @@ const config = {
 		default: 'arcade',
 		arcade: {
 			gravity: { y: 450 },
-			debug: false,
+			debug: true,
 		}
 	},
 	scene: [Preloads, MainMenu, Instrucciones, Escenario1, Escenario2, Configuraciones, Tablero, Cartas, Creditos]
