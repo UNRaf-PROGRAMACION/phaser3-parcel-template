@@ -23,12 +23,12 @@ const cartasPorNivel = {
     tiempo: 15,
     tipos: [1, 1, 2, 2, 3, 3],
     coordenadas: [
-      [275, 550],
-      [435, 550],
-      [275, 830],
-      [435, 830],
-      [275, 1110],
-      [435, 1110],
+      [275, 560],
+      [435, 560],
+      [275, 840],
+      [435, 840],
+      [275, 1130],
+      [435, 1130],
     ],
   },
 
@@ -40,14 +40,14 @@ const cartasPorNivel = {
     tiempo: 25,
     tipos: [1, 1, 2, 2, 3, 3, 4, 4],
     coordenadas: [
-      [275, 415],
-      [435, 415],
-      [275, 695],
-      [435, 695],
-      [275, 975],
-      [435, 975],
-      [275, 1255],
-      [435, 1255],
+      [275, 425],
+      [435, 425],
+      [275, 705],
+      [435, 705],
+      [275, 985],
+      [435, 985],
+      [275, 1265],
+      [435, 1265],
     ],
    
   },
@@ -60,24 +60,20 @@ const cartasPorNivel = {
     tiempo: 30,
     tipos: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
     coordenadas: [
-      [205, 415],
-      [365, 415],
-      [525, 415],
-      [205, 695],
-      [365, 695],
-      [525, 695],
-      [205, 975],
-      [365, 975],
-      [525, 975],
-      [205, 1255],
-      [365, 1255],
-      [525, 1255],
+      [205, 425],
+      [365, 425],
+      [525, 425],
+      [205, 705],
+      [365, 705],
+      [525, 705],
+      [205, 985],
+      [365, 985],
+      [525, 985],
+      [205, 1265],
+      [365, 1265],
+      [525, 1265],
     ],
-    //En el segundo 25 aparece el gato y bloquea un par de cartas al azar,
-    //tardan 5 segundos en desbloquearse nuevamente
-    //this.cartasBloqueadas = this.physics.add.staticGroup();
-    //this.imagen = escena.add.image(x,y, "carta_bloqueada").setInteractive()
-    //numeros8 = numeros8.sort(() => (Math.random() > 0.5 ? 1 : -1));
+   
   },
 
   5: {
@@ -110,14 +106,17 @@ const cartasPorNivel = {
 };
 
 const texturasDeCartas = {
-    1: "corazon",
-    2: "flor",
-    3:"sombrero",
-    4:"torta",
-    5: "pocion",
-    6: "rosa",
+    1: "conejo",
+    2: "pajarito",
+    3: "sombrero",
+    4: "reina_blanca",
+    5: "rosa",
+    6: "conejo_2",
     7: "girasol",
     8: "llave",
+    9: "pastel",
+    10: "pocion",
+    11: "flor",
 }
 
 module.exports = {

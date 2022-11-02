@@ -13,12 +13,6 @@ export default class Preload extends Phaser.Scene {
 
 	preload()
     {
-        //this.load.image("menu", "assets/images/menu.png");
-        //this.load.image("jugar", "assets/images/jugar.png", 120, 40);
-        //this.load.image("mapa", "assets/images/mapa.png");
-        //this.load.image("boton_menu", "assets/images/boton_menu.png");
-        //this.load.image("siguiente", "assets/images/siguiente.png");
-        //this.load.image("atras", "assets/images/atras.png");
         this.load.image("boton_mapa", "assets/images2/boton_mapa.png");
         this.load.image("boton_flecha", "assets/images2/boton_flecha.png");
         this.load.image("boton_flecha2", "assets/images2/boton_flecha2.png");
@@ -30,8 +24,6 @@ export default class Preload extends Phaser.Scene {
         this.load.image("boton_ganaste", "assets/images2/boton_ganaste.png");
         this.load.image("boton_perdiste", "assets/images2/boton_perdiste.png");
         this.load.image("creditos_ajustes", "assets/images2/creditos_ajustes.png");
-        this.load.image("carta_bloqueada", "assets/images2/carta_bloqueada.png");
-        this.load.image("reverso", "assets/images2/reverso.png");
         this.load.image("fondo_ganaste", "assets/images2/fondo_ganaste.png");
         this.load.image("fondo_perdiste", "assets/images2/fondo_perdiste.png");
         this.load.image("fondo_nivel1", "assets/images2/fondo_nivel1.png");
@@ -43,7 +35,7 @@ export default class Preload extends Phaser.Scene {
         this.load.image("ayuda", "assets/images2/ayuda.png");
         this.load.image("jugar_boton", "assets/images2/jugar_boton.png");
         this.load.image("pantalla_ajustes", "assets/images2/pantalla_ajustes.png");
-        this.load.image("pantalla_creditos", "assets/images2/pantalla_creditos.png");
+        this.load.image("pantalla_creditos", "assets/images2/pantalla_creditos.jpg");
         this.load.image("fondo_menu", "assets/images2/fondo_menu.png");
         this.load.image("castillo", "assets/images2/castillo.png");
         this.load.image("lago", "assets/images2/lago.png");
@@ -52,19 +44,21 @@ export default class Preload extends Phaser.Scene {
         this.load.image("montana", "assets/images2/montana.png");
         this.load.image("alicia", "assets/images2/alicia.png");
         this.load.image("reina", "assets/images2/reina.png");
-        this.load.image("pausa", "assets/images/pausa.png");
-        this.load.image("puntos", "assets/images/puntos.png");
-        this.load.image("temporizador", "assets/images/temporizador.png");
-        this.load.image("corazon", "assets/images/corazon.png");
-        this.load.image("flor", "assets/images/flor.png");
-        this.load.image("girasol", "assets/images/girasol.png");
-        this.load.image("llave", "assets/images/llave.png");
-        this.load.image("pocion", "assets/images/pocion.png");
-        this.load.image("rosa", "assets/images/rosa.png");
-        this.load.image("sombrero", "assets/images/sombrero.png");
-        this.load.image("torta", "assets/images/torta.png");
-        this.load.image("ganaste", "assets/images/ganaste.png");
-        this.load.image("perdiste", "assets/images/perdiste.png");
+        this.load.image("conejo", "assets/images2/conejo.png");
+        this.load.image("conejo_2", "assets/images2/conejo_2.png");
+        this.load.image("flor", "assets/images2/flor.png");
+        this.load.image("girasol", "assets/images2/girasol.png");
+        this.load.image("llave", "assets/images2/llave.png");
+        this.load.image("pajarito", "assets/images2/pajarito.png");
+        this.load.image("pastel", "assets/images2/pastel.png");
+        this.load.image("pocion", "assets/images2/poción.png");
+        this.load.image("reina_blanca", "assets/images2/reina_blanca.png");
+        this.load.image("rosa", "assets/images2/rosa.png");
+        this.load.image("sombrero", "assets/images2/sombrero.png");
+        this.load.image("reverso", "assets/images2/reverso.png");
+        this.load.image("carta_bloqueada", "assets/images2/carta_bloqueada.png");
+        
+      
         
         this.load.spritesheet("sprite_alicia", "assets/images2/sprite_alicia.png",
         { frameWidth: 123, frameHeight: 208 });

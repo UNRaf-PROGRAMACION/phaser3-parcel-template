@@ -136,6 +136,7 @@ export default class Juego extends Phaser.Scene {
               tarjeta1.setTexture("reverso");
               tarjeta2.setTexture("reverso");
               tarjetasDestapadas = 0;
+          //En el nivel 3 si no se encuentran dos cartas iguales, se descuentan 2 segundos del temporizador:
               if (contexto.nivel == 3){
                 contexto.tiempo -= 2;
                 this.timeText.setText(this.tiempo);
@@ -170,12 +171,7 @@ export default class Juego extends Phaser.Scene {
     events.emit("pasar-nivel");
     console.log(this.cartasMezcladas);
 
-    //En el nivel 3 si no se encuentran dos cartas iguales, se descuentan 2 segundos del temporizador:
-    //if (tarjeta1.tipo != tarjeta2.tipo) {
-    //this.tiempo = (this.tiempo -= 2)
-    //};
-
-
+  
     //En el nivel 4, en el segundo 25 aparece el gato y bloquea un par de cartas al azar, tardan 5 segundos en desbloquearse nuevamente:
     //this.cartasBloqueadas = this.physics.add.staticGroup();
     //this.imagen = escena.add.image(x,y, "carta_bloqueada").setInteractive()
