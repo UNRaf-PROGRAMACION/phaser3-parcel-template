@@ -6,45 +6,65 @@ export default class Creditos extends Phaser.Scene {
     super("Creditos");
   }
 
-
-create()
-    {
+  create() {
     // Fondo del menú principal
-    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "pantalla_creditos").setScale(1.1);
-    this.add.text(175, 445, 'CREDITOS', {
+    this.add
+      .image(
+        this.cameras.main.centerX,
+        this.cameras.main.centerY,
+        "pantalla_creditos"
+      )
+      .setScale(1.1);
+    this.add.text(185, 400, "CREDITOS", {
+      fontFamily: "Rockwell",
+      fontSize: 70,
+      align: "center",
+      color: "#FCE4CA",
+    });
+
+    this.emilia = this.add.image(455, 650, "texto").setScale(0.61);
+    this.emilia = this.add.text(
+      320,
+      600,
+      "EMILIA GÜLL \n \nProgramadora \nGame Designer",
+      {
         fontFamily: "Rockwell",
-        fontSize: 70,
-        color: "#003333",
-      });
+        fontSize: 20,
+        align: "center",
+        color: "#FCE4CA",
+      }
+    );
 
-    this.emilia = this.add.image ( 250, 500, 'texto').setScale(0.7);
-    this.emilia = this.add.text(300, 445, 'EMILIA GÜLL - Programadora / Game Designer',{
-      fontFamily: "Rockwell",
-      fontSize: 60,
-      color: "#003333",
-    });
+    this.agostina = this.add.image(455, 850, "texto").setScale(0.61);
+    this.agostina = this.add.text(
+      320,
+      800,
+      "VALENTINA GALVAN \n \nArtista \nGame Designer",
+      {
+        fontFamily: "Rockwell",
+        fontSize: 20,
+        align: "center",
+        color: "#FCE4CA",
+      }
+    );
 
-    this.agostina = this.add.image ( 450, 500, 'texto').setScale(0.7);
-    this.agostina = this.add.text(500, 445, 'AGOSTINA SALGADO - Artista / Game Designer',{
-      fontFamily: "Rockwell",
-      fontSize: 60,
-      color: "#003333",
-    });
+    this.valentina = this.add.image(455, 1050, "texto").setScale(0.61);
+    this.valentina = this.add.text(
+      320,
+      1000,
+      "AGOSTINA SALGADO \n \nArtista \nGame Designer",
+      {
+        fontFamily: "Rockwell",
+        fontSize: 20,
+        align: "center",
+        color: "#FCE4CA",
+      }
+    );
 
-    this.valentina = this.add.image ( 750, 500, 'texto').setScale(0.7);
-    this.valentina = this.add.text(800, 445, 'VALENTINA GALVÁN - Artista / Game Designer',{
-      fontFamily: "Rockwell",
-      fontSize: 60,
-      color: "#003333",
-    });
-    
-
-     // Boton para volver al menu principal
-     const menu = this.add.image(600, 100, "boton_menu").setScale(1.1);
-     menu.setInteractive();
-     menu.on("pointerdown", () => this.scene.start("MenuPrincipal"));
-     //this.clic.play();
+    // Boton para volver al menu principal
+    const menu = this.add.image(600, 100, "boton_menu").setScale(1.1);
+    menu.setInteractive();
+    menu.on("pointerdown", () => this.scene.start("MenuPrincipal"));
+    //this.clic.play();
+  }
 }
-
-}
-

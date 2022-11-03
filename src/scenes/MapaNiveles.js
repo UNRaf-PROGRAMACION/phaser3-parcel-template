@@ -13,6 +13,7 @@ export default class MapaNiveles extends Phaser.Scene {
   //imagenes = ["nivel"];
   
   init(data) {
+    console.log("mapa nivel",data.nivel)
     this.nivel = data.nivel  ?? 1;
     this.corazones = data.corazones;
     
@@ -38,6 +39,7 @@ export default class MapaNiveles extends Phaser.Scene {
       fontFamily: "Rockwell",
       fontSize: 60,
       color: "#FCE4CA",
+      textAlign: "left",
     });
     juego.setInteractive();
     juego.on("pointerdown", () => this.scene.start("Juego", {nivel: this.nivel , corazones: this.corazones}));

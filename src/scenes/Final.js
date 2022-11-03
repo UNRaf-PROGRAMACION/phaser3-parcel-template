@@ -46,7 +46,7 @@ export default class Final extends Phaser.Scene
         // Boton para volver al menu principal
         let menu = this.add.image(600, 1400, 'boton_menu').setScale(0.25)
         menu.setInteractive()        
-        menu.on('pointerdown', () => this.scene.start('MenuPrincipal'));
+        menu.on('pointerdown', () => this.scene.start('MenuPrincipal', {nivel: 1}));
         //this.clic.play();
 
     }

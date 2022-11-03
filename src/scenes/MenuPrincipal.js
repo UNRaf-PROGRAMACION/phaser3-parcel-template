@@ -11,6 +11,10 @@ export default class MenuPrincipal extends Phaser.Scene
     super("MenuPrincipal");
   }
 	
+  init(data){
+    this.nivel = data.nivel;
+  }
+
   create()
     {
     // Fondo del menú principal
@@ -31,9 +35,10 @@ export default class MenuPrincipal extends Phaser.Scene
       fontFamily: "Rockwell",
       fontSize: 60,
       color: "#FCE4CA",
+      textAlign: 'center',
     });
     jugar.setInteractive()
-    jugar.on('pointerdown', () => this.scene.start('MapaNiveles'));
+    jugar.on('pointerdown', () => this.scene.start('MapaNiveles', {nivel: this.nivel}));
     //this.clic.play();
 
     //Boton ayuda

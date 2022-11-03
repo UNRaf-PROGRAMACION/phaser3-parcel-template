@@ -22,7 +22,9 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     min: {
       width: 300,
+      //9
       height: 625,
+      //16
     },
     max: {
       width: 1600,

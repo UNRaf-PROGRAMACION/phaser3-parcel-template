@@ -18,7 +18,7 @@ export default class Juego extends Phaser.Scene {
   coincidencias;
   perdiste;
   cartas = [];
-  cartasMezcladas = false;
+  
 
   constructor() {
     super("Juego");
@@ -36,6 +36,7 @@ export default class Juego extends Phaser.Scene {
     //inicializacion de variables
     let tarjeta1 = null;
     let tarjeta2 = null;
+    
     let corazones;
     corazones = this.corazonesTotal;
 
@@ -45,6 +46,8 @@ export default class Juego extends Phaser.Scene {
     this.coincidenciasNivel = cartasPorNivel[String(this.nivel)].coincidencias;
     this.fondo_nivel = cartasPorNivel[String(this.nivel)].fondo_nivel;
     this.tiempo = cartasPorNivel[String(this.nivel)].tiempo;
+    this.cartasMezcladas = false;
+    this.cartas = [];
 
 
     // Fondo del nivel
@@ -89,6 +92,7 @@ export default class Juego extends Phaser.Scene {
     
 
     this.numeros = cartasPorNivel[String(this.nivel)].tipos;
+    //agregar mas combinaciones de cartas
     this.numeros = this.numeros.sort(() => (Math.random() > 0.5 ? 1 : -1));
     let contexto = this;
 
@@ -139,7 +143,7 @@ export default class Juego extends Phaser.Scene {
           //En el nivel 3 si no se encuentran dos cartas iguales, se descuentan 2 segundos del temporizador:
               if (contexto.nivel == 3){
                 contexto.tiempo -= 2;
-                this.timeText.setText(this.tiempo);
+                contexto.timeText.setText(this.tiempo);
               }
             }, 500);
           }
@@ -168,9 +172,7 @@ export default class Juego extends Phaser.Scene {
 
   update() {
     //si gane va a la escena ganaste y luego se pasa al siguiente nivel
-    events.emit("pasar-nivel");
-    console.log(this.cartasMezcladas);
-
+    //events.emit("pasar-nivel");
   
     //En el nivel 4, en el segundo 25 aparece el gato y bloquea un par de cartas al azar, tardan 5 segundos en desbloquearse nuevamente:
     //this.cartasBloqueadas = this.physics.add.staticGroup();
@@ -180,9 +182,15 @@ export default class Juego extends Phaser.Scene {
 
 
     //En el nivel 5 aparece la reina a los 25 segundos y vuelve a mezclar las cartas:
+   
     if (this.nivel == 5) {
+      
       if (this.tiempo === 25 && this.cartasMezcladas == false) {
-        let indicesMezclados = Array(this.numeros.length)
+        //agregar animacion reina
+        this.cartasMezcladas = true;
+        console.log("comienza mezclado", this.cartas);
+        let indicesMezclados = [];
+        indicesMezclados = Array(this.numeros.length)
           .fill(0)
           .map((n, i) => n + i);
         indicesMezclados = indicesMezclados.sort(() =>
@@ -200,6 +208,7 @@ export default class Juego extends Phaser.Scene {
           console.log(indicesMezclados);
         });
         this.cartasMezcladas = true;
+        console.log("Finaliza mezclado", this.cartas);
       }
     }
   }
@@ -209,7 +218,7 @@ export default class Juego extends Phaser.Scene {
     if (!this.perdiste) {
       this.tiempo = this.tiempo - 1; // One second
       this.timeText.setText(this.tiempo);
-      if (this.tiempo == 0) {
+      if (this.tiempo <= 0) {
         this.timedEvent.paused = true;
         this.scene.start("Perdiste", {
           return: this.nivel,

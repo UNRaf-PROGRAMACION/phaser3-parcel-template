@@ -110,13 +110,10 @@ const texturasDeCartas = {
     2: "pajarito",
     3: "sombrero",
     4: "reina_blanca",
-    5: "rosa",
+    5: "pastel",
     6: "conejo_2",
     7: "girasol",
     8: "llave",
-    9: "pastel",
-    10: "pocion",
-    11: "flor",
 }
 
 module.exports = {
