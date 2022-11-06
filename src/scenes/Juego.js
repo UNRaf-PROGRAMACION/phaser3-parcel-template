@@ -125,11 +125,6 @@ export default class Juego extends Phaser.Scene {
               tarjeta2.destroy();
             }, 500);
 
-            //si se juntan dos parejas de cartas seguidas se suman 5 puntos extra
-            //if (tarjetasdestapadas>=4){
-            //corazones+= 5;
-            //this.escena.puntos.setText(corazones);
-            //}
 
             this.escena.coincidencias++;
             setTimeout(() => {
@@ -140,7 +135,8 @@ export default class Juego extends Phaser.Scene {
               tarjeta1.setTexture("reverso");
               tarjeta2.setTexture("reverso");
               tarjetasDestapadas = 0;
-          //En el nivel 3 si no se encuentran dos cartas iguales, se descuentan 2 segundos del temporizador:
+         
+            //En el nivel 3 si no se encuentran dos cartas iguales, se descuentan 2 segundos del temporizador:
               if (contexto.nivel == 3){
                 contexto.tiempo -= 2;
                 contexto.timeText.setText(this.tiempo);
@@ -164,15 +160,14 @@ export default class Juego extends Phaser.Scene {
                 corazones: corazones,
               });
             }
-          }, 1500);
+          }, 1200);
         }
       });
     });
   }
 
   update() {
-    //si gane va a la escena ganaste y luego se pasa al siguiente nivel
-    //events.emit("pasar-nivel");
+    
   
     //En el nivel 4, en el segundo 25 aparece el gato y bloquea un par de cartas al azar, tardan 5 segundos en desbloquearse nuevamente:
     //this.cartasBloqueadas = this.physics.add.staticGroup();
@@ -186,9 +181,13 @@ export default class Juego extends Phaser.Scene {
     if (this.nivel == 5) {
       
       if (this.tiempo === 25 && this.cartasMezcladas == false) {
+        
         //agregar animacion reina
+        let SpriteReina = this.add.sprite(this.cameras.main.centerX, 1300,"sprite_reina").setScale(3.5);
+        SpriteReina.anims.play('animacion_reina',true);
+
         this.cartasMezcladas = true;
-        console.log("comienza mezclado", this.cartas);
+        //console.log("comienza mezclado", this.cartas);
         let indicesMezclados = [];
         indicesMezclados = Array(this.numeros.length)
           .fill(0)
@@ -205,10 +204,10 @@ export default class Juego extends Phaser.Scene {
             repeat: 0,
             ease: "Power1",
           });
-          console.log(indicesMezclados);
+          //console.log(indicesMezclados);
         });
         this.cartasMezcladas = true;
-        console.log("Finaliza mezclado", this.cartas);
+        //console.log("Finaliza mezclado", this.cartas);
       }
     }
   }

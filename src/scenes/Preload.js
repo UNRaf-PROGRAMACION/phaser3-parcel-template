@@ -26,6 +26,7 @@ export default class Preload extends Phaser.Scene {
         this.load.image("creditos_ajustes", "assets/images2/creditos_ajustes.png");
         this.load.image("fondo_ganaste", "assets/images2/fondo_ganaste.png");
         this.load.image("fondo_perdiste", "assets/images2/fondo_perdiste.png");
+        this.load.image("fondo_final", "assets/images2/fondo_final.png");
         this.load.image("fondo_nivel1", "assets/images2/fondo_nivel1.png");
         this.load.image("fondo_nivel2", "assets/images2/fondo_nivel2.png");
         this.load.image("fondo_nivel3", "assets/images2/fondo_nivel3.png");
@@ -58,6 +59,9 @@ export default class Preload extends Phaser.Scene {
         this.load.image("sombrero", "assets/images2/sombrero.png");
         this.load.image("reverso", "assets/images2/reverso.png");
         this.load.image("carta_bloqueada", "assets/images2/carta_bloqueada.png");
+        this.load.image("argentina", "assets/images2/argentina.png");
+        this.load.image("brasil", "assets/images2/brasil.png");
+        this.load.image("eeuu", "assets/images2/eeuu.png");
         
       
         
@@ -65,7 +69,10 @@ export default class Preload extends Phaser.Scene {
         { frameWidth: 123, frameHeight: 208 });
 
         this.load.spritesheet("sprite_gato", "assets/images2/sprite_gato.png",
-        { frameWidth: 83.5, frameHeight: 54.5 });
+        { frameWidth: 90, frameHeight: 54.5 });
+
+        this.load.spritesheet("sprite_reina", "assets/images2/sprite_reina.png",
+        { frameWidth: 97, frameHeight: 120 });
       
         //const PROJECT_ID = '42';
           //let translations = null;
@@ -94,7 +101,7 @@ export default class Preload extends Phaser.Scene {
       // Pasa directamente a la escena del menú principal
       this.scene.start("MenuPrincipal");
 
-      //agregar animación Alicia (en pantalla Ganaste)
+      //agregar animación Alicia (en pantalla Menu Principal y Final)
       this.add.sprite(200, 1200, "sprite_alicia");
       this.anims.create({
         key: "animacion_alicia",
@@ -106,8 +113,8 @@ export default class Preload extends Phaser.Scene {
         repeat: -1,
       });
 
-      //agregar animacioón Gato (en pantalla Perdiste)
-      this.add.sprite(200, 1800, "sprite_gato");
+      //agregar animacioón Gato (en pantalla Menu Principal)
+      this.add.sprite(200, 180, "sprite_gato");
       this.anims.create({
         key: "animacion_gato",
         frames: this.anims.generateFrameNumbers("sprite_gato", {
@@ -115,6 +122,18 @@ export default class Preload extends Phaser.Scene {
           end: 7,
         }),
         frameRate: 7,
+        repeat: -1,
+      });
+
+      //agregar animacioón Reina (en nivel 5)
+      this.add.sprite(200, 1300, "sprite_reina");
+      this.anims.create({
+        key: "animacion_reina",
+        frames: this.anims.generateFrameNumbers("sprite_reina", {
+          start: 1,
+          end: 5,
+        }),
+        frameRate: 5,
         repeat: -1,
       });
     }

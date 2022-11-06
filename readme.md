@@ -144,3 +144,8 @@ Change 8000 to whatever you want.
 ## License
 
 [MIT License](https://github.com/ourcade/phaser3-parcel-template/blob/master/LICENSE)
+
+ICONOS DE BANDERAS:
+ARGENTINA: <a href="https://www.flaticon.es/iconos-gratis/argentina" title="argentina iconos">Argentina iconos creados por Freepik - Flaticon</a>
+BRASIL: <a href="https://www.flaticon.es/iconos-gratis/brasil" title="brasil iconos">Brasil iconos creados por Freepik - Flaticon</a>
+EEUU: <a href="https://www.flaticon.es/iconos-gratis/bandera" title="bandera iconos">Bandera iconos creados por Freepik - Flaticon</a>
