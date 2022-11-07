@@ -189,6 +189,10 @@ export default class Juego extends Phaser.Scene {
         //agregar animacion reina
         let SpriteReina = this.add.sprite(this.cameras.main.centerX, 1300,"sprite_reina").setScale(3.5);
         SpriteReina.anims.play('animacion_reina',true);
+        setTimeout(() => {
+          SpriteReina.destroy();
+        }, 3000);
+
 
         this.cartasMezcladas = true;
         //console.log("comienza mezclado", this.cartas);
