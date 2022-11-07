@@ -24,21 +24,25 @@ export default class Final extends Phaser.Scene
 
     create()
     {
+        if(!this.scale.isFullscreen){
+            this.scale.startFullscreen();
+        }
+        
         let win = false;
        
 
         // Fondo de la pantalla final
         this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "fondo_final").setScale(1.1);
-        this.final = this.add.text(145, 280, '¡FELICIDADES!', {
+        this.final = this.add.text(150, 280, '¡FELICIDADES!', {
             fontFamily: "Rockwell",
-            fontSize: 60,
+            fontSize: "60px",
             color: "#FCE4CA",
           });
 
-          console.log (this.corazones),
-        this.puntajeFinal = this.add.text (175, 600, 'Corazones obtenidos:', [this.corazones], {
+        
+        this.puntajeFinal = this.add.text(165, 320, 'Corazones obtenidos:' [this.corazones], {
             fontFamily: "Rockwell",
-            fontSize: 70,
+            fontSize: "60px",
             color: "#FCE4CA",
         });
 

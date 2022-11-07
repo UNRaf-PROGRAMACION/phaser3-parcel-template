@@ -20,6 +20,9 @@ export default class Ganaste extends Phaser.Scene
 
     create()
     {
+    if(!this.scale.isFullscreen){
+        this.scale.startFullscreen();
+    }
         let win = false;
 
         // Fondo del menú principal
@@ -27,7 +30,7 @@ export default class Ganaste extends Phaser.Scene
         this.ganaste = this.add.image ( this.cameras.main.centerX, 500, 'boton_ganaste').setScale(0.7);
         this.ganaste = this.add.text(175, 445, '¡GANASTE!', {
             fontFamily: "Rockwell",
-            fontSize: 70,
+            fontSize: "70px",
             color: "#003333",
           });
 

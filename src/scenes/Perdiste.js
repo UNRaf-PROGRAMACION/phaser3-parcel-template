@@ -14,6 +14,10 @@ export default class Perdiste extends Phaser.Scene
     create()
     {
     
+      if(!this.scale.isFullscreen){
+        this.scale.startFullscreen();
+      }
+      
       let derrota = false;
     
       // Fondo del menú principal
@@ -21,7 +25,7 @@ export default class Perdiste extends Phaser.Scene
     this.perdiste= this.add.image (this.cameras.main.centerX, 500, 'boton_perdiste').setScale(0.7);
         this.perdiste = this.add.text(175, 445,  '¡PERDISTE!', {
             fontFamily: "Rockwell",
-            fontSize: 70,
+            fontSize: "70px",
             color: "#990066",
           });
 

@@ -10,11 +10,14 @@ export default class Ajustes extends Phaser.Scene {
 
 create()
     {
+      if(!this.scale.isFullscreen){
+        this.scale.startFullscreen();
+      }
     // Fondo del menú principal
     this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "pantalla_ajustes").setScale(1.1);
     this.add.text(190, 270, "IDIOMA", {
       fontFamily: "Rockwell",
-      fontSize: 90,
+      fontSize: "90px",
       align: "center",
       color: "#FCE4CA",
     });

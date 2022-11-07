@@ -24,6 +24,10 @@ export default class MapaNiveles extends Phaser.Scene {
 
   create() {
 
+    if(!this.scale.isFullscreen){
+      this.scale.startFullscreen();
+    }
+
     this.add
       .image(this.cameras.main.centerX, this.cameras.main.centerY, this.fondo_mapa)
       .setScale(1.1);
@@ -31,14 +35,17 @@ export default class MapaNiveles extends Phaser.Scene {
 
     // comenzar a jugar
     let juego = this.add.image(this.cameras.main.centerX, 820, "boton_mapa").setScale(0.5);
-    this.jugar = this.add.text(215, 800, this.texto, {
+    const x = this.scale.width * 0.295
+		const y = this.scale.height * 0.530
+    
+    this.jugar = this.add.text(x,y, this.texto, {
       fontFamily: "Rockwell",
-      fontSize: 60,
+      fontSize: "60px",
       color: "#FCE4CA",
+      fontStyle: 'normal',
       align: "center",
       //border: 30,
-      top: 50,
-      left: 50,
+      
     }),
     
     juego.setInteractive();

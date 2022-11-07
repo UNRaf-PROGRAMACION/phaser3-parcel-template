@@ -7,6 +7,10 @@ export default class Creditos extends Phaser.Scene {
   }
 
   create() {
+    if(!this.scale.isFullscreen){
+      this.scale.startFullscreen();
+    }
+    
     // Fondo del menú principal
     this.add
       .image(
@@ -17,7 +21,7 @@ export default class Creditos extends Phaser.Scene {
       .setScale(1.1);
     this.add.text(150, 270, "CREDITOS", {
       fontFamily: "Rockwell",
-      fontSize: 90,
+      fontSize: "90px",
       align: "center",
       color: "#FCE4CA",
     });
@@ -29,7 +33,7 @@ export default class Creditos extends Phaser.Scene {
       "EMILIA GÜLL \n \nProgramadora \nGame Designer",
       {
         fontFamily: "Rockwell",
-        fontSize: 25,
+        fontSize: "25px",
         color: "#FCE4CA",
       }
     );
@@ -41,7 +45,7 @@ export default class Creditos extends Phaser.Scene {
       "VALENTINA GALVAN \n \nArtista \nGame Designer",
       {
         fontFamily: "Rockwell",
-        fontSize: 25,
+        fontSize: "25px",
         color: "#FCE4CA",
       }
     );
@@ -53,7 +57,7 @@ export default class Creditos extends Phaser.Scene {
       "AGOSTINA SALGADO \n \nArtista \nGame Designer",
       {
         fontFamily: "Rockwell",
-        fontSize: 25,
+        fontSize: "25px",
         color: "#FCE4CA",
       }
     );

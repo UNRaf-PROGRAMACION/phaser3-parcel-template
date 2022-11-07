@@ -17,6 +17,10 @@ export default class MenuPrincipal extends Phaser.Scene
 
   create()
     {
+      if(!this.scale.isFullscreen){
+        this.scale.startFullscreen();
+      }
+
     // Fondo del menú principal
     this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, "fondo_menu").setScale(1.1);
 
@@ -33,9 +37,9 @@ export default class MenuPrincipal extends Phaser.Scene
     let jugar = this.add.image(this.cameras.main.centerX, 625, 'jugar_boton').setScale(0.5);
     this.jugar = this.add.text(265, 600,'JUGAR', {
       fontFamily: "Rockwell",
-      fontSize: 60,
+      fontSize: "60px",
       color: "#FCE4CA",
-      textAlign: 'center',
+      align: 'center',
     });
     jugar.setInteractive()
     jugar.on('pointerdown', () => this.scene.start('MapaNiveles', {nivel: this.nivel}));

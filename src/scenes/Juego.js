@@ -33,6 +33,10 @@ export default class Juego extends Phaser.Scene {
   }
 
   create() {
+    if(!this.scale.isFullscreen){
+      this.scale.startFullscreen();
+    }
+    
     //inicializacion de variables
     let tarjeta1 = null;
     let tarjeta2 = null;
@@ -63,7 +67,7 @@ export default class Juego extends Phaser.Scene {
     this.add.image(150, 100, "boton_puntos").setScale(1.0);
     this.puntos = this.add.text(150, 70, corazones.toString(), {
       fontFamily: "Rockwell",
-      fontSize: 60,
+      fontSize: "60px",
       color: "#FCE4CA",
     });
 
@@ -85,7 +89,7 @@ export default class Juego extends Phaser.Scene {
     });
     this.timeText = this.add.text(390, 70, this.tiempo.toString(), {
       fontFamily: "Rockwell",
-      fontSize: 60,
+      fontSize: "60px",
       color: "#FCE4CA",
     });
 
@@ -152,12 +156,12 @@ export default class Juego extends Phaser.Scene {
             console.log(contexto.nivel)
             if (contexto.nivel == 5) {
               this.escena.scene.start("Final", {
-                corazones: corazones,
+                corazones: corazones
               });
             } else {
               this.escena.scene.start("Ganaste", {
                 nivel: this.escena.nivel,
-                corazones: corazones,
+                corazones: corazones
               });
             }
           }, 1200);

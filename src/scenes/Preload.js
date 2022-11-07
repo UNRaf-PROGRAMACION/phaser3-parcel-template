@@ -72,7 +72,7 @@ export default class Preload extends Phaser.Scene {
         { frameWidth: 90, frameHeight: 54.5 });
 
         this.load.spritesheet("sprite_reina", "assets/images2/sprite_reina.png",
-        { frameWidth: 97, frameHeight: 120 });
+        { frameWidth: 95, frameHeight: 120 });
       
         //const PROJECT_ID = '42';
           //let translations = null;
@@ -135,6 +135,7 @@ export default class Preload extends Phaser.Scene {
         }),
         frameRate: 5,
         repeat: -1,
+        yoyo: true,
       });
     }
 
