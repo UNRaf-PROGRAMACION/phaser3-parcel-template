@@ -47,7 +47,7 @@ export default class MapaNiveles extends Phaser.Scene {
       color: "#FCE4CA",
       fontStyle: "normal",
       align: "center",
-      //border: 30,
+      wordWrap: { width: 400 },
     })),
       juego.setInteractive();
     juego.on("pointerdown", () =>
