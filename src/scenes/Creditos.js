@@ -7,10 +7,10 @@ export default class Creditos extends Phaser.Scene {
   }
 
   create() {
-    if(!this.scale.isFullscreen){
+    if (!this.scale.isFullscreen) {
       this.scale.startFullscreen();
     }
-    
+
     // Fondo del menú principal
     this.add
       .image(

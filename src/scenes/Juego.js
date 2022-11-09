@@ -18,7 +18,6 @@ export default class Juego extends Phaser.Scene {
   coincidencias;
   perdiste;
   cartas = [];
-  
 
   constructor() {
     super("Juego");
@@ -33,14 +32,14 @@ export default class Juego extends Phaser.Scene {
   }
 
   create() {
-    if(!this.scale.isFullscreen){
+    if (!this.scale.isFullscreen) {
       this.scale.startFullscreen();
     }
-    
+
     //inicializacion de variables
     let tarjeta1 = null;
     let tarjeta2 = null;
-    
+
     let corazones;
     corazones = this.corazonesTotal;
 
@@ -52,7 +51,6 @@ export default class Juego extends Phaser.Scene {
     this.tiempo = cartasPorNivel[String(this.nivel)].tiempo;
     this.cartasMezcladas = false;
     this.cartas = [];
-
 
     // Fondo del nivel
     this.add
@@ -80,7 +78,6 @@ export default class Juego extends Phaser.Scene {
     menu.on("pointerdown", () => this.scene.start("MenuPrincipal"));
     //this.clic.play();
 
-    
     this.timedEvent = this.time.addEvent({
       delay: 1000,
       callback: this.onSecond,
@@ -92,8 +89,6 @@ export default class Juego extends Phaser.Scene {
       fontSize: "60px",
       color: "#FCE4CA",
     });
-
-    
 
     this.numeros = cartasPorNivel[String(this.nivel)].tipos;
     //agregar mas combinaciones de cartas
@@ -129,7 +124,6 @@ export default class Juego extends Phaser.Scene {
               tarjeta2.destroy();
             }, 500);
 
-
             this.escena.coincidencias++;
             setTimeout(() => {
               tarjetasDestapadas = 0;
@@ -139,9 +133,9 @@ export default class Juego extends Phaser.Scene {
               tarjeta1.setTexture("reverso");
               tarjeta2.setTexture("reverso");
               tarjetasDestapadas = 0;
-         
-            //En el nivel 3 si no se encuentran dos cartas iguales, se descuentan 2 segundos del temporizador:
-              if (contexto.nivel == 3){
+
+              //En el nivel 3 si no se encuentran dos cartas iguales, se descuentan 2 segundos del temporizador:
+              if (contexto.nivel == 3) {
                 contexto.tiempo -= 2;
                 contexto.timeText.setText(this.tiempo);
               }
@@ -151,17 +145,16 @@ export default class Juego extends Phaser.Scene {
 
         //Para ir a la pantalla de ganaste una vez que se dan vuelta todas las cartas
         if (this.escena.coincidencias === this.escena.coincidenciasNivel) {
-         
           setTimeout(() => {
-            console.log(contexto.nivel)
+            console.log(contexto.nivel);
             if (contexto.nivel == 5) {
               this.escena.scene.start("Final", {
-                corazones: corazones
+                corazones: corazones,
               });
             } else {
               this.escena.scene.start("Ganaste", {
                 nivel: this.escena.nivel,
-                corazones: corazones
+                corazones: corazones,
               });
             }
           }, 1200);
@@ -171,28 +164,23 @@ export default class Juego extends Phaser.Scene {
   }
 
   update() {
-    
-  
     //En el nivel 4, en el segundo 25 aparece el gato y bloquea un par de cartas al azar, tardan 5 segundos en desbloquearse nuevamente:
     //this.cartasBloqueadas = this.physics.add.staticGroup();
     //this.imagen = escena.add.image(x,y, "carta_bloqueada").setInteractive()
     //numeros8 = numeros8.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
-
-
     //En el nivel 5 aparece la reina a los 25 segundos y vuelve a mezclar las cartas:
-   
+
     if (this.nivel == 5) {
-      
       if (this.tiempo === 25 && this.cartasMezcladas == false) {
-        
         //agregar animacion reina
-        let SpriteReina = this.add.sprite(this.cameras.main.centerX, 1300,"sprite_reina").setScale(3.5);
-        SpriteReina.anims.play('animacion_reina',true);
+        let SpriteReina = this.add
+          .sprite(this.cameras.main.centerX, 1300, "sprite_reina")
+          .setScale(3.5);
+        SpriteReina.anims.play("animacion_reina", true);
         setTimeout(() => {
           SpriteReina.destroy();
         }, 3000);
-
 
         this.cartasMezcladas = true;
         //console.log("comienza mezclado", this.cartas);
@@ -219,7 +207,6 @@ export default class Juego extends Phaser.Scene {
       }
     }
   }
-
 
   onSecond() {
     if (!this.perdiste) {
