@@ -72,21 +72,7 @@ export default class Preload extends Phaser.Scene {
         { frameWidth: 90, frameHeight: 54.5 });
 
         this.load.spritesheet("sprite_reina", "assets/images2/sprite_reina.png",
-        { frameWidth: 95, frameHeight: 120 });
-      
-        //const PROJECT_ID = '42';
-          //let translations = null;
-          //let language = ES_AR;
-          //export async function getTranslations(lang = language) {
-          //language = lang;
-         // return await
-          //fetch(`https://traduci-la-strapi.herokuapp.com/api/translations/${42}/${ES_AR}`)
-          //.then(response => response.json())
-         // .then(data => {
-          //console.log(`FETCH TRANSLATIONS --- ${JSON.stringify(data)}`);
-          //localStorage.setItem('translations', data);
-          //});
-         // }
+        { frameWidth: 106.6, frameHeight: 120 });
         
         
         //this.load.audio('alicia_al_rescate', 'assets/sounds/alicia_al_rescate.mp3',

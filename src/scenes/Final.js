@@ -40,9 +40,9 @@ export default class Final extends Phaser.Scene
           });
 
         
-        this.puntajeFinal = this.add.text(165, 320, 'Corazones obtenidos:' [this.corazones], {
+          this.puntajeFinal = this.add.text (175, 360, `Corazones obtenidos: ${this.corazones}`, {
             fontFamily: "Rockwell",
-            fontSize: "60px",
+            fontSize: "30px",
             color: "#FCE4CA",
         });
 
