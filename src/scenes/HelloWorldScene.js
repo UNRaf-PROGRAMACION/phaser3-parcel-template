@@ -1,17 +1,5 @@
 import Phaser from "phaser";
-
-// Manejador de eventos centralizados para comunicacion de componentes
-
-// Importacion
-// import { sharedInstance as events } from './EventCenter'
-
-// Emisor de mensaje de difusion
-// Recibe el nombre del mensaje y los valores de parametro
-// events.emit('health-changed', this.health)
-
-// Receptor de mensaje, por ejemplo escena de UI
-// Recibe el nombre del mensaje y una funcion callback a ejecutar
-// events.on('health-changed', this.handleHealthChanged, this)
+import events from "./EventCenter";
 
 export default class HelloWorldScene extends Phaser.Scene {
   constructor() {
@@ -48,5 +36,22 @@ export default class HelloWorldScene extends Phaser.Scene {
     logo.setCollideWorldBounds(true);
 
     emitter.emitParticleAt(logo.x, logo.y, 4);
+
+    // add green rectangle for collider and asign physics
+    const floor = this.add.rectangle(400, 600, 800, 20, 0x00ff00);
+    this.physics.add.existing(floor, true);
+
+    // launch UI scene
+    this.scene.launch("ui");
+
+    // add collider with floor
+    this.physics.add.collider(logo, floor, () => {
+      console.log("collider-event");
+
+      // Event emitter
+      events.emit("collider-event", {
+        fecha: new Date().toLocaleTimeString(),
+      });
+    });
   }
 }
