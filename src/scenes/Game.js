@@ -19,5 +19,10 @@ export default class Game extends Phaser.Scene {
     super("game");
   }
 
+create() {
 
-}
+  console.log("");
+
+  this.scene.launch("ui");
+
+}}
