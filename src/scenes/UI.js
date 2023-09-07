@@ -18,9 +18,16 @@ export default class UI extends Phaser.Scene {
   constructor() {
     super("ui");
   }
+    
+    init(data) {
+      this.level = data.level;
+      this.clues = data.clues;
+      this.life = data.life;
+    }
 
-  // create() {
-  //  console.log("oliui");
-  // }
+    create() {
+      console.log("ui");
+      console.log(this.level, this.clues, this.life);
+    }
 
 }

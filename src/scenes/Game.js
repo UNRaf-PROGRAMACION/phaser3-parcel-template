@@ -15,14 +15,28 @@ import Phaser from "phaser";
 // events.on('health-changed', this.handleHealthChanged, this)
 
 export default class Game extends Phaser.Scene {
+  life;
+
+  level;
+
+  clues;
+
   constructor() {
     super("game");
   }
 
-create() {
+  init(data) {
+    this.life = data.life || 3;
+    this.level = data.level || 1;
+    this.clues = data.clues || 2;
+  }
 
-  console.log("");
-
-  this.scene.launch("ui");
-
-}}
+  create() {
+    console.log("game");
+    this.scene.launch("ui", {
+      life: this.life,
+      level: this.level,
+      clues: this.clues,
+    });
+  }
+}

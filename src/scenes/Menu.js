@@ -7,17 +7,17 @@ export default class Menu extends Phaser.Scene {
   
     create() {
 
-    const play = this.add.text(400, 300, "titulo").setInteractive();
+    const button = this.add.text(400, 300, "titulo").setInteractive();
         
-    play.on("pointerover", () => {
+    button.on("pointerover", () => {
         this.game.canvas.style.cursor = "pointer"
     });
   
-    play.on("pointerout", () => {
+    button.on("pointerout", () => {
         this.game.canvas.style.cursor = "default";
     });
     
-    play.on("pointerdown", () => {
+    button.on("pointerdown", () => {
         this.game.canvas.style.cursor = "default";
         this.scene.start("game");
     });
