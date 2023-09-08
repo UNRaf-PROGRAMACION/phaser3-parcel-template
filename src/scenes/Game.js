@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-// import events from "./EventCenter";
+import events from "./EventCenter";
 
 // Manejador de eventos centralizados para comunicacion de componentes
 
@@ -37,6 +37,22 @@ export default class Game extends Phaser.Scene {
       life: this.life,
       level: this.level,
       clues: this.clues,
+    });
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+  }
+
+  update() {
+    if (this.cursors.left.isDown) {
+      this.newLevel();
+    }
+  }
+
+  newLevel() {
+    this.level += 1;
+    console.log(this.level);
+    events.emit("passLevel", {
+      level: this.level,
     });
   }
 }

@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-// import events from "./EventCenter";
+import events from "./EventCenter";
 
 // Manejador de eventos centralizados para comunicacion de componentes
 
@@ -19,15 +19,26 @@ export default class UI extends Phaser.Scene {
     super("ui");
   }
     
-    init(data) {
-      this.level = data.level;
-      this.clues = data.clues;
-      this.life = data.life;
-    }
+  init(data) {
+    this.level = data.level;
+    this.clues = data.clues;
+    this.life = data.life;
+  }
 
-    create() {
-      console.log("ui");
-      console.log(this.level, this.clues, this.life);
-    }
+  create() {
+    console.log("ui");
+    console.log(this.level, this.clues, this.life);
+    this.levelText = this.add.text(10, 10, `Nivel: ${this.level}`);
+    this.add.text(320, 10, `Pistas acumuladas: ${this.clues}`);
+    this.add.text(710, 10, `Vida: ${this.life}`);
+
+    events.on("passLevel", this.passLevel, this);
+  }
+
+  passLevel(data) {
+    console.log(this.level);
+    this.level = data.level;
+    this.levelText.setText(`Nivel: ${this.level}`)
+  }
 
 }
