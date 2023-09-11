@@ -6,7 +6,7 @@ export default class Player extends Phaser.Scene
 
 constructor(scene, x, y, velocity)
 {
-super(scene);
+super("player");
 scene.add.existing(this);
 scene.physics.add.existing(this);
 this.player = this.physics.add.sprite(x, y, "player");
