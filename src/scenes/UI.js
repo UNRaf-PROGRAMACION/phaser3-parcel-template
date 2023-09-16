@@ -29,7 +29,6 @@ export default class UI extends Phaser.Scene {
     console.log("ui");
     console.log(this.level, this.clues, this.life);
     this.levelText = this.add.text(10, 10, `Nivel: ${this.level}`);
-    this.add.text(320, 10, `Pistas acumuladas: ${this.clues}`);
     this.add.text(710, 10, `Vida: ${this.life}`);
 
     events.on("passLevel", this.passLevel, this);

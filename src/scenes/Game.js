@@ -19,8 +19,6 @@ export default class Game extends Phaser.Scene {
 
   level;
 
-  clues;
-
   constructor() {
     super("game");
   }
@@ -28,7 +26,6 @@ export default class Game extends Phaser.Scene {
   init(data) {
     this.life = data.life || 3;
     this.level = data.level || 1;
-    this.clues = data.clues || 2;
   }
 
   create() {
@@ -36,7 +33,6 @@ export default class Game extends Phaser.Scene {
     this.scene.launch("ui", {
       life: this.life,
       level: this.level,
-      clues: this.clues,
     });
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -45,6 +41,12 @@ export default class Game extends Phaser.Scene {
   update() {
     if (this.cursors.left.isDown) {
       this.newLevel();
+    }
+    if (this.cursors.down.isDown) {
+      this.scene.start("gameOver");
+    }
+    if (this.cursors.up.isDown) {
+      this.scene.start("victory");
     }
   }
 
@@ -55,4 +57,5 @@ export default class Game extends Phaser.Scene {
       level: this.level,
     });
   }
+
 }
