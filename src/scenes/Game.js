@@ -43,7 +43,8 @@ export default class Game extends Phaser.Scene {
       this.newLevel();
     }
     if (this.cursors.down.isDown) {
-      this.scene.start("gameOver");
+      this.scene.start("gameOver", {
+      });
     }
     if (this.cursors.up.isDown) {
       this.scene.start("victory");
