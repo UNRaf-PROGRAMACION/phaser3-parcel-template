@@ -4,6 +4,7 @@ import Menu from "./scenes/Menu";
 import Game from "./scenes/Game";
 import GameOver from "./scenes/GameOver";
 import UI from "./scenes/UI";
+import Victory from "./scenes/Victory";
 
 const config = {
   type: Phaser.AUTO,
@@ -28,7 +29,7 @@ const config = {
       debug: false,
     },
   },
-  scene: [Preload,Menu,Game, UI,GameOver],
+  scene: [Preload,Menu,Game, UI, GameOver, Victory],
 };
 
 export default new Phaser.Game(config);
