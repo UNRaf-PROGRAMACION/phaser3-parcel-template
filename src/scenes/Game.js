@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
+import Player from "../components/Player";
 
 // Manejador de eventos centralizados para comunicacion de componentes
 
@@ -19,6 +20,8 @@ export default class Game extends Phaser.Scene {
 
   level;
 
+  player;
+
   constructor() {
     super("game");
   }
@@ -30,6 +33,20 @@ export default class Game extends Phaser.Scene {
 
   create() {
     console.log("game");
+
+    const map = this.make.tilemap({ key: "map1" });
+    const bgLayer = map.addTilesetImage("sky", "cielo");
+    map.createLayer("background", bgLayer, 0, 0);
+    map.getObjectLayer("objects");
+    const spawnPoint = map.findObject("objects", (obj) => obj.name === "player");
+
+    this.player = new Player (
+      this,
+      spawnPoint.x,
+      spawnPoint.y,
+      "cat"
+    );
+
     this.scene.launch("ui", {
       life: this.life,
       level: this.level,
@@ -39,7 +56,7 @@ export default class Game extends Phaser.Scene {
   }
 
   update() {
-    if (this.cursors.left.isDown) {
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.newLevel();
     }
     if (this.cursors.down.isDown) {
