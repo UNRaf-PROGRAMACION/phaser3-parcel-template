@@ -59,13 +59,15 @@ export default class Game extends Phaser.Scene {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.newLevel();
     }
-    if (this.cursors.down.isDown) {
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P).isDown) {
       this.scene.start("gameOver", {
       });
     }
-    if (this.cursors.up.isDown) {
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G).isDown) {
       this.scene.start("victory");
     }
+
+    this.player.movement();
   }
 
   newLevel() {
