@@ -48,17 +48,16 @@ update(){
 		this.body.velocity(-this.velocity);
 		this.player.anims.play("left", true);
 	  }
-	  
 	  else if (this.cursors.right.isDown) {
 		this.body.velocity(this.velocity);
 		this.player.anims.play("right", true);
 	  }
-	  
 	  else {
 		this.body.velocity(0);
 		this.player.anims.play("turn");
 	  }   
 }
+
 }
 
 
