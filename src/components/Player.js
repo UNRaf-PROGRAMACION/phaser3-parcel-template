@@ -13,6 +13,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.KeySave= null;
     this.facingDirection = null;
+    
   }
 
   update() {
