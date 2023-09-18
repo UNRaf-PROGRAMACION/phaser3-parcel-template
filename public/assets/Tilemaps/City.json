@@ -218,6 +218,20 @@
          "tilecount":0,
          "tileheight":50,
          "tilewidth":50
+        }, 
+        {
+         "columns":38,
+         "firstgid":815,
+         "image":"tileset.png",
+         "imageheight":1080,
+         "imagewidth":1920,
+         "margin":0,
+         "name":"tileset",
+         "spacing":0,
+         "tilecount":798,
+         "tileheight":50,
+         "tilewidth":50,
+         "transparentcolor":"#ff00ff"
         }],
  "tilewidth":50,
  "type":"map",

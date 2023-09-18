@@ -1,9 +1,9 @@
 // import Phaser from "phaser";
 // import events from "./EventCenter";
-// // //starts the game
-// // //Continue game
-// // //credits
-// // //Language selector
+// //starts the game
+// //Continue game
+// //credits
+// //Language selector
 // export default class MainMenu extends Phaser.Scene {
 //   constructor() {
 //     super("MainMenu");
