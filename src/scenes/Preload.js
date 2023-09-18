@@ -22,6 +22,8 @@ export default class Preload extends Phaser.Scene {
       frameHeight: 200,
       // startFrame: 10
     });
+    this.load.tilemapTiledJSON("City","assets/Tilemaps/City.json");
+    this.load.image("Mapcity","assets/Tilemaps/tileset.png");
   }
 
   create() {
