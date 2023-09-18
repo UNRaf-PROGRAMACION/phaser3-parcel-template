@@ -11,9 +11,15 @@
 //     this.velocity = velocity;
 //     this.cursor = scene.input.keyboard.createCursorKeys();
 
+//     this.xKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+
 //     this.KeySave= null;
 //     this.facingDirection = null;
 //   }
+
+    
+
+  
 
 //   update() {
 //     if (this.cursor.left.isDown) {
@@ -63,6 +69,14 @@
 //           this.anims.play("downStop");
 //       }
 //     }
+
+//     if (this.xKey.isDown && this.facingDirection === "left") {
+//       this.anims.play("AttackRight", true);
+//     }
+
+//     }
+
+//     attack() {
 
 //     }
 //   }
