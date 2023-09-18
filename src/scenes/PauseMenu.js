@@ -3,21 +3,3 @@
 
 // //Inventory
 // //stats
-// export default class Preloader extends Phaser.Scene {
-//     constructor() {
-//       super("PauseMenu");
-//     }
-
-//     init(){
-
-// }
-
-//     create(){
-        
-//     }
-
-//     update(){
-        
-//     }
-
-// }
