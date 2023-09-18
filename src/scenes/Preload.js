@@ -16,6 +16,12 @@ export default class Preload extends Phaser.Scene {
       frameHeight: 200,
       // startFrame: 10
     });
+
+    this.load.spritesheet("C4Attack", "assets/Images/C4Attack.png", {
+      frameWidth: 321,
+      frameHeight: 200,
+      // startFrame: 10
+    });
     this.load.tilemapTiledJSON("City","assets/Tilemaps/City.json");
     this.load.image("Mapcity","assets/Tilemaps/tileset.png");
   }
@@ -71,6 +77,13 @@ export default class Preload extends Phaser.Scene {
       key: "leftStop",
       frames: [{ key: "C4", frame: 4 }],
       frameRate: 1,
+    });
+
+    this.anims.create({
+      key: "AttackRight",
+      frames: this.anims.generateFrameNumbers("C4Attack", { start: 0, end: 1 }),
+      frameRate: 5,
+      repeat : -1,
     });
 
     this.scene.start("MainMenu");

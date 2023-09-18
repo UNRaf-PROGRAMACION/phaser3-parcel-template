@@ -11,6 +11,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.cursor = scene.input.keyboard.createCursorKeys();
 
+    this.xKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+
     this.KeySave= null;
     this.facingDirection = null;
     
@@ -63,6 +65,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
         default:
           this.anims.play("downStop");
       }
+    }
+
+    if (this.xKey.isDown && this.facingDirection === "left") {
+      this.anims.play("AttackRight", true);
     }
 
     }

@@ -20,56 +20,55 @@
 //         this.velocityPlayer;
 //       }
 
-//       init(data){
-//          this.level= data.level || 1
-//          this.vida= data.vida || 3
-//          this.experience= data.experience || 0
-//          this.velocityPlayer= data.velocityPlayer || 200
+//        init(data){
+//           this.level= data.level || 1
+//           this.vida= data.vida || 3
+//           this.experience= data.experience || 0
+//           this.velocityPlayer= data.velocityPlayer || 200
 
-//   }
+//    }
 
-//       create(){
+//        create(){
         
 //          const map = this.make.tilemap({ key: "City" });
 //          const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
 //          const background = map.createLayer("Ground", layerbackGround, 0, 0);
          
-      
 //       const layerObstacle = map.addTilesetImage(
 //        "TDJ2 - tileset","Mapcity",
       
-//      );
-//      const Obstacle = map.createLayer(
-//        "Deco",
-//        layerObstacle,
-//        0,
-//        0
+//       );
+//       const Obstacle = map.createLayer(
+//         "Deco",
+//         layerObstacle,
+//         0,
+//         0
        
-//      );
-//      this.player= new Player (
-//       this,
-//       212,
-//       200,
-//       "C4",
-//       this.velocityPlayer
+//       );
+//       this.player= new Player (
+//        this,
+//        212,
+//        200,
+//        "C4",
+//        this.velocityPlayer
      
 
 
-//   );
+//    );
      
 
-//      Obstacle.setCollisionByProperty({ colision: true });
-//      Obstacle.setSize(50,50)
-//       this.cameras.main.startFollow(this.player);
-//       this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-//       this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-//      this.physics.add.collider(this.player,Obstacle);
+//       Obstacle.setCollisionByProperty({ colision: true });
+//       Obstacle.setSize(50,50)
+//        this.cameras.main.startFollow(this.player);
+//        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+//        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+//       this.physics.add.collider(this.player,Obstacle);
      
-//       }
+//        }
 
-//       update(){
-//          this.player.update();
+//        update(){
+//           this.player.update();
 
-//       }
+//        }
 
-//   }
+//    }
