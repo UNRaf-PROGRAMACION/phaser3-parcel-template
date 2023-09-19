@@ -4,10 +4,11 @@ export default class Menu extends Phaser.Scene {
     constructor() {
       super("menu");
     }
-    
+
     create(){
 
-        this.add.image(300, 240, "bMenu");
+        this.add.image(300, 240, "bMenu")
+        ;
 
         this.nameText = this.add.text(70, 100, "La Ultima Misión",{
             fontSize: "20px",
