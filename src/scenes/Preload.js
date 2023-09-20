@@ -82,8 +82,8 @@ export default class Preload extends Phaser.Scene {
     this.anims.create({
       key: "AttackRight",
       frames: this.anims.generateFrameNumbers("C4Attack", { start: 0, end: 1 }),
-      frameRate: 5,
-      repeat : -1,
+      frameRate: 10,
+      repeat : 0,
     });
 
     this.scene.start("MainMenu");

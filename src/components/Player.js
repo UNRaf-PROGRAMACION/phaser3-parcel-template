@@ -15,7 +15,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.KeySave= null;
     this.facingDirection = null;
-    
+
+    this.isAttacking = false;    
   }
 
   update() {
@@ -67,9 +68,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if (this.xKey.isDown && this.facingDirection === "left") {
-      this.anims.play("AttackRight", true);
+    if (this.xKey.isDown && this.facingDirection === "left" && !this.isAttacking) {
+      this.anims.play("AttackRight");
+      this.isAttacking = true
+      
     }
+    if (this.xKey.isUp) {
+        this.isAttacking =  false;
+    }
+    
 
     }
   }
