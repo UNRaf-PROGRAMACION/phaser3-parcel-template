@@ -23,7 +23,7 @@ export default class Preload extends Phaser.Scene {
       // startFrame: 10
     });
     this.load.tilemapTiledJSON("City","assets/Tilemaps/City.json");
-    this.load.image("Mapcity","assets/Tilemaps/tileset.png");
+    this.load.image("Mapcity","assets/Images/tileset.png");
   }
 
   create() {
