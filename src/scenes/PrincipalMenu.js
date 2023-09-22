@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser from "phaser"
 
 export default class PrincipalMenu extends Phaser.Scene {
 
@@ -66,6 +66,7 @@ export default class PrincipalMenu extends Phaser.Scene {
 
   this.settingsText.on('pointerdown', () => {
     this.scene.launch("settings");
+    
   })
 
 
@@ -87,6 +88,7 @@ export default class PrincipalMenu extends Phaser.Scene {
       this.scene.launch("tutorial");
     })
 
+   
 
   }
 }
