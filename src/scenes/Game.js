@@ -1,10 +1,12 @@
 import Phaser from "phaser";
 import PrincipalCharacter from '../components/PrincipalCharacter';
-// import events from "./EventCenter";
+import events from "./EventCenter";
 import DynamiteGroup from "../components/Dynamite";
 
 export default class Game extends Phaser.Scene {
   character;
+
+  dynamite;
 
   velocity;
 
@@ -13,6 +15,10 @@ export default class Game extends Phaser.Scene {
   staminaBar;
 
   StaminaBarHeight;
+
+  gameSong;
+
+  dynamiteCuantity;
 
   constructor() {
     super("game");
@@ -23,6 +29,7 @@ export default class Game extends Phaser.Scene {
     this.stamina = 100;
     this.level = data.level || 1;
     this.score = data.score || 0;
+    this.dynamiteCuantity = data.dynamiteCuantity || 0;
   }
 
   create() {
@@ -31,6 +38,10 @@ export default class Game extends Phaser.Scene {
       level: this.level,
       score: this.score,
     });
+
+    this.gameSong =this.sound.add ("game-song");
+    this.gameSong.play();
+    this.gameSong.loop = true;
 
   // Crear el personaje
   this.character = new PrincipalCharacter(
@@ -46,21 +57,29 @@ export default class Game extends Phaser.Scene {
   this.dynamite = new DynamiteGroup(
     this,
   ) 
+  this.dynamite.create(300, 500, "dynamite");
+  this.dynamite.create(500, 500, "dynamite");
+  this.dynamite.create(700, 500, "dynamite");
 
-  this.dynamita = this.dynamite.getFirstDead();
-  if (this.dynamita) {
-    this.dynamita.setPosition(960, 500); // Establecer la posición de la dinamita
-    this.dynamita.setActive(true).setVisible(true); // Activar y hacer visible la dinamita
+  //  collider entre dinamita y personaje principal
+  this.physics.add.overlap(this.character, this.dynamite, this.hitDynamite, null, this);
   }
-}
-  
 
   
-
   update() {
     // Actualizar el personaje
     this.character.update();
   }
+
+  hitDynamite(character, dynamite) {
+    dynamite.disableBody(true, true)
+    this.dynamiteCuantity += 1;
+
+    events.emit("actualizarDatos", {
+      level: this.level,
+      score: this.score,
+      dynamiteCuantity: this.dynamiteCuantity
+    });
+  }
+
 }
-
-

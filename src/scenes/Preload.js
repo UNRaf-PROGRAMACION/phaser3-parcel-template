@@ -8,7 +8,9 @@ export default class Preload extends Phaser.Scene {
 
 preload() {
   this.load.image("principal-character", "./assets/sprites/principal-character.png");
-  this.load.image ("dynamite" , "./assets/sprites/dynamite.png")
+  this.load.image ("dynamite" , "./assets/sprites/dynamite.png");
+  this.load.audio("main-menu-song", "./assets/audio/mainMenuSong.mp3");
+  this.load.audio("game-song", "./assets/audio/gameSong.mp3");
 }
 
 create () {

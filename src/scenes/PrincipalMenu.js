@@ -4,6 +4,12 @@ export default class PrincipalMenu extends Phaser.Scene {
 
   playText;
 
+  settingsText;
+
+  tutorialText;
+
+  mainMenuSong;
+
   constructor() {
     super("principal-menu");
   }
@@ -11,6 +17,10 @@ export default class PrincipalMenu extends Phaser.Scene {
   create() {
     // Fondo negro
     this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000).setOrigin(0);
+
+    this.mainMenuSong = this.sound.add("main-menu-song");
+    this.mainMenuSong.play();
+    this.mainMenuSong.loop = true;
 
     // Texto de bienvenida
     this.add.text(100, 100, "Deep Ambition", {
@@ -35,7 +45,9 @@ export default class PrincipalMenu extends Phaser.Scene {
     });
 
     this.playText.on('pointerdown', () => {
-      this.scene.start("game"); // Cambia a la escena "lobby" cuando se hace clic
+      this.scene.start("game");
+      this.mainMenuSong.stop();
+      this.mainMenuSong.loop = false; // Cambia a la escena "lobby" cuando se hace clic
     });
 
 // texto de configuración
