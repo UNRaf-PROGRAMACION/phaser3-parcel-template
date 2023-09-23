@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 
+
 export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture, velocity) {
     super(scene, x, y, texture);
@@ -16,10 +17,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.KeySave= null;
     this.facingDirection = null;
 
-    this.isAttacking = false;    
+  }
+
+  create() {
+
   }
 
   update() {
+    this.body.setVelocity(0);
+
     if (this.cursor.left.isDown) {
       this.body.setVelocityX(-this.velocity);
       this.anims.play("walkingLeft", true);
@@ -39,11 +45,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(this.velocity);
       this.anims.play("walkingDown", true);
       this.KeySave= "down";
-
-    } else {
-      this.body.setVelocity(0);
-      this.KeySave= null;
-    }
+    } 
 
     if (this.KeySave !== null) {
       this.facingDirection = this.KeySave;
@@ -68,15 +70,68 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if (this.xKey.isDown && this.facingDirection === "left" && !this.isAttacking) {
-      this.anims.play("AttackRight");
-      this.isAttacking = true
-      
+    if (this.xKey.isDown) {
+      switch (this.facingDirection) {
+        case "left":
+          this.anims.play("AttackLeft");
+          this.body.setVelocity(0);
+          this.attack();
+          break;
+        case "right":
+          this.anims.play("AttackRight");
+          this.body.setVelocity(0);
+          this.attack();
+          break;
+        case "up":
+          this.anims.play("AttackUp");
+          this.body.setVelocity(0);
+          this.attack();
+          break;
+        case "down":
+          this.anims.play("AttackDown");
+          this.body.setVelocity(0);
+          this.attack();
+          break;
+      }
     }
-    if (this.xKey.isUp) {
-        this.isAttacking =  false;
     }
+
+    attack(){
+      let hitboxX = this.x;
+      let hitboxY = this.y;
+      let width = 120
+      let height = 120
+      switch (this.facingDirection) {
+        case "left":
+          width = 150
+          height = 200
+          hitboxX -= 180; // Adjust as needed
+          break;
+        case "right":
+          width = 150
+          height = 200
+          hitboxX += 180; // Adjust as needed
+          break;
+        case "up":
+          width = 212
+          height = 150
+          hitboxY -= 180; // Adjust as needed
+          break;
+        case "down":
+          width = 212
+          height = 150
+          hitboxY += 180; // Adjust as needed
+          break;
+    }
+    const hitbox = this.scene.add.rectangle(hitboxX, hitboxY, width, height);
+    this.scene.physics.add.existing(hitbox);
+
+    setTimeout(() => {
+      hitbox.destroy();
+    }, 100);
+
     
 
-    }
+
   }
+}

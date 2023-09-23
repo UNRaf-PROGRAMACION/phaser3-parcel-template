@@ -24,7 +24,7 @@ export default class City extends Phaser.Scene {
 
    init(data){
       this.level= data.level || 1
-      this.hp= data.hp || 3
+      this.hp= data.vida || 3
       this.experience= data.experience || 0
       this.velocityPlayer= data.velocityPlayer || 400
       this.velocitySquirrel= data.velocitySquirrel || 100
