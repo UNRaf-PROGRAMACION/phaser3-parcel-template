@@ -1,8 +1,8 @@
     import Phaser from "phaser";
-     //import events from "./EventCenter";
-     import Player from "../components/Player";
-import Enemies from "../components/Enemies";
-  
+
+    import Player from "../components/Player";
+    import Enemies from "../components/Enemies";  
+
 
     //  Main biome, player starts the game here and after completing some tasks unlocks the desert
     //  Has pathway to forest
@@ -47,6 +47,8 @@ import Enemies from "../components/Enemies";
          0
        
        );
+
+
        this.player= new Player (
         this,
         60,
@@ -74,7 +76,9 @@ import Enemies from "../components/Enemies";
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
        this.physics.add.collider(this.player,Obstacle);
      
-        }
+
+       
+      }
 
         update(){
            this.player.update();
