@@ -14,6 +14,7 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 221,
       frameHeight: 169,
     });
+    this.load.image("dog","assets/images/perrito.png");
 
     this.load.spritesheet("C4", "assets/Images/C4.png", {
       frameWidth: 212,
@@ -89,6 +90,34 @@ export default class Preload extends Phaser.Scene {
       frameRate: 1,
       repeat : 0,
     });
+    this.anims.create({
+      key: 'walk-up',
+      frames: this.anims.generateFrameNumbers('Squirrel', { start: 9, end: 11 }),
+      frameRate: 5,
+      repeat: -1 // Repetir indefinidamente
+    });
+    
+    this.anims.create({
+      key: 'walk-down',
+      frames: this.anims.generateFrameNumbers('Squirrel', { start: 13, end: 15 }),
+      frameRate: 5,
+      repeat: -1
+    });
+    
+    this.anims.create({
+      key: 'walk-left',
+      frames: this.anims.generateFrameNumbers('Squirrel', { start: 2, end: 0 }),
+      frameRate: 5,
+      repeat: -1
+    });
+    
+    this.anims.create({
+      key: 'walk-right',
+      frames: this.anims.generateFrameNumbers('Squirrel', { start: 5, end: 7 }),
+      frameRate: 5,
+      repeat: -1
+    });
+    
 
     this.scene.start("MainMenu");
   }
