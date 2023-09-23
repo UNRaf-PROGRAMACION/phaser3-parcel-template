@@ -1,6 +1,7 @@
     import Phaser from "phaser";
      //import events from "./EventCenter";
      import Player from "../components/Player";
+import Enemies from "../components/Enemies";
   
 
     //  Main biome, player starts the game here and after completing some tasks unlocks the desert
@@ -24,7 +25,8 @@
            this.level= data.level || 1
            this.vida= data.vida || 3
            this.experience= data.experience || 0
-           this.velocityPlayer= data.velocityPlayer || 200
+           this.velocityPlayer= data.velocityPlayer || 400
+           this.velocitySquirrel= data.velocitySquirrel || 300
 
     }
 
@@ -47,18 +49,26 @@
        );
        this.player= new Player (
         this,
-        212,
-        200,
+        60,
+        2300,
         "C4",
         this.velocityPlayer
      
 
 
     );
+    this.squirrel= new Enemies(
+      this,
+      500,
+      400,
+      "Squirrel",
+      this.velocitySquirrel,
+
+    )
      
 
        Obstacle.setCollisionByProperty({ colision: true });
-       Obstacle.setSize(50,50)
+       
         this.cameras.main.startFollow(this.player);
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -68,6 +78,7 @@
 
         update(){
            this.player.update();
+           this.squirrel.update();
 
         }
 
