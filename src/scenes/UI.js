@@ -16,7 +16,7 @@ import events from "./EventCenter";
 
 export default class UI extends Phaser.Scene {
   constructor() {
-    super("ui");
+    super("UI");
   }
   init(data){
     this.hp=data.hp || 200
@@ -24,9 +24,17 @@ export default class UI extends Phaser.Scene {
   }
 
   create() {
-this.vidaTexto= this.add.text(1600,50,`vida ${ this.hp}`,
-  fontSize = "50px")}
 
+    this.hpTexto = this.add.text(50, 60, `HP ${  this.hp}`, {
+      fontSize: "50px",
+    });
+    events.on("UpdateHP", this.UpdateHP, this);
+
+}
+UpdateHP(data) {
+  this.hp = data.hp;
+  this.hpTexto.setText(`HP ${this.hp}`);
+}
 
 
 }
