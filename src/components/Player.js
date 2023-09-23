@@ -20,6 +20,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   update() {
+    this.body.setVelocity(0);
+
     if (this.cursor.left.isDown) {
       this.body.setVelocityX(-this.velocity);
       this.anims.play("walkingLeft", true);
@@ -39,11 +41,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(this.velocity);
       this.anims.play("walkingDown", true);
       this.KeySave= "down";
-
-    } else {
-      this.body.setVelocity(0);
-      this.KeySave= null;
-    }
+    } 
 
     if (this.KeySave !== null) {
       this.facingDirection = this.KeySave;
