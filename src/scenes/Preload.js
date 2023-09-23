@@ -10,6 +10,10 @@ export default class Preload extends Phaser.Scene {
   preload() {
     this.load.image("menuBg", "assets/images/menuBg.jpg");
     this.load.image("title", "assets/images/title.png");
+    this.load.spritesheet("Squirrel","assets/images/Squirrel.png",{
+      frameWidth: 221,
+      frameHeight: 169,
+    });
 
     this.load.spritesheet("C4", "assets/Images/C4.png", {
       frameWidth: 212,
@@ -82,7 +86,7 @@ export default class Preload extends Phaser.Scene {
     this.anims.create({
       key: "AttackRight",
       frames: this.anims.generateFrameNumbers("C4Attack", { start: 0, end: 1 }),
-      frameRate: 10,
+      frameRate: 1,
       repeat : 0,
     });
 
