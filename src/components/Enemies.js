@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Player from "../components/Player";
 
 export default class Enemies extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture, velocity) {
@@ -17,7 +18,16 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.targetX = 0;
     this.targetY = 0;
     this.isFollowing = false;
+    this.enemyHp = 200;
     
+  }
+
+  takeDamage(damageAmount) {
+    this.enemyHp -= damageAmount;
+
+    if (this.enemyHp <= 0) {
+      this.setActive(false).setVisible(false);
+    }
   }
   
   

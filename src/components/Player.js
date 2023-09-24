@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import Enemies from "../components/Enemies";
+;
 
 
 export default class Player extends Phaser.GameObjects.Sprite {
@@ -17,10 +19,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.KeySave= null;
     this.facingDirection = null;
 
+    this.damageAmount = 100;
+
   }
 
   create() {
-
+    this.attack(this.scene);
   }
 
   update() {
@@ -92,15 +96,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
           this.body.setVelocity(0);
           this.attack();
           break;
+        default: 
+        this.anims.play("AttackDown");
+          this.body.setVelocity(0);
+          this.attack();
       }
     }
     }
 
-    attack(){
+    attack(scene) {
       let hitboxX = this.x;
       let hitboxY = this.y;
-      let width = 120
-      let height = 120
+      let width, height;
+      
       switch (this.facingDirection) {
         case "left":
           width = 150
@@ -126,12 +134,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
     const hitbox = this.scene.add.rectangle(hitboxX, hitboxY, width, height);
     this.scene.physics.add.existing(hitbox);
 
+    this.scene.physics.world.enable(hitbox);
+
     setTimeout(() => {
       hitbox.destroy();
     }, 100);
 
-    
-
+    // scene.physics.world.overlap(hitbox, scene.squirrels, (hitbox, enemy) => {
+    //   if (enemy instanceof Enemies) {
+    //     enemy.takeDamage(this.damageAmount);
+    //   }
+    // })
 
   }
 }

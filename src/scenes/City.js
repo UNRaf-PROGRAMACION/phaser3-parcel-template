@@ -59,6 +59,8 @@ export default class City extends Phaser.Scene {
 
 
 );
+
+
 this.squirrels.push(new Enemies(this, 500, 400, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 800, 400, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 1000, 600, "Squirrel", this.velocitySquirrel));
@@ -79,6 +81,17 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
    squirrel.targetY = Phaser.Math.Between(100, 1080);
    squirrel.velocity = 300;
    }
+
+   this.physics.world.on('overlap', (hitbox, enemy) => {
+    if (enemy instanceof Enemies) {
+      enemy.takeDamage(this.player.damageAmount);
+      console.log("piña")
+    }
+  })
+
+  this.player.attack(this);
+
+
  } 
    update() {
      this.player.update();
