@@ -4,6 +4,8 @@
  import Preload from "./scenes/Preload";
  import MainMenu from "./scenes/MainMenu";
  import City from "./scenes/City";
+ import UI from "./scenes/UI";
+
 
 
  const config = {
@@ -29,7 +31,7 @@
        debug: true,
      },
    },
-   scene: [Preload, MainMenu, City],
+   scene: [Preload, MainMenu, City,UI],
  };
 
  export default new Phaser.Game(config);

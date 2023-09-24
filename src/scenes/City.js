@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-//import events from "./EventCenter";
+import events from "./EventCenter";
 import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 
@@ -24,7 +24,7 @@ export default class City extends Phaser.Scene {
 
    init(data){
       this.level= data.level || 1
-      this.hp= data.vida || 3
+      this.hp= data.hp || 200
       this.experience= data.experience || 0
       this.velocityPlayer= data.velocityPlayer || 400
       this.velocitySquirrel= data.velocitySquirrel || 100
@@ -33,6 +33,10 @@ export default class City extends Phaser.Scene {
 }
 
    create(){
+    this.scene.launch("UI")
+      
+      
+    
    
      const map = this.make.tilemap({ key: "City" });
      const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
@@ -76,6 +80,7 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
   this.physics.add.collider(this.player,Obstacle);
+  this.physics.add.overlap(this.player,this.squirrels,this.DamageTaken,null,this)
   for (const squirrel of this.squirrels) {
    squirrel.targetX = Phaser.Math.Between(100, 1920);
    squirrel.targetY = Phaser.Math.Between(100, 1080);
@@ -139,5 +144,11 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
  
     
    }
+   
+}
+DamageTaken(player,squirrel){
+  console.log("choque")
+  this.hp --
+  events.emit("UpdateHP", { hp: this.hp });
 }
 }
