@@ -31,34 +31,22 @@ update() {
     if (this.cursor.left.isDown) {
         this.setVelocityX(-this.velocity);
         // this.anims.play('left', true);     
-    } else if (this.cursor.right.isDown) {
+        } else if (this.cursor.right.isDown) {
         this.setVelocityX(this.velocity);
         // this.anims.play('right', true);
-    } else if (this.cursor.up.isDown) {
+        } else if (this.cursor.up.isDown) {
         this.setVelocityY(-this.velocity);
         // this.anims.play('up', true);
-    }
-    else if (this.cursor.down.isDown) {
+        } else if (this.cursor.down.isDown) {
         this.setVelocityY(this.velocity);
         // this.anims.play('down', true);
-    }else {
+        } else {
         this.setVelocityX(0);
         this.setVelocityY(0);
         // this.anims.stop();
+        }
+
     }
-
-    // if (this.cursor.space.isDown) {
-    //     this.activateStamina();
-    // }
-}
-
-// activateStamina () {
-//     if (this.stamina >= 10) {
-//         this.velocity *= 1.5;
-//         this.stamina -= 10;
-// }
-
-
 
 }
 

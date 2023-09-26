@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 
+// import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
+
 export default class Settings extends Phaser.Scene {
 
     backButton;
@@ -13,6 +15,10 @@ export default class Settings extends Phaser.Scene {
     popupY;
     
     popupOutline; 
+
+    musicSlider;
+
+    soundSlider;
     
     constructor() {
         super("settings");
@@ -46,11 +52,61 @@ export default class Settings extends Phaser.Scene {
             color: '#fff'
         }).setInteractive();
 
+        //  hacer que backButton cambie de tamaño si lo pasas con el raton
+
+        this.backButton.on('pointerover', () => {
+            this.backButton.setScale(1.2); // Cambia el tamaño cuando el ratón está sobre él
+        });
+        
+        this.backButton.on('pointerout', () => {
+            this.backButton.setScale(1); // Restaura el tamaño cuando el ratón sale
+        });
+
         this.backButton.on('pointerdown', () => {
             // Detener la escena de configuración
             this.scene.stop("settings");
         });
 
         // Aquí puedes agregar más elementos de configuración, como controles de volumen, ajustes de calidad, etc.
+
+        //  // Crear un control deslizante para la música
+        // this.musicSlider = this.rexUI.add.slider({
+        //     x: this.popupX + 20,
+        //     y: this.popupY + 100,
+        //     width: this.popupWidth - 40,
+        //     value: 1, // Valor inicial del volumen de la música (1 es el volumen máximo)
+        // }).layout();
+
+        // // Crear un control deslizante para el sonido
+        // this.soundSlider = this.rexUI.add.slider({
+        //     x: this.popupX + 20,
+        //     y: this.popupY + 200,
+        //     width: this.popupWidth - 40,
+        //     value: 1, // Valor inicial del volumen del sonido (1 es el volumen máximo)
+        // }).layout();
+
+        // Agregar etiquetas para los controles deslizantes
+        this.add.text(this.popupX + 50, this.popupY + 70, "Volumen de Música", {
+            fontSize: '20px',
+            color: '#fff',
+        });
+        this.add.text(this.popupX + 50, this.popupY + 170, "Volumen de Sonido", {
+            fontSize: '20px',
+            color: '#fff',
+        });
+
+        // // Configurar eventos para actualizar el volumen
+        // this.musicSlider.on('valuechange', (newValue) => {
+        //     // Actualizar el volumen de la música con newValue (0 a 1)
+        //     this.newValue = Math.round(newValue * 100);
+        //     // Puedes reproducir un efecto de sonido aquí para que los jugadores prueben el volumen
+        //     this.sound.volume = newValue;
+        // });
+
+        // this.soundSlider.on('valuechange', (newValue) => {
+        //     // Actualizar el volumen del sonido con newValue (0 a 1)
+        //     // Puedes reproducir un efecto de sonido aquí para que los jugadores prueben el volumen
+        //     // this.sound.play('soundEffect', { volume: newValue });
+        // });
     }
 }

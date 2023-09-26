@@ -45,6 +45,15 @@ export default class Tutorial extends Phaser.Scene {
             color: '#fff'
         }).setInteractive();
 
+        
+        this.backButton.on('pointerover', () => {
+            this.backButton.setScale(1.2); // Cambia el tamaño cuando el ratón está sobre él
+        });
+        
+        this.backButton.on('pointerout', () => {
+            this.backButton.setScale(1); // Restaura el tamaño cuando el ratón sale
+        });
+
         this.backButton.on('pointerdown', () => {
             // Detener la escena de configuración
             this.scene.stop("tutorial");
