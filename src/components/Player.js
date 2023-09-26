@@ -131,20 +131,20 @@ export default class Player extends Phaser.GameObjects.Sprite {
           hitboxY += 180; // Adjust as needed
           break;
     }
+
     const hitbox = this.scene.add.rectangle(hitboxX, hitboxY, width, height);
     this.scene.physics.add.existing(hitbox);
-
     this.scene.physics.world.enable(hitbox);
 
     setTimeout(() => {
       hitbox.destroy();
     }, 100);
 
-    // scene.physics.world.overlap(hitbox, scene.squirrels, (hitbox, enemy) => {
+    // scene.physics.world.overlap(hitbox, scene.squirrelsGroup.getChildren(), (hitbox, enemy) => {
     //   if (enemy instanceof Enemies) {
     //     enemy.takeDamage(this.damageAmount);
     //   }
-    // })
+    // });
 
   }
 }

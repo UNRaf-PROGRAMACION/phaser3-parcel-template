@@ -28,7 +28,8 @@ export default class City extends Phaser.Scene {
       this.experience= data.experience || 0
       this.velocityPlayer= data.velocityPlayer || 400
       this.velocitySquirrel= data.velocitySquirrel || 100
-     
+      this.enemyHp = data.enemyhp || 200     
+      this.damageAmount = data.damageAmount || 100
 
 }
 
@@ -53,25 +54,22 @@ export default class City extends Phaser.Scene {
     0
   
   );
+
+  this.playersGroup = this.physics.add.group();
+
+
   this.player= new Player (
    this,
    60,
    2300,
    "C4",
    this.velocityPlayer
-
-
-
 );
-
 
 this.squirrels.push(new Enemies(this, 500, 400, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 800, 400, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 1000, 600, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirrel))
-
-
-
 
 
   Obstacle.setCollisionByProperty({ colision: true });
@@ -87,15 +85,7 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
    squirrel.velocity = 300;
    }
 
-   this.physics.world.on('overlap', (hitbox, enemy) => {
-    if (enemy instanceof Enemies) {
-      enemy.takeDamage(this.player.damageAmount);
-      console.log("piña")
-    }
-  })
-
-  this.player.attack(this);
-
+   this.physics.add.overlap(this.player, this.squirrels, this.playerHitEnemy, null, this);
 
  } 
    update() {
@@ -140,15 +130,26 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
        squirrel.targetX = Phaser.Math.Between(100, 1920);
        squirrel.targetY = Phaser.Math.Between(100, 1080);
      }
-     
- 
-    
-   }
-   
+    }
 }
+
 DamageTaken(player,squirrel){
   console.log("choque")
   this.hp --
   events.emit("UpdateHP", { hp: this.hp });
+}
+
+playerHitEnemy(hitbox, squirrel) {
+  if (squirrel instanceof Enemies) {
+    squirrel.takeDamage(this.player.damageAmount);
+  }
+}
+
+takeDamage(damageAmount) {
+  this.enemyHp -= damageAmount;
+
+  if (this.enemyHp <= 0) {
+    this.squirrels.disableBody();
+  }
 }
 }
