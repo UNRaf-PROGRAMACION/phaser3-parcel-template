@@ -20,6 +20,7 @@ export default class City extends Phaser.Scene {
     this.player;
     this.velocityPlayer;
     this.squirrels = []
+    this.squirrelsHP;
   }
 
    init(data){
@@ -28,12 +29,13 @@ export default class City extends Phaser.Scene {
       this.experience= data.experience || 0
       this.velocityPlayer= data.velocityPlayer || 400
       this.velocitySquirrel= data.velocitySquirrel || 100
+      this.squirrelsHP= data.squirrelsHP || 50
      
 
 }
 
    create(){
-    this.scene.launch("UI")
+    this.scene.launch("UI");
       
       
     
@@ -66,7 +68,7 @@ export default class City extends Phaser.Scene {
 this.squirrels.push(new Enemies(this, 500, 400, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 800, 400, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 1000, 600, "Squirrel", this.velocitySquirrel));
-this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirrel))
+this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirrel));
 
 
 
@@ -88,6 +90,7 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
    update() {
      this.player.update();
      for (const squirrel of this.squirrels) {
+      if(squirrel){
        const deltaX = squirrel.targetX - squirrel.x;
        const deltaY = squirrel.targetY - squirrel.y;
        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -108,6 +111,7 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
          squirrel.anims.play('walk-up', true);
        }
      }
+     
      
    
      if (distance > 2) {
@@ -130,12 +134,17 @@ this.squirrels.push(new Enemies(this, 900, 800, "Squirrel", this.velocitySquirre
      
  
     
-   }
+   }}
    
 }
 DamageTaken(player,squirrel){
   console.log("choque")
   this.hp --
   events.emit("UpdateHP", { hp: this.hp });
+  if(this.hp<=0){
+  
+   this.scene.stop("City");
+   this.scene.launch("GameEnd");
+  }
 }
 }

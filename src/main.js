@@ -5,6 +5,7 @@
  import MainMenu from "./scenes/MainMenu";
  import City from "./scenes/City";
  import UI from "./scenes/UI";
+ import GameEnd from "./scenes/GameEnd";
 
 
 
@@ -28,10 +29,10 @@
      default: "arcade",
      arcade: {
        gravity: { y: 200 },
-       debug: true,
+       debug: false,
      },
    },
-   scene: [Preload, MainMenu, City,UI],
+   scene: [Preload, MainMenu, City,GameEnd,UI]
  };
 
  export default new Phaser.Game(config);

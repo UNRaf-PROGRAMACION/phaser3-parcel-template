@@ -1,12 +1,12 @@
 import Phaser from "phaser";
 
 export default class Enemies extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, texture, velocity) {
+  constructor(scene, x, y, velocity,keyAssets) {
     
-    super(scene, x, y, texture);
+    super(scene, x, y, keyAssets );
     this.velocityX = velocity;
     
-    this.setTexture("Squirrel")
+    
     
    
     
