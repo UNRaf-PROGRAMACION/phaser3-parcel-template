@@ -1,5 +1,7 @@
 import Phaser from "phaser"
 
+import events from "./EventCenter";
+
 export default class PrincipalMenu extends Phaser.Scene {
 
   playText;
@@ -65,7 +67,9 @@ export default class PrincipalMenu extends Phaser.Scene {
   })
 
   this.settingsText.on('pointerdown', () => {
-    this.scene.launch("settings");
+    this.scene.launch("settings", {
+      mainMenuSong: this.mainMenuSong, // Pasa la música a la escena de configuración
+  });
     
   })
 
@@ -84,11 +88,12 @@ export default class PrincipalMenu extends Phaser.Scene {
       this.tutorialText.setScale(1);
     })
 
-    this.tutorialText.on('pointerdown', () => {
-      this.scene.launch("tutorial");
-    })
+    
+    events.on("music", this.musicTransfer, this);
 
-   
+  }
 
+  musicTransfer (data) {
+    this.mainMenuSong = data.mainMenuSong;
   }
 }

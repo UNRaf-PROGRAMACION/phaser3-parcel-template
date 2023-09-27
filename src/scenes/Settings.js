@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 
+import events from "./EventCenter";
+
 // import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
 
 export default class Settings extends Phaser.Scene {
@@ -16,9 +18,9 @@ export default class Settings extends Phaser.Scene {
     
     popupOutline; 
 
-    musicSlider;
+    musicVolume;
 
-    soundSlider;
+    soundVolume;
     
     constructor() {
         super("settings");
@@ -28,6 +30,13 @@ export default class Settings extends Phaser.Scene {
         this.popupHeight = 400;
         this.popupX = (1920 - this.popupWidth) / 2;
         this.popupY = (1080 - this.popupHeight) / 2;
+    }
+
+    init (data) {
+        this.volume = 1;
+        this.visibleVolume =100;
+        
+        this.mainMenuSong = data.mainMenuSong;
     }
 
     create() {
@@ -86,14 +95,17 @@ export default class Settings extends Phaser.Scene {
         // }).layout();
 
         // Agregar etiquetas para los controles deslizantes
-        this.add.text(this.popupX + 50, this.popupY + 70, "Volumen de Música", {
+        this.volumeText = this.add.text(this.popupX + 50, this.popupY + 70, `Volumen ${this.visibleVolume}`, {
             fontSize: '20px',
             color: '#fff',
-        });
-        this.add.text(this.popupX + 50, this.popupY + 170, "Volumen de Sonido", {
-            fontSize: '20px',
-            color: '#fff',
-        });
+        })
+       
+
+        // crear cursor
+        this.cursor = this.input.keyboard.createCursorKeys();
+
+        
+      
 
         // // Configurar eventos para actualizar el volumen
         // this.musicSlider.on('valuechange', (newValue) => {
@@ -109,4 +121,25 @@ export default class Settings extends Phaser.Scene {
         //     // this.sound.play('soundEffect', { volume: newValue });
         // });
     }
+
+    update () {
+        events.emit("music", {
+            mainMenuSong: this.mainMenuSong,
+          });
+          
+          if (this.cursor.left.isDown && this.volume > 0.1) {
+            this.volume -= 0.1;
+            this.visibleVolume -= 10;
+            this.mainMenuSong.setVolume (this.volume);
+            this.volumeText.setText (`Volumen ${this.visibleVolume}`);
+          } else if (this.cursor.right.isDown && this.volume < 1) {
+            this.volume += 0.1;
+            this.visibleVolume += 10;
+            this.volumeText.setText (`Volumen ${this.visibleVolume}`);
+            this.mainMenuSong.setVolume (this.volume);
+            }
+
+       
+    }
+
 }
