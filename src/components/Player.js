@@ -1,15 +1,18 @@
 import Phaser from "phaser";
 import Enemies from "../components/Enemies";
-;
+// import Hitbox from "../components/Hitbox";
 
 
 export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture, velocity) {
     super(scene, x, y, texture);
     this.setTexture("C4");
+
+
+
     scene.add.existing(this);
     scene.physics.add.existing(this);
-
+    this.scene = scene;
     this.body.allowGravity = false;
     this.velocity = velocity;
     this.cursor = scene.input.keyboard.createCursorKeys();
@@ -21,13 +24,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.damageAmount = 100;
 
-  }
-
-  create() {
     this.attack(this.scene);
+
   }
 
   update() {
+    this.hitbox.x = this.x;
+    this.hitbox.y = this.y;
     this.body.setVelocity(0);
 
     if (this.cursor.left.isDown) {
@@ -131,13 +134,18 @@ export default class Player extends Phaser.GameObjects.Sprite {
           hitboxY += 180; // Adjust as needed
           break;
     }
-
-    const hitbox = this.scene.add.rectangle(hitboxX, hitboxY, width, height);
-    this.scene.physics.add.existing(hitbox);
-    this.scene.physics.world.enable(hitbox);
+if(this.hitbox){ 
+  this.hitbox.setVisible(true);
+  // this.hitbox.setSize(width, height).updateDisplayOrigin().updateData();
+  this.hitbox.x = hitboxX;
+    this.hitbox.y = hitboxY;
+    this.hitbox.width = width;
+    this.hitbox.height = height;
+}
+    
 
     setTimeout(() => {
-      hitbox.destroy();
+      this.hitbox.setVisible(false);
     }, 100);
 
     // scene.physics.world.overlap(hitbox, scene.squirrelsGroup.getChildren(), (hitbox, enemy) => {
@@ -145,6 +153,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //     enemy.takeDamage(this.damageAmount);
     //   }
     // });
-
   }
-}
+  }
+
