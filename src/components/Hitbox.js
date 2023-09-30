@@ -22,8 +22,7 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
     update() {
       this.x = this.player.x;
       this.y = this.player.y;
-      // this.width = 100;
-      // this.height = 100;
+
 
       if (this.cursor.left.isDown) {
         this.facingDirection = "left";  
