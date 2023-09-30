@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import Enemies from "../components/Enemies";
-// import Hitbox from "../components/Hitbox";
+import Hitbox from "../components/Hitbox";
 
 
 export default class Player extends Phaser.GameObjects.Sprite {
@@ -24,13 +24,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.damageAmount = 100;
 
-    this.attack(this.scene);
+
 
   }
 
   update() {
-    this.hitbox.x = this.x;
-    this.hitbox.y = this.y;
+
     this.body.setVelocity(0);
 
     if (this.cursor.left.isDown) {
@@ -43,7 +42,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.anims.play("walkingRight", true);
       this.KeySave= "right";
 
-    } else if (this.cursor.space.isDown) {
+    } else if (this.cursor.up.isDown) {
       this.body.setVelocityY(-this.velocity);
       this.anims.play("walkingUp", true);
       this.KeySave= "up";
@@ -58,7 +57,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.facingDirection = this.KeySave;
     }
 
-    if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+    if (this.body.velocity.x === 0 && this.body.velocity.y === 0 && this.xKey.isDown === null) {
       switch (this.facingDirection) {
         case "left":
           this.anims.play("leftStop");
@@ -82,77 +81,24 @@ export default class Player extends Phaser.GameObjects.Sprite {
         case "left":
           this.anims.play("AttackLeft");
           this.body.setVelocity(0);
-          this.attack();
           break;
         case "right":
           this.anims.play("AttackRight");
           this.body.setVelocity(0);
-          this.attack();
           break;
         case "up":
           this.anims.play("AttackUp");
           this.body.setVelocity(0);
-          this.attack();
           break;
         case "down":
           this.anims.play("AttackDown");
           this.body.setVelocity(0);
-          this.attack();
           break;
         default: 
         this.anims.play("AttackDown");
           this.body.setVelocity(0);
-          this.attack();
       }
     }
     }
-
-    attack(scene) {
-      let hitboxX = this.x;
-      let hitboxY = this.y;
-      let width, height;
-      
-      switch (this.facingDirection) {
-        case "left":
-          width = 150
-          height = 200
-          hitboxX -= 180; // Adjust as needed
-          break;
-        case "right":
-          width = 150
-          height = 200
-          hitboxX += 180; // Adjust as needed
-          break;
-        case "up":
-          width = 212
-          height = 150
-          hitboxY -= 180; // Adjust as needed
-          break;
-        case "down":
-          width = 212
-          height = 150
-          hitboxY += 180; // Adjust as needed
-          break;
-    }
-if(this.hitbox){ 
-  this.hitbox.setVisible(true);
-  // this.hitbox.setSize(width, height).updateDisplayOrigin().updateData();
-  this.hitbox.x = hitboxX;
-    this.hitbox.y = hitboxY;
-    this.hitbox.width = width;
-    this.hitbox.height = height;
-}
-    
-
-    setTimeout(() => {
-      this.hitbox.setVisible(false);
-    }, 100);
-
-    // scene.physics.world.overlap(hitbox, scene.squirrelsGroup.getChildren(), (hitbox, enemy) => {
-    //   if (enemy instanceof Enemies) {
-    //     enemy.takeDamage(this.damageAmount);
-    //   }
-    // });
-  }
   }
 

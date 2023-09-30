@@ -15,7 +15,6 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 221,
       frameHeight: 169,
     });
-    this.load.image("dog","assets/images/perrito.png");
 
     this.load.spritesheet("C4", "assets/Images/C4.png", {
       frameWidth: 212,
@@ -23,11 +22,6 @@ export default class Preload extends Phaser.Scene {
       // startFrame: 10
     });
 
-    this.load.spritesheet("C4Attack", "assets/Images/C4Attack.png", {
-      frameWidth: 212,
-      frameHeight: 200,
-      // startFrame: 10
-    });
     this.load.tilemapTiledJSON("City","assets/Tilemaps/City.json");
     this.load.image("Mapcity","assets/Images/tileset.png");
   }
@@ -87,30 +81,30 @@ export default class Preload extends Phaser.Scene {
 
     this.anims.create({
       key: "AttackLeft",
-      frames: this.anims.generateFrameNumbers("C4Attack", { start: 0, end: 0 }),
-      frameRate: 1,
-      repeat : 0,
+      frames: this.anims.generateFrameNumbers("C4", { start: 27, end: 29 }),
+      frameRate: 15,
+      repeat: 0,
     });
 
     this.anims.create({
       key: "AttackRight",
-      frames: this.anims.generateFrameNumbers("C4Attack", { start: 1, end: 1 }),
-      frameRate: 1,
-      repeat : 0,
+      frames: this.anims.generateFrameNumbers("C4", { start: 24, end: 26 }),
+      frameRate: 15,
+      repeat: 0,
     });
 
     this.anims.create({
       key: "AttackUp",
-      frames: this.anims.generateFrameNumbers("C4Attack", { start: 3, end: 3 }),
-      frameRate: 1,
-      repeat : 0,
+      frames: this.anims.generateFrameNumbers("C4", { start: 33, end: 35 }),
+      frameRate: 15,
+      repeat: 0,
     });
 
     this.anims.create({
       key: "AttackDown",
-      frames: this.anims.generateFrameNumbers("C4Attack", { start: 2, end: 2 }),
-      frameRate: 1,
-      repeat : 0,
+      frames: this.anims.generateFrameNumbers("C4", { start: 30, end: 32 }),
+      frameRate: 15,
+      repeat: 0,
     });
     this.anims.create({
       key: 'walk-up',

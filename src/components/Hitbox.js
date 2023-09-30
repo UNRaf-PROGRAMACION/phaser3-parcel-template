@@ -1,61 +1,78 @@
-// import Phaser from "phaser";
-// import Enemies from "../components/Enemies";
-// import Player from "./Player";
+import Phaser from "phaser";
+import Enemies from "../components/Enemies";
+import Player from "./Player";
 
-// export default class Hitbox extends Phaser.GameObjects.Rectangle {
-//     constructor(scene, x, y, w, h) {
-//       super(scene, x, y, w, h);
-//       scene.add.existing(this);
-//       scene.physics.add.existing(this);
-//       this.body.setImmovable(true);
-//       this.body.allowGravity = false;
+export default class Hitbox extends Phaser.GameObjects.Rectangle {
+    constructor(scene, player) {
+      super(scene, player.x, player.y);
+      scene.add.existing(this);
+      scene.physics.add.existing(this);
+      this.body.setImmovable(true);
+      this.body.allowGravity = false;
 
-//       this.KeySave= null;
-//       this.facingDirection = null;
+      this.player = player;
+      this.cursor = scene.input.keyboard.createCursorKeys();
+      this.xKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
-//     }
+      this.setVisible(false);
 
-//     attack(scene) {
-//         let hitboxX = this.x;
-//         let hitboxY = this.y;
-//         let width, height;
-        
-//         switch (this.facingDirection) {
-//           case "left":
-//             width = 150
-//             height = 200
-//             hitboxX -= 180; // Adjust as needed
-//             break;
-//           case "right":
-//             width = 150
-//             height = 200
-//             hitboxX += 180; // Adjust as needed
-//             break;
-//           case "up":
-//             width = 212
-//             height = 150
-//             hitboxY -= 180; // Adjust as needed
-//             break;
-//           case "down":
-//             width = 212
-//             height = 150
-//             hitboxY += 180; // Adjust as needed
-//             break;
-//       }
-  
-//       const hitbox = this.scene.add.rectangle(hitboxX, hitboxY, width, height);
-//       this.scene.physics.add.existing(hitbox);
-//       this.scene.physics.world.enable(hitbox);
-  
-//       setTimeout(() => {
-//         hitbox.destroy();
-//       }, 100);
-  
-//       // scene.physics.world.overlap(hitbox, scene.squirrelsGroup.getChildren(), (hitbox, enemy) => {
-//       //   if (enemy instanceof Enemies) {
-//       //     enemy.takeDamage(this.damageAmount);
-//       //   }
-//       // });
-  
-//     }
-// }
+      this.facingDirection = null;
+    }
+
+    update() {
+      this.x = this.player.x;
+      this.y = this.player.y;
+      // this.width = 100;
+      // this.height = 100;
+
+      if (this.cursor.left.isDown) {
+        this.facingDirection = "left";  
+      } else if (this.cursor.right.isDown) {
+        this.facingDirection = "right";  
+      } else if (this.cursor.up.isDown) {
+        this.facingDirection = "up";
+      } else if (this.cursor.down.isDown) {
+        this.facingDirection = "down";
+      }   
+
+      if (this.xKey.isDown && this.facingDirection !== null) {
+        switch (this.facingDirection) {
+          case "left":
+            this.width = 150
+            this.height = 200
+            this.setPosition(this.player.x - 175, this.player.y);
+            this.attack();
+            break;
+          case "right":
+            this.width = 150
+            this.height = 200
+            this.setPosition(this.player.x + 175, this.player.y);
+            this.attack();
+            break;
+          case "up":
+            this.width = 212
+            this.height = 150
+            this.setPosition(this.player.x, this.player.y - 168);
+            this.attack();
+            break;
+          case "down":
+            this.width = 212
+            this.height = 150
+            this.setPosition(this.player.x, this.player.y + 168);
+            this.attack();
+            break;
+        }
+      } else {
+        this.setVisible(false);
+      }
+      console.log("hitbox width is " + this.width + " hitbox height is " + this.height);
+    }
+
+    attack(scene) {      
+  this.setVisible(true);
+  setTimeout(() => {
+    // Deactivate or hide the hitbox after a delay
+    this.setVisible(false);
+}, 100);
+  }
+}

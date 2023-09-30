@@ -1,16 +1,12 @@
 import Phaser from "phaser";
 import Player from "../components/Player";
-import Hitbox from "../components/Hitbox";
+
 
 export default class Enemies extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, velocity,keyAssets) {
+  constructor(scene, x, y, texture,velocity) {
     
-    super(scene, x, y, keyAssets );
+    super(scene, x, y, texture );
     this.velocityX = velocity;
-    
-    
-    
-   
     
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -30,6 +26,4 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       this.setActive(false).setVisible(false);
     }
   }
-  
-  
 }
