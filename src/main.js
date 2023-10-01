@@ -30,10 +30,10 @@
      default: "arcade",
      arcade: {
        gravity: { y: 0 },
-       debug: true,
+       debug: false,
      },
    },
-   scene: [Preload, MainMenu,Credits, City,GameEnd,UI]
+   scene: [Preload, MainMenu, Credits, City,GameEnd,UI]
  };
 
  export default new Phaser.Game(config);
