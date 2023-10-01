@@ -17,6 +17,7 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
       this.setVisible(false);
 
       this.facingDirection = null;
+      this.damageAmount = 100;
     }
 
     update() {
@@ -64,14 +65,15 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
       } else {
         this.setVisible(false);
       }
-      console.log("hitbox width is " + this.width + " hitbox height is " + this.height);
+      //console.log("hitbox width is " + this.width + " hitbox height is " + this.height);
     }
 
-    attack(scene) {      
-  this.setVisible(true);
-  setTimeout(() => {
-    // Deactivate or hide the hitbox after a delay
-    this.setVisible(false);
-}, 100);
-  }
+    attack() {
+      console.log("Player attacked");
+      this.setVisible(true);
+      setTimeout(() => {
+        // Deactivate or hide the hitbox after a delay
+        this.setVisible(false);
+      }, 100);
+    }
 }

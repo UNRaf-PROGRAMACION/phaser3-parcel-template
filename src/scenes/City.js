@@ -3,6 +3,7 @@ import events from "./EventCenter";
 import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 import Hitbox from "../components/Hitbox";
+import Npc from "../components/Npc";
 
 
 //  Main biome, player starts the game here and after completing some tasks unlocks the desert
@@ -22,6 +23,10 @@ export default class City extends Phaser.Scene {
     this.velocityPlayer;
     this.squirrels = []
     this.squirrelsHP;
+    this.squirrelsKilled;
+    this.squirrelsKilledText;
+    this.damageAmount;
+    this.enemyHp;
   }
 
    init(data){
@@ -33,6 +38,7 @@ export default class City extends Phaser.Scene {
       this.squirrelsHP= data.squirrelsHP || 50
       this.enemyHp = data.enemyhp || 200     
       this.damageAmount = data.damageAmount || 100
+      this.squirrelsKilled= data.squirrelsKilled || 0 
 
 }
 
@@ -64,12 +70,40 @@ export default class City extends Phaser.Scene {
     0
   
   );
+  const objectsLayer = map.getObjectLayer("Objects");
+  this.collectible = this.physics.add.group();
+  this.collectible.allowGravity= false
+    objectsLayer.objects.forEach((objData) => {
+      //console.log(objData.name, objData.type, objData.x, objData.y);
+
+      const { x = 0, y = 0, name } = objData;
+
+      switch (name) {
+        case "cura": {
+          // add star to scene
+          // console.log("estrella agregada: ", x, y);
+          const collectible1 = this.collectible
+            .create(x, y, "cura")
+            .setScale(0.4)
+            .setSize(200, 200);
+          break;
+        }
+        }
+      })
 
   this.playersGroup = this.physics.add.group();
+  this.collectibleGroup=this.physics.add.group();
+  this.squirrelGroup=this.physics.add.group();
 
      this.hitbox = new Hitbox (
       this,
       this.player
+   );
+   this.Eagle= new Npc(
+    this,
+    4500,
+    3800,
+    "Eagle"
    );
 
 
@@ -91,6 +125,8 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
   this.physics.add.overlap(this.squirrels, this.player);
   this.physics.add.collider(this.squirrels, Obstacle);
   this.physics.add.overlap(this.player, this.squirrels,this.DamageTaken,null,this);
+  this.physics.add.overlap(this.player, this.collectible,this.incrementedHP,null,this);
+  this.physics.add.overlap(this.player, this.Eagle,this.mision,null,this);
 
   for (const squirrel of this.squirrels) {
    squirrel.targetX = Phaser.Math.Between(600, 2800);
@@ -104,7 +140,9 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
  } 
    update() {
      this.player.update();
-     this.hitbox.update()
+     this.hitbox.update();
+     
+     
      for (const squirrel of this.squirrels) {
       
        const deltaX = squirrel.targetX - squirrel.x;
@@ -151,24 +189,21 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
 }}
 
 DamageTaken(player, squirrel){
-  console.log("choque");
-  this.hp--;
-  events.emit("UpdateHP", { hp: this.hp });
+  if (squirrel.active) {
+    console.log("choque");
+    this.hp--;
+    events.emit("UpdateHP", { hp: this.hp });
+  }
+
 
   if(this.hp <= 0){
-    let retryButton = this.add.text(this.player.x, this.player.y, "Moriste", {
-      fontSize: "128px",
-      fontFamily: "impact",
-      fill: "#FFFFFF"
-    }).setInteractive();
+    
 
     if (squirrel && squirrel.anims.isPlaying) {
       squirrel.anims.pause();
     }
 
-    retryButton.on("pointerdown", () => {
-      this.scene.start("City");
-    });
+   
 
         // Destroy each squirrel individually
     for (const s of this.squirrels) {
@@ -179,22 +214,42 @@ DamageTaken(player, squirrel){
     this.squirrels = [];
 
     
-  //  this.scene.stop("City");
-  //  this.scene.launch("GameEnd");
+    this.scene.pause("City");
+    this.scene.launch("GameEnd");
   }
 }
 
 playerHitEnemy(hitbox, squirrel) {
   if (squirrel instanceof Enemies) {
-    squirrel.takeDamage(this.player.damageAmount);
+    squirrel.takeDamage(this.hitbox.damageAmount);
   }
 }
 
-takeDamage(damageAmount) {
+takeDamage(damageAmount, squirrel) {
   this.enemyHp -= damageAmount;
 
   if (this.enemyHp <= 0) {
-    squirrels.destroy(true, true);
+    squirrel.remove()
+    this.squirrelsKilled++;
+    
+      this.squirrelsKilledText.setText(`Squirrels Killed ${this.squirrelsKilled}`);
+    
   }
+}
+
+
+mision(player,Eagle){
+  this.squirrelsKilledText= this.add.text(1000,60,"Squirrels Killed:",{
+    fontSize : "50px"
+  });
+  this.squirrelsKilledText.setScrollFactor(0)
+    
+ 
+}
+incrementedHP(player,collectible){
+  collectible.disableBody(true,true);
+  events.emit("UpdateHP", { hp: this.hp });
+  this.hp= this.hp + 25
+  
 }
 }

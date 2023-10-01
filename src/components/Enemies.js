@@ -24,6 +24,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
 
     if (this.enemyHp <= 0) {
       this.setActive(false).setVisible(false);
+      
     }
   }
 }
