@@ -2,9 +2,7 @@ import Phaser from "phaser";
 
 import events from "./EventCenter";
 
-// import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
-
-export default class Settings extends Phaser.Scene {
+export default class Pause extends Phaser.Scene {
 
     backButton;
 
@@ -23,7 +21,7 @@ export default class Settings extends Phaser.Scene {
     soundVolume;
     
     constructor() {
-        super("settings");
+        super("pause");
 
         // Definir valores para las variables de tamaño y posición del pop-up
         this.popupWidth = 600;
@@ -32,11 +30,11 @@ export default class Settings extends Phaser.Scene {
         this.popupY = (1080 - this.popupHeight) / 2;
     }
 
-    init (data) {
+    init(data) {
         this.volume = data.volume || 1;
         this.visibleVolume = data.visibleVolume || 100;
+        this.gameSong = data.gameSong;
         
-        this.mainMenuSong = data.mainMenuSong;
     }
 
     create() {
@@ -49,14 +47,14 @@ export default class Settings extends Phaser.Scene {
         this.popupOutline.strokeRect(this.popupX, this.popupY, this.popupWidth, this.popupHeight);
         
         // Título del pop-up de configuración
-        this.add.text(1920 / 2, this.popupY + 20, "Configuración", {
+        this.add.text(1920 / 2, this.popupY + 20, "pausa", {
             fontSize: '32px',
             color: '#fff',
             align: 'center'
         }).setOrigin(0.5);
 
         // Botón para volver al menú principal
-        this.backButton = this.add.text(this.popupX + 50, this.popupY + this.popupHeight - 50, "Volver al Menú", {
+        this.backButton = this.add.text(this.popupX + 50, this.popupY + 70, "reanudar", {
             fontSize: '20px',
             color: '#fff'
         }).setInteractive();
@@ -72,12 +70,14 @@ export default class Settings extends Phaser.Scene {
         });
 
         this.backButton.on('pointerdown', () => {
-            // Detener la escena de configuración
-            this.scene.stop("settings");
+            // Reanudar la escena del juego
+            this.scene.resume("game");
+            // Detener la escena de pausa
+            this.scene.stop("pause");
         });
 
         // Agregar etiquetas para los controles deslizantes
-        this.volumeText = this.add.text(this.popupX + 50, this.popupY + 70, `Volumen             ${this.visibleVolume}%`, {
+        this.volumeText = this.add.text(this.popupX + 50, this.popupY + 50, `Volumen             ${this.visibleVolume}%`, {
             fontSize: '20px',
             color: '#fff',
         })
@@ -85,26 +85,27 @@ export default class Settings extends Phaser.Scene {
         // crear cursor
         this.cursor = this.input.keyboard.createCursorKeys();
 
+
+
+
     }
 
     update () {
-        events.emit("music-settings", {
-            mainMenuSong: this.mainMenuSong,
+        events.emit("music", {
+            gameSong: this.gameSong,
         });
         
         if (this.cursor.left.isDown && this.volume > 0.1) {
             this.volume -= 0.1;
             this.visibleVolume -= 10;
-            this.mainMenuSong.setVolume (this.volume);
-            this.volumeText.setText (`Volumen             ${this.visibleVolume}%`);
+            this.gameSong.setVolume(this.volume);
+            this.volumeText.setText(`Volumen             ${this.visibleVolume}%`);
         } else if (this.cursor.right.isDown && this.volume < 1) {
             this.volume += 0.1;
             this.visibleVolume += 10;
-            this.volumeText.setText (`Volumen             ${this.visibleVolume}%`);
-            this.mainMenuSong.setVolume (this.volume);
+            this.gameSong.setVolume(this.volume);
+            this.volumeText.setText(`Volumen             ${this.visibleVolume}%`);
         }
 
-       
-    }
-
+}
 }

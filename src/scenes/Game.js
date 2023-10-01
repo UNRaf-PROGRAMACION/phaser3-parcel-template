@@ -63,12 +63,23 @@ export default class Game extends Phaser.Scene {
 
   //  collider entre dinamita y personaje principal
   this.physics.add.overlap(this.character, this.dynamite, this.hitDynamite, null, this);
+  events.on("music", this.musicTransfer, this);
+  
+  this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
   }
 
   
   update() {
     // Actualizar el personaje
     this.character.update();
+
+    if (this.keyP.isDown) {
+      this.scene.pause()
+      this.scene.launch("pause", {
+        gameSong: this.gameSong, 
+    });
+  }
   }
 
   hitDynamite(character, dynamite) {
@@ -81,5 +92,12 @@ export default class Game extends Phaser.Scene {
       dynamiteCuantity: this.dynamiteCuantity
     });
   }
+
+    musicTransfer (data) {
+      this.gameSong = data.gameSong;
+    }
+    
+  
+
 
 }

@@ -47,7 +47,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     });
 
     this.playText.on('pointerdown', () => {
-      this.scene.start("game");
+      this.scene.start("lobby");
       this.mainMenuSong.stop();
       this.mainMenuSong.loop = false; // Cambia a la escena "lobby" cuando se hace clic
     });
@@ -88,8 +88,12 @@ export default class PrincipalMenu extends Phaser.Scene {
       this.tutorialText.setScale(1);
     })
 
+    this.tutorialText.on('pointerdown', () => {
+      this.scene.launch ("tutorial");
+    });
+
     
-    events.on("music", this.musicTransfer, this);
+    events.on("music-settings", this.musicTransfer, this);
 
   }
 
