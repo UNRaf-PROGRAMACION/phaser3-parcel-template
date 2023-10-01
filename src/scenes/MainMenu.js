@@ -30,7 +30,16 @@
      startButton.on("pointerdown", () => {
          this.scene.start("City");
      });
-   }
 
-   update() {}
- }
+     let creditButton = this.add.text(826, 700, "Créditos", {
+      fontSize: "90px",
+      fontFamily: "impact",
+      fill: "#FFFFFF"
+    }).setInteractive();
+
+    creditButton.on("pointerdown", () => {
+        this.scene.start("Credits");
+    });
+  }
+  update() {}
+   }

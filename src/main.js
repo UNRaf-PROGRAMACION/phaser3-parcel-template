@@ -6,6 +6,7 @@
  import City from "./scenes/City";
  import UI from "./scenes/UI";
  import GameEnd from "./scenes/GameEnd";
+ import Credits from "./scenes/Credits";
 
 
 
@@ -32,7 +33,7 @@
        debug: true,
      },
    },
-   scene: [Preload, MainMenu, City,GameEnd,UI]
+   scene: [Preload, MainMenu,Credits, City,GameEnd,UI]
  };
 
  export default new Phaser.Game(config);

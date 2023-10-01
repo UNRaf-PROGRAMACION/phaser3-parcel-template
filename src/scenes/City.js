@@ -36,14 +36,15 @@ export default class City extends Phaser.Scene {
       this.velocityPlayer= data.velocityPlayer || 400
       this.velocitySquirrel= data.velocitySquirrel || 100
       this.enemyHp = data.enemyhp || 200     
-      this.damageAmount = data.damageAmount || 100
+      this.damageAmount = data.damageAmount || 0
       this.squirrelsKilled= data.squirrelsKilled || 0 
 
 }
 
    create(){
     this.scene.launch("UI");
-
+   
+    
      const map = this.make.tilemap({ key: "City" });
      const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
      const background = map.createLayer("Ground", layerbackGround, 0, 0);
@@ -125,7 +126,7 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
   this.physics.add.overlap(this.squirrels, this.player);
   this.physics.add.collider(this.squirrels, Obstacle);
   this.physics.add.overlap(this.player, this.squirrels,this.DamageTaken,null,this);
-  this.physics.add.overlap(this.player, this.collectible,this.incrementedHP,null,this);
+  this.physics.add.overlap(this.player, this.collectible,this.Heal,null,this);
   this.physics.add.overlap(this.player, this.Eagle,this.mision,null,this);
 
   for (const squirrel of this.squirrels) {
@@ -136,6 +137,12 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
 
    console.log(this.player)
    this.physics.add.overlap(this.hitbox, this.squirrels, this.playerHitEnemy, null, this);
+   this.squirrelsKilledText = this.add.text(1000, 60, "Squirrels Killed: 0", {
+    fontSize: "50px",
+   
+  });
+  this.squirrelsKilledText.setVisible(false);
+  this.squirrelsKilledText.setScrollFactor(0);
 
  } 
    update() {
@@ -221,32 +228,33 @@ DamageTaken(player, squirrel){
 playerHitEnemy(hitbox, squirrel) {
   if (squirrel instanceof Enemies) {
     squirrel.takeDamage(this.hitbox.damageAmount);
+    
+      squirrel.anims.pause();
+      this.squirrelsKilled++;
+      
+      this.squirrelsKilledText.setText(`Squirrels Killed:${this.squirrelsKilled}`);
+      
+      //squirrel.destroy(true);
+      
+    
   }
-}
+  }
+  
 
-takeDamage(damageAmount, squirrel) {
+
+takeDamage(damageAmount) {
   this.enemyHp -= damageAmount;
-
-  if (this.enemyHp <= 0) {
-    this.squirrelsKilled++;
-    
-    this.squirrelsKilledText.setText(`Squirrels Killed ${this.squirrelsKilled}`);
-    this.setActive(false).setVisible(false);
-    this.destroy();
-    
-  }
 }
+  
 
 
 mision(player,Eagle){
-  this.squirrelsKilledText= this.add.text(1000,60,"Squirrels Killed:",{
-    fontSize : "50px"
-  });
-  this.squirrelsKilledText.setScrollFactor(0)
+ this.squirrelsKilledText.setVisible(true);
+ 
     
  
 }
-incrementedHP(player,collectible){
+Heal(player,collectible){
   collectible.disableBody(true,true);
   events.emit("UpdateHP", { hp: this.hp });
   this.hp= this.hp + 25
