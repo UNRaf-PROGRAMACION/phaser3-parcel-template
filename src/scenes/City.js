@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import events from "./EventCenter";
 import Player from "../components/Player";
 import Enemies from "../components/Enemies";
-import Hitbox from "../components/Hitbox";
+import Hitbox from "../components/AttackHitbox";
 
 
 //  Main biome, player starts the game here and after completing some tasks unlocks the desert
@@ -21,7 +21,7 @@ export default class City extends Phaser.Scene {
     this.player;
     this.velocityPlayer;
     this.squirrels = []
-    this.squirrelsHP;
+    this.enemyHp
   }
 
    init(data){
@@ -30,7 +30,6 @@ export default class City extends Phaser.Scene {
       this.experience= data.experience || 0
       this.velocityPlayer= data.velocityPlayer || 400
       this.velocitySquirrel= data.velocitySquirrel || 100
-      this.squirrelsHP= data.squirrelsHP || 50
       this.enemyHp = data.enemyhp || 200     
       this.damageAmount = data.damageAmount || 100
 
@@ -151,10 +150,12 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
 }}
 
 DamageTaken(player, squirrel){
-  console.log("choque");
-  this.hp--;
-  events.emit("UpdateHP", { hp: this.hp });
-
+  if (squirrel.active) {
+    console.log("choque");
+    this.hp--;
+    events.emit("UpdateHP", { hp: this.hp });
+  }
+  
   if(this.hp <= 0){
     let retryButton = this.add.text(this.player.x, this.player.y, "Moriste", {
       fontSize: "128px",
@@ -194,7 +195,8 @@ takeDamage(damageAmount) {
   this.enemyHp -= damageAmount;
 
   if (this.enemyHp <= 0) {
-    squirrels.destroy(true, true);
+    this.setActive(false).setVisible(false);
+    this.destroy();
   }
 }
 }

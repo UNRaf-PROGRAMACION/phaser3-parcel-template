@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import Enemies from "../components/Enemies";
+import Enemies from "./Enemies";
 import Player from "./Player";
 
 export default class Hitbox extends Phaser.GameObjects.Rectangle {

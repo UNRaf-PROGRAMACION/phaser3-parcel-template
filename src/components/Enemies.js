@@ -20,10 +20,13 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
   }
 
   takeDamage(damageAmount) {
-    this.enemyHp -= damageAmount;
+    if (this.active) {
+      this.enemyHp -= damageAmount;
 
-    if (this.enemyHp <= 0) {
-      this.setActive(false).setVisible(false);
-    }
+      if (this.enemyHp <= 0) {
+        this.anims.stop();
+        this.setActive(false).setVisible(false);
+      }
+    }    
   }
 }
