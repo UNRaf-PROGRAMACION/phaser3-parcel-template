@@ -4,8 +4,13 @@ export default class PrincipalCharacter extends Phaser.Physics.Arcade.Sprite {
     
     velocity;
 
+    flashEffect;
+
     // stamina;
 
+    cursor;
+
+    canUseFlash;
 
     constructor(scene, x, y, texture, velocity /*   stamina  */) {
         super(scene, x, y, texture);
@@ -20,6 +25,12 @@ export default class PrincipalCharacter extends Phaser.Physics.Arcade.Sprite {
 
         this.velocity = velocity;
         this.cursor = scene.input.keyboard.createCursorKeys();
+
+        this.flashEffect = scene.add.image(x, y, "flash-effect");
+        this.flashEffect.setDepth(1); // Asegurarse de que esté por encima del personaje
+        this.flashEffect.setVisible(false); // Inicialmente oculto
+
+        this.canUseFlash = true;
 
         // this.stamina = stamina;
 }
@@ -46,8 +57,26 @@ update() {
         // this.anims.stop();
         }
 
+        if (this.cursor.space.isDown && this.canUseFlash) {
+            // Mostrar el destello y configurar su posición
+            this.flashEffect.setVisible(true);
+            this.flashEffect.setPosition(this.x, this.y);
+    
+            // Deshabilitar el uso del destello durante 20 segundos
+            this.canUseFlash = false;
+            
+            this.scene.time.delayedCall(20000, () => {
+                this.canUseFlash = true; // Habilitar nuevamente el uso del destello
+            });
+    
+            // Establecer un temporizador para ocultar el destello después de un breve período
+            this.scene.time.delayedCall(100, () => {
+                this.flashEffect.setVisible(false);
+            });
+        }
     }
+}    
 
-}
+
 
 

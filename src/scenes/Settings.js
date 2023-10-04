@@ -2,8 +2,6 @@ import Phaser from "phaser";
 
 import events from "./EventCenter";
 
-// import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
-
 export default class Settings extends Phaser.Scene {
 
     backButton;
@@ -74,6 +72,10 @@ export default class Settings extends Phaser.Scene {
         this.backButton.on('pointerdown', () => {
             // Detener la escena de configuración
             this.scene.stop("settings");
+            this.scene.resume("principal-menu",{
+                visibleVolume: this.visibleVolume,
+                volume: this.volume,
+            });
         });
 
         // Agregar etiquetas para los controles deslizantes
@@ -103,8 +105,5 @@ export default class Settings extends Phaser.Scene {
             this.volumeText.setText (`Volumen             ${this.visibleVolume}%`);
             this.mainMenuSong.setVolume (this.volume);
         }
-
-       
     }
-
 }

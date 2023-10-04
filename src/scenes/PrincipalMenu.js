@@ -12,8 +12,16 @@ export default class PrincipalMenu extends Phaser.Scene {
 
   mainMenuSong;
 
+
+  volume;
+
   constructor() {
     super("principal-menu");
+  }
+
+  init (data) {
+    this.volume = data.volume || 1;
+    this.visibleVolume = data.visibleVolume || 100;
   }
 
   create() {
@@ -69,8 +77,10 @@ export default class PrincipalMenu extends Phaser.Scene {
   this.settingsText.on('pointerdown', () => {
     this.scene.launch("settings", {
       mainMenuSong: this.mainMenuSong, // Pasa la música a la escena de configuración
+      volume: this.volume,
+      visibleVolume: this.visibleVolume,
   });
-    
+  this.scene.pause();
   })
 
 
@@ -90,6 +100,7 @@ export default class PrincipalMenu extends Phaser.Scene {
 
     this.tutorialText.on('pointerdown', () => {
       this.scene.launch ("tutorial");
+      this.scene.pause();
     });
 
     

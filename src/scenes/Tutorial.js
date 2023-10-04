@@ -57,6 +57,7 @@ export default class Tutorial extends Phaser.Scene {
         this.backButton.on('pointerdown', () => {
             // Detener la escena de configuración
             this.scene.stop("tutorial");
+            this.scene.resume("principal-menu");
         });
 
     }
