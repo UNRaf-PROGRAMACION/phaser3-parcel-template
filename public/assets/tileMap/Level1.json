@@ -481,11 +481,11 @@
         {
          "columns":6,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/..\/..\/Downloads\/sdrhdfrtjdj7.png",
+         "image":"../sprites/Atlas.png",
          "imageheight":268,
          "imagewidth":489,
          "margin":0,
-         "name":"sdrhdfrtjdj7",
+         "name":"Atlas",
          "spacing":0,
          "tilecount":24,
          "tileheight":67,

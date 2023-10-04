@@ -20,6 +20,8 @@ export default class Game extends Phaser.Scene {
 
   dynamiteCuantity;
 
+  level1Tile;
+
   constructor() {
     super("game");
   }
@@ -38,6 +40,16 @@ export default class Game extends Phaser.Scene {
       level: this.level,
       score: this.score,
     });
+
+    this.level1Tile = this.make.tilemap({ key: "level1" });
+
+    this.floor = this.level1Tile.addTilesetImage("Atlas", "Floor");
+    this.wallCollision = this.level1Tile.addTilesetImage("Atlas", "WallC");
+    this.wallDecorative = this.level1Tile.addTilesetImage("Atlas", "WallD");
+
+    this.floorLayer = this.level1Tile.createLayer("Floor", this.floor, 0, 0);
+    this.wallCollisionLayer = this.level1Tile.createLayer("WallC", this.wallCollision, 0, 0);
+    this.wallDecorativeLayer = this.level1Tile.createLayer("WallD", this.wallDecorative, 0, 0);
 
     this.gameSong =this.sound.add ("game-song");
     this.gameSong.play();
