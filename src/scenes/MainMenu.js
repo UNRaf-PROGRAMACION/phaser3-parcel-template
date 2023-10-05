@@ -29,8 +29,8 @@ import keys from "../enums/keys";
 
      this.add.image(990, 300, "title").setScale(2);
 
-     let startButton = this.add.text(850, 500, getPhrase(this.play), {
-       fontSize: "128px",
+     let startButton = this.add.text(840, 500, getPhrase(this.play), {
+       fontSize: "90px",
        fontFamily: "impact",
        fill: "#FFFFFF"
      }).setInteractive();
@@ -39,8 +39,8 @@ import keys from "../enums/keys";
          this.scene.start("City");
      });
 
-     let creditButton = this.add.text(826, 700, getPhrase(this.credits), {
-      fontSize: "90px",
+     let creditButton = this.add.text(810, 640, getPhrase(this.credits), {
+      fontSize: "80px",
       fontFamily: "impact",
       fill: "#FFFFFF"
     }).setInteractive();
@@ -49,8 +49,8 @@ import keys from "../enums/keys";
         this.scene.start("Credits");
     });
 
-    let languageButton = this.add.text(820, 850, getPhrase(this.languagesSelec), {
-      fontSize: "90px",
+    let languageButton = this.add.text(785, 780, getPhrase(this.languagesSelec), {
+      fontSize: "80px",
       fontFamily: "impact",
       fill: "#FFFFFF"
     }).setInteractive();

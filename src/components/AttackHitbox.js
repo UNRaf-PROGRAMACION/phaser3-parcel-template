@@ -14,7 +14,7 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
       this.cursor = scene.input.keyboard.createCursorKeys();
       this.xKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
-      this.setVisible(false);
+      this.setActive(false).setVisible(false);
 
       this.facingDirection = null;
       this.damageAmount = 100;
@@ -63,17 +63,17 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
             break;
         }
       } else {
-        this.setVisible(false);
+        this.setActive(false).setVisible(false);
       }
       //console.log("hitbox width is " + this.width + " hitbox height is " + this.height);
     }
 
     attack() {
       console.log("Player attacked");
-      this.setVisible(true);
+      this.setActive(true).setVisible(true);
       setTimeout(() => {
         // Deactivate or hide the hitbox after a delay
-        this.setVisible(false);
+        this.setActive(false).setVisible(false);
       }, 100);
     }
 }

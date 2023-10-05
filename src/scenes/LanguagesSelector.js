@@ -38,7 +38,7 @@ import keys from "../enums/keys";
 
     this.#textSpanish = this.add
       .text(400, 600, getPhrase(this.spanishSel), {
-        fontSize: "128px",
+        fontSize: "80px",
         fontFamily: "impact",
         fill: "#FFFFFF"
       })
@@ -48,8 +48,8 @@ import keys from "../enums/keys";
       })
 
     this.#textEnglish = this.add
-      .text(1000, 600, getPhrase(this.englishSel) ,{
-        fontSize: "128px",
+      .text(1100, 600, getPhrase(this.englishSel) ,{
+        fontSize: "80px",
         fontFamily: "impact",
         fill: "#FFFFFF"
       })
@@ -61,7 +61,7 @@ import keys from "../enums/keys";
 
     this.#updatedTextInScene = this.add
     .text(20, 20, getPhrase(this.#updatedString), {
-      fontSize: "128px",
+      fontSize: "80px",
       fontFamily: "impact",
       fill: "#FFFFFF"
     })
