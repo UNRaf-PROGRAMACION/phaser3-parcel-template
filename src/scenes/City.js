@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import EasyStar from "easystarjs"
 import events from "./EventCenter";
 import Player from "../components/Player";
 import Enemies from "../components/Enemies";
@@ -49,18 +50,24 @@ export default class City extends Phaser.Scene {
    
     
      const map = this.make.tilemap({ key: "City" });
+     this.tileWidth = map.tileWidth;
+     this.tileHeight = map.tileHeight;    
+
      const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
      const background = map.createLayer("Ground", layerbackGround, 0, 0);
      const layerObstacle = map.addTilesetImage("TDJ2 - tileset","Mapcity",);
-     const Obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
+     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
+
+     this.easystar = new EasyStar.js();
+     this.easystar.setGrid(this.makeGrid(map, background, obstacle));
+     this.easystar.setAcceptableTiles([0]);
 
      const objectsLayer = map.getObjectLayer("Objects");
      this.collectible = this.physics.add.group();
      this.collectible.allowGravity= false
      objectsLayer.objects.forEach((objData) => {
-         //console.log(objData.name, objData.type, objData.x, objData.y);
-   
-         const { x = 0, y = 0, name } = objData;
+//console.log(objData.name, objData.type, objData.x, objData.y);
+    const { x = 0, y = 0, name } = objData;
    
     switch (name) {
         case "cura": {
@@ -75,8 +82,6 @@ export default class City extends Phaser.Scene {
       }
     });
 
-     
-
      this.player = new Player (
       this,
       4100,
@@ -85,11 +90,9 @@ export default class City extends Phaser.Scene {
       this.velocityPlayer
    );
 
-     const top = map.createLayer("Top", layerbackGround, 0, 0);
+    const top = map.createLayer("Top", layerbackGround, 0, 0);
+
     
-
-  
-
 
   this.playersGroup = this.physics.add.group();
   this.collectibleGroup=this.physics.add.group();
@@ -109,29 +112,30 @@ export default class City extends Phaser.Scene {
 
 
 
-this.squirrels.push(new Enemies(this, 500, 2300, "Squirrel", this.velocitySquirrel));
-this.squirrels.push(new Enemies(this, 800, 2500, "Squirrel", this.velocitySquirrel));
-this.squirrels.push(new Enemies(this, 1000, 2700, "Squirrel", this.velocitySquirrel));
-this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirrel));
+this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel));
+this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel));
+this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel));
+this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel));
 
 
-  Obstacle.setCollisionByProperty({ colision: true });
+  obstacle.setCollisionByProperty({ colision: true });
   
    this.cameras.main.startFollow(this.player);
    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-  this.physics.add.collider(this.player, Obstacle);
+  this.physics.add.collider(this.player, obstacle);
   this.physics.add.overlap(this.player, this.squirrels);
   this.physics.add.overlap(this.squirrels, this.player);
-  this.physics.add.collider(this.squirrels, Obstacle);
+  this.physics.add.collider(this.squirrels, obstacle);
   this.physics.add.overlap(this.player, this.squirrels,this.DamageTaken,null,this);
   this.physics.add.overlap(this.player, this.collectible,this.Heal,null,this);
   this.physics.add.overlap(this.player, this.Eagle,this.mision,null,this);
 
   for (const squirrel of this.squirrels) {
-   squirrel.targetX = Phaser.Math.Between(600, 2800);
-   squirrel.targetY = Phaser.Math.Between(600, 2800);
+    // squirrel.patrol();    
+   squirrel.targetX = Phaser.Math.Between(20, 2500);
+   squirrel.targetY = Phaser.Math.Between(10, 300);
    squirrel.velocity = 300;
    }
 
@@ -148,8 +152,7 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
    update() {
      this.player.update();
      this.hitbox.update();
-     
-     
+    
      for (const squirrel of this.squirrels) {
       
        const deltaX = squirrel.targetX - squirrel.x;
@@ -189,11 +192,47 @@ this.squirrels.push(new Enemies(this, 900, 2900, "Squirrel", this.velocitySquirr
      squirrel.y += movementY;
      } else {
        
-       squirrel.targetX = Phaser.Math.Between(100, 1920);
-       squirrel.targetY = Phaser.Math.Between(100, 1080);
+       squirrel.targetX = Phaser.Math.Between(20, 2500);
+       squirrel.targetY = Phaser.Math.Between(10, 300);
      }
     
-}}
+}
+for (const squirrel of this.squirrels) {
+  const startX = Math.floor(squirrel.x / this.tileWidth);
+  const startY = Math.floor(squirrel.y / this.tileHeight);
+  const endX = Math.floor(squirrel.targetX / this.tileWidth);
+  const endY = Math.floor(squirrel.targetY / this.tileHeight);
+
+  this.easystar.findPath(startX, startY, endX, endY, (path) => {
+   if (path !== null && path.length > 1) {
+     const nextTile = path[1];
+     squirrel.targetX = nextTile.x * this.tileWidth;
+     squirrel.targetY = nextTile.y * this.tileHeight;
+   }
+  });
+  this.easystar.calculate();
+ }     
+}
+
+makeGrid(map, background, obstacle) {
+  const grid = [];
+  const walkableTiles = [0];
+
+  for (let y = 0; y < map.height; y++) {
+    const row = [];
+    for (let x = 0; x < map.width; x++) {
+      const groundTile = background.getTileAt(x, y, true, "Ground");
+      const upperTile = obstacle.getTileAt(x, y, true, "Deco");
+
+      const isWalkable = walkableTiles.includes(groundTile.index);
+
+      row.push(isWalkable ? 0: 1);
+    }
+    grid.push(row);
+  }
+
+  return grid;
+}
 
 DamageTaken(player, squirrel){
   if (squirrel.active) {
@@ -204,29 +243,23 @@ DamageTaken(player, squirrel){
   
   if(this.hp <= 0){
     
-
     if (squirrel && squirrel.anims.isPlaying) {
       squirrel.anims.pause();
     }
 
-   
-
-        // Destroy each squirrel individually
+    // Destroy each squirrel individually
     for (const s of this.squirrels) {
       s.destroy(true, true);
     }
-    
-        // Clear the squirrels array
+    // Clear the squirrels array
     this.squirrels = [];
-
-    
     this.scene.pause("City");
     this.scene.launch("GameEnd");
   }
 }
 
 playerHitEnemy(hitbox, squirrel) {
-  if(squirrel.active){
+  if(squirrel.active && hitbox.active){
   if (squirrel instanceof Enemies) {
     squirrel.takeDamage(this.hitbox.damageAmount);
     
@@ -234,31 +267,20 @@ playerHitEnemy(hitbox, squirrel) {
       this.squirrelsKilled++;
       
       this.squirrelsKilledText.setText(`Squirrels Killed:${this.squirrelsKilled / 2}`);
-      
-      //squirrel.destroy(true);
-      
   }
-  }
-  }
+ }
+}
   
-
-
 takeDamage(damageAmount) {
   this.enemyHp -= damageAmount;
 }
-  
-
 
 mision(player,Eagle){
  this.squirrelsKilledText.setVisible(true);
- 
-    
- 
 }
 Heal(player,collectible){
   collectible.disableBody(true,true);
   events.emit("UpdateHP", { hp: this.hp });
   this.hp = this.hp + 25
-  
 }
 }
