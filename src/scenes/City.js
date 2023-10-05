@@ -4,6 +4,9 @@ import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
+//  import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
+//  import { getPhrase } from "../services/translations";
+// import keys from "../enums/keys";
 
 
 //  Main biome, player starts the game here and after completing some tasks unlocks the desert
@@ -30,14 +33,14 @@ export default class City extends Phaser.Scene {
   }
 
    init(data){
-      this.level= data.level || 1
-      this.hp= data.hp || 200
-      this.experience= data.experience || 0
-      this.velocityPlayer= data.velocityPlayer || 400
-      this.velocitySquirrel= data.velocitySquirrel || 100
-      this.enemyHp = data.enemyhp || 200     
+      this.level = data.level || 1
+      this.hp = data.hp || 200
+      this.experience = data.experience || 0
+      this.velocityPlayer = data.velocityPlayer || 400
+      this.velocitySquirrel = data.velocitySquirrel || 100
+      this.enemyHp = data.enemyhp || 200
       this.damageAmount = data.damageAmount || 0
-      this.squirrelsKilled= data.squirrelsKilled || 0 
+      this.squirrelsKilled = data.squirrelsKilled || 0 
 
 }
 
@@ -48,48 +51,45 @@ export default class City extends Phaser.Scene {
      const map = this.make.tilemap({ key: "City" });
      const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
      const background = map.createLayer("Ground", layerbackGround, 0, 0);
+     const layerObstacle = map.addTilesetImage("TDJ2 - tileset","Mapcity",);
+     const Obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
+
+     const objectsLayer = map.getObjectLayer("Objects");
+     this.collectible = this.physics.add.group();
+     this.collectible.allowGravity= false
+     objectsLayer.objects.forEach((objData) => {
+         //console.log(objData.name, objData.type, objData.x, objData.y);
+   
+         const { x = 0, y = 0, name } = objData;
+   
+    switch (name) {
+        case "cura": {
+             // add star to scene
+             // console.log("estrella agregada: ", x, y);
+        const collectible1 = this.collectible
+          .create(x, y, "cura")
+          .setScale(0.4)
+          .setSize(200, 200);
+          break;
+       }
+      }
+    });
+
+     
 
      this.player = new Player (
       this,
-      60,
-      2700,
+      4100,
+      1900,
       "C4",
       this.velocityPlayer
    );
 
      const top = map.createLayer("Top", layerbackGround, 0, 0);
     
-  const layerObstacle = map.addTilesetImage(
-   "TDJ2 - tileset","Mapcity",
- 
-  );
-  const Obstacle = map.createLayer(
-    "Deco",
-    layerObstacle,
-    0,
-    0
+
   
-  );
-  const objectsLayer = map.getObjectLayer("Objects");
-  this.collectible = this.physics.add.group();
-  this.collectible.allowGravity= false
-    objectsLayer.objects.forEach((objData) => {
-      //console.log(objData.name, objData.type, objData.x, objData.y);
 
-      const { x = 0, y = 0, name } = objData;
-
-      switch (name) {
-        case "cura": {
-          // add star to scene
-          // console.log("estrella agregada: ", x, y);
-          const collectible1 = this.collectible
-            .create(x, y, "cura")
-            .setScale(0.4)
-            .setSize(200, 200);
-          break;
-        }
-        }
-      })
 
   this.playersGroup = this.physics.add.group();
   this.collectibleGroup=this.physics.add.group();
@@ -226,17 +226,18 @@ DamageTaken(player, squirrel){
 }
 
 playerHitEnemy(hitbox, squirrel) {
+  if(squirrel.active){
   if (squirrel instanceof Enemies) {
     squirrel.takeDamage(this.hitbox.damageAmount);
     
       squirrel.anims.pause();
       this.squirrelsKilled++;
       
-      this.squirrelsKilledText.setText(`Squirrels Killed:${this.squirrelsKilled}`);
+      this.squirrelsKilledText.setText(`Squirrels Killed:${this.squirrelsKilled / 2}`);
       
       //squirrel.destroy(true);
       
-    
+  }
   }
   }
   
@@ -257,7 +258,7 @@ mision(player,Eagle){
 Heal(player,collectible){
   collectible.disableBody(true,true);
   events.emit("UpdateHP", { hp: this.hp });
-  this.hp= this.hp + 25
+  this.hp = this.hp + 25
   
 }
 }

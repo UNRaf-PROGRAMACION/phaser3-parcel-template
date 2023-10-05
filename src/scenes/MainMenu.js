@@ -1,12 +1,19 @@
  import Phaser from "phaser";
- //import events from "./EventCenter";
+ import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
+ import { getPhrase } from "../services/translations";
+import keys from "../enums/keys";
 //  starts the game
 //  Continue game
 //  credits
 //  Language selector
  export default class MainMenu extends Phaser.Scene {
+  #wasChangedLanguage = TODO;
    constructor() {
      super("MainMenu");
+     const { play, credits, languagesSelec } = keys.MainMenu;
+     this.play = play;
+     this.credits = credits;
+     this.languagesSelec = languagesSelec
    }
 
    create() {
@@ -21,7 +28,8 @@
 
 
      this.add.image(990, 300, "title").setScale(2);
-     let startButton = this.add.text(850, 500, "Jugar", {
+
+     let startButton = this.add.text(850, 500, getPhrase(this.play), {
        fontSize: "128px",
        fontFamily: "impact",
        fill: "#FFFFFF"
@@ -31,7 +39,7 @@
          this.scene.start("City");
      });
 
-     let creditButton = this.add.text(826, 700, "Créditos", {
+     let creditButton = this.add.text(826, 700, getPhrase(this.credits), {
       fontSize: "90px",
       fontFamily: "impact",
       fill: "#FFFFFF"
@@ -40,6 +48,24 @@
     creditButton.on("pointerdown", () => {
         this.scene.start("Credits");
     });
+
+    let languageButton = this.add.text(820, 850, getPhrase(this.languagesSelec), {
+      fontSize: "90px",
+      fontFamily: "impact",
+      fill: "#FFFFFF"
+    }).setInteractive();
+
+    languageButton.on("pointerdown", () => {
+        this.scene.start("LanguageSelector")
+    });
+
   }
-  update() {}
-   }
+
+  update() {
+    if (this.#wasChangedLanguage === FETCHED) {
+      this.play.setText(getPhrase(this.play));
+      this.credits.setText(getPhrase(this.credits));
+      this.languagesSelec.setText(getPhrase(this.languagesSelec));
+    }
+  }
+}

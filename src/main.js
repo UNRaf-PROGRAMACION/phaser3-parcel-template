@@ -7,6 +7,7 @@
  import UI from "./scenes/UI";
  import GameEnd from "./scenes/GameEnd";
  import Credits from "./scenes/Credits";
+ import Language from "./scenes/LanguagesSelector";
 
 
 
@@ -33,7 +34,7 @@
        debug: false,
      },
    },
-   scene: [Preload, MainMenu, Credits, City,GameEnd,UI]
+   scene: [Preload, MainMenu, Credits, Language, City, GameEnd, UI]
  };
 
  export default new Phaser.Game(config);
