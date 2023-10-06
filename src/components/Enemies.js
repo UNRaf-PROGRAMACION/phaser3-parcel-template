@@ -1,5 +1,7 @@
 import Phaser, { Scene } from "phaser";
 import Player from "../components/Player";
+import EnemiesHitbox from "./EnemiesHitbox";
+import Rock from "./Rock";
 
 
 export default class Enemies extends Phaser.GameObjects.Sprite {
@@ -21,7 +23,6 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 0;
     this.targetY = 0;
-    this.isFollowing = false;
     this.enemyHp = 200;
     
 
@@ -77,7 +78,9 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       if (this.enemyHp <= 0) {
         this.anims.stop();
         this.setActive(false).setVisible(false);
+
       }
     }    
   }
-}
+  
+  }

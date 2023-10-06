@@ -11,10 +11,14 @@ export default class Preload extends Phaser.Scene {
     this.load.image("cura","assets/images/PlantaAcuatica.png");
     this.load.image("menuBg", "assets/images/menuBg.png");
     this.load.image("title", "assets/images/title.png");
-    this.load.image("gameover","assets/images/Gameover.png")
+    this.load.image("gameover","assets/images/Gameover.png");
     this.load.spritesheet("Eagle","assets/images/NPC.png",{
       frameWidth:230,
       frameHeight: 230,
+    });
+    this.load.spritesheet("Rock","assets/images/Rock.png",{
+      frameWidth:21,
+      frameHeight: 21,
     });
     this.load.spritesheet("Squirrel","assets/images/Squirrel.png",{
       frameWidth: 221,
@@ -108,6 +112,33 @@ export default class Preload extends Phaser.Scene {
     this.anims.create({
       key: "AttackDown",
       frames: this.anims.generateFrameNumbers("C4", { start: 30, end: 32 }),
+      frameRate: 15,
+      repeat: 0,
+    });
+    this.anims.create({
+      key: "AttackLeftSquirrel",
+      frames: this.anims.generateFrameNumbers("Squirrel", { start: 17, end: 20 }),
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "AttackRightSquirrel",
+      frames: this.anims.generateFrameNumbers("Squirrel", { start: 21, end: 24 }),
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "AttackUpSquirrel",
+      frames: this.anims.generateFrameNumbers("Squirrel", { start: 25, end: 28 }),
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "AttackDownSquirrel",
+      frames: this.anims.generateFrameNumbers("Squirrel", { start: 29, end: 32 }),
       frameRate: 15,
       repeat: 0,
     });

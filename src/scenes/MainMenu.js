@@ -31,8 +31,8 @@ export default class MainMenu extends Phaser.Scene {
     this.add.image(990, 300, "title").setScale(1.5);
 
     let startButton = this.add
-      .text(850, 500, getPhrase(this.play), {
-        fontSize: "128px",
+      .text(860, 500, getPhrase(this.play), {
+        fontSize: "90px",
         fontFamily: "impact",
         fill: "#FFFFFF",
       })
@@ -51,8 +51,8 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     let creditButton = this.add
-      .text(826, 700, getPhrase(this.credits), {
-        fontSize: "90px",
+      .text(830, 640, getPhrase(this.credits), {
+        fontSize: "80px",
         fontFamily: "impact",
         fill: "#FFFFFF",
       })
@@ -71,8 +71,8 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     let languageButton = this.add
-      .text(820, 850, getPhrase(this.languagesSelec), {
-        fontSize: "90px",
+      .text(785, 780, getPhrase(this.languagesSelec), {
+        fontSize: "80px",
         fontFamily: "impact",
         fill: "#FFFFFF",
       })

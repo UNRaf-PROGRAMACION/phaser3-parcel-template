@@ -5,6 +5,8 @@ import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
+import EnemiesHitbox from "../components/EnemiesHitbox";
+import Rock from "../components/Rock";
 //  import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 //  import { getPhrase } from "../services/translations";
 // import keys from "../enums/keys";
@@ -26,6 +28,7 @@ export default class City extends Phaser.Scene {
     this.player;
     this.velocityPlayer;
     this.squirrels = []
+    
 
     this.squirrelsKilled;
     this.squirrelsKilledText;
@@ -47,6 +50,7 @@ export default class City extends Phaser.Scene {
 
    create(){
     this.scene.launch("UI");
+    
    
     
      const map = this.make.tilemap({ key: "City" });
@@ -97,11 +101,13 @@ export default class City extends Phaser.Scene {
   this.playersGroup = this.physics.add.group();
   this.collectibleGroup=this.physics.add.group();
   this.squirrelGroup=this.physics.add.group();
+  this.rocksGroup = this.physics.add.group();
 
      this.hitbox = new Hitbox (
       this,
       this.player
    );
+   
 
    this.Eagle= new Npc(
     this,
@@ -116,7 +122,11 @@ this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
 this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel));
 this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel));
-
+this.hitboxSquirrels= new EnemiesHitbox(this,this.squirrels[0]);
+this.hitboxSquirrels1= new EnemiesHitbox(this,this.squirrels[1]);
+this.hitboxSquirrels2= new EnemiesHitbox(this,this.squirrels[2]);
+this.hitboxSquirrels3= new EnemiesHitbox(this,this.squirrels[3]);
+this.hitboxSquirrels.setScale(5)
 
   obstacle.setCollisionByProperty({ colision: true });
   
@@ -131,13 +141,19 @@ this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
   this.physics.add.overlap(this.player, this.squirrels,this.DamageTaken,null,this);
   this.physics.add.overlap(this.player, this.collectible,this.Heal,null,this);
   this.physics.add.overlap(this.player, this.Eagle,this.mision,null,this);
-
+  this.physics.add.overlap(this.player, this.hitboxSquirrels, this.throwRock, null, this);
+ 
+  
+  
   for (const squirrel of this.squirrels) {
     // squirrel.patrol();    
+    
    squirrel.targetX = Phaser.Math.Between(20, 2500);
    squirrel.targetY = Phaser.Math.Between(10, 300);
    squirrel.velocity = 300;
+   
    }
+   
 
    console.log(this.player)
    this.physics.add.overlap(this.hitbox, this.squirrels, this.playerHitEnemy, null, this);
@@ -147,14 +163,19 @@ this.squirrels.push(new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
   });
   this.squirrelsKilledText.setVisible(false);
   this.squirrelsKilledText.setScrollFactor(0);
+  
 
  } 
    update() {
      this.player.update();
      this.hitbox.update();
-    
+     this.hitboxSquirrels.update();
+     this.hitboxSquirrels1.update();
+     this.hitboxSquirrels2.update();
+     this.hitboxSquirrels3.update();
+         
      for (const squirrel of this.squirrels) {
-      
+
        const deltaX = squirrel.targetX - squirrel.x;
        const deltaY = squirrel.targetY - squirrel.y;
        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -253,6 +274,7 @@ DamageTaken(player, squirrel){
     }
     // Clear the squirrels array
     this.squirrels = [];
+
     this.scene.pause("City");
     this.scene.launch("GameEnd");
   }
@@ -283,4 +305,5 @@ Heal(player,collectible){
   events.emit("UpdateHP", { hp: this.hp });
   this.hp = this.hp + 25
 }
+
 }
