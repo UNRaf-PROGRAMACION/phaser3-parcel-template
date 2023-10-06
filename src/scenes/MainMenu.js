@@ -1,45 +1,101 @@
- import Phaser from "phaser";
- //import events from "./EventCenter";
+import Phaser from "phaser";
+import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
+import { getPhrase } from "../services/translations";
+import keys from "../enums/keys";
 //  starts the game
 //  Continue game
 //  credits
 //  Language selector
- export default class MainMenu extends Phaser.Scene {
-   constructor() {
-     super("MainMenu");
-   }
+export default class MainMenu extends Phaser.Scene {
+  #wasChangedLanguage = TODO;
+  constructor() {
+    super("MainMenu");
+    const { play, credits, languagesSelec } = keys.MainMenu;
+    this.play = play;
+    this.credits = credits;
+    this.languagesSelec = languagesSelec;
+  }
 
-   create() {
+  create() {
+    const canvasWidth = this.sys.game.config.width;
+    const canvasHeight = this.sys.game.config.height;
 
-     const canvasWidth = this.sys.game.config.width;
-     const canvasHeight = this.sys.game.config.height;
+    const bgImage = this.add.image(400, 300, "menuBg");
 
-     const bgImage = this.add.image(400, 300, "menuBg");
+    bgImage.setScale(
+      canvasWidth / bgImage.width,
+      canvasHeight / bgImage.height
+    );
+    bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
 
-     bgImage.setScale(canvasWidth / bgImage.width, canvasHeight / bgImage.height);
-     bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
+    this.add.image(990, 300, "title").setScale(1.5);
 
+    let startButton = this.add
+      .text(860, 500, getPhrase(this.play), {
+        fontSize: "90px",
+        fontFamily: "impact",
+        fill: "#FFFFFF",
+      })
+      .setInteractive();
 
-     this.add.image(990, 300, "title").setScale(2);
-     let startButton = this.add.text(850, 500, "Jugar", {
-       fontSize: "128px",
-       fontFamily: "impact",
-       fill: "#FFFFFF"
-     }).setInteractive();
+    startButton.on("pointerover", () => {
+      startButton.setFill("FFFF00");
+    });
 
-     startButton.on("pointerdown", () => {
-         this.scene.start("City");
-     });
+    startButton.on("pointerout", () => {
+      startButton.setFill("#FFFFFF");
+    });
 
-     let creditButton = this.add.text(826, 700, "Créditos", {
-      fontSize: "90px",
-      fontFamily: "impact",
-      fill: "#FFFFFF"
-    }).setInteractive();
+    startButton.on("pointerdown", () => {
+      this.scene.start("City");
+    });
+
+    let creditButton = this.add
+      .text(830, 640, getPhrase(this.credits), {
+        fontSize: "80px",
+        fontFamily: "impact",
+        fill: "#FFFFFF",
+      })
+      .setInteractive();
+
+    creditButton.on("pointerover", () => {
+      creditButton.setFill("FFFF00");
+    });
+
+    creditButton.on("pointerout", () => {
+      creditButton.setFill("#FFFFFF");
+    });
 
     creditButton.on("pointerdown", () => {
-        this.scene.start("Credits");
+      this.scene.start("Credits");
+    });
+
+    let languageButton = this.add
+      .text(785, 780, getPhrase(this.languagesSelec), {
+        fontSize: "80px",
+        fontFamily: "impact",
+        fill: "#FFFFFF",
+      })
+      .setInteractive();
+
+    languageButton.on("pointerover", () => {
+      languageButton.setFill("FFFF00");
+    });
+
+    languageButton.on("pointerout", () => {
+      languageButton.setFill("#FFFFFF");
+    });
+
+    languageButton.on("pointerdown", () => {
+      this.scene.start("LanguageSelector");
     });
   }
-  update() {}
-   }
+
+  update() {
+    if (this.#wasChangedLanguage === FETCHED) {
+      this.play.setText(getPhrase(this.play));
+      this.credits.setText(getPhrase(this.credits));
+      this.languagesSelec.setText(getPhrase(this.languagesSelec));
+    }
+  }
+}
