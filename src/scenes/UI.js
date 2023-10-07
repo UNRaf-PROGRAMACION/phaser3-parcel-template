@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
+import GameOver from "./GameOver";
 
 // Manejador de eventos centralizados para comunicacion de componentes
 
@@ -18,26 +19,40 @@ export default class UI extends Phaser.Scene {
   constructor() {
     super("ui");
   }
-
+  init(data) {
+    this.level = data.level || 1;
+    this.fruits = data.fruits || 0;
+    this.shell = data.shell || 0;
+    this.health = data.health || 5;
+  }
   create() {
-    this.colliderCount = 0;
-    // add text with count collider and date
-    this.text = this.add.text(10, 10, `Collider count: ${this.colliderCount}`, {
-      font: "16px Courier",
-      fill: "#00ff00",
+    this.healthText = this.add.text(10, 80, `Vidas: ${this.health}`, {
+      fontSize: "50px",
+      fontFamily: 'DM Serif Display',
+      fill: '#ffd557',
     });
 
-    // add listener to the event
-    events.on("collider-event", this.colliderEvent, this);
-  }
+    this.shellText = this.add.text(500, 80, `Caparazones: ${this.shell}`, {
+      fontSize: "50px",
+      fontFamily: 'DM Serif Display',
+      fill: '#ffd557',
+    });
 
-  colliderEvent(data) {
-    console.log("collider-event", data);
+    this.fruitsText = this.add.text(200, 80, `Frutas: ${this.fruits}`, {
+      fontSize: "50px",
+      fontFamily: 'DM Serif Display',
+      fill: '#ffd557',
+    });
 
-    // update text
-    this.colliderCount += 1;
-    this.text.setText(
-      `Collider count: ${this.colliderCount} / Last: ${data.fecha}`
-    );
+    this.levelText = this.add.text(960, 10, `Nivel ${this.level}`, {
+      fontSize: "80px",
+      fontFamily: 'DM Serif Display',
+      fill: '#ffd557',
+    }).setOrigin(0.5, 0)
+
+    events.on("actualizarDatos", (data) => {
+      console.log("actualizar datos", data);
+      this.healthText.setText(`Vidas: ${data.health}`);
+    });
   }
 }
