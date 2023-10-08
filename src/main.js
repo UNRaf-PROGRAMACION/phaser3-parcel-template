@@ -8,6 +8,7 @@
  import GameEnd from "./scenes/GameEnd";
  import Credits from "./scenes/Credits";
  import Language from "./scenes/LanguagesSelector";
+ import Desert from "./scenes/Desert";
 
 
 
@@ -31,10 +32,10 @@
      default: "arcade",
      arcade: {
        gravity: { y: 0 },
-       debug: false,
+       debug: true,
      },
    },
-   scene: [Preload, MainMenu, Credits, Language, City, GameEnd, UI]
+   scene: [Preload, MainMenu, Credits, Language, City, Desert, GameEnd, UI]
  };
 
  export default new Phaser.Game(config);

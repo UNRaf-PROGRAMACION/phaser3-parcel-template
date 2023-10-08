@@ -12,6 +12,10 @@ export default class Preload extends Phaser.Scene {
     this.load.image("menuBg", "assets/images/menuBg.png");
     this.load.image("title", "assets/images/title.png");
     this.load.image("gameover","assets/images/Gameover.png");
+    this.load.image("desertTemp", "assets/images/desertTemp.jpg");
+    this.load.image("musicOn","assets/images/musicOn.png");
+    this.load.image("musicOff","assets/images/musicOff.png");
+
     this.load.spritesheet("Eagle","assets/images/NPC.png",{
       frameWidth:230,
       frameHeight: 230,
@@ -33,6 +37,11 @@ export default class Preload extends Phaser.Scene {
 
     this.load.tilemapTiledJSON("City","assets/Tilemaps/City.json");
     this.load.image("Mapcity","assets/Images/tileset.png");
+
+    this.load.audio("citySFX", "assets/Audio/citySFX.mp3");
+    this.load.audio("swordAttack", "assets/Audio/swordAttack.mp3");
+    this.load.audio("menuMusic", "assets/Audio/menuMusic.mp3")
+
   }
 
   create() {

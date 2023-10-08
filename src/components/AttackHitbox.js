@@ -18,6 +18,10 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
 
     this.facingDirection = null;
     this.damageAmount = 100;
+    // this.attackSound = attackSound;
+    // this.isAttackSoundPlaying = false;
+    // this.isAttacking = false;
+
   }
 
   update() {
@@ -35,6 +39,7 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
     }
 
     if (this.xKey.isDown && this.facingDirection !== null) {
+      if (!this.isAttacking) {
       switch (this.facingDirection) {
         case "left":
           this.width = 150;
@@ -65,6 +70,9 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
       this.setActive(false).setVisible(false);
     }
   }
+  
+
+  }
 
   attack() {
     console.log("Player attacked");
@@ -74,4 +82,14 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
       this.setActive(false).setVisible(false);
     }, 100);
   }
+
+  // stopAttack() {
+  //   setTimeout(() => {
+  //     if (this.isAttackSoundPlaying){
+  //       this.attackSound.stop();
+  //       this.isAttackSoundPlaying = false;
+  //     }
+  //   }, 400);
+  //   this.setActive(false).setVisible(false);
+  // }
 }

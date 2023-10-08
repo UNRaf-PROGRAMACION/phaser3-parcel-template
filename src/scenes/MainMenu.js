@@ -17,6 +17,9 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   create() {
+    this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.7 });
+    this.menuMusic.play();
+    
     const canvasWidth = this.sys.game.config.width;
     const canvasHeight = this.sys.game.config.height;
 
@@ -28,42 +31,43 @@ export default class MainMenu extends Phaser.Scene {
     );
     bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
 
-    this.add.image(990, 300, "title").setScale(1.5);
+    this.add.image(990, 300, "title").setScale(1.8);
 
     let startButton = this.add
       .text(860, 500, getPhrase(this.play), {
         fontSize: "90px",
         fontFamily: "impact",
-        fill: "#FFFFFF",
+        fill: "FFFF00",
       })
       .setInteractive();
 
     startButton.on("pointerover", () => {
-      startButton.setFill("FFFF00");
+      startButton.setFill("#F3E5AB");
     });
 
     startButton.on("pointerout", () => {
-      startButton.setFill("#FFFFFF");
+      startButton.setFill("FFFF00");
     });
 
     startButton.on("pointerdown", () => {
-      this.scene.start("City");
+      this.menuMusic.stop();
+      this.scene.start("Desert");
     });
 
     let creditButton = this.add
       .text(830, 640, getPhrase(this.credits), {
         fontSize: "80px",
         fontFamily: "impact",
-        fill: "#FFFFFF",
+        fill: "FFFF00",
       })
       .setInteractive();
 
     creditButton.on("pointerover", () => {
-      creditButton.setFill("FFFF00");
+      creditButton.setFill("#F3E5AB");
     });
 
     creditButton.on("pointerout", () => {
-      creditButton.setFill("#FFFFFF");
+      creditButton.setFill("FFFF00");
     });
 
     creditButton.on("pointerdown", () => {
@@ -74,21 +78,37 @@ export default class MainMenu extends Phaser.Scene {
       .text(785, 780, getPhrase(this.languagesSelec), {
         fontSize: "80px",
         fontFamily: "impact",
-        fill: "#FFFFFF",
+        fill: "FFFF00",
       })
       .setInteractive();
 
     languageButton.on("pointerover", () => {
-      languageButton.setFill("FFFF00");
+      languageButton.setFill("#F3E5AB");
     });
 
     languageButton.on("pointerout", () => {
-      languageButton.setFill("#FFFFFF");
+      languageButton.setFill("FFFF00");
     });
 
     languageButton.on("pointerdown", () => {
       this.scene.start("LanguageSelector");
     });
+
+    let isMusicMuted = false;
+    let musicOn = this.add.image(1820, 1000, "musicOn").setInteractive().setScale(2);
+
+    musicOn.on("pointerdown", () => {
+      if (isMusicMuted) {
+        this.menuMusic.resume();
+        musicOn.setTexture("musicOn");
+        isMusicMuted = false;
+      } else {
+        this.menuMusic.pause();
+        musicOn.setTexture("musicOff");
+        isMusicMuted = true;
+      }
+    });
+
   }
 
   update() {

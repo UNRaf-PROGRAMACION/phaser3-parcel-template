@@ -1,25 +1,65 @@
 // import Phaser from "phaser";
 // // import events from "./EventCenter";
+import Player from "../components/Player";
+import Enemies from "../components/Enemies";
+import Hitbox from "../components/AttackHitbox";
+import Npc from "../components/Npc";
+import EnemiesHitbox from "../components/EnemiesHitbox";
 
 // //Second unlocked biome, after completing some tasks, unlocks forest
 // //holds secret collectibles
 // //has fast enemies
 // //save station
-// export default class Preloader extends Phaser.Scene {
-//     constructor() {
-//       super("Desert");
-//     }
+export default class Desert extends Phaser.Scene {
+    constructor() {
+      super("Desert");
+      this.level;
+      this.hp;
+      this.experience;
+      this.player;
+      this.velocityPlayer;
+      this.damageAmount;
+      this.enemyHp;
+    }
 
-//     init(){
+    init(data){
+      this.level = data.level || 1;
+      this.hp = data.hp || 200;
+      this.experience = data.experience || 0;
+      this.velocityPlayer = data.velocityPlayer || 400;
+      this.enemyHp = data.enemyhp || 200;
+      this.damageAmount = data.damageAmount || 0;
+}
 
-// }
+    create(){
+      this.scene.launch("UI");
 
-//     create(){
+    const canvasWidth = this.sys.game.config.width;
+    const canvasHeight = this.sys.game.config.height;
+
+    const bgImage = this.add.image(400, 300, "desertTemp");
+
+    bgImage.setScale(
+      canvasWidth / bgImage.width,
+      canvasHeight / bgImage.height
+    );
+    bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
+
+      this.add.text(400, 300, "Here be the desert", {
+        fontSize: "128px",
+        fontFamily: "impact",
+      });
+
+      this.player = new Player(this, 300, 500, "C4", this.velocityPlayer);
+
+      this.playersGroup = this.physics.add.group();
+      this.hitbox = new Hitbox(this, this.player);
         
-//     }
+    }
 
-//     update(){
-        
-//     }
+    update(){
+      this.player.update();
+      this.hitbox.update();
+    }
 
-// }
+}
