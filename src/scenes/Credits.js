@@ -20,14 +20,12 @@ export default class Credits extends Phaser.Scene {
     const canvasHeight = this.sys.game.config.height;
 
     const bgImage = this.add.image(400, 300, "menuBg");
-
     bgImage.setScale(
       canvasWidth / bgImage.width,
       canvasHeight / bgImage.height
     );
     bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
-
-
+    
     this.add.text(600, 100, getPhrase(this.programmers), {
       fontSize: "128px",
       fontFamily: "impact",

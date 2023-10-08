@@ -17,7 +17,7 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   create() {
-    this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.7 });
+    this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.5 });
     this.menuMusic.play();
     
     const canvasWidth = this.sys.game.config.width;
@@ -51,7 +51,7 @@ export default class MainMenu extends Phaser.Scene {
 
     startButton.on("pointerdown", () => {
       this.menuMusic.stop();
-      this.scene.start("Desert");
+      this.scene.start("City");
     });
 
     let creditButton = this.add

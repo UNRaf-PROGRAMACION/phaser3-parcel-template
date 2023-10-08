@@ -13,7 +13,7 @@ import EnemiesHitbox from "../components/EnemiesHitbox";
 export default class Desert extends Phaser.Scene {
     constructor() {
       super("Desert");
-      this.level;
+      this.lvl;
       this.hp;
       this.experience;
       this.player;
@@ -23,12 +23,12 @@ export default class Desert extends Phaser.Scene {
     }
 
     init(data){
-      this.level = data.level || 1;
-      this.hp = data.hp || 200;
+      this.lvl = data.lvl;
+      this.hp = data.hp;
       this.experience = data.experience || 0;
       this.velocityPlayer = data.velocityPlayer || 400;
       this.enemyHp = data.enemyhp || 200;
-      this.damageAmount = data.damageAmount || 0;
+      this.damageAmount = data.damageAmount;
 }
 
     create(){
