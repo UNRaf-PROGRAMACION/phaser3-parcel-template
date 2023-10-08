@@ -159,6 +159,7 @@ this.hitboxSquirrels.setScale(5)
   this.physics.add.overlap(this.player, this.squirrels,this.DamageTaken,null,this);
   this.physics.add.overlap(this.player, this.collectible,this.Heal,null,this);
   this.physics.add.overlap(this.player, this.Eagle,this.mision,null,this);
+  this.physics.add.overlap(this.player, this.salida,this.NextLevel,null,this)
  
  
   
@@ -362,5 +363,13 @@ Heal(player,collectible){
   events.emit("UpdateHP", { hp: this.hp });
   this.hp = this.hp + 25
 }
-
+NextLevel(){
+  const data = {
+    lvl: this.lvl,
+    hp: this.hp,
+    damageAmount: this.damageAmount,
+    velocityPlayer: this.velocityPlayer
+    }
+  this.scene.start("Desert",data)
+}
 }
