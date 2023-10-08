@@ -25,7 +25,7 @@ export default class Credits extends Phaser.Scene {
       canvasHeight / bgImage.height
     );
     bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
-    
+
     this.add.text(600, 100, getPhrase(this.programmers), {
       fontSize: "128px",
       fontFamily: "impact",

@@ -19,7 +19,7 @@ export default class MainMenu extends Phaser.Scene {
   create() {
     this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.5 });
     this.menuMusic.play();
-    
+
     const canvasWidth = this.sys.game.config.width;
     const canvasHeight = this.sys.game.config.height;
 
@@ -95,7 +95,10 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     let isMusicMuted = false;
-    let musicOn = this.add.image(1820, 1000, "musicOn").setInteractive().setScale(2);
+    let musicOn = this.add
+      .image(1820, 1000, "musicOn")
+      .setInteractive()
+      .setScale(2);
 
     musicOn.on("pointerdown", () => {
       if (isMusicMuted) {
@@ -108,7 +111,6 @@ export default class MainMenu extends Phaser.Scene {
         isMusicMuted = true;
       }
     });
-
   }
 
   update() {
