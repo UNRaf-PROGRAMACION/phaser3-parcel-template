@@ -32,26 +32,29 @@ export default class Desert extends Phaser.Scene {
   }
 
   create() {
-    const canvasWidth = this.sys.game.config.width;
-    const canvasHeight = this.sys.game.config.height;
+    const map = this.make.tilemap({ key: "Desert" });
+    this.tileWidth = map.tileWidth;
+    this.tileHeight = map.tileHeight;
 
-    const bgImage = this.add.image(400, 300, "desertTemp");
+    const layerbackGround = map.addTilesetImage("desertTileset", "Mapdesert");
+    const background = map.createLayer("Ground", layerbackGround, 0, 0);
+    const layerObstacle = map.addTilesetImage("desertTileset", "Mapdesert");
+    const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
 
-    bgImage.setScale(
-      canvasWidth / bgImage.width,
-      canvasHeight / bgImage.height
-    );
-    bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
 
-    this.add.text(400, 300, "Here be the desert", {
-      fontSize: "128px",
-      fontFamily: "impact",
-    });
+
+    const objectsLayer = map.getObjectLayer("Objects");
+    const top = map.createLayer("Top", layerbackGround, 0, 0);
+
+    
 
     this.player = new Player(this, 300, 500, "C4", this.velocityPlayer);
 
     this.playersGroup = this.physics.add.group();
     this.hitbox = new Hitbox(this, this.player);
+    this.cameras.main.startFollow(this.player);
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
   }
 
   update() {
