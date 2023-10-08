@@ -8,10 +8,16 @@ export default class Preload extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("cura","assets/images/PlantaAcuatica.png");
+    this.load.spritesheet("cura","assets/images/Cura.png",{
+      frameWidth: 93,
+      frameHeight: 86,
+    });
+   
     this.load.image("menuBg", "assets/images/menuBg.png");
     this.load.image("title", "assets/images/title.png");
+    this.load.image("rectangle","assets/images/Rectangle.png");
     this.load.image("gameover","assets/images/Gameover.png");
+    this.load.image("FlechaSalida","assets/images/Flecha.png");
     this.load.spritesheet("Eagle","assets/images/NPC.png",{
       frameWidth:230,
       frameHeight: 230,
@@ -36,6 +42,12 @@ export default class Preload extends Phaser.Scene {
   }
 
   create() {
+    this.anims.create({
+      key: "cura-anim",
+      frames: this.anims.generateFrameNumbers("cura", { start: 0, end: 1 }),
+      frameRate: 4, 
+      repeat: -1, 
+    });
     this.anims.create({
       key: "walkingUp",
       frames: this.anims.generateFrameNumbers("C4", { start: 18, end: 23 }),

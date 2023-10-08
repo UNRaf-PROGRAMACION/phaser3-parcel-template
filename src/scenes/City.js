@@ -22,7 +22,7 @@ import Rock from "../components/Rock";
 export default class City extends Phaser.Scene {
   constructor() {
     super("City");
-    this.level;
+    this.lvl;
     this.hp;
     this.experience;
     this.player;
@@ -37,7 +37,7 @@ export default class City extends Phaser.Scene {
   }
 
    init(data){
-      this.level = data.level || 1
+      this.lvl = data.lvl || 1
       this.hp = data.hp || 200
       this.experience = data.experience || 0
       this.velocityPlayer = data.velocityPlayer || 400
@@ -45,6 +45,7 @@ export default class City extends Phaser.Scene {
       this.enemyHp = data.enemyhp || 200
       this.damageAmount = data.damageAmount || 0
       this.squirrelsKilled = data.squirrelsKilled || 0 
+      this.missionComplete=false
 
 }
 
@@ -69,6 +70,9 @@ export default class City extends Phaser.Scene {
      const objectsLayer = map.getObjectLayer("Objects");
      this.collectible = this.physics.add.group();
      this.collectible.allowGravity= false
+     this.salida = this.physics.add.group();
+     this.salida.allowGravity= false
+    
      objectsLayer.objects.forEach((objData) => {
 //console.log(objData.name, objData.type, objData.x, objData.y);
     const { x = 0, y = 0, name } = objData;
@@ -77,14 +81,28 @@ export default class City extends Phaser.Scene {
         case "cura": {
              // add star to scene
              // console.log("estrella agregada: ", x, y);
-        const collectible1 = this.collectible
+        let collectible1 = this.collectible
           .create(x, y, "cura")
-          .setScale(0.4)
+          .setScale(1)
           .setSize(200, 200);
+          collectible1.anims.play("cura-anim",true);
           break;
        }
+       
+       case "desierto": {
+        // add star to scene
+        // console.log("estrella agregada: ", x, y);
+   let salida = this.salida
+     .create(x, y, "FlechaSalida")
+     .setScale(1)
+     .setSize(200, 200);
+     
+     break;
+  }
       }
+      
     });
+    
 
      this.player = new Player (
       this,
@@ -93,7 +111,7 @@ export default class City extends Phaser.Scene {
       "C4",
       this.velocityPlayer
    );
-
+this.salida.setVisible(false).setActive(false);
     const top = map.createLayer("Top", layerbackGround, 0, 0);
 
     
@@ -141,7 +159,7 @@ this.hitboxSquirrels.setScale(5)
   this.physics.add.overlap(this.player, this.squirrels,this.DamageTaken,null,this);
   this.physics.add.overlap(this.player, this.collectible,this.Heal,null,this);
   this.physics.add.overlap(this.player, this.Eagle,this.mision,null,this);
-  this.physics.add.overlap(this.player, this.hitboxSquirrels, this.throwRock, null, this);
+ 
  
   
   
@@ -161,8 +179,25 @@ this.hitboxSquirrels.setScale(5)
     fontSize: "50px",
    
   });
+  this.rectangle= this.add.image(900,900,"rectangle");
+  this.misionText= this.add.text(60,880,"Hola viajero, necesitamos tu ayuda para derrotar a las ardillas, ve y matalas",{
+    fontSize : "35px",
+    color: "FFFF00",
+    
+    
+    
+  }).setInteractive();
+  this.misionText.on("pointerdown", () => {
+    this.misionText.setVisible(false);
+    this.rectangle.setVisible(false);
+  });
+  this.misionText.setVisible(false);
+  this.misionText.setScrollFactor(0);
+  this.rectangle.setScrollFactor(0);
+  this.rectangle.setVisible(false)
   this.squirrelsKilledText.setVisible(false);
   this.squirrelsKilledText.setScrollFactor(0);
+  
   
 
  } 
@@ -288,8 +323,13 @@ playerHitEnemy(hitbox, squirrel) {
       squirrel.anims.pause();
       this.squirrelsKilled++;
       
+        
+      
+      
+      
       this.squirrelsKilledText.setText(`Squirrels Killed:${this.squirrelsKilled / 2}`);
   }
+ 
  }
 }
   
@@ -299,6 +339,23 @@ takeDamage(damageAmount) {
 
 mision(player,Eagle){
  this.squirrelsKilledText.setVisible(true);
+ this.misionText.setVisible(true);
+ this.rectangle.setVisible(true);
+ if(this.squirrelsKilled>=4){
+  this.missionComplete=true
+  
+  this.lvl++
+   events.emit("UpdateLVL", { lvl: this.lvl });
+  
+ 
+  this.salida.setVisible(true).setActive(true);
+  this.squirrelsKilled = 0
+  this.squirrelsKilledText.setText("Squirrels Killed:"+this.squirrelsKilled);
+  
+}
+
+  
+
 }
 Heal(player,collectible){
   collectible.disableBody(true,true);

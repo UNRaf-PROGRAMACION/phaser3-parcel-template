@@ -20,6 +20,7 @@ export default class UI extends Phaser.Scene {
   }
   init(data){
     this.hp=data.hp || 200
+    this.lvl= data.lvl|| 1
    
   }
 
@@ -29,11 +30,21 @@ export default class UI extends Phaser.Scene {
       fontSize: "50px",
     });
     events.on("UpdateHP", this.UpdateHP, this);
+    events.on("UpdateLVL",this.UpdateLVL,this);
+    this.levelText= this.add.text(50, 150, `lvl ${ this.lvl}`, {
+      fontSize: "50px",
+    });
+     
+   
 
 }
 UpdateHP(data) {
   this.hp = data.hp;
   this.hpTexto.setText(`HP ${this.hp}`);
+}
+UpdateLVL(data){
+  this.lvl =data.lvl
+  this.levelText.setText(`lvl:${this.lvl}`);
 }
 
 
