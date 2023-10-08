@@ -81,6 +81,7 @@ export default class City extends Phaser.Scene {
             .setScale(1)
             .setSize(200, 200);
           collectible1.anims.play("cura-anim", true);
+          
           break;
         }
 
@@ -353,9 +354,9 @@ export default class City extends Phaser.Scene {
     }
   }
   Heal(player, collectible) {
-    collectible.disableBody(true, true);
-    events.emit("UpdateHP", { hp: this.hp });
     this.hp = this.hp + 25;
+    events.emit("UpdateHP", { hp: this.hp });
+    collectible.disableBody(true, true);
   }
   NextLevel() {
     const data = {

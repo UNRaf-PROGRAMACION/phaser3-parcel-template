@@ -20,6 +20,7 @@ export default class Preload extends Phaser.Scene {
     this.load.image("desertTemp", "assets/images/desertTemp.jpg");
     this.load.image("musicOn", "assets/images/musicOn.png");
     this.load.image("musicOff", "assets/images/musicOff.png");
+    this.load.image("xp", "assets/images/windowsXp.jpg")
 
     this.load.image("FlechaSalida", "assets/images/Flecha.png");
     this.load.spritesheet("Eagle", "assets/images/NPC.png", {
