@@ -98,7 +98,7 @@ export default class City extends Phaser.Scene {
     });
 
     this.player = new Player(this, 4100, 1900, "C4", this.velocityPlayer);
-    this.salida.setVisible(false).setActive(false);
+    this.salida.setActive(false).setVisible(false);
     const top = map.createLayer("Top", layerbackGround, 0, 0);
 
     this.playersGroup = this.physics.add.group();
@@ -109,7 +109,7 @@ export default class City extends Phaser.Scene {
 
     this.hitbox = new Hitbox(this, this.player);
 
-    this.Eagle = new Npc(this, 4500, 3800, "Eagle");
+    this.Eagle = new Npc(this, 4550, 3290, "Eagle");
 
     this.squirrels.push(
       new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
@@ -341,24 +341,29 @@ export default class City extends Phaser.Scene {
     this.rectangle.setVisible(true);
     if (this.squirrelsKilled >= 4) {
       this.missionComplete = true;
-      //this.squirrelsKilledText.destroy(true);
       this.misionText.setText("Felicidades por completar la mision, el desierto lo espera")
+      this.squirrelsKilled = 0;
+      this.squirrelsKilledText.setText("");
+      
+
       this.lvl++;
       events.emit("UpdateLVL", { lvl: this.lvl });
+      
+      
 
       this.salida.setVisible(true).setActive(true);
-      this.squirrelsKilled = 0;
-      this.squirrelsKilledText.setText(
-        "Squirrels Killed:" + this.squirrelsKilled
-      );
+      
+     
+     
     }
   }
   Heal(player, collectible) {
-    collectible.disableBody(true, true);
-    events.emit("UpdateHP", { hp: this.hp });
     this.hp = this.hp + 25;
+    events.emit("UpdateHP", { hp: this.hp });
+     collectible.disableBody(true, true);
   }
   NextLevel() {
+    if(this.missionComplete){
     const data = {
       lvl: this.lvl,
       hp: this.hp,
@@ -366,5 +371,5 @@ export default class City extends Phaser.Scene {
       velocityPlayer: this.velocityPlayer,
     };
     this.scene.start("Desert", data);
-  }
+  }};
 }
