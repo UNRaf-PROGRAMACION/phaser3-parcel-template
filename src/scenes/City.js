@@ -351,7 +351,7 @@ export default class City extends Phaser.Scene {
 
     if (this.squirrelsKilled >= 8) {
       this.missionComplete = true;
-      this.misionText.setText("Felicidades por completar la mision, el desierto lo espera")
+      this.misionText.setText("Felicidades por completar la misión, el desierto lo espera")
       this.squirrelsKilled = 0;
       this.squirrelsKilledText.setText("");
       
