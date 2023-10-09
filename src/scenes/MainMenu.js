@@ -51,7 +51,7 @@ export default class MainMenu extends Phaser.Scene {
 
     startButton.on("pointerdown", () => {
       this.menuMusic.stop();
-      this.scene.start("City");
+      this.scene.start("Desert");
     });
 
     let creditButton = this.add
@@ -71,8 +71,9 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     creditButton.on("pointerdown", () => {
-      this.menuMusic.pause();
-      this.scene.start("Credits");
+      // this.menuMusic.pause();
+      this.scene.pause("MainMenu");
+      this.scene.launch("Credits");
     });
 
     let languageButton = this.add
