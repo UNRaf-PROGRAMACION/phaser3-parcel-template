@@ -39,22 +39,20 @@ export default class Desert extends Phaser.Scene {
     const layerbackGround = map.addTilesetImage("desertTileset", "Mapdesert");
     const background = map.createLayer("Ground", layerbackGround, 0, 0);
     const layerObstacle = map.addTilesetImage("desertTileset", "Mapdesert");
+  
     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
 
-
-
     const objectsLayer = map.getObjectLayer("Objects");
-    const top = map.createLayer("Top", layerbackGround, 0, 0);
-
-    
-
-    this.player = new Player(this, 300, 500, "C4", this.velocityPlayer);
-
+    this.player = new Player(this, 300, 500, "C4", this.velocityPlayer);  
+    const top = map.createLayer("Top", layerbackGround, 0, 0);  
+    obstacle.setCollisionByProperty({ colision: true });
     this.playersGroup = this.physics.add.group();
     this.hitbox = new Hitbox(this, this.player);
     this.cameras.main.startFollow(this.player);
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+    this.physics.add.collider(this.player, obstacle);
   }
 
   update() {
