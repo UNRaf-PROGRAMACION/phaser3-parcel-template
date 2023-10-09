@@ -18,6 +18,9 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
 
     this.facingDirection = null;
     this.damageAmount = 100;
+    // this.attackSound = attackSound;
+    // this.isAttackSoundPlaying = false;
+    // this.isAttacking = false;
   }
 
   update() {
@@ -35,34 +38,36 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
     }
 
     if (this.xKey.isDown && this.facingDirection !== null) {
-      switch (this.facingDirection) {
-        case "left":
-          this.width = 150;
-          this.height = 200;
-          this.setPosition(this.player.x - 175, this.player.y);
-          this.attack();
-          break;
-        case "right":
-          this.width = 150;
-          this.height = 200;
-          this.setPosition(this.player.x + 175, this.player.y);
-          this.attack();
-          break;
-        case "up":
-          this.width = 212;
-          this.height = 150;
-          this.setPosition(this.player.x, this.player.y - 168);
-          this.attack();
-          break;
-        case "down":
-          this.width = 212;
-          this.height = 150;
-          this.setPosition(this.player.x, this.player.y + 168);
-          this.attack();
-          break;
+      if (!this.isAttacking) {
+        switch (this.facingDirection) {
+          case "left":
+            this.width = 150;
+            this.height = 200;
+            this.setPosition(this.player.x - 175, this.player.y);
+            this.attack();
+            break;
+          case "right":
+            this.width = 150;
+            this.height = 200;
+            this.setPosition(this.player.x + 175, this.player.y);
+            this.attack();
+            break;
+          case "up":
+            this.width = 212;
+            this.height = 150;
+            this.setPosition(this.player.x, this.player.y - 168);
+            this.attack();
+            break;
+          case "down":
+            this.width = 212;
+            this.height = 150;
+            this.setPosition(this.player.x, this.player.y + 168);
+            this.attack();
+            break;
+        }
+      } else {
+        this.setActive(false).setVisible(false);
       }
-    } else {
-      this.setActive(false).setVisible(false);
     }
   }
 
@@ -74,4 +79,14 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
       this.setActive(false).setVisible(false);
     }, 100);
   }
+
+  // stopAttack() {
+  //   setTimeout(() => {
+  //     if (this.isAttackSoundPlaying){
+  //       this.attackSound.stop();
+  //       this.isAttackSoundPlaying = false;
+  //     }
+  //   }, 400);
+  //   this.setActive(false).setVisible(false);
+  // }
 }

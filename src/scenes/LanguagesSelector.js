@@ -40,52 +40,52 @@ export default class LanguageSelector extends Phaser.Scene {
     this.#textSpanish = this.add
       .text(500, 300, getPhrase(this.spanishSel), {
         fontSize: "100px",
-        fontFamily: "impact",
-        fill: "#FFFFFF",
+        fontFamily: "Trebuchet MS",
+        fill: "FFFF00",
       })
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
         this.getTranslations(ES_AR);
       })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-        this.#textSpanish.setFill("FFFF00");
+        this.#textSpanish.setFill("#F3E5AB");
       })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-        this.#textSpanish.setFill("#FFFFFF");
+        this.#textSpanish.setFill("FFFF00");
       });
 
     this.#textEnglish = this.add
       .text(1100, 300, getPhrase(this.englishSel), {
         fontSize: "100px",
-        fontFamily: "impact",
-        fill: "#FFFFFF",
+        fontFamily: "Trebuchet MS",
+        fill: "FFFF00",
       })
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
         this.getTranslations(EN_UK);
       })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-        this.#textEnglish.setFill("FFFF00");
+        this.#textEnglish.setFill("#F3E5AB");
       })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-        this.#textEnglish.setFill("#FFFFFF");
+        this.#textEnglish.setFill("FFFF00");
       });
 
     this.#updatedTextInScene = this.add
       .text(20, 20, getPhrase(this.#updatedString), {
         fontSize: "60px",
-        fontFamily: "impact",
-        fill: "#FFFFFF",
+        fontFamily: "Trebuchet MS",
+        fill: "FFFF00",
       })
       .setInteractive()
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
         this.scene.start("MainMenu", { language: this.language });
       })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-        this.#updatedTextInScene.setFill("FFFF00");
+        this.#updatedTextInScene.setFill("#F3E5AB");
       })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-        this.#updatedTextInScene.setFill("#FFFFFF");
+        this.#updatedTextInScene.setFill("FFFF00");
       });
   }
 

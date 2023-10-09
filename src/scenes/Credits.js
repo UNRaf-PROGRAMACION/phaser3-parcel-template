@@ -16,40 +16,56 @@ export default class Credits extends Phaser.Scene {
   }
 
   create() {
+    const canvasWidth = this.sys.game.config.width;
+    const canvasHeight = this.sys.game.config.height;
+
+    const bgImage = this.add.image(400, 300, "menuBg");
+    bgImage.setScale(
+      canvasWidth / bgImage.width,
+      canvasHeight / bgImage.height
+    );
+    bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
+
     this.add.text(600, 100, getPhrase(this.programmers), {
       fontSize: "128px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
+      fill: "FFFF00",
     });
-    this.add.text(800, 600, getPhrase(this.artist), {
+    this.add.text(800, 500, getPhrase(this.artist), {
       fontSize: "128px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
+      fill: "FFFF00",
     });
     this.add.text(800, 300, "Sebastian Faetani", {
       fontSize: "50px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
+      fill: "FFFF00",
     });
     this.add.text(830, 400, "Agustin Iñiguez", {
       fontSize: "50px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
+      fill: "FFFF00",
     });
-    this.add.text(850, 800, "Sasha Flory", {
+    this.add.text(850, 680, "Sasha Flory", {
       fontSize: "50px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
+      fill: "FFFF00",
     });
 
     let buttonV = this.add
       .text(10, 10, getPhrase(this.back), {
         fontSize: "50px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
+        fill: "FFFF00",
       })
       .setInteractive();
 
     buttonV.on("pointerover", () => {
-      buttonV.setFill("FFFF00");
+      buttonV.setFill("#F3E5AB");
     });
 
     buttonV.on("pointerout", () => {
-      buttonV.setFill("#FFFFFF");
+      buttonV.setFill("FFFF00");
     });
 
     buttonV.on("pointerdown", () => {
