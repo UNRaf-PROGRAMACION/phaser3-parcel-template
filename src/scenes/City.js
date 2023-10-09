@@ -341,7 +341,8 @@ export default class City extends Phaser.Scene {
     this.rectangle.setVisible(true);
     if (this.squirrelsKilled >= 4) {
       this.missionComplete = true;
-
+      //this.squirrelsKilledText.destroy(true);
+      this.misionText.setText("Felicidades por completar la mision, el desierto lo espera")
       this.lvl++;
       events.emit("UpdateLVL", { lvl: this.lvl });
 
