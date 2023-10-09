@@ -81,6 +81,7 @@ export default class City extends Phaser.Scene {
             .setScale(1)
             .setSize(200, 200);
           collectible1.anims.play("cura-anim", true);
+
           break;
         }
 
@@ -204,7 +205,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText.setVisible(false);
     this.squirrelsKilledText.setScrollFactor(0);
 
-    this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.7 });
+    this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
   }
   update() {
@@ -359,6 +360,7 @@ export default class City extends Phaser.Scene {
   }
   Heal(player, collectible) {
     this.hp = this.hp + 25;
+    
     events.emit("UpdateHP", { hp: this.hp });
      collectible.disableBody(true, true);
   }
