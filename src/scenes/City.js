@@ -186,7 +186,7 @@ export default class City extends Phaser.Scene {
       .text(
         60,
         880,
-        "Hola viajero, necesitamos tu ayuda para derrotar a las ardillas, ve y matalas",
+        "Hola viajero, necesitamos tu ayuda para derrotar a las ardillas",
         {
           fontSize: "35px",
           color: "FFFF00",
