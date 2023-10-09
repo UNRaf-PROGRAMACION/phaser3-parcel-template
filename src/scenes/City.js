@@ -19,8 +19,11 @@ import Rock from "../components/Rock";
 //  Has normal enemies
 //  save station
 export default class City extends Phaser.Scene {
+  // #wasChangedLanguage = TODO;
   constructor() {
     super("City");
+    // const { squirrelsKill } = keys.City;
+    // this.squirrelsKill = squirrelsKill;
     this.lvl;
     this.hp;
     this.experience;
@@ -32,6 +35,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
+    
   }
 
   init(data) {
@@ -180,7 +184,7 @@ export default class City extends Phaser.Scene {
       this
     );
 
-    this.squirrelsKilledText = this.add.text(1200, 60, "Squirrels Killed: 0", {
+    this.squirrelsKilledText = this.add.text(1150, 60, "Squirrels Killed: 0 / 4", {
       fontSize: "50px",
       fontFamily: "Roboto Mono",
     });
@@ -330,7 +334,7 @@ export default class City extends Phaser.Scene {
         this.squirrelsKilled++;
 
         this.squirrelsKilledText.setText(
-          `Squirrels Killed:${this.squirrelsKilled / 2}`
+          `Squirrels Killed: ${this.squirrelsKilled / 2} / 4`
         );
       }
     }
@@ -341,28 +345,28 @@ export default class City extends Phaser.Scene {
   }
 
   mision(player, Eagle) {
-  if (this.squirrelsKilled <= 3) {
     this.squirrelsKilledText.setVisible(true);
     this.misionText.setVisible(true);
     this.rectangle.setVisible(true);
-  }
-    if (this.squirrelsKilled >= 4) {
+
+    if (this.squirrelsKilled >= 8) {
       this.missionComplete = true;
-      //this.squirrelsKilledText.destroy(true);
       this.misionText.setText("Felicidades por completar la mision, el desierto lo espera")
+      this.squirrelsKilled = 0;
+      this.squirrelsKilledText.setText("");
+      
+
       this.lvl++;
       events.emit("UpdateLVL", { lvl: this.lvl });
-
+      
+    
       this.salida.setVisible(true).setActive(true);
-      this.squirrelsKilled = 0;
-      this.squirrelsKilledText.setText('');
-      this.squirrelsKilledText.setVisible(false).setActive(false);
     }
   }
   Heal(player, collectible) {
     this.hp = this.hp + 25;
     events.emit("UpdateHP", { hp: this.hp });
-    collectible.disableBody(true, true);
+     collectible.disableBody(true, true);
   }
   NextLevel() {
     if (this.missionComplete){
