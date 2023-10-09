@@ -81,7 +81,7 @@ export default class City extends Phaser.Scene {
             .setScale(1)
             .setSize(200, 200);
           collectible1.anims.play("cura-anim", true);
-          
+
           break;
         }
 

@@ -20,7 +20,6 @@ export default class Preload extends Phaser.Scene {
     this.load.image("desertTemp", "assets/images/desertTemp.jpg");
     this.load.image("musicOn", "assets/images/musicOn.png");
     this.load.image("musicOff", "assets/images/musicOff.png");
-    this.load.image("xp", "assets/images/windowsXp.jpg")
 
     this.load.image("FlechaSalida", "assets/images/Flecha.png");
     this.load.spritesheet("Eagle", "assets/images/NPC.png", {
@@ -43,8 +42,8 @@ export default class Preload extends Phaser.Scene {
     });
 
     this.load.tilemapTiledJSON("City", "assets/Tilemaps/City.json");
-    this.load.tilemapTiledJSON("Desert","assets/Tilemaps/Desert.json");
-    this.load.image("Mapdesert","assets/Images/DesertTileset.png");
+    this.load.tilemapTiledJSON("Desert", "assets/Tilemaps/Desert.json");
+    this.load.image("Mapdesert", "assets/Images/DesertTileset.png");
     this.load.image("Mapcity", "assets/Images/tileset.png");
 
     this.load.audio("citySFX", "assets/Audio/citySFX.mp3");
