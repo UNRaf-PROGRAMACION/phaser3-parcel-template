@@ -51,7 +51,7 @@ export default class MainMenu extends Phaser.Scene {
 
     startButton.on("pointerdown", () => {
       this.menuMusic.stop();
-      this.scene.start("Desert");
+      this.scene.start("City");
     });
 
     let creditButton = this.add
