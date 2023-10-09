@@ -19,8 +19,11 @@ import Rock from "../components/Rock";
 //  Has normal enemies
 //  save station
 export default class City extends Phaser.Scene {
+  // #wasChangedLanguage = TODO;
   constructor() {
     super("City");
+    // const { squirrelsKill } = keys.City;
+    // this.squirrelsKill = squirrelsKill;
     this.lvl;
     this.hp;
     this.experience;
@@ -32,6 +35,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
+    
   }
 
   init(data) {
@@ -91,15 +95,15 @@ export default class City extends Phaser.Scene {
           let salida = this.salida
             .create(x, y, "FlechaSalida")
             .setScale(1)
-            .setSize(200, 200);
-
+            .setSize(200, 200)
+            .setVisible(false)
+            .setActive(false);
           break;
         }
       }
     });
 
     this.player = new Player(this, 4100, 1900, "C4", this.velocityPlayer);
-    this.salida.setVisible(false).setActive(false);
     const top = map.createLayer("Top", layerbackGround, 0, 0);
 
     this.playersGroup = this.physics.add.group();
@@ -110,7 +114,7 @@ export default class City extends Phaser.Scene {
 
     this.hitbox = new Hitbox(this, this.player);
 
-    this.Eagle = new Npc(this, 4500, 3800, "Eagle");
+    this.Eagle = new Npc(this, 4550, 3290, "Eagle");
 
     this.squirrels.push(
       new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
@@ -179,9 +183,12 @@ export default class City extends Phaser.Scene {
       null,
       this
     );
-    this.squirrelsKilledText = this.add.text(1000, 60, "Squirrels Killed: 0", {
+
+    this.squirrelsKilledText = this.add.text(1150, 60, "Squirrels Killed: 0 / 4", {
       fontSize: "50px",
+      fontFamily: "Roboto Mono",
     });
+
     this.rectangle = this.add.image(900, 900, "rectangle");
     this.misionText = this.add
       .text(
@@ -190,6 +197,7 @@ export default class City extends Phaser.Scene {
         "Hola viajero, necesitamos tu ayuda para derrotar a las ardillas, ve y matalas",
         {
           fontSize: "35px",
+          fontFamily: "Roboto Mono",
           color: "FFFF00",
         }
       )
@@ -326,7 +334,7 @@ export default class City extends Phaser.Scene {
         this.squirrelsKilled++;
 
         this.squirrelsKilledText.setText(
-          `Squirrels Killed:${this.squirrelsKilled / 2}`
+          `Squirrels Killed: ${this.squirrelsKilled / 2} / 4`
         );
       }
     }
@@ -340,26 +348,28 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText.setVisible(true);
     this.misionText.setVisible(true);
     this.rectangle.setVisible(true);
-    if (this.squirrelsKilled >= 4) {
+
+    if (this.squirrelsKilled >= 8) {
       this.missionComplete = true;
-      //this.squirrelsKilledText.destroy(true);
       this.misionText.setText("Felicidades por completar la mision, el desierto lo espera")
+      this.squirrelsKilled = 0;
+      this.squirrelsKilledText.setText("");
+      
+
       this.lvl++;
       events.emit("UpdateLVL", { lvl: this.lvl });
-
+      
+    
       this.salida.setVisible(true).setActive(true);
-      this.squirrelsKilled = 0;
-      this.squirrelsKilledText.setText(
-        "Squirrels Killed:" + this.squirrelsKilled
-      );
     }
   }
   Heal(player, collectible) {
     this.hp = this.hp + 25;
     events.emit("UpdateHP", { hp: this.hp });
-    collectible.disableBody(true, true);
+     collectible.disableBody(true, true);
   }
   NextLevel() {
+    if (this.missionComplete){
     const data = {
       lvl: this.lvl,
       hp: this.hp,
@@ -367,5 +377,6 @@ export default class City extends Phaser.Scene {
       velocityPlayer: this.velocityPlayer,
     };
     this.scene.start("Desert", data);
+  }
   }
 }

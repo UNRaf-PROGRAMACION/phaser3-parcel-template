@@ -26,11 +26,13 @@ export default class UI extends Phaser.Scene {
   create() {
     this.hpTexto = this.add.text(50, 60, `HP ${this.hp}`, {
       fontSize: "50px",
+      fontFamily: "Roboto Mono",
     });
     events.on("UpdateHP", this.UpdateHP, this);
     events.on("UpdateLVL", this.UpdateLVL, this);
-    this.levelText = this.add.text(50, 150, `lvl ${this.lvl}`, {
+    this.levelText = this.add.text(50, 150, `LVL ${this.lvl}`, {
       fontSize: "50px",
+      fontFamily: "Roboto Mono",
     });
   }
   UpdateHP(data) {
@@ -39,6 +41,6 @@ export default class UI extends Phaser.Scene {
   }
   UpdateLVL(data) {
     this.lvl = data.lvl;
-    this.levelText.setText(`lvl:${this.lvl}`);
+    this.levelText.setText(`LVL:${this.lvl}`);
   }
 }

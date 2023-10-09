@@ -23,49 +23,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.targetY = 0;
     this.enemyHp = 200;
 
-    // this.patrolArea = patrolArea;
   }
-
-  // patrol() {
-  //   if (!this.isFollowing) {
-  //     const deltaX = this.targetX - this.x;
-  //     const deltaY = this.targetY - this.y;
-
-  //     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-  //       if (deltaX > 0) {
-  //         this.anims.play('walk-right', true);
-  //       } else {
-  //         this.anims.play('walk-left', true);
-  //       }
-  //     } else {
-  //       if (deltaY > 0) {
-  //         this.anims.play('walk-down', true);
-  //       } else {
-  //         this.anims.play('walk-up', true);
-  //       }
-  //     }
-
-  //     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-  //     const directionX = deltaX / distance;
-  //     const directionY = deltaY / distance;
-  //     const elapsedTime = this.timer.elapsed;
-  //     const patrolDuration = 1500; // Adjust as needed
-
-  //     if (elapsedTime < patrolDuration) {
-  //       const movementX = directionX * this.velocity * elapsedTime / patrolDuration;
-  //       const movementY = directionY * this.velocity * elapsedTime / patrolDuration;
-
-  //       this.x += movementX;
-  //       this.y += movementY;
-  //     } else {
-  //       // Time to pick a new patrol target
-  //       const randomX = Phaser.Math.Between(this.patrolArea.left, this.patrolArea.right);
-  //       const randomY = Phaser.Math.Between(this.patrolArea.top, this.patrolArea.bottom);
-  //       this.targetX = randomX;
-  //       this.targetY = randomY;
-  //     }
-  //   }
-  // }
 
   takeDamage(damageAmount) {
     if (this.active) {
