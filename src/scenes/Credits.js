@@ -69,7 +69,8 @@ export default class Credits extends Phaser.Scene {
     });
 
     buttonV.on("pointerdown", () => {
-      this.scene.start("MainMenu");
+      this.scene.resume("MainMenu");
+      this.scene.stop("Credits");
     });
   }
 
