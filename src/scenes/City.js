@@ -205,7 +205,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText.setVisible(false);
     this.squirrelsKilledText.setScrollFactor(0);
 
-    this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.7 });
+    this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
   }
   update() {
