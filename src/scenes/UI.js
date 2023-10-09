@@ -18,23 +18,27 @@ export default class UI extends Phaser.Scene {
   constructor() {
     super("UI");
   }
-  init(data){
-    this.hp=data.hp || 200
-   
+  init(data) {
+    this.hp = data.hp || 200;
+    this.lvl = data.lvl || 1;
   }
 
   create() {
-
-    this.hpTexto = this.add.text(50, 60, `HP ${  this.hp}`, {
+    this.hpTexto = this.add.text(50, 60, `HP ${this.hp}`, {
       fontSize: "50px",
     });
     events.on("UpdateHP", this.UpdateHP, this);
-
-}
-UpdateHP(data) {
-  this.hp = data.hp;
-  this.hpTexto.setText(`HP ${this.hp}`);
-}
-
-
+    events.on("UpdateLVL", this.UpdateLVL, this);
+    this.levelText = this.add.text(50, 150, `lvl ${this.lvl}`, {
+      fontSize: "50px",
+    });
+  }
+  UpdateHP(data) {
+    this.hp = data.hp;
+    this.hpTexto.setText(`HP ${this.hp}`);
+  }
+  UpdateLVL(data) {
+    this.lvl = data.lvl;
+    this.levelText.setText(`lvl:${this.lvl}`);
+  }
 }
