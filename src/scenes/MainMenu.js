@@ -36,7 +36,7 @@ export default class MainMenu extends Phaser.Scene {
     let startButton = this.add
       .text(860, 500, getPhrase(this.play), {
         fontSize: "90px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
         fill: "FFFF00",
       })
       .setInteractive();
@@ -57,7 +57,7 @@ export default class MainMenu extends Phaser.Scene {
     let creditButton = this.add
       .text(830, 640, getPhrase(this.credits), {
         fontSize: "80px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
         fill: "FFFF00",
       })
       .setInteractive();
@@ -71,13 +71,14 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     creditButton.on("pointerdown", () => {
+      this.menuMusic.pause();
       this.scene.start("Credits");
     });
 
     let languageButton = this.add
       .text(785, 780, getPhrase(this.languagesSelec), {
         fontSize: "80px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
         fill: "FFFF00",
       })
       .setInteractive();
@@ -91,6 +92,7 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     languageButton.on("pointerdown", () => {
+      this.menuMusic.pause();
       this.scene.start("LanguageSelector");
     });
 

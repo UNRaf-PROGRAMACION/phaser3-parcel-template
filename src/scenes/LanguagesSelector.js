@@ -40,7 +40,7 @@ export default class LanguageSelector extends Phaser.Scene {
     this.#textSpanish = this.add
       .text(500, 300, getPhrase(this.spanishSel), {
         fontSize: "100px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
         fill: "FFFF00",
       })
       .setInteractive()
@@ -57,7 +57,7 @@ export default class LanguageSelector extends Phaser.Scene {
     this.#textEnglish = this.add
       .text(1100, 300, getPhrase(this.englishSel), {
         fontSize: "100px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
         fill: "FFFF00",
       })
       .setInteractive()
@@ -74,7 +74,7 @@ export default class LanguageSelector extends Phaser.Scene {
     this.#updatedTextInScene = this.add
       .text(20, 20, getPhrase(this.#updatedString), {
         fontSize: "60px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
         fill: "FFFF00",
       })
       .setInteractive()

@@ -28,34 +28,34 @@ export default class Credits extends Phaser.Scene {
 
     this.add.text(600, 100, getPhrase(this.programmers), {
       fontSize: "128px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
       fill: "FFFF00",
     });
     this.add.text(800, 500, getPhrase(this.artist), {
       fontSize: "128px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
       fill: "FFFF00",
     });
     this.add.text(800, 300, "Sebastian Faetani", {
       fontSize: "50px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
       fill: "FFFF00",
     });
     this.add.text(830, 400, "Agustin Iñiguez", {
       fontSize: "50px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
       fill: "FFFF00",
     });
     this.add.text(850, 680, "Sasha Flory", {
       fontSize: "50px",
-      fontFamily: "impact",
+      fontFamily: "Trebuchet MS",
       fill: "FFFF00",
     });
 
     let buttonV = this.add
       .text(10, 10, getPhrase(this.back), {
         fontSize: "50px",
-        fontFamily: "impact",
+        fontFamily: "Trebuchet MS",
         fill: "FFFF00",
       })
       .setInteractive();
