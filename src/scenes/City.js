@@ -330,7 +330,8 @@ export default class City extends Phaser.Scene {
       if (squirrel instanceof Enemies) {
         squirrel.takeDamage(this.hitbox.damageAmount);
         this.velocitySquirrel = 0
- squirrel.anims.play("Damage",true);
+        squirrel.anims.play("Damage",true);
+ 
  
  setTimeout(() => {
   // Deactivate or hide the hitbox after a delay

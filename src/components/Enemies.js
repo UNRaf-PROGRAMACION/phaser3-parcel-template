@@ -29,9 +29,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     if (this.active) {
       this.enemyHp -= damageAmount;
       this.setVelocity = 0
-      if(this.setVelocity = 0){
-        this.anims.play("Damage",true);
-      };
+      
 
       if (this.enemyHp <= 0) {
         this.anims.stop();
