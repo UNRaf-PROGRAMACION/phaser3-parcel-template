@@ -22,6 +22,7 @@ export default class GameEnd extends Phaser.Scene {
       .setInteractive();
 
     buttonR.on("pointerdown", () => {
+      this.scene.launch("UI");
       this.scene.start("City");
     });
   }

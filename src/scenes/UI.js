@@ -19,8 +19,8 @@ export default class UI extends Phaser.Scene {
     super("UI");
   }
   init(data) {
-    this.hp = data.hp || 200;
-    this.lvl = data.lvl || 1;
+    this.hp = data.hp || 200
+    this.lvl = data.lvl || 1
   }
 
   create() {

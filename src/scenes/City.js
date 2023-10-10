@@ -42,16 +42,16 @@ export default class City extends Phaser.Scene {
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
     this.experience = data.experience || 0;
-    this.velocityPlayer = data.velocityPlayer || 400;
+    this.velocityPlayer = data.velocityPlayer || 700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
-    this.enemyHp = data.enemyhp || 200;
+    this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 0;
     this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = false;
   }
 
   create() {
-    this.scene.launch("UI");
+    
 
     const map = this.make.tilemap({ key: "City" });
     this.tileWidth = map.tileWidth;
@@ -172,7 +172,7 @@ export default class City extends Phaser.Scene {
 
       squirrel.targetX = Phaser.Math.Between(20, 2500);
       squirrel.targetY = Phaser.Math.Between(10, 300);
-      squirrel.velocity = 300;
+      this.velocitySquirrel = 300;
     }
 
     console.log(this.player);
@@ -252,9 +252,9 @@ export default class City extends Phaser.Scene {
 
         // Calcular la cantidad de movimiento en este fotograma
         const movementX =
-          (directionX * squirrel.velocity * this.game.loop.delta) / 1500;
+          (directionX * this.velocitySquirrel * this.game.loop.delta) / 1500;
         const movementY =
-          (directionY * squirrel.velocity * this.game.loop.delta) / 1500;
+          (directionY * this.velocitySquirrel * this.game.loop.delta) / 1500;
 
         // Actualizar las coordenadas de la ardilla
         squirrel.x += movementX;
@@ -329,8 +329,15 @@ export default class City extends Phaser.Scene {
     if (squirrel.active && hitbox.active) {
       if (squirrel instanceof Enemies) {
         squirrel.takeDamage(this.hitbox.damageAmount);
+        this.velocitySquirrel = 0
+ squirrel.anims.play("Damage",true);
+ 
+ setTimeout(() => {
+  // Deactivate or hide the hitbox after a delay
+ this.velocitySquirrel= 300;
+}, 200);
 
-        squirrel.anims.pause();
+       
         this.squirrelsKilled++;
 
         this.squirrelsKilledText.setText(
@@ -376,7 +383,13 @@ export default class City extends Phaser.Scene {
       damageAmount: this.damageAmount,
       velocityPlayer: this.velocityPlayer,
     };
+    for (const s of this.squirrels) {
+      s.destroy(true, true);
+    }
+    // Clear the squirrels array
+    this.squirrels = [];
+ 
     this.scene.start("Desert", data);
-  }
+  } 
   }
 }

@@ -59,6 +59,11 @@ export default class Preload extends Phaser.Scene {
       repeat: -1,
     });
     this.anims.create({
+      key: "Damage",
+      frames: [{ key: "Squirrel", frame: 33 }],
+      frameRate: 1,
+    });
+    this.anims.create({
       key: "walkingUp",
       frames: this.anims.generateFrameNumbers("C4", { start: 18, end: 23 }),
       frameRate: 5,

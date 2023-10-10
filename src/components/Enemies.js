@@ -21,13 +21,17 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 0;
     this.targetY = 0;
-    this.enemyHp = 200;
+    this.enemyHp = 2000;
 
   }
 
   takeDamage(damageAmount) {
     if (this.active) {
       this.enemyHp -= damageAmount;
+      this.setVelocity = 0
+      if(this.setVelocity = 0){
+        this.anims.play("Damage",true);
+      };
 
       if (this.enemyHp <= 0) {
         this.anims.stop();
@@ -35,4 +39,5 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       }
     }
   }
+  
 }
