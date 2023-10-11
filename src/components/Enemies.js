@@ -23,6 +23,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.targetY = 0;
     this.enemyHp = 2000;
     this.velocitySquirrel= 300
+
    
 
   
@@ -44,6 +45,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       }
     }
   }
+  
   
   
 }

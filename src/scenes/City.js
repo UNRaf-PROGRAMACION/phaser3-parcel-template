@@ -109,6 +109,8 @@ export default class City extends Phaser.Scene {
     this.playersGroup = this.physics.add.group();
     this.collectibleGroup = this.physics.add.group();
     this.squirrelGroup = this.physics.add.group();
+    
+
     this.rocksGroup = this.physics.add.group();
     this.attackSound = this.sound.add("swordAttack", { volume: 0.5 });
 
@@ -166,7 +168,12 @@ export default class City extends Phaser.Scene {
       null,
       this
     );
-    this.physics.add.overlap(this.player,this.hitboxSquirrels,this.AtaqueArdilla,null,this);
+    this.physics.add.overlap(this.player, this.squirrels, () => {
+      // Llama al método throwRockAtPlayer de la ardilla cuando se superponen
+      this.throwRockAtPlayer(this.player);
+    }, null, this);
+     this.physics.add.collider(this.player,this.rock,this.daño,null,this);
+    
 
     
      
@@ -224,10 +231,24 @@ export default class City extends Phaser.Scene {
     
     
     for (const squirrel of this.squirrels) {
+      squirrel.timeToThrowRock = 0;
       const startX = Math.floor(squirrel.x / this.tileWidth);
       const startY = Math.floor(squirrel.y / this.tileHeight);
       const endX = Math.floor(squirrel.targetX / this.tileWidth);
       const endY = Math.floor(squirrel.targetY / this.tileHeight);
+      const distanceToPlayer = Phaser.Math.Distance.Between(
+        squirrel.x,
+        squirrel.y,
+        this.player.x,
+        this.player.y
+      );
+      if (distanceToPlayer < 300 && squirrel.timeToThrowRock <= 0) {
+        this.throwRockAtPlayer(squirrel);
+        squirrel.timeToThrowRock = 300; // Espera antes de lanzar otra piedra
+      }
+
+      // Resta el tiempo para lanzar una piedra
+      squirrel.timeToThrowRock -= 1;
 
       this.easystar.findPath(startX, startY, endX, endY, (path) => {
         if (path !== null && path.length > 1) {
@@ -261,27 +282,8 @@ export default class City extends Phaser.Scene {
   }
 
   DamageTaken(player, squirrel) {
-    if (squirrel.active) {
-     
-      this.hp--;
-      events.emit("UpdateHP", { hp: this.hp });
-    }
+    
 
-    if (this.hp <= 0) {
-      if (squirrel && squirrel.anims.isPlaying) {
-        squirrel.anims.pause();
-      }
-
-      // Destroy each squirrel individually
-      for (const s of this.squirrels) {
-        s.destroy(true, true);
-      }
-      // Clear the squirrels array
-      this.squirrels = [];
-
-      this.scene.pause("City");
-      this.scene.launch("GameEnd");
-    }
   }
 
   playerHitEnemy(hitbox, squirrel) {
@@ -356,7 +358,43 @@ export default class City extends Phaser.Scene {
     this.scene.start("Desert", data);
   } 
   }
-  AtaqueArdilla(){
-    console.log("choque");
+  throwRockAtPlayer(squirrel) {
+    console.log("pumpum")
+    const directionX = this.player.x - squirrel.x;
+    const directionY = this.player.y - squirrel.y;
+  
+    // Normaliza la dirección para obtener un vector unitario
+    const length = Math.sqrt(directionX * directionX + directionY * directionY);
+    const velocityX = (directionX / length) * this.velocityPlayer ;
+    const velocityY = (directionY / length) * this.velocityPlayer;
+  
+    // Crea una instancia de la clase Rock y configura su velocidad
+    this.rock = new Rock(this,squirrel.x,squirrel.y, "Rock");
+    this.rock.setVelocity(velocityX, velocityY);
+    this.physics.add.collider(this.player,this.rock,this.daño,null,this);
+  
   }
+  daño(player,rock,squirrel){
+    console.log ("auch");
+     this.hp--;
+    events.emit("UpdateHP", { hp: this.hp });
+    
+    if (this.hp <= 0) {
+      this.player.setVisible(false).setActive(false);
+      if (squirrel && squirrel.anims.isPlaying) {
+        squirrel.anims.pause();
+      }
+
+      // Destroy each squirrel individually
+      for (const s of this.squirrels) {
+        s.destroy(true, true);
+      }
+      // Clear the squirrels array
+      this.squirrels = [];
+
+      this.scene.pause("City");
+      this.scene.launch("GameEnd");
+    }
+  }
+  
 }
