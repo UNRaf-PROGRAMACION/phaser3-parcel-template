@@ -148,7 +148,7 @@ export default class Preload extends Phaser.Scene {
         start: 17,
         end: 20,
       }),
-      frameRate: 15,
+      frameRate: 10,
       repeat: 0,
     });
 
@@ -158,7 +158,7 @@ export default class Preload extends Phaser.Scene {
         start: 21,
         end: 24,
       }),
-      frameRate: 15,
+      frameRate: 10,
       repeat: 0,
     });
 
@@ -176,7 +176,7 @@ export default class Preload extends Phaser.Scene {
       key: "AttackDownSquirrel",
       frames: this.anims.generateFrameNumbers("Squirrel", {
         start: 29,
-        end: 32,
+        end: 31,
       }),
       frameRate: 15,
       repeat: 0,

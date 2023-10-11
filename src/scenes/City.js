@@ -130,11 +130,13 @@ export default class City extends Phaser.Scene {
     this.squirrels.push(
       new Enemies(this, 500, 1550, "Squirrel", this.velocitySquirrel)
     );
+    
     this.hitboxSquirrels = new EnemiesHitbox(this, this.squirrels[0]);
     this.hitboxSquirrels1 = new EnemiesHitbox(this, this.squirrels[1]);
     this.hitboxSquirrels2 = new EnemiesHitbox(this, this.squirrels[2]);
     this.hitboxSquirrels3 = new EnemiesHitbox(this, this.squirrels[3]);
     this.hitboxSquirrels.setScale(5);
+   
 
     obstacle.setCollisionByProperty({ colision: true });
 
@@ -231,6 +233,7 @@ export default class City extends Phaser.Scene {
     
     
     for (const squirrel of this.squirrels) {
+      squirrel.body.setSize(800,800);
       squirrel.timeToThrowRock = 0;
       const startX = Math.floor(squirrel.x / this.tileWidth);
       const startY = Math.floor(squirrel.y / this.tileHeight);
@@ -242,13 +245,13 @@ export default class City extends Phaser.Scene {
         this.player.x,
         this.player.y
       );
-      if (distanceToPlayer < 300 && squirrel.timeToThrowRock <= 0) {
+      if (distanceToPlayer < 600 && squirrel.timeToThrowRock <= 0) {
         this.throwRockAtPlayer(squirrel);
-        squirrel.timeToThrowRock = 300; // Espera antes de lanzar otra piedra
+        squirrel.timeToThrowRock =2000; // Espera antes de lanzar otra piedra
       }
 
       // Resta el tiempo para lanzar una piedra
-      squirrel.timeToThrowRock -= 1;
+      squirrel.timeToThrowRock -= 5000;
 
       this.easystar.findPath(startX, startY, endX, endY, (path) => {
         if (path !== null && path.length > 1) {
@@ -359,20 +362,43 @@ export default class City extends Phaser.Scene {
   } 
   }
   throwRockAtPlayer(squirrel) {
-    console.log("pumpum")
     const directionX = this.player.x - squirrel.x;
     const directionY = this.player.y - squirrel.y;
   
     // Normaliza la dirección para obtener un vector unitario
     const length = Math.sqrt(directionX * directionX + directionY * directionY);
-    const velocityX = (directionX / length) * this.velocityPlayer ;
-    const velocityY = (directionY / length) * this.velocityPlayer;
+    const velocityX = (directionX / length) * this.velocityPlayer
+    const velocityY = (directionY / length) * this.velocityPlayer
   
-    // Crea una instancia de la clase Rock y configura su velocidad
-    this.rock = new Rock(this,squirrel.x,squirrel.y, "Rock");
-    this.rock.setVelocity(velocityX, velocityY);
-    this.physics.add.collider(this.player,this.rock,this.daño,null,this);
+    // Agrega una lógica para determinar si debe tocar la animación hacia arriba o hacia abajo
+    if (Math.abs(velocityX) < Math.abs(velocityY)) {
+      if (velocityY < 0) {
+        squirrel.anims.play('AttackUpSquirrel', true);
+      } else {
+        squirrel.anims.play('AttackDownSquirrel', true);
+      }
+    } else {
+      if (velocityX < 0) {
+        squirrel.anims.play('AttackLeftSquirrel', true);
+      } else {
+        squirrel.anims.play('AttackRightSquirrel', true);
+      }
+    }
   
+    // Crea y configura la instancia de la clase Rock y su velocidad
+    this.time.addEvent({
+      delay: 300,
+      callback: () => {
+        
+        this.rock = new Rock(this, squirrel.x, squirrel.y, "Rock");
+        this.rock.setVelocity(velocityX, velocityY);
+        this.physics.add.collider(this.player,this.rock,this.daño,null,this);
+       
+      },
+      callbackScope: this,
+      loop: false,
+    });
+    
   }
   daño(player,rock,squirrel){
     console.log ("auch");
