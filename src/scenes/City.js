@@ -42,7 +42,7 @@ export default class City extends Phaser.Scene {
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
     this.experience = data.experience || 0;
-    this.velocityPlayer = data.velocityPlayer || 400;
+    this.velocityPlayer = data.velocityPlayer || 700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 200;
     this.damageAmount = data.damageAmount || 0;
@@ -51,8 +51,6 @@ export default class City extends Phaser.Scene {
   }
 
   create() {
-    this.scene.launch("UI");
-
     const map = this.make.tilemap({ key: "City" });
     this.tileWidth = map.tileWidth;
     this.tileHeight = map.tileHeight;
@@ -376,6 +374,12 @@ export default class City extends Phaser.Scene {
       damageAmount: this.damageAmount,
       velocityPlayer: this.velocityPlayer,
     };
+    for (const s of this.squirrels) {
+      s.destroy(true, true);
+    }
+    // Clear the squirrels array
+    this.squirrels = [];
+ 
     this.scene.start("Desert", data);
   }
   }

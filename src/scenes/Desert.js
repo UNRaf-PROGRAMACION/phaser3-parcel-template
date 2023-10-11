@@ -26,7 +26,7 @@ export default class Desert extends Phaser.Scene {
     this.lvl = data.lvl;
     this.hp = data.hp;
     this.experience = data.experience || 0;
-    this.velocityPlayer = data.velocityPlayer || 400;
+    this.velocityPlayer = data.velocityPlayer;
     this.enemyHp = data.enemyhp || 200;
     this.damageAmount = data.damageAmount;
   }
@@ -43,7 +43,8 @@ export default class Desert extends Phaser.Scene {
     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
 
     const objectsLayer = map.getObjectLayer("Objects");
-    this.player = new Player(this, 300, 500, "C4", this.velocityPlayer);  
+    this.player = new Player(this, 3548,
+      1700, "C4", this.velocityPlayer);  
     const top = map.createLayer("Top", layerbackGround, 0, 0);  
     obstacle.setCollisionByProperty({ colision: true });
     this.playersGroup = this.physics.add.group();
@@ -53,10 +54,45 @@ export default class Desert extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     this.physics.add.collider(this.player, obstacle);
+    this.salidaDesierto = this.physics.add.group();
+    this.salidaDesierto.allowGravity = false;
+    objectsLayer.objects.forEach((objData) => {
+      //console.log(objData.name, objData.type, objData.x, objData.y);
+      const { x = 0, y = 0, name } = objData;
+
+      switch (name) {
+       
+        
+
+        case "ciudad": {
+          // add star to scene
+          // console.log("estrella agregada: ", x, y);
+          let salida = this.salidaDesierto
+            .create(x, y, "FlechaSalida")
+            .setScale(1)
+            .setSize(200, 200)
+            .setVisible(true)
+      
+          break;
+        }
+      }
+    });
+    this.physics.add.overlap(this.player,this.salidaDesierto,this.backCity,null,this);
   }
 
   update() {
     this.player.update();
     this.hitbox.update();
+  }
+  backCity(){
+    const data = {
+      lvl: this.lvl,
+      hp: this.hp,
+      damageAmount: this.damageAmount,
+      velocityPlayer: this.velocityPlayer,
+    };
+    this.scene.start("City",data);
+  
+    
   }
 }

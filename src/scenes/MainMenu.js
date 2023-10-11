@@ -50,6 +50,7 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     startButton.on("pointerdown", () => {
+      this.scene.launch("UI");
       this.menuMusic.stop();
       this.scene.start("City");
     });
