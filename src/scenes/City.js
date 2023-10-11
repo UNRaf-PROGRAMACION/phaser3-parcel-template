@@ -117,16 +117,16 @@ export default class City extends Phaser.Scene {
     this.Eagle = new Npc(this, 4550, 3290, "Eagle");
 
     this.squirrels.push(
-      new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
+      new Enemies(this, 500, 50, "Squirrel", this.velocitySquirrel)
     );
     this.squirrels.push(
-      new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
+      new Enemies(this, 500, 550, "Squirrel", this.velocitySquirrel)
     );
     this.squirrels.push(
-      new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
+      new Enemies(this, 500, 1050, "Squirrel", this.velocitySquirrel)
     );
     this.squirrels.push(
-      new Enemies(this, 20, 50, "Squirrel", this.velocitySquirrel)
+      new Enemies(this, 500, 1550, "Squirrel", this.velocitySquirrel)
     );
     this.hitboxSquirrels = new EnemiesHitbox(this, this.squirrels[0]);
     this.hitboxSquirrels1 = new EnemiesHitbox(this, this.squirrels[1]);
@@ -166,14 +166,11 @@ export default class City extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.overlap(this.player,this.hitboxSquirrels,this.AtaqueArdilla,null,this);
 
-    for (const squirrel of this.squirrels) {
-      // squirrel.patrol();
-
-      squirrel.targetX = Phaser.Math.Between(20, 2500);
-      squirrel.targetY = Phaser.Math.Between(10, 300);
-      this.velocitySquirrel = 300;
-    }
+    
+     
+    
 
     console.log(this.player);
     this.physics.add.overlap(
@@ -224,46 +221,8 @@ export default class City extends Phaser.Scene {
     this.hitboxSquirrels2.update();
     this.hitboxSquirrels3.update();
 
-    for (const squirrel of this.squirrels) {
-      const deltaX = squirrel.targetX - squirrel.x;
-      const deltaY = squirrel.targetY - squirrel.y;
-      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Movimiento horizontal
-        if (deltaX > 0) {
-          squirrel.anims.play("walk-right", true);
-        } else {
-          squirrel.anims.play("walk-left", true);
-        }
-      } else {
-        // Movimiento vertical
-        if (deltaY > 0) {
-          squirrel.anims.play("walk-down", true);
-        } else {
-          squirrel.anims.play("walk-up", true);
-        }
-      }
-
-      if (distance > 2) {
-        // Calcular la dirección del movimiento
-        const directionX = deltaX / distance;
-        const directionY = deltaY / distance;
-
-        // Calcular la cantidad de movimiento en este fotograma
-        const movementX =
-          (directionX * this.velocitySquirrel * this.game.loop.delta) / 1500;
-        const movementY =
-          (directionY * this.velocitySquirrel * this.game.loop.delta) / 1500;
-
-        // Actualizar las coordenadas de la ardilla
-        squirrel.x += movementX;
-        squirrel.y += movementY;
-      } else {
-        squirrel.targetX = Phaser.Math.Between(20, 2500);
-        squirrel.targetY = Phaser.Math.Between(10, 300);
-      }
-    }
+    
+    
     for (const squirrel of this.squirrels) {
       const startX = Math.floor(squirrel.x / this.tileWidth);
       const startY = Math.floor(squirrel.y / this.tileHeight);
@@ -303,7 +262,7 @@ export default class City extends Phaser.Scene {
 
   DamageTaken(player, squirrel) {
     if (squirrel.active) {
-      console.log("choque");
+     
       this.hp--;
       events.emit("UpdateHP", { hp: this.hp });
     }
@@ -331,25 +290,29 @@ export default class City extends Phaser.Scene {
         squirrel.takeDamage(this.hitbox.damageAmount);
         this.velocitySquirrel = 0
         squirrel.anims.play("Damage",true);
+        
+        setTimeout(() => {
+          
+          this.velocitySquirrel = 300
+          
+        }, 200);
+        this.squirrelsKilled++
+        this.squirrelsKilledText.setText(`Squirrelds Killed: ${this.squirrelsKilled/2 } /4`  );
+       
  
  
- setTimeout(() => {
-  // Deactivate or hide the hitbox after a delay
- this.velocitySquirrel= 300;
-}, 200);
 
        
-        this.squirrelsKilled++;
-
-        this.squirrelsKilledText.setText(
-          `Squirrels Killed: ${this.squirrelsKilled / 2} / 4`
-        );
+      
       }
     }
   }
 
   takeDamage(damageAmount) {
     this.enemyHp -= damageAmount;
+    
+    
+
   }
 
   mision(player, Eagle) {
@@ -392,5 +355,8 @@ export default class City extends Phaser.Scene {
  
     this.scene.start("Desert", data);
   } 
+  }
+  AtaqueArdilla(){
+    console.log("choque");
   }
 }

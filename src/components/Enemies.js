@@ -22,20 +22,28 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.targetX = 0;
     this.targetY = 0;
     this.enemyHp = 2000;
+    this.velocitySquirrel= 300
+   
 
-  }
+  
 
+}
   takeDamage(damageAmount) {
-    if (this.active) {
+    if (this.active){
+      
+      
       this.enemyHp -= damageAmount;
-      this.setVelocity = 0
+   
+      
       
 
       if (this.enemyHp <= 0) {
+       
         this.anims.stop();
         this.setActive(false).setVisible(false);
       }
     }
   }
+  
   
 }
