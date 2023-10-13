@@ -25,25 +25,29 @@ export default class Game extends Phaser.Scene {
     this.score = data.score || 0;
   }
 
-  create() {
-    this.scene.launch("ui", {
-      level: this.level,
-    });
+create() {
+      this.scene.launch("ui", {
+          level: this.level,
+      });
+  
+      this.initializeLevel();
+  
+      this.gameSong = this.sound.add("game-song");
+      this.gameSong.play({ loop: true });
 
-    this.initializeLevel();
-    this.createCharacter();
-    this.createDynamite();
-
-    this.gameSong = this.sound.add("game-song");
-    this.gameSong.play({ loop: true });
-
-    this.physics.add.overlap(this.character, this.dynamite, this.hitDynamite, null, this);
-    this.physics.add.collider(this.character, this.wallCollisionLayer);
-
-    events.on("music", this.musicTransfer, this);
-
-    this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+      this.createCharacter(); // Asegúrate de que el personaje se cree después de las capas del mapa.
+      this.createDynamite();
+  
+      this.physics.add.overlap(this.character, this.dynamite, this.hitDynamite, null, this);
+      this.physics.add.collider(this.character, this.wallCollisionLayer);
+  
+      events.on("music", this.musicTransfer, this);
+  
+      this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+  
+      ;
   }
+
 
   initializeLevel() {
     this.level1Tile = this.make.tilemap({ key: "level1" });
@@ -58,6 +62,7 @@ export default class Game extends Phaser.Scene {
   createCharacter() {
     this.spawnPoint = this.level1Tile.findObject("objects", (obj) => obj.name === "principalCharacter");
     this.character = new PrincipalCharacter(this, this.spawnPoint.x, this.spawnPoint.y, "principal-character", this.velocity);
+    this.character.setDepth(1);
     this.add.existing(this.character);
     this.cameras.main.startFollow(this.character);
     this.physics.world.setBounds(0, 0, this.level1Tile.widthInPixels, this.level1Tile.heightInPixels);
@@ -69,7 +74,7 @@ export default class Game extends Phaser.Scene {
     this.objectsLayer.objects.forEach((objData) => {
       const { x = 0, y = 0, name } = objData;
       if (name === "dynamite") {
-        const dynamite = this.dynamite.create(x, y, "dynamite").setSize(100, 100);
+        const dynamite = this.dynamite.create(x, y, "dynamite").setSize(50, 300);
         if (dynamite) {
           dynamite.setActive(true).setVisible(true);
         }
@@ -85,7 +90,15 @@ export default class Game extends Phaser.Scene {
         gameSong: this.gameSong,
       });
     }
-  }
+
+    if (this.dynamiteCuantity >= 22) {
+        this.scene.start ("lobby", {
+          level: this.level
+        });
+        this.gameSong.stop();
+        this.gameSong.loop = false;
+    }
+   }
   
 
   hitDynamite(character, dynamite) {

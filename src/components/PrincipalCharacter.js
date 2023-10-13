@@ -32,6 +32,7 @@ export default class PrincipalCharacter extends Phaser.Physics.Arcade.Sprite {
 
         this.canUseFlash = true;
 
+
         const hitboxHeight = this.height / 2; // La mitad de la altura del personaje
         this.body.setSize(this.width, hitboxHeight);
         this.body.setOffset(0, this.height - hitboxHeight);

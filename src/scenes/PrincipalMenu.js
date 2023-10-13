@@ -12,6 +12,7 @@ export default class PrincipalMenu extends Phaser.Scene {
 
   mainMenuSong;
 
+  pointerSound;
 
   volume;
 
@@ -25,20 +26,18 @@ export default class PrincipalMenu extends Phaser.Scene {
   }
 
   create() {
-    // Fondo negro
     this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000).setOrigin(0);
 
-    this.mainMenuSong = this.sound.add("main-menu-song");
-    this.mainMenuSong.play();
-    this.mainMenuSong.loop = true;
+    this.fadingOverlay = this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000).setOrigin(0);
+    this.fadingOverlay.setAlpha(0);
 
-    // Texto de bienvenida
+    this.sounds();
+
     this.add.text(100, 100, "Deep Ambition", {
       fontSize: '32px',
       color: '#fff'
     });
 
-    // Texto "Jugar" con interacciones de ratón
     this.playText = this.add.text(100, 200, "Jugar", {
       fontSize: '20px',
       color: '#fff'
@@ -47,36 +46,49 @@ export default class PrincipalMenu extends Phaser.Scene {
   
 
     this.playText.on('pointerover', () => {
-      this.playText.setScale(1.2); // Cambia el tamaño cuando el ratón está sobre él
+      this.playText.setScale(1.2); 
+      this.pointerSound.play();
     });
 
     this.playText.on('pointerout', () => {
-      this.playText.setScale(1); // Restaura el tamaño cuando el ratón sale
+      this.playText.setScale(1); 
+      this.pointerSound.play();
     });
 
     this.playText.on('pointerdown', () => {
       this.scene.start("lobby");
       this.mainMenuSong.stop();
-      this.mainMenuSong.loop = false; // Cambia a la escena "lobby" cuando se hace clic
+      this.mainMenuSong.loop = false; 
+
+      this.tweens.add({
+        targets: this.fadingOverlay,
+        alpha: 1,
+        duration: 1000, 
+        onComplete: () => {
+          this.playCinematic();
+        }
+      });
     });
 
-// texto de configuración
+
     this.settingsText = this.add.text(100, 250, "Configuración", {
       fontSize: '20px',
       color: '#fff'
     }).setInteractive();
-//  hacer lo mismo que hicimos con playText
+
   this.settingsText.on('pointerover', () => {
     this.settingsText.setScale(1.2);
+    this.pointerSound.play();
   })
   
   this.settingsText.on('pointerout', () => {
     this.settingsText.setScale(1);
+    this.pointerSound.play();
   })
 
   this.settingsText.on('pointerdown', () => {
     this.scene.launch("settings", {
-      mainMenuSong: this.mainMenuSong, // Pasa la música a la escena de configuración
+      mainMenuSong: this.mainMenuSong, 
       volume: this.volume,
       visibleVolume: this.visibleVolume,
   });
@@ -92,10 +104,12 @@ export default class PrincipalMenu extends Phaser.Scene {
     //  hacer lo mismo que con settings
     this.tutorialText.on('pointerover', () => {
       this.tutorialText.setScale(1.2);
+      this.pointerSound.play();
     })
 
     this.tutorialText.on('pointerout', () => {
       this.tutorialText.setScale(1);
+      this.pointerSound.play();
     })
 
     this.tutorialText.on('pointerdown', () => {
@@ -106,6 +120,31 @@ export default class PrincipalMenu extends Phaser.Scene {
     
     events.on("music-settings", this.musicTransfer, this);
 
+  }
+
+  sounds() {
+    this.mainMenuSong = this.sound.add("main-menu-song");
+    this.mainMenuSong.play();
+    this.mainMenuSong.loop = true;
+
+    this.pointerSound = this.sound.add("pointerOver");
+  }
+
+  playCinematic() {
+    
+    this.fadeOutCinematic();
+  }
+  
+  fadeOutCinematic() {
+    
+    this.tweens.add({
+      targets: this.fadingOverlay,
+      alpha: 0,
+      duration: 1000, // Ajusta la duración de la animación de desvanecimiento
+      onComplete: () => {
+        this.scene.start("lobby");
+      }
+    });
   }
 
   musicTransfer (data) {
