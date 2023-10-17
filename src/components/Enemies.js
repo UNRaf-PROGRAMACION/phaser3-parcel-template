@@ -30,6 +30,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       this.enemyHp -= damageAmount;
 
       if (this.enemyHp <= 0) {
+        console.log("Ardilla morida");
         
         this.setActive(false).setVisible(false);
       }

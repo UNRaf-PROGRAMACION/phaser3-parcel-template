@@ -127,11 +127,11 @@ export default class City extends Phaser.Scene {
       new Enemies(this, 500, 1550, "Squirrel", this.velocitySquirrel)
     );
 
-    this.hitboxSquirrels = new EnemiesHitbox(this, this.squirrels[0]);
-    this.hitboxSquirrels1 = new EnemiesHitbox(this, this.squirrels[1]);
-    this.hitboxSquirrels2 = new EnemiesHitbox(this, this.squirrels[2]);
-    this.hitboxSquirrels3 = new EnemiesHitbox(this, this.squirrels[3]);
-    this.hitboxSquirrels.setScale(5);
+    //this.hitboxSquirrels = new EnemiesHitbox(this, this.squirrels[0]);
+    //this.hitboxSquirrels1 = new EnemiesHitbox(this, this.squirrels[1]);
+    //this.hitboxSquirrels2 = new EnemiesHitbox(this, this.squirrels[2]);
+    //this.hitboxSquirrels3 = new EnemiesHitbox(this, this.squirrels[3]);
+    //this.hitboxSquirrels.setScale(5);
 
     obstacle.setCollisionByProperty({ colision: true });
 
@@ -172,7 +172,7 @@ export default class City extends Phaser.Scene {
     //   null,
     //   this
     // );
-    this.physics.add.collider(this.player, this.rock, this.daño, null, this);
+    this.physics.add.collider(this.player, this.rock, this.damage, null, this);
 
     console.log(this.player);
     this.physics.add.overlap(
@@ -186,7 +186,7 @@ export default class City extends Phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.rocksGroup,
-      this.daño,
+      this.damage,
       null,
       this
     );
@@ -231,14 +231,14 @@ export default class City extends Phaser.Scene {
   update() {
     this.player.update();
     this.hitbox.update();
-    this.hitboxSquirrels.update();
-    this.hitboxSquirrels1.update();
-    this.hitboxSquirrels2.update();
-    this.hitboxSquirrels3.update();
+    //this.hitboxSquirrels.update();
+    //this.hitboxSquirrels1.update();
+    //this.hitboxSquirrels2.update();
+    //this.hitboxSquirrels3.update();
 
     for (let i = 0; i < this.squirrels.length; i++) {
       const squirrel = this.squirrels[i];
-      squirrel.body.setSize(800, 800);
+      squirrel.body.setSize(150, 150);
       const startX = Math.floor(squirrel.x / this.tileWidth);
       const startY = Math.floor(squirrel.y / this.tileHeight);
       const endX = Math.floor(squirrel.targetX / this.tileWidth);
@@ -300,26 +300,32 @@ export default class City extends Phaser.Scene {
     if (squirrel.active && hitbox.active) {
       if (squirrel instanceof Enemies) {
         squirrel.takeDamage(this.hitbox.damageAmount);
+        
         squirrel.anims.play("Damage", true);
 
         
       }
+      
     }
   }
 
-  takeDamage(damageAmount,squirrel,rock) {
+  takeDamage(damageAmount,rock,squirrel) {
     this.enemyHp -= damageAmount;
     if (this.enemyHp <= 0) {
-      squirrel.setActive(false).setVisible(false);
-      rock.setActive(false).setVisible(false);
-      
       this.squirrelsKilled++;
       this.squirrelsKilledText.setText(
         `Squirrelds Killed: ${this.squirrelsKilled / 2} /4`
       );
+      
+      squirrel.setActive(false).setVisible(false);
+      rock.setActive(false).setVisible(false);
+      
+      
       squirrel.anims.stop();
       
     }
+
+    
     
   }
 
@@ -432,7 +438,7 @@ export default class City extends Phaser.Scene {
       this.physics.moveTo(rock, player.x, player.y, velocityX);
     }
   }
-  daño(player, rock, squirrel) {
+  damage(player, rock, squirrel) {
     console.log("auch");
     this.hp--;
     events.emit("UpdateHP", { hp: this.hp });
