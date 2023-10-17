@@ -253,7 +253,7 @@ export default class City extends Phaser.Scene {
         if (squirrel.timeToThrowRock <= 0) {
           console.log("timeToThrowRock", squirrel.timeToThrowRock);
           this.throwRockAtPlayer(this.player, squirrel);
-          squirrel.timeToThrowRock = 2000;
+          squirrel.timeToThrowRock = 100;
         }
         // Resta el tiempo para lanzar una piedra
         squirrel.timeToThrowRock -= 1;
@@ -300,22 +300,27 @@ export default class City extends Phaser.Scene {
     if (squirrel.active && hitbox.active) {
       if (squirrel instanceof Enemies) {
         squirrel.takeDamage(this.hitbox.damageAmount);
-        this.velocitySquirrel = 0;
         squirrel.anims.play("Damage", true);
 
-        setTimeout(() => {
-          this.velocitySquirrel = 300;
-        }, 200);
-        this.squirrelsKilled++;
-        this.squirrelsKilledText.setText(
-          `Squirrelds Killed: ${this.squirrelsKilled / 2} /4`
-        );
+        
       }
     }
   }
 
-  takeDamage(damageAmount) {
+  takeDamage(damageAmount,squirrel,rock) {
     this.enemyHp -= damageAmount;
+    if (this.enemyHp <= 0) {
+      squirrel.setActive(false).setVisible(false);
+      rock.setActive(false).setVisible(false);
+      
+      this.squirrelsKilled++;
+      this.squirrelsKilledText.setText(
+        `Squirrelds Killed: ${this.squirrelsKilled / 2} /4`
+      );
+      squirrel.anims.stop();
+      
+    }
+    
   }
 
   mision(player, Eagle) {

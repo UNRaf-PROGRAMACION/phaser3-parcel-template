@@ -32,7 +32,7 @@
      default: "arcade",
      arcade: {
        gravity: { y: 0 },
-       debug: false,
+       debug: true,
      },
    },
    scene: [Preload, MainMenu, Credits, Language, City, Desert, GameEnd, UI]

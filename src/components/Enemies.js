@@ -8,12 +8,12 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture, velocity, patrolArea) {
     super(scene, x, y, texture);
     this.velocityX = velocity;
-    // this.timer = scene.time.addEvent({
-    //   delay: 1500, // Adjust as needed
-    //   loop: true,
-    //   callback: this.patrol,
-    //   callbackScope: this,
-    // });
+     this.timer = scene.time.addEvent({
+     delay: 1500, // Adjust as needed
+       loop: true,
+       callback: this.patrol,
+      callbackScope: this,
+     });
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -30,7 +30,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       this.enemyHp -= damageAmount;
 
       if (this.enemyHp <= 0) {
-        this.anims.stop();
+        
         this.setActive(false).setVisible(false);
       }
     }
