@@ -7,9 +7,9 @@ import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
 import EnemiesHitbox from "../components/EnemiesHitbox";
 import Rock from "../components/Rock";
-//  import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
-//  import { getPhrase } from "../services/translations";
-// import keys from "../enums/keys";
+import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
+import { getPhrase } from "../services/translations";
+import keys from "../enums/keys";
 
 //  Main biome, player starts the game here and after completing some tasks unlocks the desert
 //  Has pathway to forest
@@ -19,11 +19,11 @@ import Rock from "../components/Rock";
 //  Has normal enemies
 //  save station
 export default class City extends Phaser.Scene {
-  // #wasChangedLanguage = TODO;
+  #wasChangedLanguage = TODO;
   constructor() {
     super("City");
-    // const { squirrelsKill } = keys.City;
-    // this.squirrelsKill = squirrelsKill;
+    const { squirrelsKill } = keys.Enemy;
+    this.deadSquirrel = squirrelsKill;
     this.lvl;
     this.hp;
     this.experience;
@@ -193,8 +193,7 @@ export default class City extends Phaser.Scene {
 
     this.squirrelsKilledText = this.add.text(
       1150,
-      60,
-      "Squirrels Killed: 0 / 4",
+      60, getPhrase(this.deadSquirrel),
       {
         fontSize: "50px",
         fontFamily: "Roboto Mono",
@@ -235,9 +234,9 @@ export default class City extends Phaser.Scene {
     //this.hitboxSquirrels1.update();
     //this.hitboxSquirrels2.update();
     //this.hitboxSquirrels3.update();
-
     for (let i = 0; i < this.squirrels.length; i++) {
       const squirrel = this.squirrels[i];
+      if(!squirrel.active) return;
       squirrel.body.setSize(150, 150);
       const startX = Math.floor(squirrel.x / this.tileWidth);
       const startY = Math.floor(squirrel.y / this.tileHeight);
@@ -251,16 +250,16 @@ export default class City extends Phaser.Scene {
       );
       if (distanceToPlayer < 600) {
         if (squirrel.timeToThrowRock <= 0) {
-          console.log("timeToThrowRock", squirrel.timeToThrowRock);
+          // console.log("timeToThrowRock", squirrel.timeToThrowRock);
           this.throwRockAtPlayer(this.player, squirrel);
           squirrel.timeToThrowRock = 100;
         }
         // Resta el tiempo para lanzar una piedra
         squirrel.timeToThrowRock -= 1;
 
-        console.log("ardilas", this.squirrels);
+        // console.log("ardilas", this.squirrels);
         this.squirrels[i] = squirrel;
-        console.log("ardilas 2", this.squirrels);
+        // console.log("ardilas 2", this.squirrels);
       }
 
       this.easystar.findPath(startX, startY, endX, endY, (path) => {
@@ -298,29 +297,22 @@ export default class City extends Phaser.Scene {
 
   playerHitEnemy(hitbox, squirrel) {
     if (squirrel.active && hitbox.active) {
-      if (squirrel instanceof Enemies) {
+
         squirrel.takeDamage(this.hitbox.damageAmount);
         
         squirrel.anims.play("Damage", true);
 
-        
-      }
       
     }
   }
 
   takeDamage(damageAmount,rock,squirrel) {
     this.enemyHp -= damageAmount;
+    console.log("daño")
     if (this.enemyHp <= 0) {
-      this.squirrelsKilled++;
-      this.squirrelsKilledText.setText(
-        `Squirrelds Killed: ${this.squirrelsKilled / 2} /4`
-      );
+
       
-      squirrel.setActive(false).setVisible(false);
-      rock.setActive(false).setVisible(false);
-      
-      
+      squirrel.setActive(false).setVisible(false);      
       squirrel.anims.stop();
       
     }
@@ -334,7 +326,7 @@ export default class City extends Phaser.Scene {
     this.misionText.setVisible(true);
     this.rectangle.setVisible(true);
 
-    if (this.squirrelsKilled >= 8) {
+    if (this.squirrelsKilled >= 4) {
       this.missionComplete = true;
       this.misionText.setText(
         "Felicidades por completar la misión, el desierto lo espera"
@@ -385,8 +377,8 @@ export default class City extends Phaser.Scene {
       active: false,
       repeat: 50,
       setXY: {
-        x: 400,
-        y: 550,
+        x: -500,
+        y: -550,
       },
     });
 
@@ -409,7 +401,6 @@ export default class City extends Phaser.Scene {
   throwRockAtPlayer(player, squirrel) {
     const directionX = player.x - squirrel.x;
     const directionY = player.y - squirrel.y;
-
     // Normaliza la dirección para obtener un vector unitario
     const length = Math.sqrt(directionX * directionX + directionY * directionY);
     const velocityX = (directionX / length) * this.velocityPlayer;
@@ -421,10 +412,12 @@ export default class City extends Phaser.Scene {
         squirrel.anims.play("AttackUpSquirrel", true);
       } else {
         squirrel.anims.play("AttackDownSquirrel", true);
+
       }
     } else {
       if (velocityX < 0) {
         squirrel.anims.play("AttackLeftSquirrel", true);
+
       } else {
         squirrel.anims.play("AttackRightSquirrel", true);
       }
@@ -435,9 +428,11 @@ export default class City extends Phaser.Scene {
     if (rock) {
       rock.setActive(true);
       rock.setVisible(true);
-      this.physics.moveTo(rock, player.x, player.y, velocityX);
+      console.log("vel piedra", velocityX)
+      this.physics.moveTo(rock, player.x, player.y, Math.abs(velocityX));
     }
   }
+
   damage(player, rock, squirrel) {
     console.log("auch");
     this.hp--;

@@ -1,5 +1,5 @@
 // keys usadas en las traducciones... podemos agregar separacion logica en el armado
-const City = {
+const Enemy = {
     squirrelsKill: 'Ardillas derrotadas',
 };
 
@@ -24,7 +24,7 @@ const GameEnd = {
 }
 
 export default {
-    City,
+    Enemy,
     MainMenu,
     CreditsMenu,
     GameEnd,
