@@ -42,6 +42,7 @@ export default class City extends Phaser.Scene {
     this.hp = data.hp || 200;
     this.experience = data.experience || 0;
     this.velocityPlayer = data.velocityPlayer || 700;
+    this.velocityRock=data.velocityRock||600;
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 0;
@@ -412,8 +413,8 @@ export default class City extends Phaser.Scene {
 
     // Normaliza la dirección para obtener un vector unitario
     const length = Math.sqrt(directionX * directionX + directionY * directionY);
-    const velocityX = (directionX / length) * this.velocityPlayer;
-    const velocityY = (directionY / length) * this.velocityPlayer;
+    const velocityX = (directionX / length) * this.velocityRock;
+    const velocityY = (directionY / length) * this.velocityRock;
 
     // Agrega una lógica para determinar si debe tocar la animación hacia arriba o hacia abajo
     if (Math.abs(velocityX) < Math.abs(velocityY)) {

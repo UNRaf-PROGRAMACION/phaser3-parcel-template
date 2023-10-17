@@ -78,6 +78,12 @@ export default class Desert extends Phaser.Scene {
       }
     });
     this.physics.add.overlap(this.player,this.salidaDesierto,this.backCity,null,this);
+    this.fox=new Npc (
+      this,
+      3548,
+      100,
+      "Fox"
+    );
   }
 
   update() {
