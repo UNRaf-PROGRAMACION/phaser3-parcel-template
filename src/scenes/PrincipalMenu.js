@@ -2,6 +2,8 @@ import Phaser from "phaser"
 
 import events from "./EventCenter";
 
+import { getPhrase } from "../services/translations";
+
 export default class PrincipalMenu extends Phaser.Scene {
 
   playText;
@@ -20,9 +22,10 @@ export default class PrincipalMenu extends Phaser.Scene {
     super("principal-menu");
   }
 
-  init (data) {
+  init (data, language) {
     this.volume = data.volume || 1;
     this.visibleVolume = data.visibleVolume || 100;
+    this.language =language;
   }
 
   create() {
@@ -38,7 +41,7 @@ export default class PrincipalMenu extends Phaser.Scene {
       color: '#fff'
     });
 
-    this.playText = this.add.text(100, 200, "Jugar", {
+    this.playText = this.add.text(100, 200, getPhrase("Jugar"), {
       fontSize: '20px',
       color: '#fff'
     }).setInteractive();
@@ -71,7 +74,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     });
 
 
-    this.settingsText = this.add.text(100, 250, "Configuración", {
+    this.settingsText = this.add.text(100, 250, getPhrase("Configuración"), {
       fontSize: '20px',
       color: '#fff'
     }).setInteractive();
@@ -96,7 +99,7 @@ export default class PrincipalMenu extends Phaser.Scene {
   })
 
 
-    this.tutorialText = this.add.text(100, 300, "¿Como jugar?", {
+    this.tutorialText = this.add.text(100, 300, getPhrase("¿Como jugar?"), {
       fontSize: '20px',
       color: '#fff'
     }).setInteractive();

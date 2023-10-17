@@ -29,7 +29,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true,
+      debug: false,
     },
   },
   scene: [Preload, Lobby, PrincipalMenu, Game, UI, Settings, Tutorial, Pause],

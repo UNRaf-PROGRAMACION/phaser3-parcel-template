@@ -30,6 +30,8 @@ export default class PrincipalCharacter extends Phaser.Physics.Arcade.Sprite {
         this.flashEffect.setDepth(1); // Asegurarse de que esté por encima del personaje
         this.flashEffect.setVisible(false); // Inicialmente oculto
 
+        this.darkness = scene.add.image(x, y, "darkness").setDepth(1);
+
         this.canUseFlash = true;
 
 
@@ -45,19 +47,25 @@ update() {
 // Control de movimiento horizontal
 if (this.cursor.left.isDown && !this.cursor.right.isDown) {
     this.setVelocityX(Phaser.Math.Linear(this.body.velocity.x, -this.velocity, 0.2));
+    this.darkness.setPosition(this.x, this.y);
 } else if (this.cursor.right.isDown && !this.cursor.left.isDown) {
     this.setVelocityX(Phaser.Math.Linear(this.body.velocity.x, this.velocity, 0.2));
+    this.darkness.setPosition(this.x, this.y);
 } else {
     this.setVelocityX(Phaser.Math.Linear(this.body.velocity.x, 0, 0.2));
+    this.darkness.setPosition(this.x, this.y);
 }
 
 // Control de movimiento vertical
 if (this.cursor.up.isDown && !this.cursor.down.isDown) {
     this.setVelocityY(Phaser.Math.Linear(this.body.velocity.y, -this.velocity, 0.2));
+    this.darkness.setPosition(this.x, this.y);
 } else if (this.cursor.down.isDown && !this.cursor.up.isDown) {
     this.setVelocityY(Phaser.Math.Linear(this.body.velocity.y, this.velocity, 0.2));
+    this.darkness.setPosition(this.x, this.y);
 } else {
     this.setVelocityY(Phaser.Math.Linear(this.body.velocity.y, 0, 0.2));
+    this.darkness.setPosition(this.x, this.y);
 }
 
 
