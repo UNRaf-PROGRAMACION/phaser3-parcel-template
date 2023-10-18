@@ -38,6 +38,7 @@ export default class City extends Phaser.Scene {
   }
 
   init(data) {
+    console.log("🚀 ~ file: City.js:41 ~ City ~ init ~ data:", data)
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
     this.experience = data.experience || 0;
@@ -45,8 +46,10 @@ export default class City extends Phaser.Scene {
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 0;
-    this.squirrelsKilled = data.squirrelsKilled || 0;
-    this.missionComplete = false;
+    this.squirrelsKilled = data.squirrelsKilled || 4;
+    this.missionComplete = data.missionComplete || false;
+    this.playerX = this.x || 4100;
+    this.playerY = this.y || 1900;
   }
 
   create() {
@@ -66,8 +69,8 @@ export default class City extends Phaser.Scene {
     const objectsLayer = map.getObjectLayer("Objects");
     this.collectible = this.physics.add.group();
     this.collectible.allowGravity = false;
-    this.salida = this.physics.add.group();
-    this.salida.allowGravity = false;
+    // this.salida = this.physics.add.group();
+    // this.salida.allowGravity = false;
 
     objectsLayer.objects.forEach((objData) => {
       //console.log(objData.name, objData.type, objData.x, objData.y);
@@ -89,18 +92,19 @@ export default class City extends Phaser.Scene {
         case "desierto": {
           // add star to scene
           // console.log("estrella agregada: ", x, y);
-          let salida = this.salida
-            .create(x, y, "FlechaSalida")
+          this.salida = this.physics.add.image(x, y, "FlechaSalida")
             .setScale(1)
             .setSize(200, 200)
-            .setVisible(false)
-            .setActive(false);
+          
           break;
         }
       }
     });
 
-    this.player = new Player(this, 4100, 1900, "C4", this.velocityPlayer);
+    if (!this.missionComplete) {
+      this.salida.setVisible(false).setActive(false);
+    }
+    this.player = new Player(this, this.playerX, this.playerY, "C4", this.velocityPlayer);
     const top = map.createLayer("Top", layerbackGround, 0, 0);
 
     this.playersGroup = this.physics.add.group();
@@ -126,12 +130,6 @@ export default class City extends Phaser.Scene {
     this.squirrels.push(
       new Enemies(this, 500, 1550, "Squirrel", this.velocitySquirrel)
     );
-
-    //this.hitboxSquirrels = new EnemiesHitbox(this, this.squirrels[0]);
-    //this.hitboxSquirrels1 = new EnemiesHitbox(this, this.squirrels[1]);
-    //this.hitboxSquirrels2 = new EnemiesHitbox(this, this.squirrels[2]);
-    //this.hitboxSquirrels3 = new EnemiesHitbox(this, this.squirrels[3]);
-    //this.hitboxSquirrels.setScale(5);
 
     obstacle.setCollisionByProperty({ colision: true });
 
@@ -165,13 +163,7 @@ export default class City extends Phaser.Scene {
       null,
       this
     );
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.squirrels,
-    //   this.throwRockAtPlayer,
-    //   null,
-    //   this
-    // );
+
     this.physics.add.collider(this.player, this.rock, this.damage, null, this);
 
     console.log(this.player);
@@ -271,6 +263,7 @@ export default class City extends Phaser.Scene {
       });
       this.easystar.calculate();
     }
+
   }
 
   makeGrid(map, background, obstacle) {
@@ -336,9 +329,10 @@ export default class City extends Phaser.Scene {
 
       this.lvl++;
       events.emit("UpdateLVL", { lvl: this.lvl });
-
-      this.salida.setVisible(true).setActive(true);
     }
+    if (this.missionComplete){
+      this.salida.setVisible(true).setActive(true);
+      }
   }
   Heal(player, collectible) {
     this.hp = this.hp + 25;
@@ -352,14 +346,18 @@ export default class City extends Phaser.Scene {
         hp: this.hp,
         damageAmount: this.damageAmount,
         velocityPlayer: this.velocityPlayer,
+        missionComplete: this.missionComplete,
+        squirrelsKilled: this.squirrelsKilled
       };
+      console.log("🚀 ~ file: City.js:348 ~ City ~ NextLevel ~ data:", data)
       for (const s of this.squirrels) {
         s.destroy(true, true);
       }
       // Clear the squirrels array
       this.squirrels = [];
 
-      this.scene.start("Desert", data);
+        this.scene.start("Desert", data);
+
     }
   }
 
@@ -377,8 +375,8 @@ export default class City extends Phaser.Scene {
       active: false,
       repeat: 50,
       setXY: {
-        x: -500,
-        y: -550,
+        x: 500,
+        y: 550,
       },
     });
 

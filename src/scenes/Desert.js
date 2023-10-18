@@ -23,12 +23,16 @@ export default class Desert extends Phaser.Scene {
   }
 
   init(data) {
+    console.log("🚀 ~ file: Desert.js:26 ~ Desert ~ init ~ data:", data)
+    
     this.lvl = data.lvl;
     this.hp = data.hp;
     this.experience = data.experience || 0;
     this.velocityPlayer = data.velocityPlayer;
     this.enemyHp = data.enemyhp || 200;
     this.damageAmount = data.damageAmount;
+    this.missionComplete = data.missionComplete;
+    this.squirrelsKilled = data.squirrelsKilled;
   }
 
   create() {
@@ -90,7 +94,12 @@ export default class Desert extends Phaser.Scene {
       hp: this.hp,
       damageAmount: this.damageAmount,
       velocityPlayer: this.velocityPlayer,
+      x: 100,
+      y: 100,
+      missionComplete: this.missionComplete,
+      squirrelsKilled: this.squirrelsKilled
     };
+    console.log("🚀 ~ file: Desert.js:101 ~ Desert ~ backCity ~ data:", data)
     this.scene.start("City",data);
   
     

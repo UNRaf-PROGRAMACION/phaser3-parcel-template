@@ -40,7 +40,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         console.log("Ardilla morida");
         this.scene.squirrelsKilled++;
         this.scene.squirrelsKilledText.setText(
-        `Squirrelds Killed: ${this.scene.squirrelsKilled} /4`
+        `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`
       );
         
         this.setActive(false).setVisible(false);
