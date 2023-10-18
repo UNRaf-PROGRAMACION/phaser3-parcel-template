@@ -13,6 +13,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.body.allowGravity = false;
     this.velocity = velocity;
     this.cursor = scene.input.keyboard.createCursorKeys();
+    
 
     this.xKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
@@ -43,7 +44,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.setVelocityX(this.velocity);
         this.anims.play("walkingRight", true);
         this.KeySave = "right";
-      } else if (this.cursor.up.isDown) {
+      } else if (this.cursor.space.isDown) {
         this.body.setVelocityY(-this.velocity);
         this.anims.play("walkingUp", true);
         this.KeySave = "up";

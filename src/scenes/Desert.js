@@ -77,13 +77,43 @@ export default class Desert extends Phaser.Scene {
         }
       }
     });
-    this.physics.add.overlap(this.player,this.salidaDesierto,this.backCity,null,this);
     this.fox=new Npc (
       this,
       3548,
-      100,
+      150,
       "Fox"
     );
+    this.physics.add.overlap(this.player,this.salidaDesierto,this.backCity,null,this);
+    this.physics.add.overlap(this.player,this.fox,this.mision2,null,this);
+    this.cobraKilledText=this.add.text(1150,60,"Cobras Killed",{
+      fontSize:"50px",
+      fontFamily: "Roboto Mono",
+    });
+    this.cobraKilledText.setVisible(false);
+    this.cobraKilledText.setActive(false);
+    this.cobraKilledText.setScrollFactor(0);
+    this.ObjectRecolectedText=this.add.text(1150,160,"Objects collected",{
+      fontSize:"50px",
+      fontFamily: "Roboto Mono",
+    });
+    this.ObjectRecolectedText.setVisible(false);
+    this.ObjectRecolectedText.setActive(false);
+    this.ObjectRecolectedText.setScrollFactor(0);
+    this.rectangle = this.add.image(900, 900, "rectangle");
+    this.mision2Text= this.add.text(60,800,"Hola C4, matame a las cobras, recolectá sus partes y despues volvé",{
+      fontSize: "40px",
+          fontFamily: "Roboto Mono",
+          color: "FFFF00",
+    }).setInteractive();
+    this.rectangle.setScrollFactor(0);
+    this.rectangle.setVisible(false);
+    this.mision2Text.setVisible(false);
+    this.mision2Text.setActive(false);
+    this.mision2Text.setScrollFactor(0);
+    this.mision2Text.on("pointerdown", () => {
+      this.mision2Text.setVisible(false);
+      this.rectangle.setVisible(false);
+    });
   }
 
   update() {
@@ -100,5 +130,14 @@ export default class Desert extends Phaser.Scene {
     this.scene.start("City",data);
   
     
+  }
+  mision2(player,fox){
+    this.cobraKilledText.setVisible(true);
+    this.cobraKilledText.setActive(true);
+    this.ObjectRecolectedText.setVisible(true);
+    this.ObjectRecolectedText.setActive(true);
+    this.mision2Text.setVisible(true);
+    this.rectangle.setVisible(true);
+
   }
 }

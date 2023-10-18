@@ -8,7 +8,7 @@ import keys from "../enums/keys";
 
 export default class Enemies extends Phaser.GameObjects.Sprite {
   timer;
-    #wasChangedLanguage = TODO;
+  #wasChangedLanguage = TODO;
   constructor(scene, x, y, texture, velocity, patrolArea) {
     super(scene, x, y, texture);
     const { squirrelsKill } = keys.Enemy;
@@ -40,7 +40,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         console.log("Ardilla morida");
         this.scene.squirrelsKilled++;
         this.scene.squirrelsKilledText.setText(
-        `Squirrelds Killed: ${this.scene.squirrelsKilled} /4`
+        `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`
       );
         
         this.setActive(false).setVisible(false);

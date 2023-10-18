@@ -35,6 +35,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
+    this.map
   }
 
   init(data) {
@@ -42,12 +43,13 @@ export default class City extends Phaser.Scene {
     this.hp = data.hp || 200;
     this.experience = data.experience || 0;
     this.velocityPlayer = data.velocityPlayer || 700;
-    this.velocityRock=data.velocityRock||600;
+    this.velocityRock=data.velocityRock||700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 0;
     this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = false;
+    this.map=true
   }
 
   create() {
@@ -139,6 +141,8 @@ export default class City extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+   
+    
 
     this.physics.add.collider(this.player, obstacle);
     this.physics.add.overlap(this.player, this.squirrels);
@@ -231,6 +235,7 @@ export default class City extends Phaser.Scene {
   update() {
     this.player.update();
     this.hitbox.update();
+    
     //this.hitboxSquirrels.update();
     //this.hitboxSquirrels1.update();
     //this.hitboxSquirrels2.update();
@@ -407,6 +412,10 @@ export default class City extends Phaser.Scene {
     const velocityX = (directionX / length) * this.velocityRock;
     const velocityY = (directionY / length) * this.velocityRock;
 
+    setTimeout(() => {
+      rock.destroy(true)
+    }, 2000);
+
     // Agrega una lógica para determinar si debe tocar la animación hacia arriba o hacia abajo
     if (Math.abs(velocityX) < Math.abs(velocityY)) {
       if (velocityY < 0) {
@@ -422,6 +431,7 @@ export default class City extends Phaser.Scene {
       } else {
         squirrel.anims.play("AttackRightSquirrel", true);
       }
+
     }
 
     // Crea y configura la instancia de la clase Rock y su velocidad
@@ -434,10 +444,15 @@ export default class City extends Phaser.Scene {
     }
   }
 
-  damage(player, rock, squirrel) {
+  damage(player,rock, squirrel) {
     console.log("auch");
-    this.hp--;
+    this.hp = this.hp - 25;
     events.emit("UpdateHP", { hp: this.hp });
+    rock.destroy(true);
+    rock.setVisible(false);
+    
+    
+  
 
     if (this.hp <= 0) {
       this.player.setVisible(false).setActive(false);
