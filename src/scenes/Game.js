@@ -47,6 +47,8 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
+
+
     this.scene.launch("ui", {
       level: this.level,
     });
@@ -56,14 +58,12 @@ export default class Game extends Phaser.Scene {
     this.gameSong = this.sound.add("game-song");
     this.gameSong.play({ loop: true });
 
+   
     this.createCharacter();
     this.createDynamite();
-    this.createEnemy();
-
-    
-
-    this.physics.add.overlap(this.character, this.dynamite, this.hitDynamite, null, this);
     this.physics.add.collider(this.character, this.wallCollisionLayer);
+    this.createEnemy();
+    this.physics.add.overlap(this.character, this.dynamite, this.hitDynamite, null, this);
 
     events.on("music", this.musicTransfer, this);
 
@@ -118,12 +118,12 @@ export default class Game extends Phaser.Scene {
 
     if (this.dynamiteCuantity >= 22) {
         this.scene.start ("lobby", {
-          level: this.level
+          level: this.level,
         });
         this.gameSong.stop();
         this.gameSong.loop = false;
     }
-   }
+  }
   
 
   hitDynamite(character, dynamite) {

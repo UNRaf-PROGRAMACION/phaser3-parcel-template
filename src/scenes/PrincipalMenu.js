@@ -99,7 +99,7 @@ export default class PrincipalMenu extends Phaser.Scene {
   })
 
 
-    this.tutorialText = this.add.text(100, 300, getPhrase("¿Como jugar?"), {
+    this.tutorialText = this.add.text(100, 300, getPhrase("¿Cómo jugar?"), {
       fontSize: '20px',
       color: '#fff'
     }).setInteractive();

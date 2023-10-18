@@ -34,25 +34,28 @@ this.language = language
 
 create () {
 
+  const startGame = () => this.scene.start("principal-menu");
+  
+
   this.spanishButton =this.add.image(150, 500, "spanish-button").setInteractive();
 
   this.spanishButton.on("pointerdown", () => {
-    getTranslations(ES_AR);
-    this.startGame();
+    getTranslations(ES_AR, startGame);
+    
   });
 
   this.portugueseButton =this.add.image(500, 500, "portuguese-button").setInteractive();
 
   this.portugueseButton.on("pointerdown", () => {
-    getTranslations(PT_BR);
-    this.startGame();
+    getTranslations(PT_BR, startGame);
+    
   });
 
   this.englishButton =this.add.image(1000, 500, "english-button").setInteractive().setScale(0.4);
 
   this.englishButton.on("pointerdown", () => {
-    getTranslations(EN_US);
-    this.startGame();
+    getTranslations(EN_US, startGame);
+    
   });
   
   
@@ -86,8 +89,4 @@ create () {
 
   }
 
-
-  startGame() {
-    this.scene.start("principal-menu");
-  }
 }

@@ -61,6 +61,9 @@ update() {
       score: this.score,
       dynamiteCuantity: this.dynamiteCuantity
     });
+   
+    
+
   }
 
   goTolevel2() {
