@@ -222,11 +222,15 @@ export default class City extends Phaser.Scene {
 
     this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
-  }
+    for (const squirrel of this.squirrels) {
+      squirrel.targetX = Phaser.Math.Between(20, 2500);
+      squirrel.targetY = Phaser.Math.Between(10, 300);
+      squirrel.velocitySquirrel = 300;
+  }}
   update() {
     this.player.update();
     this.hitbox.update();
-    
+   
     //this.hitboxSquirrels.update();
     //this.hitboxSquirrels1.update();
     //this.hitboxSquirrels2.update();
