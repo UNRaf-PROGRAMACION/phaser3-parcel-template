@@ -17,11 +17,10 @@ export default class GameEnd extends Phaser.Scene {
 
   create() {
     this.add.image(0,0, "gameover").setOrigin(0);
-    this.ded = this.add.text(760,190,getPhrase(this.dead),{
+    this.died = this.add.text(760,190,getPhrase(this.dead),{
       fontSize: "100px",
       fontFamily: "Trebuchet MS",
-      
-    })
+    });
     this.buttonR = this.add
       .text(900, 550, getPhrase(this.retry), {
         fontSize: "50px",
@@ -49,7 +48,7 @@ export default class GameEnd extends Phaser.Scene {
   update() {
     if (this.#wasChangedLanguage === FETCHED) {
       this.buttonR.setText(getPhrase(this.retry));
-      this.ded.setText(getPhrase(this.dead));
+      this.died.setText(getPhrase(this.dead));
       this.buttonM.setText(getPhrase(this.menu));
     }
   }
