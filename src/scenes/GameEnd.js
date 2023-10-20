@@ -24,8 +24,8 @@ export default class GameEnd extends Phaser.Scene {
     })
     this.buttonR = this.add
       .text(900, 550, getPhrase(this.retry), {
-        fontFamily: "Roboto Mono",
         fontSize: "50px",
+        fontFamily: "Roboto Mono",
       })
       .setInteractive();
 
@@ -33,16 +33,16 @@ export default class GameEnd extends Phaser.Scene {
       this.scene.launch("UI");
       this.scene.start("City");
     });
+
     this.buttonM = this.add.text(850,750,getPhrase(this.menu),{
       fontFamily: "Roboto Mono",
       fontSize: "50px",
+
     }).setInteractive();
     this.buttonM.on("pointerdown", () => {
       this.scene.stop("UI");
       this.scene.stop("City");
       this.scene.start("MainMenu");
-      
-      
     });
   }
 
