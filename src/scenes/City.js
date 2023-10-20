@@ -11,13 +11,6 @@ import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
-//  Main biome, player starts the game here and after completing some tasks unlocks the desert
-//  Has pathway to forest
-//  holds some secret collectibles
-//  Can access bossArena
-//  Resistence camp with npcs are here
-//  Has normal enemies
-//  save station
 export default class City extends Phaser.Scene {
   #wasChangedLanguage = TODO;
   constructor() {
@@ -35,7 +28,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
-    this.map
+    
   }
 
   init(data) {
@@ -52,6 +45,8 @@ export default class City extends Phaser.Scene {
     this.missionComplete = data.missionComplete || false;
     this.playerX = this.x || 4100;
     this.playerY = this.y || 1900;
+    this.initialX = 1000;
+    this.initialY = 2700;
   }
 
   create() {
@@ -103,19 +98,28 @@ export default class City extends Phaser.Scene {
     this.hitbox = new Hitbox(this, this.player);
 
     this.Eagle = new Npc(this, 4550, 3290, "Eagle");
-
-    this.squirrels.push(
-      new Enemies(this, 500, 50, "Squirrel", this.velocitySquirrel)
-    );
-    this.squirrels.push(
-      new Enemies(this, 500, 550, "Squirrel", this.velocitySquirrel)
-    );
-    this.squirrels.push(
-      new Enemies(this, 500, 1050, "Squirrel", this.velocitySquirrel)
-    );
-    this.squirrels.push(
-      new Enemies(this, 500, 1550, "Squirrel", this.velocitySquirrel)
-    );
+    for (let i = 0; i < 6; i++) {
+      const squirrel = new Enemies(
+        this,
+        this.initialX,
+        this.initialY,
+        "Squirrel",
+        this.velocitySquirrel
+      );
+      this.squirrels.push(squirrel);
+    }
+    //this.squirrels.push(
+      //new Enemies(this, 1500, 2600, "Squirrel", this.velocitySquirrel)
+    //);
+    //this.squirrels.push(
+      //new Enemies(this, 1500, 2700, "Squirrel", this.velocitySquirrel)
+    //);
+    //this.squirrels.push(
+      //new Enemies(this, 1500, 2800, "Squirrel", this.velocitySquirrel)
+    //);
+    //this.squirrels.push(
+      //new Enemies(this, 1500, 2900, "Squirrel", this.velocitySquirrel)
+    //);
 
     obstacle.setCollisionByProperty({ colision: true });
 
@@ -216,19 +220,16 @@ export default class City extends Phaser.Scene {
     for (let i = 0; i < this.squirrels.length; i++) {
       const squirrel = this.squirrels[i];
       squirrel.update();
-      if(!squirrel.active) return;
+      if(!squirrel.active) continue;
       squirrel.body.setSize(150, 150);
-      const startX = Math.floor(squirrel.x / this.tileWidth);
-      const startY = Math.floor(squirrel.y / this.tileHeight);
-      const endX = Math.floor(squirrel.targetX / this.tileWidth);
-      const endY = Math.floor(squirrel.targetY / this.tileHeight);
+      
       const distanceToPlayer = Phaser.Math.Distance.Between(
         squirrel.x,
         squirrel.y,
         this.player.x,
         this.player.y
       );
-      if (distanceToPlayer < 600) {
+      if (distanceToPlayer < 500) {
         if (squirrel.timeToThrowRock <= 0) {
           // console.log("timeToThrowRock", squirrel.timeToThrowRock);
           this.throwRockAtPlayer(this.player, squirrel);
@@ -244,7 +245,7 @@ export default class City extends Phaser.Scene {
     }
   }
 
-  DamageTaken(player, squirrel) {}
+  
 
   playerHitEnemy(hitbox, squirrel) {
     if (squirrel.active && hitbox.active) {
@@ -265,6 +266,7 @@ export default class City extends Phaser.Scene {
       
       squirrel.setActive(false).setVisible(false);      
       squirrel.anims.stop();
+     
       
     }
   }
@@ -363,6 +365,9 @@ export default class City extends Phaser.Scene {
 
     setTimeout(() => {
       squirrel.resumeMovement();
+    }, 500);
+
+    setTimeout(() => {
       rock.destroy(true)
     }, 2000);
 

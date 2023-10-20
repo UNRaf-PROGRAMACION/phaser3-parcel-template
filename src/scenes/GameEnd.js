@@ -9,30 +9,36 @@ export default class GameEnd extends Phaser.Scene {
   #wasChangedLanguage = TODO;
   constructor() {
     super("GameEnd");
-    const { retry } = keys.GameEnd;
+    const { retry, dead, menu } = keys.GameEnd;
     this.retry = retry;
+    this.dead = dead;
+    this.menu = menu;
+
   }
 
   create() {
     this.add.image(0,0, "gameover").setOrigin(0);
-    this.add.text(620,190,"¡Has Muerto!",{
+    this.died = this.add.text(760,190,getPhrase(this.dead),{
       fontSize: "100px",
-      
+      fontFamily: "Trebuchet MS",
+    });
+    this.buttonR = this.add
+    .text(900, 550, getPhrase(this.retry), {
+      fontSize: "50px",
+      fontFamily: "Roboto Mono",
     })
-    let buttonR = this.add
-      .text(810, 550, getPhrase(this.retry), {
-        fontSize: "50px",
-      })
-      .setInteractive();
+    .setInteractive();
 
-    buttonR.on("pointerdown", () => {
+    this.buttonR.on("pointerdown", () => {
       this.scene.launch("UI");
       this.scene.start("City");
     });
-    let buttonM=this.add.text(770,750,"Menú Principal",{
+    this.buttonM = this.add.text(850,750,getPhrase(this.menu),{
+      fontFamily: "Roboto Mono",
       fontSize: "50px",
+
     }).setInteractive();
-    buttonM.on("pointerdown", () => {
+    this.buttonM.on("pointerdown", () => {
       this.scene.stop("UI");
       this.scene.stop("City");
       this.scene.start("MainMenu");
@@ -43,7 +49,9 @@ export default class GameEnd extends Phaser.Scene {
 
   update() {
     if (this.#wasChangedLanguage === FETCHED) {
-      this.retry.setText(getPhrase(this.retry));
+      this.buttonR.setText(getPhrase(this.retry));
+      this.died.setText(getPhrase(this.dead));
+      this.buttonM.setText(getPhrase(this.menu));
     }
   }
 }

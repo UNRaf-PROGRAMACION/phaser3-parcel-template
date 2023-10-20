@@ -27,8 +27,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     scene.physics.add.existing(this);
     this.body.allowGravity = false;
     this.velocity = velocity;
-    this.targetX = 0;
-    this.targetY = 0;
+    this.targetX = 1200;
+    this.targetY = 2700;
     this.enemyHp = 2000;
     this.velocitySquirrel = 300;
     this.timeToThrowRock = 0;
@@ -74,10 +74,10 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         this.targetY
       );
 
-      if (distanceToTarget < 5) {
+      if (distanceToTarget < 2) {
         // Set a new random target position within the area
-        this.targetX = Phaser.Math.Between(20, 2500);
-        this.targetY = Phaser.Math.Between(10, 300);
+        this.targetX = Phaser.Math.Between(1000, 2450);
+        this.targetY = Phaser.Math.Between(2000, 3150);
       }
     }
   }
