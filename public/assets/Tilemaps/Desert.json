@@ -236,7 +236,7 @@
         {
          "columns":23,
          "firstgid":1,
-         "image":"..\/Images\/DesertTileset.png",
+         "image":"..\/images\/DesertTileset.png",
          "imageheight":1000,
          "imagewidth":1150,
          "margin":0,
@@ -2257,7 +2257,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2266,7 +2266,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2275,7 +2275,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2453,7 +2453,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2462,7 +2462,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2639,7 +2639,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2648,7 +2648,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2657,7 +2657,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2834,7 +2834,7 @@
                         {
                          "name":"colision",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {

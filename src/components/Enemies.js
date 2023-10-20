@@ -1,6 +1,5 @@
 import Phaser, { Scene } from "phaser";
 import Player from "../components/Player";
-import EnemiesHitbox from "./EnemiesHitbox";
 import Rock from "./Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
@@ -30,7 +29,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.targetX = 1200;
     this.targetY = 2700;
     this.enemyHp = 2000;
-    this.velocitySquirrel = 300;
+    this.velocitySquirrel = 200;
     this.timeToThrowRock = 0;
 
     this.patrolling = true;
@@ -62,7 +61,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         if (velocityY > 0) {
           this.anims.play("squirrelDown", true);
         } else {
-          this.anims.play("SquirrelUp", true);
+          this.anims.play("squirrelUp", true);
         }
       }
 
@@ -106,6 +105,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       );
         
         this.setActive(false).setVisible(false);
+        
       }
     }
   }

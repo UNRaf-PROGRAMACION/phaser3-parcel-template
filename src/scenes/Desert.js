@@ -4,7 +4,6 @@ import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
-import EnemiesHitbox from "../components/EnemiesHitbox";
 
 // //Second unlocked biome, after completing some tasks, unlocks forest
 // //holds secret collectibles
@@ -81,7 +80,8 @@ export default class Desert extends Phaser.Scene {
         }
       }
     });
-    this.fox=new Npc (
+
+    this.fox = new Npc (
       this,
       3548,
       150,
@@ -118,6 +118,7 @@ export default class Desert extends Phaser.Scene {
       this.mision2Text.setVisible(false);
       this.rectangle.setVisible(false);
     });
+    
   }
 
   update() {
@@ -135,10 +136,8 @@ export default class Desert extends Phaser.Scene {
       missionComplete: this.missionComplete,
       squirrelsKilled: this.squirrelsKilled
     };
-    console.log("🚀 ~ file: Desert.js:101 ~ Desert ~ backCity ~ data:", data)
-    this.scene.start("City",data);
-  
-    
+
+    this.scene.start("City",data); 
   }
   mision2(player,fox){
     this.cobraKilledText.setVisible(true);
