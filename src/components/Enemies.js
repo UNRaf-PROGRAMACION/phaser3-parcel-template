@@ -1,5 +1,6 @@
 import Phaser, { Scene } from "phaser";
 import Player from "../components/Player";
+import Rock from "./Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
@@ -28,7 +29,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.targetX = 1200;
     this.targetY = 2700;
     this.enemyHp = 2000;
-    this.velocitySquirrel = 300;
+    this.velocitySquirrel = 200;
     this.timeToThrowRock = 0;
 
     this.patrolling = true;

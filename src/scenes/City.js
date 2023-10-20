@@ -4,6 +4,7 @@ import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
+import Rock from "../components/Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
@@ -24,7 +25,6 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
-    this.map;
   }
 
   init(data) {
@@ -82,6 +82,7 @@ export default class City extends Phaser.Scene {
     if (!this.missionComplete) {
       this.salida.setVisible(false).setActive(false);
     }
+
     this.player = new Player(
       this,
       this.playerX,
@@ -122,13 +123,13 @@ export default class City extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.squirrels);
     this.physics.add.overlap(this.squirrels, this.player);
     this.physics.add.collider(this.squirrels, obstacle);
-    this.physics.add.overlap(
-      this.player,
-      this.squirrels,
-      this.DamageTaken,
-      null,
-      this
-    );
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.squirrels,
+    //   this.DamageTaken,
+    //   null,
+    //   this
+    // );
     this.physics.add.overlap(
       this.player,
       this.collectible,
@@ -145,7 +146,7 @@ export default class City extends Phaser.Scene {
       this
     );
 
-    this.physics.add.collider(this.player, this.rock, this.damage, null, this);
+    // this.physics.add.collider(this.player, this.rock, this.damage, null, this);
 
     console.log(this.player);
     this.physics.add.overlap(
