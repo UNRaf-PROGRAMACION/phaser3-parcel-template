@@ -1,7 +1,5 @@
 import Phaser, { Scene } from "phaser";
 import Player from "../components/Player";
-import EnemiesHitbox from "./EnemiesHitbox";
-import Rock from "./Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
@@ -27,8 +25,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     scene.physics.add.existing(this);
     this.body.allowGravity = false;
     this.velocity = velocity;
-    this.targetX = 0;
-    this.targetY = 0;
+    this.targetX = 1200;
+    this.targetY = 2700;
     this.enemyHp = 2000;
     this.velocitySquirrel = 300;
     this.timeToThrowRock = 0;
@@ -62,7 +60,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         if (velocityY > 0) {
           this.anims.play("squirrelDown", true);
         } else {
-          this.anims.play("SquirrelUp", true);
+          this.anims.play("squirrelUp", true);
         }
       }
 
@@ -76,8 +74,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
 
       if (distanceToTarget < 5) {
         // Set a new random target position within the area
-        this.targetX = Phaser.Math.Between(20, 2500);
-        this.targetY = Phaser.Math.Between(10, 300);
+        this.targetX = Phaser.Math.Between(1000, 2450);
+        this.targetY = Phaser.Math.Between(2000, 3150);
       }
     }
   }
@@ -106,6 +104,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       );
         
         this.setActive(false).setVisible(false);
+        
       }
     }
   }

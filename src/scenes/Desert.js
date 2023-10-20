@@ -4,7 +4,6 @@ import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
-import EnemiesHitbox from "../components/EnemiesHitbox";
 
 // //Second unlocked biome, after completing some tasks, unlocks forest
 // //holds secret collectibles

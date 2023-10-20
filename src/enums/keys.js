@@ -20,7 +20,9 @@ const CreditsMenu = {
 }
 
 const GameEnd = {
-    retry: 'Reintentar'
+    retry: 'Reintentar',
+    dead: '¡Has Muerto!',
+    menu: 'Menú Principal'
 }
 
 export default {
