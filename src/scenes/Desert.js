@@ -4,7 +4,6 @@ import Player from "../components/Player";
 import Enemies from "../components/Enemies";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
-import EnemiesHitbox from "../components/EnemiesHitbox";
 
 // //Second unlocked biome, after completing some tasks, unlocks forest
 // //holds secret collectibles
@@ -23,12 +22,16 @@ export default class Desert extends Phaser.Scene {
   }
 
   init(data) {
+    console.log("🚀 ~ file: Desert.js:26 ~ Desert ~ init ~ data:", data)
+    
     this.lvl = data.lvl;
     this.hp = data.hp;
     this.experience = data.experience || 0;
     this.velocityPlayer = data.velocityPlayer;
     this.enemyHp = data.enemyhp || 200;
     this.damageAmount = data.damageAmount;
+    this.missionComplete = data.missionComplete;
+    this.squirrelsKilled = data.squirrelsKilled;
   }
 
   create() {
@@ -68,7 +71,7 @@ export default class Desert extends Phaser.Scene {
           // add star to scene
           // console.log("estrella agregada: ", x, y);
           let salida = this.salidaDesierto
-            .create(x, y, "FlechaSalida")
+            .create(x, y, "ArrowDown")
             .setScale(1)
             .setSize(200, 200)
             .setVisible(true)
@@ -76,6 +79,44 @@ export default class Desert extends Phaser.Scene {
           break;
         }
       }
+    });
+
+    this.fox=new Npc (
+      this,
+      3548,
+      150,
+      "Fox"
+    );
+    this.physics.add.overlap(this.player,this.salidaDesierto,this.backCity,null,this);
+    this.physics.add.overlap(this.player,this.fox,this.mision2,null,this);
+    this.cobraKilledText=this.add.text(1150,60,"Cobras Killed",{
+      fontSize:"50px",
+      fontFamily: "Roboto Mono",
+    });
+    this.cobraKilledText.setVisible(false);
+    this.cobraKilledText.setActive(false);
+    this.cobraKilledText.setScrollFactor(0);
+    this.ObjectRecolectedText=this.add.text(1150,160,"Objects collected",{
+      fontSize:"50px",
+      fontFamily: "Roboto Mono",
+    });
+    this.ObjectRecolectedText.setVisible(false);
+    this.ObjectRecolectedText.setActive(false);
+    this.ObjectRecolectedText.setScrollFactor(0);
+    this.rectangle = this.add.image(900, 900, "rectangle");
+    this.mision2Text= this.add.text(60,800,"Hola C4, matame a las cobras, recolectá sus partes y despues volvé",{
+      fontSize: "40px",
+          fontFamily: "Roboto Mono",
+          color: "FFFF00",
+    }).setInteractive();
+    this.rectangle.setScrollFactor(0);
+    this.rectangle.setVisible(false);
+    this.mision2Text.setVisible(false);
+    this.mision2Text.setActive(false);
+    this.mision2Text.setScrollFactor(0);
+    this.mision2Text.on("pointerdown", () => {
+      this.mision2Text.setVisible(false);
+      this.rectangle.setVisible(false);
     });
     this.physics.add.overlap(this.player,this.salidaDesierto,this.backCity,null,this);
   }
@@ -90,9 +131,21 @@ export default class Desert extends Phaser.Scene {
       hp: this.hp,
       damageAmount: this.damageAmount,
       velocityPlayer: this.velocityPlayer,
+      x: 100,
+      y: 100,
+      missionComplete: this.missionComplete,
+      squirrelsKilled: this.squirrelsKilled
     };
-    this.scene.start("City",data);
-  
-    
+
+    this.scene.start("City",data); 
+  }
+  mision2(player,fox){
+    this.cobraKilledText.setVisible(true);
+    this.cobraKilledText.setActive(true);
+    this.ObjectRecolectedText.setVisible(true);
+    this.ObjectRecolectedText.setActive(true);
+    this.mision2Text.setVisible(true);
+    this.rectangle.setVisible(true);
+
   }
 }

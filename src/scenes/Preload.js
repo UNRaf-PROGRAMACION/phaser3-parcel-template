@@ -8,47 +8,54 @@ export default class Preload extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet("cura", "assets/images/Cura.png", {
+    this.load.spritesheet("cura", "./assets/images/Cura.png", {
       frameWidth: 93,
       frameHeight: 86,
     });
 
-    this.load.image("menuBg", "assets/images/menuBg.png");
-    this.load.image("title", "assets/images/title.png");
-    this.load.image("rectangle", "assets/images/Rectangle.png");
-    this.load.image("gameover", "assets/images/Gameover.png");
-    this.load.image("desertTemp", "assets/images/desertTemp.jpg");
-    this.load.image("musicOn", "assets/images/musicOn.png");
-    this.load.image("musicOff", "assets/images/musicOff.png");
+    this.load.image("menuBg", "./assets/images/menuBg.png");
+    this.load.image("title", "./assets/images/title.png");
+    this.load.image("rectangle", "./assets/images/Rectangle.png");
+    this.load.image("gameover", "./assets/images/Gameover.png");
+    this.load.image("desertTemp", "./assets/images/desertTemp.jpg");
+    this.load.image("musicOn", "./assets/images/musicOn.png");
+    this.load.image("musicOff", "./assets/images/musicOff.png");
+    //
 
-    this.load.image("FlechaSalida", "assets/images/Flecha.png");
-    this.load.spritesheet("Eagle", "assets/images/NPC.png", {
+    this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
+    this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
+    this.load.spritesheet("Eagle", "./assets/images/NPC.png", {
       frameWidth: 230,
       frameHeight: 230,
     });
-    this.load.spritesheet("Rock", "assets/images/Rock.png", {
+    this.load.spritesheet("Rock", "./assets/images/Rock.png", {
       frameWidth: 21,
       frameHeight: 21,
     });
-    this.load.spritesheet("Squirrel", "assets/images/Squirrel.png", {
+    this.load.spritesheet("Squirrel", "./assets/images/Squirrel.png", {
       frameWidth: 221,
       frameHeight: 169,
     });
 
-    this.load.spritesheet("C4", "assets/Images/C4.png", {
+    this.load.spritesheet("C4", "./assets/images/C4.png", {
       frameWidth: 212,
       frameHeight: 200,
       // startFrame: 10
     });
 
-    this.load.tilemapTiledJSON("City", "assets/Tilemaps/City.json");
-    this.load.tilemapTiledJSON("Desert", "assets/Tilemaps/Desert.json");
-    this.load.image("Mapdesert", "assets/Images/DesertTileset.png");
-    this.load.image("Mapcity", "assets/Images/tileset.png");
+    this.load.tilemapTiledJSON("City", "./assets/Tilemaps/City.json");
+    this.load.tilemapTiledJSON("Desert", "./assets/Tilemaps/Desert.json");
+    this.load.image("Mapdesert", "./assets/Images/DesertTileset.png");
+    this.load.image("Mapcity", "./assets/Images/tileset.png");
 
-    this.load.audio("citySFX", "assets/Audio/citySFX.mp3");
-    this.load.audio("swordAttack", "assets/Audio/swordAttack.mp3");
-    this.load.audio("menuMusic", "assets/Audio/menuMusic.mp3");
+    this.load.audio("citySFX", "./assets/Audio/citySFX.mp3");
+    this.load.audio("swordAttack", "./assets/Audio/swordAttack.mp3");
+    this.load.audio("menuMusic", "./assets/Audio/menuMusic.mp3");
+    this.load.spritesheet("Fox","./assets/images/Fox.png",{
+      frameWidth:174,
+      frameHeight:155,
+    
+    });
   }
 
   create() {
@@ -57,6 +64,11 @@ export default class Preload extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("cura", { start: 0, end: 1 }),
       frameRate: 4,
       repeat: -1,
+    });
+    this.anims.create({
+      key: "Damage",
+      frames: [{ key: "Squirrel", frame: 33 }],
+      frameRate: 1,
     });
     this.anims.create({
       key: "walkingUp",
@@ -143,7 +155,7 @@ export default class Preload extends Phaser.Scene {
         start: 17,
         end: 20,
       }),
-      frameRate: 15,
+      frameRate: 10,
       repeat: 0,
     });
 
@@ -153,7 +165,7 @@ export default class Preload extends Phaser.Scene {
         start: 21,
         end: 24,
       }),
-      frameRate: 15,
+      frameRate: 10,
       repeat: 0,
     });
 
@@ -171,13 +183,13 @@ export default class Preload extends Phaser.Scene {
       key: "AttackDownSquirrel",
       frames: this.anims.generateFrameNumbers("Squirrel", {
         start: 29,
-        end: 32,
+        end: 31,
       }),
       frameRate: 15,
       repeat: 0,
     });
     this.anims.create({
-      key: "walk-up",
+      key: "squirrelUp",
       frames: this.anims.generateFrameNumbers("Squirrel", {
         start: 9,
         end: 11,
@@ -187,7 +199,7 @@ export default class Preload extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: "walk-down",
+      key: "squirrelDown",
       frames: this.anims.generateFrameNumbers("Squirrel", {
         start: 13,
         end: 15,
@@ -197,14 +209,14 @@ export default class Preload extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: "walk-left",
+      key: "squirrelLeft",
       frames: this.anims.generateFrameNumbers("Squirrel", { start: 2, end: 0 }),
       frameRate: 5,
       repeat: -1,
     });
 
     this.anims.create({
-      key: "walk-right",
+      key: "squirrelRight",
       frames: this.anims.generateFrameNumbers("Squirrel", { start: 5, end: 7 }),
       frameRate: 5,
       repeat: -1,

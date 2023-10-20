@@ -17,11 +17,11 @@ export default class GameEnd extends Phaser.Scene {
 
   create() {
     this.add.image(0,0, "gameover").setOrigin(0);
-    this.died = this.add.text(1000, 190, getPhrase(this.dead), {
+    this.ded = this.add.text(760,190,getPhrase(this.dead),{
       fontSize: "100px",
       fontFamily: "Trebuchet MS",
-    });
-
+      
+    })
     this.buttonR = this.add
       .text(900, 550, getPhrase(this.retry), {
         fontSize: "50px",
@@ -35,23 +35,22 @@ export default class GameEnd extends Phaser.Scene {
     });
 
     this.buttonM = this.add.text(850,750,getPhrase(this.menu),{
-      fontSize: "50px",
       fontFamily: "Roboto Mono",
+      fontSize: "50px",
+
     }).setInteractive();
     this.buttonM.on("pointerdown", () => {
       this.scene.stop("UI");
       this.scene.stop("City");
       this.scene.start("MainMenu");
-      
-      
     });
   }
 
   update() {
     if (this.#wasChangedLanguage === FETCHED) {
       this.buttonR.setText(getPhrase(this.retry));
+      this.ded.setText(getPhrase(this.dead));
       this.buttonM.setText(getPhrase(this.menu));
-      this.died.setText(getPhrase(this.dead));
     }
   }
 }

@@ -13,6 +13,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.body.allowGravity = false;
     this.velocity = velocity;
     this.cursor = scene.input.keyboard.createCursorKeys();
+    
 
     this.xKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
