@@ -44,7 +44,7 @@ export default class City extends Phaser.Scene {
     this.hp = data.hp || 200;
     this.experience = data.experience || 0;
     this.velocityPlayer = data.velocityPlayer || 700;
-    this.velocityRock=data.velocityRock||700;
+    this.velocityRock = data.velocityRock||700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 0;
@@ -56,32 +56,21 @@ export default class City extends Phaser.Scene {
 
   create() {
     const map = this.make.tilemap({ key: "City" });
-    this.tileWidth = map.tileWidth;
-    this.tileHeight = map.tileHeight;
 
     const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
     const background = map.createLayer("Ground", layerbackGround, 0, 0);
     const layerObstacle = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
 
-    this.easystar = new EasyStar.js();
-    this.easystar.setGrid(this.makeGrid(map, background, obstacle));
-    this.easystar.setAcceptableTiles([0]);
-
     const objectsLayer = map.getObjectLayer("Objects");
     this.collectible = this.physics.add.group();
     this.collectible.allowGravity = false;
-    // this.salida = this.physics.add.group();
-    // this.salida.allowGravity = false;
 
     objectsLayer.objects.forEach((objData) => {
-      //console.log(objData.name, objData.type, objData.x, objData.y);
       const { x = 0, y = 0, name } = objData;
 
       switch (name) {
         case "cura": {
-          // add star to scene
-          // console.log("estrella agregada: ", x, y);
           let collectible1 = this.collectible
             .create(x, y, "cura")
             .setScale(1)
@@ -90,14 +79,10 @@ export default class City extends Phaser.Scene {
 
           break;
         }
-
         case "desierto": {
-          // add star to scene
-          // console.log("estrella agregada: ", x, y);
           this.salida = this.physics.add.image(x, y, "ArrowUp")
             .setScale(1)
             .setSize(200, 200)
-          
           break;
         }
       }
@@ -108,7 +93,6 @@ export default class City extends Phaser.Scene {
     }
     this.player = new Player(this, this.playerX, this.playerY, "C4", this.velocityPlayer);
     const top = map.createLayer("Top", layerbackGround, 0, 0);
-
     this.playersGroup = this.physics.add.group();
     this.collectibleGroup = this.physics.add.group();
     this.squirrelGroup = this.physics.add.group();
@@ -222,21 +206,16 @@ export default class City extends Phaser.Scene {
 
     this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
-    for (const squirrel of this.squirrels) {
-      squirrel.targetX = Phaser.Math.Between(20, 2500);
-      squirrel.targetY = Phaser.Math.Between(10, 300);
-      squirrel.velocitySquirrel = 300;
-  }}
+  }
+
   update() {
     this.player.update();
     this.hitbox.update();
+ 
    
-    //this.hitboxSquirrels.update();
-    //this.hitboxSquirrels1.update();
-    //this.hitboxSquirrels2.update();
-    //this.hitboxSquirrels3.update();
     for (let i = 0; i < this.squirrels.length; i++) {
       const squirrel = this.squirrels[i];
+      squirrel.update();
       if(!squirrel.active) return;
       squirrel.body.setSize(150, 150);
       const startX = Math.floor(squirrel.x / this.tileWidth);
@@ -262,37 +241,7 @@ export default class City extends Phaser.Scene {
         this.squirrels[i] = squirrel;
         // console.log("ardilas 2", this.squirrels);
       }
-
-      this.easystar.findPath(startX, startY, endX, endY, (path) => {
-        if (path !== null && path.length > 1) {
-          const nextTile = path[1];
-          squirrel.targetX = nextTile.x * this.tileWidth;
-          squirrel.targetY = nextTile.y * this.tileHeight;
-        }
-      });
-      this.easystar.calculate();
     }
-
-  }
-
-  makeGrid(map, background, obstacle) {
-    const grid = [];
-    const walkableTiles = [0];
-
-    for (let y = 0; y < map.height; y++) {
-      const row = [];
-      for (let x = 0; x < map.width; x++) {
-        const groundTile = background.getTileAt(x, y, true, "Ground");
-        const upperTile = obstacle.getTileAt(x, y, true, "Deco");
-
-        const isWalkable = walkableTiles.includes(groundTile.index);
-
-        row.push(isWalkable ? 0 : 1);
-      }
-      grid.push(row);
-    }
-
-    return grid;
   }
 
   DamageTaken(player, squirrel) {}
@@ -318,9 +267,6 @@ export default class City extends Phaser.Scene {
       squirrel.anims.stop();
       
     }
-
-    
-    
   }
 
   mision(player, Eagle) {
@@ -359,7 +305,6 @@ export default class City extends Phaser.Scene {
         missionComplete: this.missionComplete,
         squirrelsKilled: this.squirrelsKilled
       };
-      console.log("🚀 ~ file: City.js:348 ~ City ~ NextLevel ~ data:", data)
       for (const s of this.squirrels) {
         s.destroy(true, true);
       }
@@ -414,7 +359,10 @@ export default class City extends Phaser.Scene {
     const velocityX = (directionX / length) * this.velocityRock;
     const velocityY = (directionY / length) * this.velocityRock;
 
+    squirrel.stopMovement();
+
     setTimeout(() => {
+      squirrel.resumeMovement();
       rock.destroy(true)
     }, 2000);
 

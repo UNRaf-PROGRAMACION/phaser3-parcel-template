@@ -189,7 +189,7 @@ export default class Preload extends Phaser.Scene {
       repeat: 0,
     });
     this.anims.create({
-      key: "walk-up",
+      key: "squirrelUp",
       frames: this.anims.generateFrameNumbers("Squirrel", {
         start: 9,
         end: 11,
@@ -199,7 +199,7 @@ export default class Preload extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: "walk-down",
+      key: "squirrelDown",
       frames: this.anims.generateFrameNumbers("Squirrel", {
         start: 13,
         end: 15,
@@ -209,14 +209,14 @@ export default class Preload extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: "walk-left",
+      key: "squirrelLeft",
       frames: this.anims.generateFrameNumbers("Squirrel", { start: 2, end: 0 }),
       frameRate: 5,
       repeat: -1,
     });
 
     this.anims.create({
-      key: "walk-right",
+      key: "squirrelRight",
       frames: this.anims.generateFrameNumbers("Squirrel", { start: 5, end: 7 }),
       frameRate: 5,
       repeat: -1,

@@ -9,13 +9,12 @@ import keys from "../enums/keys";
 export default class Enemies extends Phaser.GameObjects.Sprite {
   timer;
   #wasChangedLanguage = TODO;
-  constructor(scene, x, y, texture, velocity, patrolArea) {
+  constructor(scene, x, y, texture, velocity) {
     super(scene, x, y, texture);
     const { squirrelsKill } = keys.Enemy;
     this.deadSquirrel = squirrelsKill;
     this.squirrelsKill = squirrelsKill;
-    this.velocityX = velocity;
-   
+  
     
      this.timer = scene.time.addEvent({
      delay: 1500, // Adjust as needed
@@ -33,57 +32,68 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.enemyHp = 2000;
     this.velocitySquirrel = 300;
     this.timeToThrowRock = 0;
-  }
-  create(){
-    
-    for (const squirrel of this.scene.squirrels) {
-      // squirrel.patrol();
 
-      squirrel.targetX = Phaser.Math.Between(20, 2500);
-      squirrel.targetY = Phaser.Math.Between(10, 300);
-      squirrel.velocity = 300;
-    }
-    
+    this.patrolling = true;
   }
+  
   update(){
-   
-      for (const squirrel of this.scene.squirrels) {
-       
-        const deltaX = squirrel.targetX - squirrel.x;
-        const deltaY = squirrel.targetY - squirrel.y;
-        const angle = Math.atan2(deltaY, deltaX);
-        const speed = squirrel.velocitySquirrel * this.scene.game.loop.delta / 1000;
-        const movementX = Math.cos(angle) * speed;
-        const movementY = Math.sin(angle) * speed;
-    
-        // Actualizar las coordenadas de la ardilla
-        squirrel.x += movementX;
-        squirrel.y += movementY;
-    
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          // Movimiento horizontal
-          if (deltaX > 0) {
-            squirrel.anims.play("walk-right", true);
-          } else {
-            squirrel.anims.play("walk-left", true);
-          }
+    if (this.patrolling) {
+      const distanceX = this.targetX - this.x;
+      const distanceY = this.targetY - this.y;
+
+      // Calculate the angle to the target position
+      const angle = Math.atan2(distanceY, distanceX);
+
+      // Calculate the velocity components based on the angle and velocitySquirrel
+      const velocityX = Math.cos(angle) * this.velocitySquirrel;
+      const velocityY = Math.sin(angle) * this.velocitySquirrel;
+
+      // Set the squirrel's velocity
+      this.body.setVelocity(velocityX, velocityY);
+
+      // Determine which direction the squirrel is moving and set the appropriate animation
+      if (Math.abs(velocityX) > Math.abs(velocityY)) {
+        if (velocityX > 0) {
+          this.anims.play("squirrelRight", true);
         } else {
-          // Movimiento vertical
-          if (deltaY > 0) {
-            squirrel.anims.play("walk-down", true);
-          } else {
-            squirrel.anims.play("walk-up", true);
-          }
-    
-        if (deltaX * deltaX + deltaY * deltaY < 100) {
-          // Si la ardilla está cerca de su objetivo, elige un nuevo objetivo
-          squirrel.targetX = Phaser.Math.Between(20, 2500);
-          squirrel.targetY = Phaser.Math.Between(10, 300);
+          this.anims.play("squirrelLeft", true);
+        }
+      } else {
+        if (velocityY > 0) {
+          this.anims.play("squirrelDown", true);
+        } else {
+          this.anims.play("SquirrelUp", true);
         }
       }
+
+      // Check if the squirrel has reached its target position
+      const distanceToTarget = Phaser.Math.Distance.Between(
+        this.x,
+        this.y,
+        this.targetX,
+        this.targetY
+      );
+
+      if (distanceToTarget < 5) {
+        // Set a new random target position within the area
+        this.targetX = Phaser.Math.Between(20, 2500);
+        this.targetY = Phaser.Math.Between(10, 300);
+      }
     }
-    
   }
+
+  // Add a new method to stop the squirrel's movement
+  stopMovement() {
+    this.patrolling = false;
+    this.body.setVelocity(0, 0);
+  }
+
+  // Add a new method to resume the squirrel's movement
+  resumeMovement() {
+    this.patrolling = true;
+  }
+
+
   takeDamage(damageAmount) {
     if (this.active) {
       this.enemyHp -= damageAmount;
@@ -99,7 +109,4 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       }
     }
   }
-  
- 
-
 }
