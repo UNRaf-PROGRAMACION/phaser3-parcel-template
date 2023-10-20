@@ -72,7 +72,7 @@ export default class Desert extends Phaser.Scene {
           // add star to scene
           // console.log("estrella agregada: ", x, y);
           let salida = this.salidaDesierto
-            .create(x, y, "FlechaSalida")
+            .create(x, y, "ArrowDown")
             .setScale(1)
             .setSize(200, 200)
             .setVisible(true)

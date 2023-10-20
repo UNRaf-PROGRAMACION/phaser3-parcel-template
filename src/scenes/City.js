@@ -48,7 +48,7 @@ export default class City extends Phaser.Scene {
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 0;
-    this.squirrelsKilled = data.squirrelsKilled || 4;
+    this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = data.missionComplete || false;
     this.playerX = this.x || 4100;
     this.playerY = this.y || 1900;
@@ -94,7 +94,7 @@ export default class City extends Phaser.Scene {
         case "desierto": {
           // add star to scene
           // console.log("estrella agregada: ", x, y);
-          this.salida = this.physics.add.image(x, y, "FlechaSalida")
+          this.salida = this.physics.add.image(x, y, "ArrowUp")
             .setScale(1)
             .setSize(200, 200)
           
@@ -343,6 +343,7 @@ export default class City extends Phaser.Scene {
       this.salida.setVisible(true).setActive(true);
       }
   }
+
   Heal(player, collectible) {
     this.hp = this.hp + 25;
     events.emit("UpdateHP", { hp: this.hp });
@@ -384,8 +385,8 @@ export default class City extends Phaser.Scene {
       active: false,
       repeat: 50,
       setXY: {
-        x: 500,
-        y: 550,
+        x: 1500,
+        y: 1200,
       },
     });
 

@@ -100,7 +100,7 @@ export default class MainMenu extends Phaser.Scene {
 
     let isMusicMuted = false;
     let musicOn = this.add
-      .image(1820, 1000, "musicOn")
+      .image(1790, 980, "musicOn")
       .setInteractive()
       .setScale(2);
 
