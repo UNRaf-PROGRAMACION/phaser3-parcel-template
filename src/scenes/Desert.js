@@ -1,7 +1,7 @@
-// import Phaser from "phaser";
-// // import events from "./EventCenter";
+import Phaser from "phaser";
+import events from "./EventCenter";
 import Player from "../components/Player";
-import Enemies from "../components/Enemies";
+import Enemies from "../components/SquirrelEnemy";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
 
@@ -14,7 +14,9 @@ export default class Desert extends Phaser.Scene {
     super("Desert");
     this.lvl;
     this.hp;
-    this.experience;
+    this.maxHp;
+    this.exp,
+    this.exp;
     this.player;
     this.velocityPlayer;
     this.damageAmount;
@@ -26,7 +28,8 @@ export default class Desert extends Phaser.Scene {
     
     this.lvl = data.lvl;
     this.hp = data.hp;
-    this.experience = data.experience || 0;
+    this.maxHp = data.maxHp;
+    this.exp = data.exp || 0;
     this.velocityPlayer = data.velocityPlayer;
     this.enemyHp = data.enemyhp || 200;
     this.damageAmount = data.damageAmount;
@@ -129,6 +132,8 @@ export default class Desert extends Phaser.Scene {
     const data = {
       lvl: this.lvl,
       hp: this.hp,
+      maxHp: this.maxHp,
+      exp: this.exp,
       damageAmount: this.damageAmount,
       velocityPlayer: this.velocityPlayer,
       x: 100,

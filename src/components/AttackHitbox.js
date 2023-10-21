@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import Enemies from "./Enemies";
+import Enemies from "./SquirrelEnemy";
 import Player from "./Player";
 
 export default class Hitbox extends Phaser.GameObjects.Rectangle {
@@ -17,10 +17,7 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
     this.setActive(false).setVisible(false);
 
     this.facingDirection = null;
-    this.damageAmount = 100;
-    // this.attackSound = attackSound;
-    // this.isAttackSoundPlaying = false;
-    // this.isAttacking = false;
+    this.damageAmount = 1000;
   }
 
   update() {
@@ -79,14 +76,4 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
       this.setActive(false).setVisible(false);
     }, 100);
   }
-
-  // stopAttack() {
-  //   setTimeout(() => {
-  //     if (this.isAttackSoundPlaying){
-  //       this.attackSound.stop();
-  //       this.isAttackSoundPlaying = false;
-  //     }
-  //   }, 400);
-  //   this.setActive(false).setVisible(false);
-  // }
 }

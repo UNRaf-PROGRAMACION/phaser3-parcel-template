@@ -1,6 +1,7 @@
 // keys usadas en las traducciones... podemos agregar separacion logica en el armado
 const Enemy = {
     squirrelsKill: 'Ardillas derrotadas',
+    cobrasKill: 'Cobras derrotadas'
 };
 
 const MainMenu = {

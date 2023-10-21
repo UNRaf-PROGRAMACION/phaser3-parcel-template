@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
 import Player from "../components/Player";
-import Enemies from "../components/Enemies";
+import Enemies from "../components/SquirrelEnemy";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
 import Rock from "../components/Rock";
@@ -16,7 +16,8 @@ export default class City extends Phaser.Scene {
     this.deadSquirrel = squirrelsKill;
     this.lvl;
     this.hp;
-    this.experience;
+    this.maxHp;
+    this.exp;
     this.player;
     this.velocityPlayer;
     this.squirrels = [];
@@ -30,7 +31,8 @@ export default class City extends Phaser.Scene {
   init(data) {
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
-    this.experience = data.experience || 0;
+    this.maxHp = data.maxHp || 200;
+    this.exp = data.exp || 0;
     this.velocityPlayer = data.velocityPlayer || 700;
     this.velocityRock = data.velocityRock || 700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
@@ -146,8 +148,6 @@ export default class City extends Phaser.Scene {
       this
     );
 
-    // this.physics.add.collider(this.player, this.rock, this.damage, null, this);
-
     console.log(this.player);
     this.physics.add.overlap(
       this.hitbox,
@@ -235,6 +235,7 @@ export default class City extends Phaser.Scene {
     if (squirrel.active && hitbox.active) {
       squirrel.takeDamage(this.hitbox.damageAmount);
       squirrel.anims.play("Damage", true);
+
     }
   }
 
@@ -260,7 +261,11 @@ export default class City extends Phaser.Scene {
       this.squirrelsKilled = 0;
       this.squirrelsKilledText.setText("");
       this.lvl++;
+      this.maxHp += 25;
+      this.damageAmount += Math.round(this.damageAmount * 0.2);
+
       events.emit("UpdateLVL", { lvl: this.lvl });
+      events.emit("UpdateMaxHp", { maxHp: this.maxHp });
     }
     if (this.missionComplete) {
       this.salida.setVisible(true).setActive(true);
@@ -268,15 +273,23 @@ export default class City extends Phaser.Scene {
   }
 
   Heal(player, collectible) {
-    this.hp = this.hp + 25;
+    if (this.hp < this.maxHp) {
+      this.hp = this.hp + 50;
+      
+      if (this.hp > this.maxHp) {
+          this.hp = this.maxHp;
+      }
     events.emit("UpdateHP", { hp: this.hp });
     collectible.disableBody(true, true);
+  }
   }
   NextLevel() {
     if (this.missionComplete) {
       const data = {
         lvl: this.lvl,
         hp: this.hp,
+        maxHp: this.maxHp,
+        exp: this.exp,
         damageAmount: this.damageAmount,
         velocityPlayer: this.velocityPlayer,
         missionComplete: this.missionComplete,
@@ -369,6 +382,7 @@ export default class City extends Phaser.Scene {
     console.log("auch");
     this.hp = this.hp - 25;
     events.emit("UpdateHP", { hp: this.hp });
+    this.scene.get("UI").updateHealthBar();
     rock.destroy(true);
     rock.setVisible(false);
 

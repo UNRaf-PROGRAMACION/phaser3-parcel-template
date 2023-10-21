@@ -1,5 +1,5 @@
 import Phaser, { Scene } from "phaser";
-import Player from "../components/Player";
+import Player from "./Player";
 import Rock from "./Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
@@ -13,14 +13,6 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     const { squirrelsKill } = keys.Enemy;
     this.deadSquirrel = squirrelsKill;
     this.squirrelsKill = squirrelsKill;
-  
-    
-     this.timer = scene.time.addEvent({
-     delay: 1500, // Adjust as needed
-       loop: true,
-       callback: this.patrol,
-      callbackScope: this,
-     });
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -28,7 +20,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 1200;
     this.targetY = 2700;
-    this.enemyHp = 2000;
+    this.enemyHp = 20;
     this.velocitySquirrel = 200;
     this.timeToThrowRock = 0;
 
@@ -101,12 +93,13 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         console.log("Ardilla morida");
         this.scene.squirrelsKilled++;
         this.scene.squirrelsKilledText.setText(
-        `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`
-      );
+        `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`);
+
         
         this.setActive(false).setVisible(false);
-        
-      }
+
+
     }
   }
+}
 }

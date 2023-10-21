@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import Enemies from "../components/Enemies";
+import Enemies from "./SquirrelEnemy";
 import Hitbox from "./AttackHitbox";
 
 export default class Player extends Phaser.GameObjects.Sprite {
@@ -19,8 +19,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.KeySave = null;
     this.facingDirection = null;
-
-    this.damageAmount = 100;
 
     this.playerState = "idle";
 
