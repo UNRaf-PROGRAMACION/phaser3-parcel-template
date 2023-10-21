@@ -52,7 +52,7 @@ export default class UI extends Phaser.Scene {
   }
   UpdateLVL(data) {
     this.lvl = data.lvl;
-    this.levelText.setText(`LVL:${this.lvl}`);
+    this.levelText.setText(`LVL ${this.lvl}`);
   }
   updateHealthBar() {
     const maxWidth = 300;

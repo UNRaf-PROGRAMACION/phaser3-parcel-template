@@ -5,7 +5,7 @@ import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
-
+import events from "../scenes/EventCenter";
 export default class Enemies extends Phaser.GameObjects.Sprite {
   timer;
   #wasChangedLanguage = TODO;
@@ -21,7 +21,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 1200;
     this.targetY = 2700;
-    this.enemyHp = 20;
+    this.enemyHp = 200;
     this.velocitySquirrel = 200;
     this.timeToThrowRock = 0;
 
@@ -91,7 +91,14 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       this.enemyHp -= damageAmount;
 
       if (this.enemyHp <= 0) {
-       
+       this.scene.exp=this.scene.exp + 200
+       if(this.scene.exp>=1200){
+        this.scene.lvl ++
+        this.scene.maxHp += 25;
+        events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
+        events.emit("UpdateLVL", {lvl: this.scene.lvl });
+        this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
+       }
         
         console.log("Ardilla morida");
         this.scene.squirrelsKilled++;

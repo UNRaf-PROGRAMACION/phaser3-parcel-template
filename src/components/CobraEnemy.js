@@ -90,7 +90,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       if (this.enemyCobraHp <= 0) {
         this.scene.cobrasKilled++;
         this.scene.cobrasKilledText.setText(
-        `${getPhrase(this.deadCobra)}: ${this.scene.cobrasKilled} /4`
+        `${getPhrase(this.deadCobra)}: ${this.scene.cobrasKilled} /6`
       );
         
         this.setActive(false).setVisible(false);

@@ -9,6 +9,7 @@
  import Credits from "./scenes/Credits";
  import Language from "./scenes/LanguagesSelector";
  import Desert from "./scenes/Desert";
+import GameWin from "./scenes/GameWin";
 
 
 
@@ -35,7 +36,7 @@
        debug: false,
      },
    },
-   scene: [Preload, MainMenu, Credits, Language, City, Desert, GameEnd, UI]
+   scene: [Preload, MainMenu, Credits, Language, City, Desert, GameEnd,GameWin, UI]
  };
 
  export default new Phaser.Game(config);
