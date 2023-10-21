@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-import Enemies from "./SquirrelEnemy";
+import Enemies from "../components/CobraEnemy";
+import Enemies2 from "../components/SquirrelEnemy";
 import Hitbox from "./AttackHitbox";
 
 export default class Player extends Phaser.GameObjects.Sprite {

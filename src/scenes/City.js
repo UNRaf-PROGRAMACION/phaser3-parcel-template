@@ -8,6 +8,14 @@ import Rock from "../components/Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
+
+//  Main biome, player starts the game here and after completing some tasks unlocks the desert
+//  Has pathway to forest
+//  holds some secret collectibles
+//  Can access bossArena
+//  Resistence camp with npcs are here
+//  Has normal enemies
+//  save station
 export default class City extends Phaser.Scene {
   #wasChangedLanguage = TODO;
   constructor() {
@@ -26,6 +34,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
+    
   }
 
   init(data) {
@@ -44,6 +53,7 @@ export default class City extends Phaser.Scene {
     this.playerY = this.y || 1900;
     this.initialX = 1000;
     this.initialY = 2700;
+   
   }
 
   create() {
@@ -174,7 +184,7 @@ export default class City extends Phaser.Scene {
         fontFamily: "Roboto Mono",
       }
     );
-
+    
     this.rectangle = this.add.image(900, 900, "rectangle");
     this.misionText = this.add
       .text(
@@ -186,12 +196,15 @@ export default class City extends Phaser.Scene {
           fontFamily: "Roboto Mono",
           color: "FFFF00",
         }
-      )
-      .setInteractive();
-    this.misionText.on("pointerdown", () => {
-      this.misionText.setVisible(false);
-      this.rectangle.setVisible(false);
-    });
+      ).setInteractive()
+      this.input.keyboard.on('keydown-SPACE', () => {
+        // This code will be executed when the spacebar is pressed
+        this.misionText.setVisible(false);
+        this.rectangle.setVisible(false);
+      });
+      
+   
+   
     this.misionText.setVisible(false);
     this.misionText.setScrollFactor(0);
     this.rectangle.setScrollFactor(0);
@@ -201,6 +214,7 @@ export default class City extends Phaser.Scene {
 
     this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
+    
   }
 
   update() {
@@ -220,6 +234,7 @@ export default class City extends Phaser.Scene {
         this.player.y
       );
       if (distanceToPlayer < 500) {
+    
         if (squirrel.timeToThrowRock <= 0) {
           this.throwRockAtPlayer(this.player, squirrel);
           squirrel.timeToThrowRock = 100;
@@ -230,6 +245,8 @@ export default class City extends Phaser.Scene {
       }
     }
   }
+
+  
 
   playerHitEnemy(hitbox, squirrel) {
     if (squirrel.active && hitbox.active) {
@@ -245,6 +262,8 @@ export default class City extends Phaser.Scene {
     if (this.enemyHp <= 0) {
       squirrel.setActive(false).setVisible(false);
       squirrel.anims.stop();
+     
+      
     }
   }
 
@@ -350,6 +369,8 @@ export default class City extends Phaser.Scene {
     setTimeout(() => {
       squirrel.resumeMovement();
     }, 500);
+
+   
 
     setTimeout(() => {
       rock.destroy(true);
