@@ -18,9 +18,8 @@ export default class Preload extends Phaser.Scene {
     this.load.image("rectangle", "./assets/images/Rectangle.png");
     this.load.image("gameover", "./assets/images/Gameover.png");
     this.load.image("desertTemp", "./assets/images/desertTemp.jpg");
-    this.load.image("musicOn", "./assets/images/musicOn.png");
-    this.load.image("musicOff", "./assets/images/musicOff.png");
-    //
+    this.load.image("musicOn", "./assets/images/onMusic.png");
+    this.load.image("musicOff", "./assets/images/offMusic.png");
 
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
@@ -36,6 +35,10 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 221,
       frameHeight: 169,
     });
+    this.load.spritesheet("Cobra","./assets/images/Cobra.png",{
+      frameWidth : 270,
+      frameHeight: 198
+    })
 
     this.load.spritesheet("C4", "./assets/images/C4.png", {
       frameWidth: 212,
@@ -56,9 +59,20 @@ export default class Preload extends Phaser.Scene {
       frameHeight:155,
     
     });
+    this.load.spritesheet("Gear","./assets/images/ObjetoMision.png",{
+      frameWidth:113,
+      frameHeight:86,
+    
+    });
   }
 
   create() {
+    this.anims.create({
+      key: "gear-anim",
+      frames: this.anims.generateFrameNumbers("Gear", { start: 0, end: 1 }),
+      frameRate: 4,
+      repeat: -1,
+    });
     this.anims.create({
       key: "cura-anim",
       frames: this.anims.generateFrameNumbers("cura", { start: 0, end: 1 }),
@@ -221,6 +235,79 @@ export default class Preload extends Phaser.Scene {
       frameRate: 5,
       repeat: -1,
     });
+    this.anims.create({
+      key: "CobraUp",
+      frames: this.anims.generateFrameNumbers("Cobra", {
+        start: 11,
+        end: 14,
+      }),
+      frameRate: 5,
+      repeat: -1, // Repetir indefinidamente
+    });
+
+    this.anims.create({
+      key: "CobraDown",
+      frames: this.anims.generateFrameNumbers("Cobra", {
+        start: 16,
+        end: 19,
+      }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "CobraLeft",
+      frames: this.anims.generateFrameNumbers("Cobra", { start: 1, end: 4 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "CobraRight",
+      frames: this.anims.generateFrameNumbers("Cobra", { start: 6, end: 9 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "AttackLeftCobra",
+      frames: this.anims.generateFrameNumbers("Cobra", {
+        start: 20,
+        end: 21,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "AttackRightCobra",
+      frames: this.anims.generateFrameNumbers("Cobra", {
+        start: 22,
+        end: 23,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "AttackUpCobra",
+      frames: this.anims.generateFrameNumbers("Cobra", {
+        start: 24,
+        end: 25,
+      }),
+      frameRate: 15,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "AttackDownCobra",
+      frames: this.anims.generateFrameNumbers("Cobra", {
+        start: 26,
+        end: 27,
+      }),
+      frameRate: 15,
+      repeat: -1,
+    });
+    
 
     this.scene.start("MainMenu");
   }

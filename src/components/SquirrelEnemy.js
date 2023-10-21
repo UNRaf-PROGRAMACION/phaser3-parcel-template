@@ -5,6 +5,7 @@ import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
+
 export default class Enemies extends Phaser.GameObjects.Sprite {
   timer;
   #wasChangedLanguage = TODO;
@@ -98,6 +99,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       this.enemyHp -= damageAmount;
 
       if (this.enemyHp <= 0) {
+       
+        
         console.log("Ardilla morida");
         this.scene.squirrelsKilled++;
         this.scene.squirrelsKilledText.setText(

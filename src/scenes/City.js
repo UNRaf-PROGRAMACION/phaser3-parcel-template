@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
 import Player from "../components/Player";
-import Enemies from "../components/Enemies";
+import Enemies from "../components/SquirrelEnemy";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
 import Rock from "../components/Rock";
@@ -24,7 +24,7 @@ export default class City extends Phaser.Scene {
     this.deadSquirrel = squirrelsKill;
     this.lvl;
     this.hp;
-    this.experience;
+    this.exp;
     this.player;
     this.velocityPlayer;
     this.squirrels = [];
@@ -33,12 +33,13 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
+    
   }
 
   init(data) {
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
-    this.experience = data.experience || 0;
+    this.exp = data.exp || 0;
     this.velocityPlayer = data.velocityPlayer || 700;
     this.velocityRock = data.velocityRock || 700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
@@ -183,7 +184,7 @@ export default class City extends Phaser.Scene {
         fontFamily: "Roboto Mono",
       }
     );
-
+    
     this.rectangle = this.add.image(900, 900, "rectangle");
     this.misionText = this.add
       .text(
@@ -195,12 +196,15 @@ export default class City extends Phaser.Scene {
           fontFamily: "Roboto Mono",
           color: "FFFF00",
         }
-      )
-      .setInteractive();
-    this.misionText.on("pointerdown", () => {
-      this.misionText.setVisible(false);
-      this.rectangle.setVisible(false);
-    });
+      ).setInteractive()
+      this.input.keyboard.on('keydown-SPACE', () => {
+        // This code will be executed when the spacebar is pressed
+        this.misionText.setVisible(false);
+        this.rectangle.setVisible(false);
+      });
+      
+   
+   
     this.misionText.setVisible(false);
     this.misionText.setScrollFactor(0);
     this.rectangle.setScrollFactor(0);
@@ -210,6 +214,7 @@ export default class City extends Phaser.Scene {
 
     this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
+    
   }
 
   update() {
