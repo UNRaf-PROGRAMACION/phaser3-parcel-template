@@ -109,7 +109,7 @@ export default class Game extends Phaser.Scene {
     }
 
     if (this.dynamiteCuantity <= 0) {
-        this.scene.start ("lobby", {
+        this.scene.start ("win", {
           level: this.level,
         });
         this.gameSong.stop();
@@ -129,13 +129,19 @@ export default class Game extends Phaser.Scene {
   }
 
   damage () {
-    this.scene.start ("lobby", {
+    this.level = this.level - 1;
+    console.log(this.level);
+    this.scene.start ("lose", {
       level: this.level,
       health: this.health,
     })
     this.gameSong.stop();
     this.gameSong.loop = false;
-      this.level -= 1;
+    events.emit("actualizarDatos", {
+      level: this.level,
+      dynamiteCuantity: this.dynamiteCuantity,
+      health: this.health,
+    });
       
     }
 
