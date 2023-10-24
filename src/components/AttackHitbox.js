@@ -44,25 +44,25 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
           case "left":
             this.width = 150;
             this.height = 200;
-            this.setPosition(this.player.x - 175, this.player.y);
+            this.setPosition(this.player.x - 90, this.player.y);
             this.attack();
             break;
           case "right":
             this.width = 150;
             this.height = 200;
-            this.setPosition(this.player.x + 175, this.player.y);
+            this.setPosition(this.player.x + 90, this.player.y);
             this.attack();
             break;
           case "up":
             this.width = 212;
             this.height = 150;
-            this.setPosition(this.player.x, this.player.y - 168);
+            this.setPosition(this.player.x, this.player.y - 87);
             this.attack();
             break;
           case "down":
             this.width = 212;
             this.height = 150;
-            this.setPosition(this.player.x, this.player.y + 168);
+            this.setPosition(this.player.x, this.player.y + 87);
             this.attack();
             break;
         }
