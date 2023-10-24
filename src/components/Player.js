@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-import Enemies from "../components/Enemies";
+import Enemies from "../components/CobraEnemy";
+import Enemies2 from "../components/SquirrelEnemy";
 import Hitbox from "./AttackHitbox";
 
 export default class Player extends Phaser.GameObjects.Sprite {
@@ -20,8 +21,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.KeySave = null;
     this.facingDirection = null;
 
-    this.damageAmount = 100;
-
     this.playerState = "idle";
 
     this.stoppedAnimation = {
@@ -30,9 +29,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
       up: "upStop",
       down: "downStop",
     };
+    this.body.setCollideWorldBounds(true);
+
   }
 
   update() {
+    this.body.setSize(120,150);
     this.body.setVelocity(0);
 
     if (this.playerState !== "attacking") {

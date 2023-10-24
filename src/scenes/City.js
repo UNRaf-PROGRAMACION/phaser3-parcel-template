@@ -1,13 +1,21 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
 import Player from "../components/Player";
-import Enemies from "../components/Enemies";
+import Enemies from "../components/SquirrelEnemy";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
 import Rock from "../components/Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
+
+//  Main biome, player starts the game here and after completing some tasks unlocks the desert
+//  Has pathway to forest
+//  holds some secret collectibles
+//  Can access bossArena
+//  Resistence camp with npcs are here
+//  Has normal enemies
+//  save station
 export default class City extends Phaser.Scene {
   #wasChangedLanguage = TODO;
   constructor() {
@@ -16,7 +24,8 @@ export default class City extends Phaser.Scene {
     this.deadSquirrel = squirrelsKill;
     this.lvl;
     this.hp;
-    this.experience;
+    this.maxHp;
+    this.exp;
     this.player;
     this.velocityPlayer;
     this.squirrels = [];
@@ -25,17 +34,20 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
+   
+    
   }
 
   init(data) {
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
-    this.experience = data.experience || 0;
+    this.maxHp = data.maxHp || 200;
+    this.exp = data.exp || 0;
     this.velocityPlayer = data.velocityPlayer || 700;
     this.velocityRock = data.velocityRock || 700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
-    this.damageAmount = data.damageAmount || 0;
+    this.damageAmount = data.damageAmount || 100;
     this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = data.missionComplete || false;
     this.playerX = this.x || 4100;
@@ -146,8 +158,6 @@ export default class City extends Phaser.Scene {
       this
     );
 
-    // this.physics.add.collider(this.player, this.rock, this.damage, null, this);
-
     console.log(this.player);
     this.physics.add.overlap(
       this.hitbox,
@@ -174,24 +184,33 @@ export default class City extends Phaser.Scene {
         fontFamily: "Roboto Mono",
       }
     );
-
+    
     this.rectangle = this.add.image(900, 900, "rectangle");
     this.misionText = this.add
       .text(
         60,
-        880,
-        "Hola viajero, necesitamos tu ayuda para derrotar a las ardillas, ve y matalas",
+        800,
+        "Hola C4, necesitamos tu ayuda para derrotar a las ardillas, derrotalas y vuelve conmigo para avanzar al desierto",
         {
-          fontSize: "35px",
+          fontSize: "40px",
           fontFamily: "Roboto Mono",
           color: "FFFF00",
         }
-      )
-      .setInteractive();
-    this.misionText.on("pointerdown", () => {
-      this.misionText.setVisible(false);
-      this.rectangle.setVisible(false);
+      ).setInteractive()
+      this.misionText.setWordWrapWidth(this.rectangle.width);
+      this.mensajeAdicional = this.add.text(620, 920, "Toca espacio para cerrar este mensaje", {
+        fontSize: "35px",
+        fontFamily: "Roboto Mono",
+        color: "000000"
     });
+    this.mensajeAdicional.setScrollFactor(0)
+    this.mensajeAdicional.setVisible(false)
+     
+      this.input.keyboard.on('keydown-SPACE', () => {
+        this.misionText.setVisible(false);
+        this.rectangle.setVisible(false);
+        this.mensajeAdicional.setVisible(false);
+      });
     this.misionText.setVisible(false);
     this.misionText.setScrollFactor(0);
     this.rectangle.setScrollFactor(0);
@@ -201,6 +220,7 @@ export default class City extends Phaser.Scene {
 
     this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
+
   }
 
   update() {
@@ -220,6 +240,7 @@ export default class City extends Phaser.Scene {
         this.player.y
       );
       if (distanceToPlayer < 500) {
+    
         if (squirrel.timeToThrowRock <= 0) {
           this.throwRockAtPlayer(this.player, squirrel);
           squirrel.timeToThrowRock = 100;
@@ -231,10 +252,13 @@ export default class City extends Phaser.Scene {
     }
   }
 
+  
+
   playerHitEnemy(hitbox, squirrel) {
     if (squirrel.active && hitbox.active) {
       squirrel.takeDamage(this.hitbox.damageAmount);
       squirrel.anims.play("Damage", true);
+
     }
   }
 
@@ -244,6 +268,8 @@ export default class City extends Phaser.Scene {
     if (this.enemyHp <= 0) {
       squirrel.setActive(false).setVisible(false);
       squirrel.anims.stop();
+     
+      
     }
   }
 
@@ -251,6 +277,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText.setVisible(true);
     this.misionText.setVisible(true);
     this.rectangle.setVisible(true);
+    this.mensajeAdicional.setVisible(true);
 
     if (this.squirrelsKilled >= 4) {
       this.missionComplete = true;
@@ -258,9 +285,9 @@ export default class City extends Phaser.Scene {
         "Felicidades por completar la misión, el desierto lo espera"
       );
       this.squirrelsKilled = 0;
-      this.squirrelsKilledText.setText("");
-      this.lvl++;
-      events.emit("UpdateLVL", { lvl: this.lvl });
+      this.squirrelsKilledText.setText(""); 
+      
+
     }
     if (this.missionComplete) {
       this.salida.setVisible(true).setActive(true);
@@ -268,24 +295,35 @@ export default class City extends Phaser.Scene {
   }
 
   Heal(player, collectible) {
-    this.hp = this.hp + 25;
+    if (this.hp < this.maxHp) {
+      this.hp = this.hp + 50;
+      
+      if (this.hp > this.maxHp) {
+          this.hp = this.maxHp;
+      }
     events.emit("UpdateHP", { hp: this.hp });
     collectible.disableBody(true, true);
   }
+  }
   NextLevel() {
     if (this.missionComplete) {
+      
       const data = {
         lvl: this.lvl,
         hp: this.hp,
+        maxHp: this.maxHp,
+        exp: this.exp,
         damageAmount: this.damageAmount,
         velocityPlayer: this.velocityPlayer,
         missionComplete: this.missionComplete,
         squirrelsKilled: this.squirrelsKilled,
+       sceneCityActive:this.sceneCityActive
       };
       for (const s of this.squirrels) {
         s.destroy(true, true);
       }
       this.squirrels = [];
+      
       this.scene.start("Desert", data);
     }
   }
@@ -338,6 +376,8 @@ export default class City extends Phaser.Scene {
       squirrel.resumeMovement();
     }, 500);
 
+   
+
     setTimeout(() => {
       rock.destroy(true);
     }, 2000);
@@ -369,6 +409,7 @@ export default class City extends Phaser.Scene {
     console.log("auch");
     this.hp = this.hp - 25;
     events.emit("UpdateHP", { hp: this.hp });
+    this.scene.get("UI").updateHealthBar();
     rock.destroy(true);
     rock.setVisible(false);
 
@@ -382,9 +423,9 @@ export default class City extends Phaser.Scene {
         s.destroy(true, true);
       }
       this.squirrels = [];
-
-      this.scene.pause("City");
       this.scene.launch("GameEnd");
+      this.scene.pause("City");
+      
     }
   }
 }

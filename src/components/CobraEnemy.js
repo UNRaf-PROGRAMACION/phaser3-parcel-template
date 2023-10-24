@@ -4,35 +4,26 @@ import Rock from "./Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
+import events from "../scenes/EventCenter";
 
-export default class Enemies extends Phaser.GameObjects.Sprite {
+export default class Enemies2 extends Phaser.GameObjects.Sprite {
   timer;
   #wasChangedLanguage = TODO;
   constructor(scene, x, y, texture, velocity) {
     super(scene, x, y, texture);
-    const { squirrelsKill } = keys.Enemy;
-    this.deadSquirrel = squirrelsKill;
-    this.squirrelsKill = squirrelsKill;
-  
-    
-     this.timer = scene.time.addEvent({
-     delay: 1500, // Adjust as needed
-       loop: true,
-       callback: this.patrol,
-      callbackScope: this,
-     });
+    const { cobrasKill } = keys.Enemy;
+    this.deadCobra = cobrasKill;
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.body.allowGravity = false;
     this.velocity = velocity;
-    this.targetX = 1200;
-    this.targetY = 2700;
-    this.enemyHp = 2000;
-    this.velocitySquirrel = 200;
-    this.timeToThrowRock = 0;
-
+    this.targetX = 500;
+    this.targetY = 900;
+    this.enemyCobraHp = 200;
+    this.velocityCobra = 350;
     this.patrolling = true;
+    this.timeToBite = 0;
   }
   
   update(){
@@ -44,8 +35,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       const angle = Math.atan2(distanceY, distanceX);
 
       // Calculate the velocity components based on the angle and velocitySquirrel
-      const velocityX = Math.cos(angle) * this.velocitySquirrel;
-      const velocityY = Math.sin(angle) * this.velocitySquirrel;
+      const velocityX = Math.cos(angle) * this.velocityCobra;
+      const velocityY = Math.sin(angle) * this.velocityCobra;
 
       // Set the squirrel's velocity
       this.body.setVelocity(velocityX, velocityY);
@@ -53,15 +44,15 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       // Determine which direction the squirrel is moving and set the appropriate animation
       if (Math.abs(velocityX) > Math.abs(velocityY)) {
         if (velocityX > 0) {
-          this.anims.play("squirrelRight", true);
+          this.anims.play("CobraRight", true);
         } else {
-          this.anims.play("squirrelLeft", true);
+          this.anims.play("CobraLeft", true);
         }
       } else {
         if (velocityY > 0) {
-          this.anims.play("squirrelDown", true);
+          this.anims.play("CobraDown", true);
         } else {
-          this.anims.play("squirrelUp", true);
+          this.anims.play("CobraUp", true);
         }
       }
 
@@ -75,8 +66,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
 
       if (distanceToTarget < 5) {
         // Set a new random target position within the area
-        this.targetX = Phaser.Math.Between(1000, 2450);
-        this.targetY = Phaser.Math.Between(2000, 3150);
+        this.targetX = Phaser.Math.Between(500, 1400);
+        this.targetY = Phaser.Math.Between(400, 1000);
       }
     }
   }
@@ -95,16 +86,26 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
 
   takeDamage(damageAmount) {
     if (this.active) {
-      this.enemyHp -= damageAmount;
+      this.enemyCobraHp = this.enemyCobraHp - damageAmount;
 
-      if (this.enemyHp <= 0) {
-        console.log("Ardilla morida");
-        this.scene.squirrelsKilled++;
-        this.scene.squirrelsKilledText.setText(
-        `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`
+      if (this.enemyCobraHp <= 0) {
+        this.scene.exp=this.scene.exp +200
+if(this.scene.exp>=1200){
+  this.scene.lvl++
+  this.scene.exp=0
+  this.scene.maxHp += 25;
+  events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
+  events.emit("UpdateLVL", {lvl: this.scene.lvl });
+  this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
+
+}
+        this.scene.cobrasKilled++;
+        this.scene.cobrasKilledText.setText(
+        `${getPhrase(this.deadCobra)}: ${this.scene.cobrasKilled} /6`
       );
         
         this.setActive(false).setVisible(false);
+      
         
       }
     }
