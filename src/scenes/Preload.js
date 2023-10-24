@@ -18,8 +18,8 @@ export default class Preload extends Phaser.Scene {
     this.load.image("rectangle", "./assets/images/Rectangle.png");
     this.load.image("gameover", "./assets/images/Gameover.png");
     this.load.image("desertTemp", "./assets/images/desertTemp.jpg");
-    this.load.image("musicOn", "./assets/images/musicOn.png");
-    this.load.image("musicOff", "./assets/images/musicOff.png");
+    this.load.image("musicOn", "./assets/images/onMusic.png");
+    this.load.image("musicOff", "./assets/images/offMusic.png");
     this.load.image("UIRectangle","./assets/images/UIRectangle.png");
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
