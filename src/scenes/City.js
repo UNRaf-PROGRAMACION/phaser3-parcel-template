@@ -34,7 +34,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
-    this.sceneCityActive;
+   
     
   }
 

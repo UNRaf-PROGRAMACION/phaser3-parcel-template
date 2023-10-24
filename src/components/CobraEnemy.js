@@ -4,8 +4,9 @@ import Rock from "./Rock";
 import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
+import events from "../scenes/EventCenter";
 
-export default class Enemies extends Phaser.GameObjects.Sprite {
+export default class Enemies2 extends Phaser.GameObjects.Sprite {
   timer;
   #wasChangedLanguage = TODO;
   constructor(scene, x, y, texture, velocity) {
@@ -19,7 +20,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 500;
     this.targetY = 900;
-    this.enemyCobraHp = 2000;
+    this.enemyCobraHp = 200;
     this.velocityCobra = 350;
     this.patrolling = true;
     this.timeToBite = 0;
@@ -83,11 +84,21 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
   }
 
 
-  takeDamage(damageAmount,cobra) {
+  takeDamage(damageAmount) {
     if (this.active) {
       this.enemyCobraHp -= damageAmount;
 
       if (this.enemyCobraHp <= 0) {
+        this.scene.exp=this.scene.exp +200
+if(this.scene.exp>=1200){
+  this.scene.lvl++
+  this.scene.exp=0
+  this.scene.maxHp += 25;
+  events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
+  events.emit("UpdateLVL", {lvl: this.scene.lvl });
+  this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
+
+}
         this.scene.cobrasKilled++;
         this.scene.cobrasKilledText.setText(
         `${getPhrase(this.deadCobra)}: ${this.scene.cobrasKilled} /6`

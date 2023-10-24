@@ -1,9 +1,10 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
 import Player from "../components/Player";
-import Enemies from "../components/CobraEnemy";
+import Enemies2 from "../components/CobraEnemy";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
+
 
 
 // //Second unlocked biome, after completing some tasks, unlocks forest
@@ -27,7 +28,6 @@ export default class Desert extends Phaser.Scene {
   }
 
   init(data) {
-    console.log("🚀 ~ file: Desert.js:26 ~ Desert ~ init ~ data:", data);
 
     this.lvl = data.lvl;
     this.hp = data.hp;
@@ -50,9 +50,6 @@ export default class Desert extends Phaser.Scene {
 
   create() {
     const map = this.make.tilemap({ key: "Desert" });
-    this.tileWidth = map.tileWidth;
-    this.tileHeight = map.tileHeight;
-
     const layerbackGround = map.addTilesetImage("desertTileset", "Mapdesert");
     const background = map.createLayer("Ground", layerbackGround, 0, 0);
     const layerObstacle = map.addTilesetImage("desertTileset", "Mapdesert");
@@ -61,19 +58,19 @@ export default class Desert extends Phaser.Scene {
 
     const objectsLayer = map.getObjectLayer("Objects");
 
-    this.collectible = this.physics.add.group();
-    this.collectible.allowGravity = false;
+    this.CollectibleMision = this.physics.add.group();
+    this.CollectibleMision.allowGravity = false;
 
     objectsLayer.objects.forEach((objData) => {
       const { x = 0, y = 0, name } = objData;
 
       switch (name) {
         case "recolectable": {
-          let collectible1 = this.collectible
+          let CollectibleMision1 = this.CollectibleMision
             .create(x, y, "Gear")
             .setScale(1)
             .setSize(200, 200);
-          collectible1.anims.play("gear-anim", true);
+          CollectibleMision1.anims.play("gear-anim", true);
 
           break;
         }
@@ -171,9 +168,10 @@ export default class Desert extends Phaser.Scene {
       this.rectangle.setVisible(false);
       this.mensajeAdicional.setVisible(false);
     });
+    this.cobraGroup = this.physics.add.group();
 
     for (let i = 0; i < 6; i++) {
-      const cobra = new Enemies(
+      const cobra = new Enemies2(
         this,
         this.initialX,
         this.initialY,
@@ -182,7 +180,7 @@ export default class Desert extends Phaser.Scene {
       );
       this.cobras.push(cobra);
     }
-    this.cobraGroup = this.physics.add.group();
+   
     this.physics.add.overlap(
       this.hitbox,
       this.cobras,
@@ -192,7 +190,7 @@ export default class Desert extends Phaser.Scene {
     );
     this.physics.add.overlap(
       this.player,
-      this.collectible,
+      this.CollectibleMision,
       this.ObjectCollected,
       null,
       this
@@ -201,6 +199,7 @@ export default class Desert extends Phaser.Scene {
   }
 
   update() {
+    if (this && this.hp) {
     this.player.update();
     this.hitbox.update();
     for (let i = 0; i < this.cobras.length; i++) {
@@ -224,51 +223,9 @@ export default class Desert extends Phaser.Scene {
         this.cobras[i] = cobra;
       }
     }
-  }
+  }}
 
-  bite(player, cobra) {
-    const directionX = player.x - cobra.x;
-    const directionY = player.y - cobra.y;
-    const length = Math.sqrt(directionX * directionX + directionY * directionY);
-    const velocityX = (directionX / length) * this.velocityCobra;
-    const velocityY = (directionY / length) * this.velocityCobra;
-
-    cobra.stopMovement();
-
-    setTimeout(() => {
-      cobra.resumeMovement();
-    }, 500);
-
-    if (Math.abs(velocityX) < Math.abs(velocityY)) {
-      if (velocityY < 0) {
-        cobra.anims.play("AttackUpCobra", true);
-      } else {
-        cobra.anims.play("AttackDownCobra", true);
-      }
-    } else {
-      if (velocityX < 0) {
-        cobra.anims.play("AttackLeftCobra", true);
-      } else {
-        cobra.anims.play("AttackRightCobra", true);
-      }
-    }
-    this.hp = this.hp - 15;
-    events.emit("UpdateHP", { hp: this.hp });
-    if (this.hp <= 0) {
-      this.player.setVisible(false).setActive(false);
-      if (cobra && cobra.anims.isPlaying) {
-        cobra.anims.pause();
-      }
-
-      for (const c of this.cobras) {
-        c.destroy(true, true);
-      }
-      this.cobras = [];
-      this.scene.launch("GameEnd");
-      this.scene.pause("Desert");
-     
-    }
-  }
+  
 
   playerHitEnemy(hitbox, cobra) {
     if (cobra.active && hitbox.active) {
@@ -337,6 +294,50 @@ export default class Desert extends Phaser.Scene {
         this.mensajeAdicional.setVisible(false);
       }
 
+    }
+  }
+  bite(player, cobra) {
+    const directionX = player.x - cobra.x;
+    const directionY = player.y - cobra.y;
+    const length = Math.sqrt(directionX * directionX + directionY * directionY);
+    const velocityX = (directionX / length) * this.velocityCobra;
+    const velocityY = (directionY / length) * this.velocityCobra;
+
+    cobra.stopMovement();
+
+    setTimeout(() => {
+      cobra.resumeMovement();
+    }, 500);
+
+    if (Math.abs(velocityX) < Math.abs(velocityY)) {
+      if (velocityY < 0) {
+        cobra.anims.play("AttackUpCobra", true);
+      } else {
+        cobra.anims.play("AttackDownCobra", true);
+      }
+    } else {
+      if (velocityX < 0) {
+        cobra.anims.play("AttackLeftCobra", true);
+      } else {
+        cobra.anims.play("AttackRightCobra", true);
+      }
+    }
+    this.hp = this.hp - 15;
+    events.emit("UpdateHP", { hp: this.hp });
+    if (this.hp <= 0) {
+      
+      this.player.setVisible(false).setActive(false);
+      if (cobra && cobra.anims.isPlaying) {
+        cobra.anims.pause();
+      }
+
+      for (const s of this.cobras) {
+        s.destroy(true, true);
+      }
+      this.cobras = [];
+      this.scene.launch("GameEnd");
+      this.scene.pause("Desert");
+     
     }
   }
 }

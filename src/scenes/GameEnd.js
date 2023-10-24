@@ -39,8 +39,7 @@ export default class GameEnd extends Phaser.Scene {
     }).setInteractive();
     this.buttonM.on("pointerdown", () => {
       this.scene.stop("UI");
-      this.scene.stop("City");
-      this.scene.stop("Desert");
+      this.scene.stop(this.obtenerNivelEnPausa());
       this.scene.start("MainMenu");
     });
   }

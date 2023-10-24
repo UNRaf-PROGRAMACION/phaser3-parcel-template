@@ -95,6 +95,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
        if(this.scene.exp>=1200){
         this.scene.lvl ++
         this.scene.maxHp += 25;
+        this.scene.exp = 0
         events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
         events.emit("UpdateLVL", {lvl: this.scene.lvl });
         this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);

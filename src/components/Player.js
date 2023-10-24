@@ -29,10 +29,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
       up: "upStop",
       down: "downStop",
     };
+    this.body.setCollideWorldBounds(true);
+
   }
 
   update() {
-    this.body.setSize(150,150);
+    this.body.setSize(120,150);
     this.body.setVelocity(0);
 
     if (this.playerState !== "attacking") {
