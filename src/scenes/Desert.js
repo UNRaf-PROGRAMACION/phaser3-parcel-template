@@ -247,7 +247,7 @@ export default class Desert extends Phaser.Scene {
   }
   ObjectCollected(player, collectible) {
     this.objectCollected = this.objectCollected + 1;
-    this.objectCollectedText.setText("Objects collected: " + this.objectCollected +"/6")
+    this.objectCollectedText.setText("Objects collected: " + this.objectCollected +"/4")
       
 
     collectible.disableBody(true, true);

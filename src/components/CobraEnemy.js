@@ -86,7 +86,7 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
 
   takeDamage(damageAmount) {
     if (this.active) {
-      this.enemyCobraHp -= damageAmount;
+      this.enemyCobraHp = this.enemyCobraHp - damageAmount;
 
       if (this.enemyCobraHp <= 0) {
         this.scene.exp=this.scene.exp +200

@@ -21,7 +21,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 1200;
     this.targetY = 2700;
-    this.enemyHp = 200;
+    this.enemyHp = 2000;
     this.velocitySquirrel = 200;
     this.timeToThrowRock = 0;
 
@@ -88,7 +88,9 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
 
   takeDamage(damageAmount) {
     if (this.active) {
-      this.enemyHp -= damageAmount;
+      this.enemyHp = this.enemyHp - damageAmount;
+      console.log("🚀 ~ file: SquirrelEnemy.js:92 ~ Enemies ~ takeDamage ~ damageAmount:", damageAmount)
+      console.log("🚀 ~ file: SquirrelEnemy.js:92 ~ Enemies ~ takeDamage ~ this.enemyHp:", this.enemyHp)
 
       if (this.enemyHp <= 0) {
        this.scene.exp=this.scene.exp + 200

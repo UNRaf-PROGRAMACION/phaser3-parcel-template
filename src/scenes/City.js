@@ -47,7 +47,7 @@ export default class City extends Phaser.Scene {
     this.velocityRock = data.velocityRock || 700;
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
-    this.damageAmount = data.damageAmount || 0;
+    this.damageAmount = data.damageAmount || 100;
     this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = data.missionComplete || false;
     this.playerX = this.x || 4100;
@@ -220,8 +220,7 @@ export default class City extends Phaser.Scene {
 
     this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
-    this.DesignUI = this.add.image(200,57,"UIRectangle");
-    this.DesignUI.setScrollFactor(0);
+
   }
 
   update() {

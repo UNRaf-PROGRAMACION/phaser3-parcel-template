@@ -27,6 +27,9 @@ export default class UI extends Phaser.Scene {
 
   create() {
 
+    this.DesignUI = this.add.image(200,57,"UIRectangle");
+    this.DesignUI.scaleX = 2.2;
+
     this.healthBackground = this.add.rectangle(250, 73, 300, 25, 0x000000);
     this.healthBackground.setOrigin(0);
 
