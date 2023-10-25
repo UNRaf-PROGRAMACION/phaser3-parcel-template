@@ -15,7 +15,7 @@ export default class GameEnd extends Phaser.Scene {
     this.menu = menu;
   }
 
-  create() {
+  create(data) {
     this.add.image(0,0, "gameover").setOrigin(0);
     this.died = this.add.text(760,190,getPhrase(this.dead),{
       fontSize: "100px",
@@ -30,7 +30,12 @@ export default class GameEnd extends Phaser.Scene {
 
     this.buttonR.on("pointerdown", () => {
       this.scene.launch("UI");
-      this.scene.start(this.obtenerNivelEnPausa());
+      if (data.fromScene === "City") {
+        this.scene.start("City");
+      } else if (data.fromScene === "Desert") {
+        this.scene.start("Desert");
+      }
+     
     });
     this.buttonM = this.add.text(850,750,getPhrase(this.menu),{
       fontFamily: "Roboto Mono",
@@ -39,7 +44,7 @@ export default class GameEnd extends Phaser.Scene {
     }).setInteractive();
     this.buttonM.on("pointerdown", () => {
       this.scene.stop("UI");
-      this.scene.stop(this.obtenerNivelEnPausa());
+      this.scene.stop(data.fromScene);
       this.scene.start("MainMenu");
     });
   }
@@ -51,8 +56,5 @@ export default class GameEnd extends Phaser.Scene {
       this.buttonM.setText(getPhrase(this.menu));
     }
   }
-  obtenerNivelEnPausa(){
-    const nivelEnPausa = this.scene.manager.scenes.find(scene => scene.scene.isPaused());
-    return nivelEnPausa? nivelEnPausa.scene.key : null;
-}
+
 }

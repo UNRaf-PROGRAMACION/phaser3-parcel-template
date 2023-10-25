@@ -20,10 +20,11 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 500;
     this.targetY = 900;
-    this.enemyCobraHp = 200;
+    this.enemyCobraHp = 2000;
     this.velocityCobra = 350;
     this.patrolling = true;
     this.timeToBite = 0;
+
   }
   
   update(){

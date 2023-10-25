@@ -17,7 +17,7 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   create() {
-    this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.5 });
+    this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.3 });
     this.menuMusic.play();
 
     const canvasWidth = this.sys.game.config.width;
@@ -32,6 +32,14 @@ export default class MainMenu extends Phaser.Scene {
     bgImage.setPosition(canvasWidth / 2, canvasHeight / 2);
 
     this.add.image(990, 300, "title").setScale(1.8);
+
+    let spaceIntro = this.add.video(400, 300, "introScene").setInteractive().setDepth(1);
+    spaceIntro.visible = false;
+    spaceIntro.setScale(
+      canvasWidth / bgImage.width,
+      canvasHeight / bgImage.height
+    );
+    spaceIntro.setPosition(canvasWidth / 2, canvasHeight / 2);
 
     let startButton = this.add
       .text(860, 500, getPhrase(this.play), {
@@ -50,8 +58,17 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     startButton.on("pointerdown", () => {
-      this.scene.launch("UI");
       this.menuMusic.stop();
+      spaceIntro.visible = true;
+      spaceIntro.play();
+      spaceIntro.on('complete', () => {
+        this.scene.launch("UI");
+        this.scene.start("City");
+      });
+    });
+
+    spaceIntro.on("pointerdown", () => {
+      this.scene.launch("UI");
       this.scene.start("City");
     });
 

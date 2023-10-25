@@ -48,10 +48,10 @@ export default class City extends Phaser.Scene {
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 100;
-    this.squirrelsKilled = data.squirrelsKilled || 0;
+    this.squirrelsKilled = data.squirrelsKilled || 4;
     this.missionComplete = data.missionComplete || false;
-    this.playerX = this.x || 4100;
-    this.playerY = this.y || 1900;
+    this.playerX = data.x || 3700;
+    this.playerY = data.y || 2300;
     this.initialX = 1000;
     this.initialY = 2700;
   }
@@ -135,13 +135,7 @@ export default class City extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.squirrels);
     this.physics.add.overlap(this.squirrels, this.player);
     this.physics.add.collider(this.squirrels, obstacle);
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.squirrels,
-    //   this.DamageTaken,
-    //   null,
-    //   this
-    // );
+
     this.physics.add.overlap(
       this.player,
       this.collectible,
@@ -305,9 +299,9 @@ export default class City extends Phaser.Scene {
     collectible.disableBody(true, true);
   }
   }
+
   NextLevel() {
     if (this.missionComplete) {
-      
       const data = {
         lvl: this.lvl,
         hp: this.hp,
@@ -317,13 +311,12 @@ export default class City extends Phaser.Scene {
         velocityPlayer: this.velocityPlayer,
         missionComplete: this.missionComplete,
         squirrelsKilled: this.squirrelsKilled,
-       sceneCityActive:this.sceneCityActive
       };
       for (const s of this.squirrels) {
         s.destroy(true, true);
       }
       this.squirrels = [];
-      
+
       this.scene.start("Desert", data);
     }
   }
@@ -376,8 +369,6 @@ export default class City extends Phaser.Scene {
       squirrel.resumeMovement();
     }, 500);
 
-   
-
     setTimeout(() => {
       rock.destroy(true);
     }, 2000);
@@ -423,7 +414,7 @@ export default class City extends Phaser.Scene {
         s.destroy(true, true);
       }
       this.squirrels = [];
-      this.scene.launch("GameEnd");
+      this.scene.launch("GameEnd", { fromScene: "City" });
       this.scene.pause("City");
       
     }

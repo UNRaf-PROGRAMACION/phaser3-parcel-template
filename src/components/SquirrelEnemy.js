@@ -41,7 +41,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       const velocityY = Math.sin(angle) * this.velocitySquirrel;
 
       // Set the squirrel's velocity
-      this.body.setVelocity(velocityX, velocityY);
+    this.body.setVelocity(velocityX, velocityY);  
 
       // Determine which direction the squirrel is moving and set the appropriate animation
       if (Math.abs(velocityX) > Math.abs(velocityY)) {
