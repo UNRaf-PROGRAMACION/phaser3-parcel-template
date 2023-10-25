@@ -159,7 +159,7 @@ export default class Desert extends Phaser.Scene {
       .text(
         60,
         800,
-        "C4, te estaba esperando. Nos han robado partes de un arma que estamos construyendo. Ve a recuperarlas y ten cuidado",
+        "C4, te estaba esperando. Nos han robado partes de un arma que estamos construyendo. Ve a recuperarlas y ten cuidado.",
         {
           fontSize: "40px",
           fontFamily: "Roboto Mono",
