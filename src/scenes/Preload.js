@@ -23,6 +23,7 @@ export default class Preload extends Phaser.Scene {
     this.load.image("UIRectangle","./assets/images/UIRectangle.png");
 
     this.load.video("introScene", "./assets/videos/spaceIntro.mp4");
+    this.load.video("logos", "./assets/videos/IntroLogos.mp4");
 
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
@@ -324,7 +325,18 @@ export default class Preload extends Phaser.Scene {
       frameRate: 1,
     });
     
+    let logosScene = this.add.video(960, 500, "logos").setInteractive();
+    logosScene.setScale(1.1);
 
-    this.scene.start("MainMenu");
+    logosScene.play() 
+
+    logosScene.on('complete', () => {
+      this.scene.start("MainMenu");
+    });
+
+    logosScene.on('pointerdown', () => {
+      this.scene.start("MainMenu");
+    });
+
   }
 }
