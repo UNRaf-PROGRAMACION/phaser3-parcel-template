@@ -90,7 +90,7 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
 
       if (this.enemyCobraHp <= 0) {
         this.scene.exp=this.scene.exp +200
-if(this.scene.exp>=1200){
+if (this.scene.exp>=1200){
   this.scene.lvl++
   this.scene.exp=0
   this.scene.maxHp += 25;

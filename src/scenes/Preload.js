@@ -23,10 +23,12 @@ export default class Preload extends Phaser.Scene {
     this.load.image("UIRectangle","./assets/images/UIRectangle.png");
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
+    this.load.image("BossDoor", "./assets/images/BossEntrada.png");
     this.load.spritesheet("Eagle", "./assets/images/NPC.png", {
       frameWidth: 230,
       frameHeight: 230,
     });
+    this.load.image("Tutorial","./assets/images/Tutorial.png");
     this.load.spritesheet("Rock", "./assets/images/Rock.png", {
       frameWidth: 21,
       frameHeight: 21,

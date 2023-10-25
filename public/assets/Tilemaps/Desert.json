@@ -142,8 +142,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":3164.12121212121,
-                 "y":374.424242424242
+                 "x":212.12121212121,
+                 "y":230.424242424242
                 }, 
                 {
                  "height":0,
@@ -168,6 +168,30 @@
                  "width":0,
                  "x":881.090909090909,
                  "y":566.181818181818
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"cura",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":3758,
+                 "y":1536
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"cura",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":368,
+                 "y":1444
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -227,7 +251,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":9,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
