@@ -20,10 +20,11 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 500;
     this.targetY = 900;
-    this.enemyCobraHp = 200;
+    this.enemyCobraHp = 2000;
     this.velocityCobra = 350;
     this.patrolling = true;
     this.timeToBite = 0;
+
   }
   
   update(){
@@ -90,7 +91,7 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
 
       if (this.enemyCobraHp <= 0) {
         this.scene.exp=this.scene.exp +200
-if(this.scene.exp>=1200){
+if (this.scene.exp>=1200){
   this.scene.lvl++
   this.scene.exp=0
   this.scene.maxHp += 25;

@@ -21,16 +21,26 @@ export default class Preload extends Phaser.Scene {
     this.load.image("musicOn", "./assets/images/onMusic.png");
     this.load.image("musicOff", "./assets/images/offMusic.png");
     this.load.image("UIRectangle","./assets/images/UIRectangle.png");
+
+    this.load.video("introScene", "./assets/videos/spaceIntro.mp4");
+
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
+    this.load.image("BossDoor", "./assets/images/BossEntrada.png");
     this.load.spritesheet("Eagle", "./assets/images/NPC.png", {
       frameWidth: 230,
       frameHeight: 230,
     });
+    this.load.image("Tutorial","./assets/images/Tutorial.png");
     this.load.spritesheet("Rock", "./assets/images/Rock.png", {
       frameWidth: 21,
       frameHeight: 21,
     });
+    this.load.spritesheet("BigBite", "./assets/images/imaginaryAttack.png", {
+      frameWidth: 50,
+      frameHeight: 50,
+    });
+
     this.load.spritesheet("Squirrel", "./assets/images/Squirrel.png", {
       frameWidth: 221,
       frameHeight: 169,
