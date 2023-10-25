@@ -48,7 +48,7 @@ export default class City extends Phaser.Scene {
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 100;
-    this.squirrelsKilled = data.squirrelsKilled || 4;
+    this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = data.missionComplete || false;
     this.playerX = data.x || 3700;
     this.playerY = data.y || 2300;
@@ -62,11 +62,15 @@ export default class City extends Phaser.Scene {
     const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
     const background = map.createLayer("Ground", layerbackGround, 0, 0);
     const layerObstacle = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
+    const layerObstacle2=map.addTilesetImage("BossEntrance","BossDoor");
     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
+    
 
     const objectsLayer = map.getObjectLayer("Objects");
     this.collectible = this.physics.add.group();
     this.collectible.allowGravity = false;
+    this.door=this.physics.add.group();
+    this.door.allowGravity= false;
 
     objectsLayer.objects.forEach((objData) => {
       const { x = 0, y = 0, name } = objData;
@@ -88,12 +92,22 @@ export default class City extends Phaser.Scene {
             .setSize(200, 200);
           break;
         }
+        case "jefe": {
+          let jefe = this.door
+            .create(x, y, "ArrowDown")
+            .setScale(1)
+            .setSize(200, 200)
+            .setVisible(true);
+
+          break;
+        }
       }
     });
 
     if (!this.missionComplete) {
       this.salida.setVisible(false).setActive(false);
     }
+    this.jefeDoor=this.add.image(1600,3890,"BossDoor");
 
     this.player = new Player(
       this,
@@ -135,6 +149,27 @@ export default class City extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.squirrels);
     this.physics.add.overlap(this.squirrels, this.player);
     this.physics.add.collider(this.squirrels, obstacle);
+    this.tutorial=this.add.image(1000,500,"Tutorial").setScale(2);
+    this.moverseText=this.add.text(980,600,"Moverse",{
+      color: "000000",
+      fontSize: "35px",
+      fontFamily: "Roboto Mono"
+    });
+    this.atacarText=this.add.text(1300,600,"Atacar",{
+      color: "000000",
+      fontSize: "35px",
+      fontFamily: "Roboto Mono"
+    });
+    this.saltarText=this.add.text(630,600,"Saltar Texto",{
+      color: "000000",
+      fontSize: "35px",
+      fontFamily: "Roboto Mono"
+    });
+    this.moverseText.setScrollFactor(0,0);
+    this.atacarText.setScrollFactor(0,0);
+    this.saltarText.setScrollFactor(0,0);
+    this.tutorial.setScrollFactor(0,0);
+
 
     this.physics.add.overlap(
       this.player,
@@ -179,12 +214,13 @@ export default class City extends Phaser.Scene {
       }
     );
     
-    this.rectangle = this.add.image(900, 900, "rectangle");
+    this.rectangle = this.add.image(957, 900, "rectangle");
+this.rectangle.scaleX= 1.1
     this.misionText = this.add
       .text(
         60,
         800,
-        "Hola C4, necesitamos tu ayuda para derrotar a las ardillas, derrotalas y vuelve conmigo para avanzar al desierto",
+        "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no constamos con suficientes refuerzos. Eliminalas lo antes posible y regresa",
         {
           fontSize: "40px",
           fontFamily: "Roboto Mono",
@@ -192,7 +228,7 @@ export default class City extends Phaser.Scene {
         }
       ).setInteractive()
       this.misionText.setWordWrapWidth(this.rectangle.width);
-      this.mensajeAdicional = this.add.text(620, 920, "Toca espacio para cerrar este mensaje", {
+      this.mensajeAdicional = this.add.text(690, 950, "Toca espacio para cerrar este mensaje", {
         fontSize: "35px",
         fontFamily: "Roboto Mono",
         color: "000000"
@@ -204,6 +240,10 @@ export default class City extends Phaser.Scene {
         this.misionText.setVisible(false);
         this.rectangle.setVisible(false);
         this.mensajeAdicional.setVisible(false);
+        this.tutorial.setVisible(false);
+        this.moverseText.setVisible(false);
+    this.atacarText.setVisible(false);
+    this.saltarText.setVisible(false);
       });
     this.misionText.setVisible(false);
     this.misionText.setScrollFactor(0);
@@ -252,7 +292,11 @@ export default class City extends Phaser.Scene {
     if (squirrel.active && hitbox.active) {
       squirrel.takeDamage(this.hitbox.damageAmount);
       squirrel.anims.play("Damage", true);
+      squirrel.stopMovement();
 
+      setTimeout(() => {
+        squirrel.resumeMovement();
+      }, 700);
     }
   }
 
@@ -276,7 +320,7 @@ export default class City extends Phaser.Scene {
     if (this.squirrelsKilled >= 4) {
       this.missionComplete = true;
       this.misionText.setText(
-        "Felicidades por completar la misión, el desierto lo espera"
+        "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fox"
       );
       this.squirrelsKilled = 0;
       this.squirrelsKilledText.setText(""); 
@@ -318,6 +362,7 @@ export default class City extends Phaser.Scene {
       this.squirrels = [];
 
       this.scene.start("Desert", data);
+      this.scene.pause("City");
     }
   }
 
