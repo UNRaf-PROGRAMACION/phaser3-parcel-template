@@ -224,7 +224,7 @@ export default class City extends Phaser.Scene {
       .text(
         60,
         800,
-        "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no constamos con suficientes refuerzos. Eliminalas lo antes posible y regresa",
+        "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no contamos con suficientes refuerzos. Eliminalas lo antes posible y regresa.",
         {
           fontSize: "40px",
           fontFamily: "Roboto Mono",
@@ -327,7 +327,7 @@ export default class City extends Phaser.Scene {
       this.DesignUI2.setVisible(false);
       this.missionComplete = true;
       this.misionText.setText(
-        "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fox"
+        "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fenec."
       );
       this.squirrelsKilled = 0;
       this.squirrelsKilledText.setText(""); 
