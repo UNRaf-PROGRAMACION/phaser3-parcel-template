@@ -134,23 +134,27 @@ export default class Desert extends Phaser.Scene {
       null,
       this
     );
-
+    this.DesignUI2 = this.add.image(1700,105,"UIRectangle");
+    this.DesignUI2.scaleX = 2.2;
+    this.DesignUI2.scaleY = 1.1;
+    this.DesignUI2.setVisible(false);
+    this.DesignUI2.setScrollFactor(0);
     this.physics.add.overlap(this.player, this.fox, this.mision2, null, this);
-    this.cobrasKilledText = this.add.text(1150, 60, "Cobras Killed", {
+    this.cobrasKilledText = this.add.text(1350, 30, "Cobras Killed", {
       fontSize: "50px",
       fontFamily: "Roboto Mono",
     });
     this.cobrasKilledText.setVisible(false);
     this.cobrasKilledText.setActive(false);
     this.cobrasKilledText.setScrollFactor(0);
-    this.objectCollectedText = this.add.text(1150, 160, "Objects collected", {
+    this.objectCollectedText = this.add.text(1350, 130, "Objects collected", {
       fontSize: "50px",
       fontFamily: "Roboto Mono",
     });
     this.objectCollectedText.setVisible(false);
     this.objectCollectedText.setActive(false);
     this.objectCollectedText.setScrollFactor(0);
-    this.rectangle = this.add.image(900, 900, "rectangle");
+    this.rectangle = this.add.image(957, 900, "rectangle");
     this.mision2Text = this.add
       .text(
         60,
@@ -166,8 +170,8 @@ export default class Desert extends Phaser.Scene {
       this.rectangle.scaleX=1.1
     this.mision2Text.setWordWrapWidth(this.rectangle.width);
     this.mensajeAdicional = this.add.text( 
-      620,
-      920,
+      690,
+      950,
       "Toca espacio para cerrar este mensaje",
       {
         fontSize: "35px",
@@ -306,6 +310,7 @@ export default class Desert extends Phaser.Scene {
     this.cobrasKilledText.setActive(true);
     this.objectCollectedText.setVisible(true);
     this.objectCollectedText.setActive(true);
+    this.DesignUI2.setVisible(true);
     this.mision2Text.setVisible(true);
     this.mensajeAdicional.setVisible(true);
     this.rectangle.setVisible(true);

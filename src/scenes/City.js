@@ -108,6 +108,7 @@ export default class City extends Phaser.Scene {
       this.salida.setVisible(false).setActive(false);
     }
     this.jefeDoor=this.add.image(1600,3890,"BossDoor");
+    
 
     this.player = new Player(
       this,
@@ -203,9 +204,13 @@ export default class City extends Phaser.Scene {
       null,
       this
     );
-
+    this.rectangle = this.add.image(957, 900, "rectangle");
+    this.rectangle.scaleX= 1.1
+    this.DesignUI2 = this.add.image(1700,57,"UIRectangle");
+    this.DesignUI2.scaleX = 2.2;
+    this.DesignUI2.setVisible(false);
     this.squirrelsKilledText = this.add.text(
-      1150,
+      1450,
       60,
       getPhrase(this.deadSquirrel),
       {
@@ -214,13 +219,12 @@ export default class City extends Phaser.Scene {
       }
     );
     
-    this.rectangle = this.add.image(957, 900, "rectangle");
-this.rectangle.scaleX= 1.1
+    
     this.misionText = this.add
       .text(
         60,
         800,
-        "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no constamos con suficientes refuerzos. Eliminalas lo antes posible y regresa",
+        "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no contamos con suficientes refuerzos. Eliminalas lo antes posible y regresa.",
         {
           fontSize: "40px",
           fontFamily: "Roboto Mono",
@@ -251,7 +255,7 @@ this.rectangle.scaleX= 1.1
     this.rectangle.setVisible(false);
     this.squirrelsKilledText.setVisible(false);
     this.squirrelsKilledText.setScrollFactor(0);
-
+    this.DesignUI2.setScrollFactor(0);
     this.citySounds = this.sound.add("citySFX", { loop: true, volume: 0.8 });
     this.citySounds.play();
 
@@ -312,15 +316,18 @@ this.rectangle.scaleX= 1.1
   }
 
   mision(player, Eagle) {
+    this.DesignUI2.setVisible(true);
     this.squirrelsKilledText.setVisible(true);
     this.misionText.setVisible(true);
     this.rectangle.setVisible(true);
     this.mensajeAdicional.setVisible(true);
+    
 
     if (this.squirrelsKilled >= 4) {
+      this.DesignUI2.setVisible(false);
       this.missionComplete = true;
       this.misionText.setText(
-        "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fox"
+        "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fenec."
       );
       this.squirrelsKilled = 0;
       this.squirrelsKilledText.setText(""); 
