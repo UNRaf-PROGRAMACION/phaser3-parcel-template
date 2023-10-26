@@ -18,11 +18,12 @@ export default class Preload extends Phaser.Scene {
     this.load.image("rectangle", "./assets/images/Rectangle.png");
     this.load.image("gameover", "./assets/images/Gameover.png");
     this.load.image("desertTemp", "./assets/images/desertTemp.jpg");
-    this.load.image("musicOn", "./assets/images/musicOn.png");
-    this.load.image("musicOff", "./assets/images/musicOff.png");
+    this.load.image("musicOn", "./assets/images/onMusic.png");
+    this.load.image("musicOff", "./assets/images/offMusic.png");
     this.load.image("UIRectangle","./assets/images/UIRectangle.png");
 
     this.load.video("introScene", "./assets/videos/spaceIntro.mp4");
+    this.load.video("logos", "./assets/videos/IntroLogos.mp4");
 
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
@@ -58,9 +59,9 @@ export default class Preload extends Phaser.Scene {
 
     this.load.tilemapTiledJSON("City", "./assets/Tilemaps/City.json");
     this.load.tilemapTiledJSON("Desert", "./assets/Tilemaps/Desert.json");
-    this.load.image("Mapdesert", "./assets/images/DesertTileset.png");
-    this.load.image("Mapcity", "./assets/images/tileset.png");
+    this.load.image("Mapdesert", "./assets/images/DesertTilese
     this.load.image("Menupause","./assets/images/MenuPausa.png");
+    this.load.image("Mapcity", "./assets/images/CityTileset.png");
     this.load.audio("citySFX", "./assets/Audio/citySFX.mp3");
     this.load.audio("swordAttack", "./assets/Audio/swordAttack.mp3");
     this.load.audio("menuMusic", "./assets/Audio/menuMusic.mp3");
@@ -325,7 +326,18 @@ export default class Preload extends Phaser.Scene {
       frameRate: 1,
     });
     
+    let logosScene = this.add.video(960, 500, "logos").setInteractive();
+    logosScene.setScale(1.1);
 
-    this.scene.start("MainMenu");
+    logosScene.play() 
+
+    logosScene.on('complete', () => {
+      this.scene.start("MainMenu");
+    });
+
+    logosScene.on('pointerdown', () => {
+      this.scene.start("MainMenu");
+    });
+
   }
 }

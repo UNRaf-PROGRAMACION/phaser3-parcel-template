@@ -392,7 +392,7 @@
         {
          "columns":31,
          "firstgid":1,
-         "image":"..\/Images\/Tileset.png",
+         "image":"CityTileset.png",
          "imageheight":1000,
          "imagewidth":1550,
          "margin":0,
@@ -5992,7 +5992,7 @@
         {
          "columns":9,
          "firstgid":621,
-         "image":"..\/Images\/BossEntrada.png",
+         "image":"BossEntrance.png",
          "imageheight":200,
          "imagewidth":450,
          "margin":0,
