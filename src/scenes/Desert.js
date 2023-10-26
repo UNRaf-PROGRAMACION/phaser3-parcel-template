@@ -195,7 +195,6 @@ export default class Desert extends Phaser.Scene {
       this.mensajeAdicional.setVisible(false);
     });
     this.input.keyboard.on('keydown-P',()=>{
-      this.scene.bringToTop("Menupause");
       this.scene.launch("Menupause");
       this.scene.pause("Desert");
     })
@@ -410,7 +409,6 @@ export default class Desert extends Phaser.Scene {
         cobra.anims.play("AttackRightCobra", true);
       }
     }
-    
 
     let biting = this.biteGroup.get(cobra.x, cobra.y);
     if (biting) {
@@ -422,7 +420,25 @@ export default class Desert extends Phaser.Scene {
 
   }
   damage(player, biting ,cobra){
-     
+      this.hp = this.hp - 30
+      events.emit("UpdateHP", { hp: this.hp });
+      this.scene.get("UI").updateHealthBar();
+      biting.destroy(true);
+      biting.setVisible(false);
+
+    if (this.hp <= 0) {
+    
+      this.player.setVisible(false).setActive(false);
+
+
+      for (const c of this.cobras) {
+        c.destroy(true, true);
+      }
+      this.cobras = [];
+      this.scene.launch("GameEnd", { fromScene: "Desert" });
+      this.scene.pause("Desert");
+      
+    }
   }
   
   heal(player, Collectible) {
