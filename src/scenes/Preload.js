@@ -19,6 +19,7 @@ preload() {
   this.load.image ("flash-effect", "./assets/particles/flashEffect.webp");
   this.load.image ("Atlas", "./assets/sprites/Atlas.png");
   this.load.image ("door", "./assets/sprites/door.png");
+  this.load.video ("main-menu-background", "./assets/sprites/mainMenuBackground.mp4");
   this.load.image ("darkness", "./assets/particles/darkness.png")
   this.load.image ("spanish-button", "./assets/sprites/spanishButton.png");
   this.load.image ("portuguese-button", "./assets/sprites/portugueseButton.png");
@@ -40,21 +41,21 @@ create () {
   const startGame = () => this.scene.start("principal-menu");
   
 
-  this.spanishButton =this.add.image(150, 500, "spanish-button").setInteractive();
+  this.spanishButton =this.add.image(1920 * 0.25, 500, "spanish-button").setInteractive();
 
   this.spanishButton.on("pointerdown", () => {
     getTranslations(ES_AR, startGame);
     
   });
 
-  this.portugueseButton =this.add.image(500, 500, "portuguese-button").setInteractive();
+  this.portugueseButton =this.add.image(1920/2, 500, "portuguese-button").setInteractive();
 
   this.portugueseButton.on("pointerdown", () => {
     getTranslations(PT_BR, startGame);
     
   });
 
-  this.englishButton =this.add.image(1000, 500, "english-button").setInteractive().setScale(0.4);
+  this.englishButton =this.add.image(1920 * 0.75, 500, "english-button").setInteractive().setScale(0.4);
 
   this.englishButton.on("pointerdown", () => {
     getTranslations(EN_US, startGame);
