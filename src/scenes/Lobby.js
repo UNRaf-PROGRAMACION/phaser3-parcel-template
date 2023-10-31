@@ -22,6 +22,9 @@ init(data) {
 
 create () {
 
+  this.lobbySong = this.sound.add("lobby-song", {loop: true});
+  this.lobbySong.play();
+
   this.Level1Door = this.physics.add.sprite(100, 100, "door").setScale(0.5).setImmovable(); 
   this.Level2Door = this.physics.add.sprite(500, 100, "door").setScale(0.5).setImmovable()
   this.Level3Door = this.physics.add.sprite(1000, 100, "door" ).setScale(0.5).setImmovable();
@@ -56,6 +59,8 @@ update() {
       health: this.health,
       dynamiteCuantity: this.dynamiteCuantity
     });
+    this.lobbySong.stop();
+    this.lobbySong.setLoop(false);
   }
 
   goTolevel2() {
@@ -69,6 +74,8 @@ update() {
       dynamiteCuantity: this.dynamiteCuantity
     });
   }
+  this.lobbySong.stop();
+  this.lobbySong.setLoop(false);
   }
 
   goToLevel3 () {
@@ -82,6 +89,8 @@ update() {
         dynamiteCuantity: this.dynamiteCuantity
       });
     }
+    this.lobbySong.stop();
+    this.lobbySong.setLoop(false);
 }
 }
 

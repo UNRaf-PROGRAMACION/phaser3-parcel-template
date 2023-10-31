@@ -52,7 +52,7 @@ if (this.cursor.left.isDown && !this.cursor.right.isDown) {
 } else if (this.cursor.right.isDown && !this.cursor.left.isDown) {
     this.setVelocityX(Phaser.Math.Linear(this.body.velocity.x, this.velocity, 0.2));
     this.darkness.setPosition(this.x, this.y);
-    this.play('character-idle', false);
+    this.play('character-idle', true);
 } else {
     this.setVelocityX(Phaser.Math.Linear(this.body.velocity.x, 0, 0.2));
     this.darkness.setPosition(this.x, this.y);
@@ -63,7 +63,7 @@ if (this.cursor.left.isDown && !this.cursor.right.isDown) {
 if (this.cursor.up.isDown && !this.cursor.down.isDown) {
     this.setVelocityY(Phaser.Math.Linear(this.body.velocity.y, -this.velocity, 0.2));
     this.darkness.setPosition(this.x, this.y);
-    this.play('character-idle', false);
+    this.play('character-idle', true);
 } else if (this.cursor.down.isDown && !this.cursor.up.isDown) {
     this.setVelocityY(Phaser.Math.Linear(this.body.velocity.y, this.velocity, 0.2));
     this.darkness.setPosition(this.x, this.y);
@@ -97,7 +97,3 @@ if (this.cursor.up.isDown && !this.cursor.down.isDown) {
         }
     }
 }    
-
-
-
-

@@ -28,6 +28,7 @@ preload() {
   this.load.audio("main-menu-song", "./assets/audio/mainMenuSong.mp3");
   this.load.audio("game-song", "./assets/audio/gameSong.mp3");
   this.load.audio ("pointerOver", "./assets/audio/ui-pointerOver.mp3")
+  this.load.audio ("lobby-song", "./assets/audio/lobbySong.mp3")
   this.load.tilemapTiledJSON("level1", "./assets/tileMap/Level1.json");
 
 }

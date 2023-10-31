@@ -11,6 +11,9 @@ import Pause from "./scenes/pause";
 import Win from "./scenes/win";
 import Lose from "./scenes/lose";
 
+import FirebasePlugin from "./plugins/FirebasePlugin";
+import Login from "./scenes/Login";
+
 
 const config = {
   type: Phaser.AUTO,
@@ -34,17 +37,17 @@ const config = {
       debug: false,
     },
   },
-  scene: [ Preload, Lobby, PrincipalMenu, Game, UI, Settings, Tutorial, Pause, Win, Lose],
-  // plugins: {
-  //   global: [
-  //   {
-  //   key: "FirebasePlugin",
-  //   plugin: FirebasePlugin,
-  //   start: true,
-  //   mapping: "firebase",
-  //   },
-  //   ],
-  //   },
+  scene: [ Preload, Lobby, PrincipalMenu, Game, UI, Login, Settings, Tutorial, Pause, Win, Lose],
+  plugins: {
+    global: [
+    {
+    key: "FirebasePlugin",
+    plugin: FirebasePlugin,
+    start: true,
+    mapping: "firebase",
+            },
+        ],
+    },
 };
 
 export default new Phaser.Game(config);
