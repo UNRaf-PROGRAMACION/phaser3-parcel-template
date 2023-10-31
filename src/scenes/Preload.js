@@ -40,7 +40,7 @@ this.language = language
 
 create () {
 
-  const startGame = () => this.scene.start("principal-menu");
+  const startGame = () => this.scene.start("login");
 
   this.loadingText = this.add.text(1920 * 0.8, 1080 * 0.9, "Loading", {
     font: "46px Arial",

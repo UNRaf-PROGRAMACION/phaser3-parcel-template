@@ -40,7 +40,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     this.sounds()
 
     this.color = '#680005';
-    this.fontFamily = '"Press Start 2P"';
+    this.fontFamily = 'Times new roman';
 
     this.add.text(80, 60, "Deep Ambition", {
       fontFamily: this.fontFamily,

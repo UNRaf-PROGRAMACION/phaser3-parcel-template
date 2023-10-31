@@ -19,6 +19,13 @@ export default class Game extends Phaser.Scene {
 
   create() {
 
+    const user = this.firebase.getUser();
+      this.firebase.saveGameData(user.uid, {
+        level: this.level,
+        health: this.health,
+        day: new Date()
+      });
+
 
     this.scene.launch("ui", {
       level: this.level,

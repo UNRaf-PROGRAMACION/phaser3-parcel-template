@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
+import { getPhrase } from "../services/translations";
 
 export default class UI extends Phaser.Scene {
 
@@ -27,6 +28,9 @@ export default class UI extends Phaser.Scene {
 
 
   create () {
+
+    this.font = "times "
+    
     this.dynamiteText = this.add.text(
       1800,
       10,
@@ -37,7 +41,8 @@ export default class UI extends Phaser.Scene {
       }
     );
 
-    this.levelText = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2, `Nivel ${this.level}`, {
+    this.levelText = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2, `${getPhrase("Nivel")} ${this.level}`, {
+      fontFamily: this.font,
       fontSize: '48px',
       color: '#fff',
       backgroundColor: 'red' // Cambia el color del fondo a rojo

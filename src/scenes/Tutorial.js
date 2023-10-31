@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { getPhrase } from "../services/translations";
 
 export default class Tutorial extends Phaser.Scene {
 
@@ -33,14 +34,14 @@ export default class Tutorial extends Phaser.Scene {
         this.popupOutline.strokeRect(this.popupX, this.popupY, this.popupWidth, this.popupHeight);
         
         // Título del pop-up de configuración
-        this.add.text(1920 / 2, this.popupY + 20, "¿Cómo jugar?", {
+        this.add.text(1920 / 2, this.popupY + 20, getPhrase("¿Cómo jugar?"), {
             fontSize: '32px',
             color: '#fff',
             align: 'center'
         }).setOrigin(0.5);
 
         // Botón para volver al menú principal
-        this.backButton = this.add.text(this.popupX + 50, this.popupY + this.popupHeight - 50, "Volver al Menú", {
+        this.backButton = this.add.text(this.popupX + 50, this.popupY + this.popupHeight - 50, getPhrase("Volver"), {
             fontSize: '20px',
             color: '#fff'
         }).setInteractive();
