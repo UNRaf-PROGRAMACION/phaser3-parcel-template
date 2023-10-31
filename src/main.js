@@ -12,6 +12,7 @@ import MenuPause from "./scenes/PauseMenu";
 
 
 
+
  const config = {
    type: Phaser.AUTO,
    width: 1920,
