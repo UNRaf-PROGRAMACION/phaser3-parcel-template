@@ -37,6 +37,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilledText;
     this.damageAmount;
     this.enemyHp;
+    this.TutorialSePuedeVer;
   }
 
   init(data) {
@@ -55,6 +56,7 @@ export default class City extends Phaser.Scene {
     this.playerY = data.y || 2300;
     this.initialX = 1000;
     this.initialY = 2700;
+    this.TutorialSePuedeVer=data.TutorialSePuedeVer|| true
     this.pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
    
   }
@@ -162,28 +164,43 @@ export default class City extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.squirrels);
     this.physics.add.overlap(this.squirrels, this.player);
     this.physics.add.collider(this.squirrels, obstacle);
-   
-    this.tutorial = this.add.image(1000, 500, "Tutorial").setScale(2);
-    this.moverseText = this.add.text(980, 600, "Moverse", {
+   if(this.TutorialSePuedeVer=true){
+    this.tutorial = this.add.image(950, 500, "Tutorial").setScale(2);
+    this.TutorialSePuedeVer= false
+  }
+    this.moverseText = this.add.text(480, 600, "Moverse", {
       color: "000000",
       fontSize: "35px",
       fontFamily: "Roboto Mono",
     });
-    this.atacarText = this.add.text(1300, 600, "Atacar", {
+    this.atacarText = this.add.text(880, 600, "Atacar", {
       color: "000000",
       fontSize: "35px",
       fontFamily: "Roboto Mono",
     });
-    this.saltarText = this.add.text(630, 600, "Saltar Texto", {
+    this.fullScreentext=this.add.text(1360,600,"Pantalla Completa",{
+      color: "000000",
+      fontSize: "35px",
+      fontFamily: "Roboto Mono",
+    })
+    this.pauseText=this.add.text(1165,600,"Pausa",{
       color: "000000",
       fontSize: "35px",
       fontFamily: "Roboto Mono",
     });
     this.moverseText.setScrollFactor(0, 0);
     this.atacarText.setScrollFactor(0, 0);
-    this.saltarText.setScrollFactor(0, 0);
-    this.tutorial.setScrollFactor(0, 0);
+    this.fullScreentext.setScrollFactor(0,0);
+    this.pauseText.setScrollFactor(0,0);
     
+    this.tutorial.setScrollFactor(0, 0);
+    setTimeout(() => {
+      this.moverseText.setVisible(false);
+      this.atacarText.setVisible(false);
+      this.fullScreentext.setVisible(false);
+      this.pauseText.setVisible(false);
+      this.tutorial.setVisible(false);
+    }, 4000);
     
     this.physics.add.overlap(
       this.player,
@@ -245,12 +262,7 @@ export default class City extends Phaser.Scene {
       )
       .setInteractive();
     this.misionText.setWordWrapWidth(this.rectangle.width);
-    this.input.keyboard.on("keydown-SPACE", () => {
-      this.tutorial.setVisible(false);
-      this.moverseText.setVisible(false);
-      this.atacarText.setVisible(false);
-      this.saltarText.setVisible(false);
-    });
+    
     this.input.keyboard.on("keydown-P", () => {
       this.scene.bringToTop("Menupause");
       this.scene.launch("Menupause");
@@ -351,6 +363,7 @@ export default class City extends Phaser.Scene {
       this.squirrelsKilledText.setText("");
     }
     if (this.missionComplete) {
+      this.DesignUI2.setVisible(false);
       this.salida.setVisible(true).setActive(true);
     }
   }
@@ -379,6 +392,7 @@ export default class City extends Phaser.Scene {
         velocityPlayer: this.velocityPlayer,
         missionComplete: this.missionComplete,
         squirrelsKilled: this.squirrelsKilled,
+        TutorialSePuedeVer:this.TutorialSePuedeVer,
       };
       for (const s of this.squirrels) {
         s.destroy(true, true);
