@@ -49,7 +49,7 @@ export default class Desert extends Phaser.Scene {
     this.objectCollected = data.objectCollected || 0;
     this.missionComplete = data.missionComplete|| false
     this.pKey =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
-
+    this.tutorialSePudeVer=data.tutorialSePudeVer
   }
 
   create() {
@@ -170,29 +170,19 @@ export default class Desert extends Phaser.Scene {
       .setInteractive();
       this.rectangle.scaleX=1.1
     this.mision2Text.setWordWrapWidth(this.rectangle.width);
-    this.mensajeAdicional = this.add.text( 
-      690,
-      950,
-      "Toca espacio para cerrar este mensaje",
-      {
-        fontSize: "35px",
-        fontFamily: "Roboto Mono",
-        color: "000000",
-      }
-    );
-    this.mensajeAdicional.setScrollFactor(0);
-    this.mensajeAdicional.setVisible(false);
+   
+   
     this.rectangle.setScrollFactor(0);
     this.rectangle.setVisible(false);
     this.mision2Text.setVisible(false);
     this.mision2Text.setActive(false);
     this.mision2Text.setScrollFactor(0);
-    this.mensajeAdicional.setScrollFactor(0);
+   
     this.input.keyboard.on("keydown-SPACE", () => {
       // This code will be executed when the spacebar is pressed
       this.mision2Text.setVisible(false);
       this.rectangle.setVisible(false);
-      this.mensajeAdicional.setVisible(false);
+    
     });
     this.input.keyboard.on('keydown-P',()=>{
       this.scene.launch("Menupause");
@@ -311,6 +301,7 @@ export default class Desert extends Phaser.Scene {
       y: 300,
       missionComplete: this.missionComplete,
       squirrelsKilled: this.squirrelsKilled,
+      tutorialSePudeVer:this.tutorialSePudeVer
     };
     for (const c of this.cobras) {
       c.destroy(true, true);
@@ -327,12 +318,11 @@ export default class Desert extends Phaser.Scene {
     this.objectCollectedText.setActive(true);
     this.DesignUI2.setVisible(true);
     this.mision2Text.setVisible(true);
-    this.mensajeAdicional.setVisible(true);
+   
     this.rectangle.setVisible(true);
     setTimeout(() => {
       this.mision2Text.setVisible(false);
       this.rectangle.setVisible(false);
-      this.mensajeAdicional.setVisible(false);
     }, 2000);
     if (this.objectCollected >= 3) {
       if (this.cobrasKilled >= 6) {
@@ -348,7 +338,6 @@ export default class Desert extends Phaser.Scene {
         this.scene.stop("UI");
         this.mision2Text.setText("");
         this.rectangle.setVisible(false);
-        this.mensajeAdicional.setVisible(false);
       }
     }
   }

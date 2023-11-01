@@ -32,7 +32,7 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 230,
       frameHeight: 230,
     });
-    this.load.image("Tutorial","./assets/images/Tutorial.png");
+    this.load.image("Tutorial","./assets/images/TutorialImage.png");
     this.load.spritesheet("Rock", "./assets/images/Rock.png", {
       frameWidth: 21,
       frameHeight: 21,
@@ -59,7 +59,7 @@ export default class Preload extends Phaser.Scene {
 
     this.load.tilemapTiledJSON("City", "./assets/Tilemaps/City.json");
     this.load.tilemapTiledJSON("Desert", "./assets/Tilemaps/Desert.json");
-    this.load.image("Mapdesert", "./assets/images/DesertTileset.png");
+    this.load.image("Mapdesert", "./assets/images/TilesetDesert.png");
     this.load.image("Mapcity", "./assets/images/CityTileset.png");
     this.load.image("Menupause","./assets/images/MenuPausa.png");
     this.load.image("Mapcity", "./assets/images/CityTileset.png");
