@@ -468,7 +468,7 @@
                 {
                  "height":0,
                  "id":38,
-                 "name":"",
+                 "name":"enemy",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -480,7 +480,7 @@
                 {
                  "height":0,
                  "id":39,
-                 "name":"",
+                 "name":"enemy",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -492,7 +492,7 @@
                 {
                  "height":0,
                  "id":40,
-                 "name":"",
+                 "name":"enemy",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -504,7 +504,7 @@
                 {
                  "height":0,
                  "id":41,
-                 "name":"",
+                 "name":"enemy",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -516,7 +516,7 @@
                 {
                  "height":0,
                  "id":42,
-                 "name":"",
+                 "name":"enemy",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -541,7 +541,7 @@
         {
          "columns":8,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/Atlas.png",
+         "image":"..\/sprites\/Atlas.png",
          "imageheight":335,
          "imagewidth":584,
          "margin":0,
