@@ -22,6 +22,9 @@ export default class City extends Phaser.Scene {
     super("City");
     const { squirrelsKill } = keys.Enemy;
     this.deadSquirrel = squirrelsKill;
+    const { cityMissionBegin, cityMissionEnd } = keys.CityText
+    this.begin = cityMissionBegin;
+    this.end = cityMissionEnd
     this.lvl;
     this.hp;
     this.maxHp;
@@ -46,7 +49,7 @@ export default class City extends Phaser.Scene {
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 100;
-    this.squirrelsKilled = data.squirrelsKilled || 0;
+    this.squirrelsKilled = data.squirrelsKilled || 4;
     this.missionComplete = data.missionComplete || false;
     this.playerX = data.x || 3700;
     this.playerY = data.y || 2300;
@@ -57,6 +60,17 @@ export default class City extends Phaser.Scene {
   }
 
   create() {
+
+    const user = this.firebase.getUser();
+      this.firebase.saveGameData(user.uid, {
+        lvl: this.lvl,
+        hp: this.hp,
+        exp: this.exp,
+        damageAmount: this.damageAmount,
+        timeStamp: new Date(),
+      });
+
+
     const map = this.make.tilemap({ key: "City" });
 
     const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
@@ -222,7 +236,7 @@ export default class City extends Phaser.Scene {
       .text(
         60,
         800,
-        "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no contamos con suficientes refuerzos. Eliminalas lo antes posible y regresa.",
+        getPhrase(this.begin),
         {
           fontSize: "40px",
           fontFamily: "Roboto Mono",
@@ -331,7 +345,7 @@ export default class City extends Phaser.Scene {
       events.emit("UpdateLVL", { lvl: this.lvl });
       this.missionComplete = true;
       this.misionText.setText(
-        "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fenec."
+        getPhrase(this.end)
       );
       this.squirrelsKilled = 0;
       this.squirrelsKilledText.setText("");

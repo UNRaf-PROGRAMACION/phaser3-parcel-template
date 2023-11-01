@@ -7,7 +7,7 @@ const Enemy = {
 const MainMenu = {
     play: 'Jugar',
     credits: 'Créditos',
-    languagesSelec: 'Lenguajes',
+    languagesSelec: 'Idiomas',
     back: 'Volver',
     confirm: 'Confirmar',
     spanishSel: 'Español',
@@ -26,9 +26,21 @@ const GameEnd = {
     menu: 'Menú Principal'
 }
 
+const CityText = {
+    cityMissionBegin: "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no contamos con suficientes refuerzos. Eliminalas lo antes posible y regresa.",
+    cityMissionEnd: "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fenec."
+}
+
+const DesertText = {
+    desertMissionBegin: "C4, te estaba esperando. Nos han robado partes de un arma que estamos construyendo. Ve a recuperarlas, y mata a esas molestas cobras si puedes. y C4, ten cuidado.",
+    collect: "Objetos recolectados",
+}
+
 export default {
     Enemy,
     MainMenu,
     CreditsMenu,
     GameEnd,
+    CityText,
+    DesertText,
 };

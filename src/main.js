@@ -10,6 +10,7 @@
 import GameWin from "./scenes/GameWin";
 import MenuPause from "./scenes/PauseMenu";
 import FirebasePlugin from "./plugins/FireBasePlugin";
+import Login from "./scenes/Login";
 
 
 
@@ -36,7 +37,7 @@ import FirebasePlugin from "./plugins/FireBasePlugin";
        debug: false,
      },
    },
-   scene: [Preload, MainMenu, Credits, Language, City, Desert, GameEnd,GameWin,MenuPause, UI],
+   scene: [Preload, Login, MainMenu, Credits, Language, City, Desert, GameEnd,GameWin,MenuPause, UI],
    plugins: {
     global: [
       {

@@ -328,6 +328,8 @@ export default class Preload extends Phaser.Scene {
       frames: [{ key: "Cobra", frame: 29 }],
       frameRate: 1,
     });
+
+    console.log("firebase", this.firebase);
     
     let logosScene = this.add.video(960, 500, "logos").setInteractive();
     logosScene.setScale(1.1);
@@ -335,11 +337,11 @@ export default class Preload extends Phaser.Scene {
     logosScene.play() 
 
     logosScene.on('complete', () => {
-      this.scene.start("MainMenu");
+      this.scene.start("Login");
     });
 
     logosScene.on('pointerdown', () => {
-      this.scene.start("MainMenu");
+      this.scene.start("Login");
     });
 
   }
