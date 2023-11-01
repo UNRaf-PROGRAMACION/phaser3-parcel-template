@@ -12,14 +12,17 @@ export default class Preload extends Phaser.Scene {
 
 preload() {
   this.load.spritesheet("principal-character", "./assets/sprites/test.png", {
-    frameWidth: 98,
-    frameHeight: 214,
+    frameWidth: 120,
+    frameHeight: 212,
   });
   this.load.image ("dynamite" , "./assets/sprites/dynamite.png");
   this.load.image ("enemy", "./assets/sprites/enemy.png");
   this.load.image ("flash-effect", "./assets/particles/flashEffect.webp");
   this.load.image ("Atlas", "./assets/sprites/Atlas.png");
   this.load.image ("door", "./assets/sprites/door.png");
+  this.load.image ("anonymous-logo", "./assets/sprites/anonymousLogo.png");
+  this.load.image ("github-logo", "./assets/sprites/githubLogo.png");
+  this.load.image ("google-logo", "./assets/sprites/googleLogo.png");
   this.load.video ("main-menu-background", "./assets/sprites/mainMenuBackground.mp4");
   this.load.image ("darkness", "./assets/particles/darkness.png")
   this.load.image ("spanish-button", "./assets/sprites/spanishButton.png");
@@ -96,16 +99,34 @@ create () {
   
         this.anims.create({
             key: 'character-idle',
-            frames: this.anims.generateFrameNumbers('principal-character', { start: 0, end: 2 }),
+            frames: this.anims.generateFrameNumbers('principal-character', { start: 4, end: 7 }),
             frameRate: 3, repeat: -1
         });
 
         this.anims.create({
             key: 'character-down',
-            frames: this.anims.generateFrameNumbers('principal-character', { start: 3, end: 10 }),
+            frames: this.anims.generateFrameNumbers('principal-character', { start: 12, end: 19 }),
             frameRate: 10, repeat: -1
         })
+        this.anims.create({
+          key: 'character-up',
+          frames: this.anims.generateFrameNumbers('principal-character', { start: 21, end: 24 }),
+          frameRate: 8, repeat: -1
+      })
+
+      this.anims.create({
+        key: 'character-right',
+        frames: this.anims.generateFrameNumbers('principal-character', { start: 0, end: 3 }),
+        frameRate: 10, repeat: -1
+    })
+      
+    this.anims.create({
+      key: 'character-left',
+      frames: this.anims.generateFrameNumbers('principal-character', { start: 8, end: 11 }),
+      frameRate: 10, repeat: -1
+  })
   }
+  
 
   updateLoadingText() {
     this.dotCount = (this.dotCount % 3) + 1; // Alterna entre 1, 2, 3, 4

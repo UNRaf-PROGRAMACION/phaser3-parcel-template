@@ -34,7 +34,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: false,
+      debug: true,
     },
   },
   scene: [Preload, Login, Lobby, PrincipalMenu, Game, UI, Settings, Tutorial, Pause, Win, Lose],

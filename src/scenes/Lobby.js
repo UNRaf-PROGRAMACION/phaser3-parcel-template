@@ -73,9 +73,9 @@ update() {
       health: this.health,
       dynamiteCuantity: this.dynamiteCuantity
     });
+    this.lobbySong.stop();
+    this.lobbySong.setLoop(false);
   }
-  this.lobbySong.stop();
-  this.lobbySong.setLoop(false);
   }
 
   goToLevel3 () {
@@ -88,9 +88,10 @@ update() {
         health: this.health,
         dynamiteCuantity: this.dynamiteCuantity
       });
+      this.lobbySong.stop();
+      this.lobbySong.setLoop(false);
     }
-    this.lobbySong.stop();
-    this.lobbySong.setLoop(false);
+   
 }
 }
 
