@@ -112,7 +112,8 @@ export default class City extends Phaser.Scene {
             .create(x, y, "ArrowDown")
             .setScale(1)
             .setSize(200, 200)
-            .setVisible(true);
+            .setVisible(true)
+            .setDepth(1)
 
           break;
         }
@@ -164,6 +165,7 @@ export default class City extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.squirrels);
     this.physics.add.overlap(this.squirrels, this.player);
     this.physics.add.collider(this.squirrels, obstacle);
+    this.physics.add.overlap(this.player,this.door,this.BossEntrance,null,this);
    if(this.TutorialSePuedeVer=true){
     this.tutorial = this.add.image(950, 500, "Tutorial").setScale(2);
     this.TutorialSePuedeVer= false
@@ -334,8 +336,12 @@ export default class City extends Phaser.Scene {
     this.enemyHp -= damageAmount;
     console.log("daño");
     if (this.enemyHp <= 0) {
-      squirrel.setActive(false).setVisible(false);
+     
+      squirrel.anims.play("Pum",true);
       squirrel.anims.stop();
+      squirrel.setActive(false).setVisible(false);
+     
+      
     }
   }
 
@@ -478,6 +484,25 @@ export default class City extends Phaser.Scene {
       this.physics.moveTo(rock, player.x, player.y, Math.abs(velocityX));
     }
   }
+  BossEntrance(){
+    const data={
+      lvl:this.lvl,
+      hp:this.hp,
+      maxHp:this.maxHp,
+      exp:this.exp,
+      damageAmount:this.damageAmount,
+      velocityPlayer:this.velocityPlayer,
+    }
+    for (const s of this.squirrels) {
+      s.destroy(true, true);
+    }
+    this.squirrels = [];
+
+    this.scene.start("BossArena", data);
+    this.scene.pause("City");
+  }
+
+  
 
   damage(player, rock, squirrel) {
     console.log("auch");

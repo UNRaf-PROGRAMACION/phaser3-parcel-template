@@ -89,10 +89,13 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
   takeDamage(damageAmount) {
     if (this.active) {
       this.enemyHp = this.enemyHp - damageAmount;
+     
       console.log("🚀 ~ file: SquirrelEnemy.js:92 ~ Enemies ~ takeDamage ~ damageAmount:", damageAmount)
       console.log("🚀 ~ file: SquirrelEnemy.js:92 ~ Enemies ~ takeDamage ~ this.enemyHp:", this.enemyHp)
 
       if (this.enemyHp <= 0) {
+        this.anims.play("Pum",true);
+        this.anims.stop();
        this.scene.exp=this.scene.exp + 200
        if(this.scene.exp>=1200){
         this.scene.lvl ++
@@ -110,8 +113,12 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         this.scene.squirrelsKilledText.setText(
         `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`);
 
+       setTimeout(() => {
+        this.setVisible(false)
+       }, 200);
+          this.setActive(false)
+       
         
-        this.setActive(false).setVisible(false);
 
 
     }

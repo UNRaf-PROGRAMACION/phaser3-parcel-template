@@ -11,6 +11,7 @@ import GameWin from "./scenes/GameWin";
 import MenuPause from "./scenes/PauseMenu";
 import FirebasePlugin from "./plugins/FireBasePlugin";
 import Login from "./scenes/Login";
+import BossArena from "./scenes/BossArena"
 
 
 
@@ -37,7 +38,7 @@ import Login from "./scenes/Login";
        debug: false,
      },
    },
-   scene: [Preload, Login, MainMenu, Credits, Language, City, Desert, GameEnd,GameWin,MenuPause, UI],
+   scene: [Preload, Login, MainMenu, Credits, Language, City,BossArena, Desert, GameEnd,GameWin,MenuPause, UI],
    plugins: {
     global: [
       {
