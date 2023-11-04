@@ -54,8 +54,8 @@ export default class Desert extends Phaser.Scene {
     this.initialY = 900;
     this.objectCollected = data.objectCollected || 0;
     this.missionComplete = data.missionComplete|| false
-    this.pKey =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
-    this.tutorialSePudeVer=data.tutorialSePudeVer
+    this.pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
   }
 
   create() {
@@ -305,7 +305,7 @@ export default class Desert extends Phaser.Scene {
       y: 200,
       missionComplete: this.missionComplete,
       squirrelsKilled: this.squirrelsKilled,
-      tutorialSePudeVer:this.tutorialSePudeVer
+     
     };
     for (const c of this.cobras) {
       c.destroy(true, true);
