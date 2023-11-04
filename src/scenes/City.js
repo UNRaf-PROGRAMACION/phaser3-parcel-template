@@ -9,12 +9,6 @@ import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
-//  Main biome, player starts the game here and after completing some tasks unlocks the desert
-//  Has pathway to forest
-//  holds some secret collectibles
-//  Can access bossArena
-//  Resistence camp with npcs are here
-//  Has normal enemies
 //  save station
 export default class City extends Phaser.Scene {
   #wasChangedLanguage = TODO;
@@ -22,9 +16,10 @@ export default class City extends Phaser.Scene {
     super("City");
     const { squirrelsKill } = keys.Enemy;
     this.deadSquirrel = squirrelsKill;
-    const { cityMissionBegin, cityMissionEnd } = keys.CityText
+    const { cityMissionBegin, cityMissionEnd, savePoint } = keys.CityText
     this.begin = cityMissionBegin;
-    this.end = cityMissionEnd
+    this.end = cityMissionEnd;
+    this.save = savePoint;
     this.lvl;
     this.hp;
     this.maxHp;
@@ -50,7 +45,7 @@ export default class City extends Phaser.Scene {
     this.velocitySquirrel = data.velocitySquirrel || 100;
     this.enemyHp = data.enemyhp || 2000;
     this.damageAmount = data.damageAmount || 100;
-    this.squirrelsKilled = data.squirrelsKilled || 4;
+    this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = data.missionComplete || false;
     this.playerX = data.x || 3700;
     this.playerY = data.y || 2300;
@@ -58,19 +53,24 @@ export default class City extends Phaser.Scene {
     this.initialY = 2700;
     this.TutorialSePuedeVer=data.TutorialSePuedeVer|| true
     this.pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    this.user = this.firebase.getUser();
    
   }
 
   create() {
-
-    const user = this.firebase.getUser();
-      this.firebase.saveGameData(user.uid, {
-        lvl: this.lvl,
-        hp: this.hp,
-        exp: this.exp,
-        damageAmount: this.damageAmount,
-        timeStamp: new Date(),
-      });
+    this.firebase.saveGameData(this.user.uid, {
+          lvl: this.lvl,
+          hp: this.hp,
+          exp: this.exp,
+          damageAmount: this.damageAmount,
+          missionComplete: this.missionComplete,
+          squirrelsKilled: this.squirrelsKilled,
+          x: 4000,
+          y: 2850,
+          timeStamp: new Date(),
+         
+    });
 
 
     const map = this.make.tilemap({ key: "City" });
@@ -200,7 +200,7 @@ export default class City extends Phaser.Scene {
       this.fullScreentext.setVisible(false);
       this.pauseText.setVisible(false);
       this.tutorial.setVisible(false);
-    }, 4000);
+    }, 100);
     
     this.physics.add.overlap(
       this.player,
@@ -288,6 +288,15 @@ export default class City extends Phaser.Scene {
   });
   this.scale.fullscreenTarget = this.game.canvas;
 
+  this.savePlace = this.physics.add.image(4300, 2850, "savePoint");
+  this.saveText = this.add.text(4200, 2850, getPhrase(this.save), {
+    fontSize: "40px",
+    fontFamily: "Roboto Mono",
+    color: "FFFF00",
+  });
+  this.saveText.setVisible(false);
+  this.saveText.setDepth(1);
+
   }
 
   update() {
@@ -316,8 +325,36 @@ export default class City extends Phaser.Scene {
         this.squirrels[i] = squirrel;
       }
     }
+
+    this.physics.overlap(this.player, this.savePlace, this.showSaveText, null, this);
+    
   }
 
+  showSaveText() {
+    if (!this.saveText.visible) {
+      this.saveText.setVisible(true);
+      this.input.keyboard.on("keydown-E", () => {
+        this.firebase.saveGameData(this.user.uid, {
+          
+          lvl: this.lvl,
+          hp: this.hp,
+          exp: this.exp,
+          damageAmount: this.damageAmount,
+          missionComplete: this.missionComplete,
+          squirrelsKilled: this.squirrelsKilled,
+          x: 4000,
+          y: 2850,
+          timeStamp: new Date(),
+         
+        });
+      });
+    }
+
+    setTimeout(() => {
+      this.saveText.setVisible(false);
+    }, 100);
+  }
+  
   playerHitEnemy(hitbox, squirrel) {
     if (squirrel.active && hitbox.active) {
       squirrel.takeDamage(this.hitbox.damageAmount);

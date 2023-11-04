@@ -11,8 +11,15 @@ const MainMenu = {
     back: 'Volver',
     confirm: 'Confirmar',
     spanishSel: 'Español',
-    englishSel: 'Ingles'
+    englishSel: 'Ingles',
+    loader: 'Continuar'
 };
+
+const LoginMenu = {
+    login: 'Iniciar Sesión',
+    guest: 'Ingresar como invitado',
+    user: 'Ingresar con Google',
+}
 
 const CreditsMenu = {
     programmers: 'Programadores',
@@ -27,18 +34,20 @@ const GameEnd = {
 }
 
 const CityText = {
-    cityMissionBegin: "C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no contamos con suficientes refuerzos. Eliminalas lo antes posible y regresa.",
-    cityMissionEnd: "Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fenec."
+    cityMissionBegin: 'C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no contamos con suficientes refuerzos. Eliminalas lo antes posible y regresa.',
+    cityMissionEnd: 'Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fenec.',
+    savePoint: 'Apretar "E" para guardar',
 }
 
 const DesertText = {
-    desertMissionBegin: "C4, te estaba esperando. Nos han robado partes de un arma que estamos construyendo. Ve a recuperarlas, y mata a esas molestas cobras si puedes. y C4, ten cuidado.",
-    collect: "Objetos recolectados",
+    desertMissionBegin: 'C4, te estaba esperando. Nos han robado partes de un arma que estamos construyendo. Ve a recuperarlas, y mata a esas molestas cobras si puedes. y C4, ten cuidado.',
+    collect: 'Objetos recolectados',
 }
 
 export default {
     Enemy,
     MainMenu,
+    LoginMenu,
     CreditsMenu,
     GameEnd,
     CityText,
