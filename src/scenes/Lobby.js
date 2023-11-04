@@ -26,6 +26,7 @@ create () {
   this.lobbySong.play();
 
   this.Level1Door = this.physics.add.sprite(100, 100, "door").setScale(0.5).setImmovable(); 
+  this.Level1Door.setFrame(3);
   this.Level2Door = this.physics.add.sprite(500, 100, "door").setScale(0.5).setImmovable()
   this.Level3Door = this.physics.add.sprite(1000, 100, "door" ).setScale(0.5).setImmovable();
   this.character = new PrincipalCharacter(
@@ -48,6 +49,14 @@ update() {
     dynamiteCuantity: this.dynamiteCuantity
   });
   this.character.update();
+
+  if (this.level >= 1 ) { 
+    this.Level2Door.setFrame(3);
+  }
+
+  if (this.level >= 2) { 
+    this.Level3Door.setFrame(3);
+  }
 }
 
   goToLevel1() {
@@ -75,7 +84,7 @@ update() {
     });
     this.lobbySong.stop();
     this.lobbySong.setLoop(false);
-  }
+  } 
   }
 
   goToLevel3 () {
@@ -88,6 +97,7 @@ update() {
         health: this.health,
         dynamiteCuantity: this.dynamiteCuantity
       });
+      this.Level3Door.setFrame(3);
       this.lobbySong.stop();
       this.lobbySong.setLoop(false);
     }

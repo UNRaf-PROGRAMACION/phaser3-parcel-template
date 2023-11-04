@@ -19,7 +19,10 @@ preload() {
   this.load.image ("enemy", "./assets/sprites/enemy.png");
   this.load.image ("flash-effect", "./assets/particles/flashEffect.webp");
   this.load.image ("Atlas", "./assets/sprites/Atlas.png");
-  this.load.image ("door", "./assets/sprites/door.png");
+  this.load.spritesheet ("door", "./assets/sprites/door.png", {
+    frameWidth: 300,
+    frameHeight: 600
+   });
   this.load.image ("anonymous-logo", "./assets/sprites/anonymousLogo.png");
   this.load.image ("github-logo", "./assets/sprites/githubLogo.png");
   this.load.image ("google-logo", "./assets/sprites/googleLogo.png");
@@ -97,11 +100,16 @@ create () {
     });
   });
   
-        this.anims.create({
-            key: 'character-idle',
-            frames: this.anims.generateFrameNumbers('principal-character', { start: 4, end: 7 }),
-            frameRate: 3, repeat: -1
-        });
+  this.anims.create({
+    key: 'character-idle',
+    frames: [
+        { key: 'principal-character', frame: 4 },
+        { key: 'principal-character', frame: 5 },
+        { key: 'principal-character', frame: 7 }
+    ],
+    frameRate: 2,
+    repeat: -1
+});
 
         this.anims.create({
             key: 'character-down',
@@ -117,13 +125,13 @@ create () {
       this.anims.create({
         key: 'character-right',
         frames: this.anims.generateFrameNumbers('principal-character', { start: 0, end: 3 }),
-        frameRate: 10, repeat: -1
+        frameRate: 6, repeat: -1
     })
       
     this.anims.create({
       key: 'character-left',
       frames: this.anims.generateFrameNumbers('principal-character', { start: 8, end: 11 }),
-      frameRate: 10, repeat: -1
+      frameRate: 6, repeat: -1
   })
   }
   

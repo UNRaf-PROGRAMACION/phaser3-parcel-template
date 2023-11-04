@@ -48,6 +48,8 @@ export default class Game extends Phaser.Scene {
     events.on("music", this.musicTransfer, this);
 
     this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
+    
   }
 
 initializeLevel() { 
