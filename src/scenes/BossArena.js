@@ -24,6 +24,7 @@ export default class BossArena extends Phaser.Scene {
    this.missionComplete;
     this.inAttackRange = false;
     this.Bossvelocity;
+    this.boss = []
     }
     init(data){
         this.playerX = data.x || 200;
@@ -39,6 +40,7 @@ export default class BossArena extends Phaser.Scene {
         this.initialX = 1500;
         this.initialY = 900;
         this.velocityBoulder = data.velocityBoulder || 900;
+       
     }
  create(){
     const map = this.make.tilemap({ key: "BossArena" });
@@ -76,14 +78,26 @@ export default class BossArena extends Phaser.Scene {
       this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
       obstacle.setCollisionByProperty({ colision: true });
       this.physics.add.collider(this.player, obstacle);
-      this.boss=new BearEnemy(this, this.initialX,this.initialY, "Boss", this.Bossvelocity)
+      this.physics.add.overlap(this.player,this.BackCity,this.goback,null,this)
+      for (let i = 0; i < 1; i++) {
+        const boss = new BearEnemy(
+          this,
+          this.initialX,
+          this.initialY,
+          "Boss",
+          this.Bossvelocity
+        );
+        this.boss.push(boss);
+      }
       this.createBoulder();
  }
  update(){
     this.player.update();
     this.hitbox.update();
-    this.boss.update();
-    const boss = this.boss
+    for (let i = 0; i < this.boss.length; i++) {
+      const boss = this.boss[i];
+      boss.update();
+      if (!boss.active) continue;
     const distanceToPlayer = Phaser.Math.Distance.Between(
         boss.x,
         boss.y,
@@ -96,10 +110,11 @@ export default class BossArena extends Phaser.Scene {
           boss.timeToThrowBoulder = 80;
         }
         boss.timeToThrowBoulder -= 1;
-        this.boss= boss
+        this.boss[i] = boss;
 
- }
+ }}
 }
+
 createBoulder() {
     this.BoulderGroup = this.physics.add.group({
       inmovable: true,
@@ -134,6 +149,28 @@ createBoulder() {
     });
 
   }
+  goback(player,BackCity){
+    const data={
+      lvl:this.lvl,
+      hp:this.hp,
+      maxHp:this.maxHp,
+      exp:this.exp,
+      damageAmount:this.damageAmount,
+      velocityPlayer:this.velocityPlayer,
+      x: 1500,
+      y: 3600,
+
+    }
+    for (const b of this.boss) {
+      b.destroy(true,true)
+    }
+    this.boss = [];
+    this.scene.start("City", data);
+    this.scene.pause("BossArena");
+  }
+    
+
+  
 ThrowBoulder(player,boss){
     const directionX = player.x - boss.x;
     const directionY = player.y - boss.y;

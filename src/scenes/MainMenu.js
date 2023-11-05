@@ -5,7 +5,6 @@ import keys from "../enums/keys";
 
 export default class MainMenu extends Phaser.Scene {
   #wasChangedLanguage = TODO;
-
   constructor() {
     super("MainMenu");
     const { play, credits, languagesSelec, loader } = keys.MainMenu;
@@ -93,6 +92,7 @@ export default class MainMenu extends Phaser.Scene {
       lvl: data.lvl,
       hp: data.hp,
       exp: data.exp,
+      maxHp: data.maxHp,
       damageAmount: data.damageAmount,
       missionComplete: data.missionComplete,
       squirrelsKilled: data.squirrelsKilled,

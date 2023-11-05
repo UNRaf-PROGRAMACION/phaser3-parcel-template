@@ -34,7 +34,7 @@ export default class UI extends Phaser.Scene {
     this.healthBackground = this.add.rectangle(250, 73, 300, 30, 0x000000);
     this.healthBackground.setOrigin(0);
 
-    this.healthBar = this.add.rectangle(250, 73, 300, 30, 0xFFFFFF);
+    this.healthBar = this.add.rectangle(250, 73, 300, 30, 0xFF0000);
     this.healthBar.setOrigin(0);
     
     events.on("UpdateHP", this.UpdateHP, this);
@@ -47,7 +47,7 @@ export default class UI extends Phaser.Scene {
     this.hpTexto = this.add.text(252, 68, `${this.hp}`, {
       fontSize: "34px",
       fontFamily: "Roboto Mono",
-      fill: "FFFF00",
+      fill: "#FFFFFF",
     });
 
     events.on("UpdateHP", this.updateHealthBar, this);
