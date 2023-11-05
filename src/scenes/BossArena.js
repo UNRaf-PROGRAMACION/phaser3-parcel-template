@@ -68,6 +68,7 @@ export default class BossArena extends Phaser.Scene {
       this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
       obstacle.setCollisionByProperty({ colision: true });
       this.physics.add.collider(this.player, obstacle);
+      this.physics.add.overlap(this.player, this.boulderGroup, this.damage, null, this);
       this.physics.add.overlap(this.player,this.BackCity,this.goback,null,this)
       for (let i = 0; i < 1; i++) {
         const boss = new BearEnemy(
@@ -79,7 +80,11 @@ export default class BossArena extends Phaser.Scene {
         );
         this.boss.push(boss);
       }
+<<<<<<< HEAD
       
+=======
+     
+>>>>>>> 5ce0cda26c6d7fdbff5ed7e6541f86b4008fd8b0
  }
  update(){
     this.player.update();
@@ -106,12 +111,12 @@ export default class BossArena extends Phaser.Scene {
 }
 
 createBoulder() {
-    this.BoulderGroup = this.physics.add.group({
+    this.boulderGroup = this.physics.add.group({
       inmovable: true,
       allowGravity: false,
     });
 
-    this.BoulderGroup.createMultiple({
+    this.boulderGroup.createMultiple({
       classType: Phaser.Physics.Arcade.Sprite,
       key: "Boulder",
       frame: 0,
@@ -123,7 +128,7 @@ createBoulder() {
         y: 0,
       },
     });
-    this.BoulderGroup.children.entries.forEach((bullet) => {
+    this.boulderGroup.children.entries.forEach((bullet) => {
       bullet.setCollideWorldBounds(true);
       bullet.body.onWorldBounds = true;
       bullet.body.world.on(
@@ -190,13 +195,33 @@ ThrowBoulder(player,boss){
         boss.anims.play("AttackRightBear", true);
       }
     }
-    const Boulder = this.BoulderGroup.get(boss.x, boss.y);
+    const Boulder = this.boulderGroup.get(boss.x, boss.y);
     if (Boulder) {
       Boulder.setActive(true);
       Boulder.setVisible(true);
       console.log("vel piedra", velocityX);
-      this.physics.moveTo(Boulder, player.x, player.y, Math.abs(velocityX), Math.abs(velocityY));
+      this.physics.moveTo(Boulder, player.x, player.y, Math.abs(velocityX));
     }
+
+
+}
+damage(player,Boulder,boss){
+  console.log("daño");
+  this.hp = this.hp - 75;
+  events.emit("UpdateHP", { hp: this.hp });
+  this.scene.get("UI").updateHealthBar();
+  Boulder.destroy(true);
+  Boulder.setVisible(false);
+
+  if (this.hp <= 0) {
+    this.player.setVisible(false).setActive(false);
+    for (const b of this.boss) {
+      b.destroy(true,true)
+    }
+    this.boss = [];
+    this.scene.launch("GameEnd", { fromScene: "BossArena" });
+    this.scene.pause("BossArena");
+  }
 
 
 }
