@@ -35,6 +35,9 @@ export default class GameEnd extends Phaser.Scene {
       } else if (data.fromScene === "Desert") {
         this.scene.start("Desert");
       }
+      else if(data.fromScene==="BossArena"){
+        this.scene.start("BossArena");
+      }
      
     });
     this.buttonM = this.add.text(850,750,getPhrase(this.menu),{
