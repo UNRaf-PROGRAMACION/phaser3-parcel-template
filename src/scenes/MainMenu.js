@@ -18,6 +18,9 @@ export default class MainMenu extends Phaser.Scene {
     this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.3 });
     this.menuMusic.play();
 
+    this.click = this.sound.add("click", { volume: 0.3 });
+    
+
     this.user = this.firebase.getUser();
 
     const canvasWidth = this.sys.game.config.width;
@@ -60,6 +63,7 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     startButton.on("pointerdown", () => {
+      this.click.play();
       this.menuMusic.stop();
       spaceIntro.visible = true;
       spaceIntro.play();
@@ -86,6 +90,7 @@ export default class MainMenu extends Phaser.Scene {
   });
 
   loadButton.on("pointerdown", () => {
+    this.click.play();
     this.menuMusic.stop();
     this.firebase.loadGameData(this.user.uid).then(data => {
       this.scene.start("City", {
@@ -134,7 +139,7 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     creditButton.on("pointerdown", () => {
-      // this.menuMusic.pause();
+      this.click.play();
       this.scene.pause("MainMenu");
       this.scene.launch("Credits");
     });
@@ -156,6 +161,7 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     languageButton.on("pointerdown", () => {
+      this.click.play();
       this.menuMusic.pause();
       this.scene.start("LanguageSelector");
     });

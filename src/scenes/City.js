@@ -265,6 +265,7 @@ export default class City extends Phaser.Scene {
     this.misionText.setWordWrapWidth(this.rectangle.width);
 
     this.input.keyboard.on("keydown-P", () => {
+      this.citySounds.stop();	
       this.scene.bringToTop("Menupause");
       this.scene.launch("Menupause");
       this.scene.pause("City");

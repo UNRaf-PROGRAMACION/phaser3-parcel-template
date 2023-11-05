@@ -14,6 +14,8 @@ export default class Login extends Phaser.Scene {
   }
 
   create() {
+    this.click = this.sound.add("click", { volume: 0.3 });
+    
 
     const canvasWidth = this.sys.game.config.width;
     const canvasHeight = this.sys.game.config.height;
@@ -43,6 +45,7 @@ export default class Login extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on("pointerdown", () => {
+        this.click.play();
         this.firebase
           .signInAnonymously()
           .then(() => {
@@ -69,6 +72,7 @@ export default class Login extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on("pointerdown", () => {
+        this.click.play();
         this.firebase
           .signInWithGoogle()
           .then(() => {

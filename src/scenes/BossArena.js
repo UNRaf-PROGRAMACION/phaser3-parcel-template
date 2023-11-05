@@ -1,32 +1,25 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
 import Player from "../components/Player";
-import Enemies from "../components/SquirrelEnemy";
 import Hitbox from "../components/AttackHitbox";
-import Npc from "../components/Npc";
-import Rock from "../components/Rock";
-import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
-import { getPhrase } from "../services/translations";
-import keys from "../enums/keys";
 import BearEnemy from "../components/BossEnemy";
 
 export default class BossArena extends Phaser.Scene {
-    #wasChangedLanguage = TODO;
     constructor() {
-      super("BossArena");
-      const { squirrelsKill } = keys.Enemy;
-      this.lvl;
+    super("BossArena");
+    this.lvl;
     this.hp;
     this.maxHp;
     this.exp, this.player;
     this.velocityPlayer;
     this.damageAmount;
-   this.missionComplete;
+    this.missionComplete;
     this.inAttackRange = false;
     this.Bossvelocity;
     this.boss = []
     }
-    init(data){
+
+ init(data){
         this.playerX = data.x || 200;
         this.playerY = data.y || 100;
         this.velocityPlayer = data.velocityPlayer;
@@ -46,21 +39,17 @@ export default class BossArena extends Phaser.Scene {
     const map = this.make.tilemap({ key: "BossArena" });
 
     const layerbackGround = map.addTilesetImage("BossAreaTileset", "BossAreaTileset");
-    const background = map.createLayer("Ground", layerbackGround, 0, 0);
+    map.createLayer("Ground", layerbackGround, 0, 0);
     const layerObstacle = map.addTilesetImage("BossAreaTileset", "BossAreaTileset");
     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
     const objectsLayer = map.getObjectLayer("Objects");
     this.BackCity = this.physics.add.group();
     this.BackCity.allowGravity = false;
     objectsLayer.objects.forEach((objData) => {
-        //console.log(objData.name, objData.type, objData.x, objData.y);
-        const { x = 0, y = 0, name } = objData;
-  
+        const { x = 0, y = 0, name } = objData; 
         switch (name) {
           case "backcity": {
-            // add star to scene
-            // console.log("estrella agregada: ", x, y);
-            let BackCity = this.BackCity
+              this.BackCity
               .create(x, y, "ArrowUp")
               .setScale(1)
               .setSize(200, 200)
@@ -70,6 +59,7 @@ export default class BossArena extends Phaser.Scene {
           }
         }
       });
+      this.createBoulder();
       this.player = new Player(this, 500, 500, "C4", this.velocityPlayer);
       this.playersGroup = this.physics.add.group();
       this.hitbox = new Hitbox(this, this.player);
@@ -89,7 +79,7 @@ export default class BossArena extends Phaser.Scene {
         );
         this.boss.push(boss);
       }
-      this.createBoulder();
+      
  }
  update(){
     this.player.update();

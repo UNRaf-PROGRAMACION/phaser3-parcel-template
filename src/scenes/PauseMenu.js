@@ -9,6 +9,8 @@ export default class MenuPause extends Phaser.Scene {
     super("Menupause");
     const { loader } = keys.MainMenu;
     this.continueGame = loader;
+    const { menu } = keys.GameEnd;
+    this.menu = menu;
   }
 
   create() {
@@ -36,7 +38,34 @@ export default class MenuPause extends Phaser.Scene {
 
   loadButton.on("pointerdown", () => {
     this.scene.resume(this.obtenerNivelEnPausa());
-      this.scene.stop("Menupause");
+    this.scene.stop("Menupause");
+  });
+
+  let buttonM = this.add.text(830,500,getPhrase(this.menu),{
+    fontFamily: "Roboto Mono",
+    fontSize: "90px",
+    fill: "#FFFFFF",
+  }).setInteractive();
+
+  buttonM.on("pointerover", () => {
+    buttonM.setFill("#F3E5AB");
+  });
+
+  buttonM.on("pointerout", () => {
+    buttonM.setFill("#FFFFFF");
+  });
+
+  buttonM.on("pointerdown", () => {
+    const cityScene = this.scene.get("City");
+
+    // Loop through the squirrels and destroy them.
+    cityScene.squirrels.forEach((squirrel) => {
+      squirrel.destroy();
+    });
+    
+    this.scene.stop(this.obtenerNivelEnPausa());
+    this.scene.stop("UI");
+    this.scene.start("MainMenu");
   });
 
     this.input.keyboard.on("keydown-P", () => {

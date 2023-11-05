@@ -83,12 +83,13 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
     this.load.image("BossAreaTileset","./assets/images/BossAreaTileset.png");
     this.load.image("Menupause","./assets/images/MenuPausa.png");
     this.load.image("Mapcity", "./assets/images/CityTileset.png");
+
     this.load.audio("citySFX", "./assets/Audio/citySFX.mp3");
-    //this.load.audio("swordAttack", "./assets/Audio/swordAttack.mp3");
     this.load.audio("swordAttack2", "./assets/Audio/swordAttack.wav");
-    
     this.load.audio("menuMusic", "./assets/Audio/menuMusic.mp3");
     this.load.audio("levelup","./assets/Audio/Levelup.wav");
+    this.load.audio("click","./assets/Audio/buttonClick.mp3");
+
     this.load.spritesheet("Fox","./assets/images/Fox.png",{
       frameWidth:174,
       frameHeight:155,
