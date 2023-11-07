@@ -80,11 +80,7 @@ export default class BossArena extends Phaser.Scene {
         );
         this.boss.push(boss);
       }
-<<<<<<< HEAD
-      
-=======
-     
->>>>>>> 5ce0cda26c6d7fdbff5ed7e6541f86b4008fd8b0
+    
  }
  update(){
     this.player.update();

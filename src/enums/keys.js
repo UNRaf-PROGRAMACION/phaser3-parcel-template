@@ -7,11 +7,11 @@ const Enemy = {
 const MainMenu = {
     play: 'Jugar',
     credits: 'Créditos',
-    languagesSelec: 'Idiomas',
+    languagesSelec: 'Idioma',
     back: 'Volver',
     confirm: 'Confirmar',
     spanishSel: 'Español',
-    englishSel: 'Ingles',
+    englishSel: 'Inglés',
     loader: 'Continuar'
 };
 
@@ -41,6 +41,7 @@ const CityText = {
 
 const DesertText = {
     desertMissionBegin: 'C4, te estaba esperando. Nos han robado partes de un arma que estamos construyendo. Ve a recuperarlas, y mata a esas molestas cobras si puedes. y C4, ten cuidado.',
+    desertMissionEnd: 'Muchas gracias por tu ayuda, vamos a intentar ofrecerte ayuda en tu pelea contra Juan, pero antes si puedes ve y habla con Duke, no sabemos su ubicación actual, pero sabemos que le gustan las flores.',
     collect: 'Objetos recolectados',
 }
 

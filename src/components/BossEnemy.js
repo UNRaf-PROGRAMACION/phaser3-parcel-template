@@ -89,15 +89,6 @@ export default class BearEnemy extends Phaser.GameObjects.Sprite {
     if (this.active) {
       this.enemyHp = this.enemyHp - damageAmount;
 
-      console.log(
-        "🚀 ~ file: SquirrelEnemy.js:92 ~ Enemies ~ takeDamage ~ damageAmount:",
-        damageAmount
-      );
-      console.log(
-        "🚀 ~ file: SquirrelEnemy.js:92 ~ Enemies ~ takeDamage ~ this.enemyHp:",
-        this.enemyHp
-      );
-
       if (this.enemyHp <= 0) {
         this.anims.stop();
       }

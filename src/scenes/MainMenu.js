@@ -47,11 +47,11 @@ export default class MainMenu extends Phaser.Scene {
     spaceIntro.setPosition(canvasWidth / 2, canvasHeight / 2);
 
     const startButton = this.add
-      .text(830, startY, getPhrase(this.play), {
+      .text(canvasWidth / 2, startY, getPhrase(this.play), {
         fontSize: "90px",
         fontFamily: "Trebuchet MS",
         fill: "FFFF00",
-      })
+      }).setOrigin(0.5)
       .setInteractive();
 
     startButton.on("pointerover", () => {
@@ -74,11 +74,11 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     const loadButton = this.add
-    .text(830, startY + 100, getPhrase(this.loadGame), {
+    .text(canvasWidth / 2, startY + 100, getPhrase(this.loadGame), {
       fontSize: "90px",
       fontFamily: "Trebuchet MS",
       fill: "FFFF00",
-    })
+    }).setOrigin(0.5)
     .setInteractive()
 
   loadButton.on("pointerover", () => {
@@ -101,8 +101,8 @@ export default class MainMenu extends Phaser.Scene {
       damageAmount: data.damageAmount,
       missionComplete: data.missionComplete,
       squirrelsKilled: data.squirrelsKilled,
-      x: 4000,
-      y: 2850,
+      x: 4500,
+      y: 3000,
       timeStamp: new Date(),
       
     });
@@ -123,11 +123,11 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     const creditButton = this.add
-      .text(830, startY + 300, getPhrase(this.credits), {
+      .text(canvasWidth / 2, startY + 300, getPhrase(this.credits), {
         fontSize: "80px",
         fontFamily: "Trebuchet MS",
         fill: "FFFF00",
-      })
+      }).setOrigin(0.5)
       .setInteractive();
 
     creditButton.on("pointerover", () => {
@@ -145,11 +145,11 @@ export default class MainMenu extends Phaser.Scene {
     });
 
     const languageButton = this.add
-      .text(830, startY + 200, getPhrase(this.languagesSelec), {
+      .text(canvasWidth / 2, startY + 200, getPhrase(this.languagesSelec), {
         fontSize: "80px",
         fontFamily: "Trebuchet MS",
         fill: "FFFF00",
-      })
+      }).setOrigin(0.5)
       .setInteractive();
 
     languageButton.on("pointerover", () => {

@@ -61,8 +61,8 @@ export default class City extends Phaser.Scene {
       damageAmount: this.damageAmount,
       missionComplete: this.missionComplete,
       squirrelsKilled: this.squirrelsKilled,
-      x: 4000,
-      y: 2850,
+      x: 4500,
+      y: 3000,
       timeStamp: new Date(),
     });
 
@@ -345,8 +345,8 @@ export default class City extends Phaser.Scene {
           damageAmount: this.damageAmount,
           missionComplete: this.missionComplete,
           squirrelsKilled: this.squirrelsKilled,
-          x: 4000,
-          y: 2850,
+          x: 4500,
+          y: 3000,
           timeStamp: new Date(),
         });
       });

@@ -56,16 +56,7 @@ export default class MenuPause extends Phaser.Scene {
   });
 
   buttonM.on("pointerdown", () => {
-    const cityScene = this.scene.get("City");
-
-    // Loop through the squirrels and destroy them.
-    cityScene.squirrels.forEach((squirrel) => {
-      squirrel.destroy();
-    });
-    
-    this.scene.stop(this.obtenerNivelEnPausa());
-    this.scene.stop("UI");
-    this.scene.start("MainMenu");
+    location.reload();
   });
 
     this.input.keyboard.on("keydown-P", () => {

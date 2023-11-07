@@ -36,7 +36,7 @@ export default class Preload extends Phaser.Scene {
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");
     this.load.image("BossDoor", "./assets/images/BossEntrada.png");
-    this.load.spritesheet("Explosion","./assets/images/EnemyDeath.png",{
+    this.load.spritesheet("explosion","./assets/images/EnemyDeath.png",{
       frameWidth: 221,
       frameHeight:191,
     });
@@ -437,6 +437,13 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
     this.anims.create({
       key: "AttackDownBear",
       frames: this.anims.generateFrameNumbers("BossAttack", { start: 6, end: 8 }),
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "explosion",
+      frames: this.anims.generateFrameNumbers("explosion", { start: 0, end: 3 }),
       frameRate: 15,
       repeat: 0,
     });

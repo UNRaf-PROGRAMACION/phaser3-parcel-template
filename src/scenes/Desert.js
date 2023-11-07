@@ -4,7 +4,7 @@ import Player from "../components/Player";
 import Enemies2 from "../components/CobraEnemy";
 import Hitbox from "../components/AttackHitbox";
 import Npc from "../components/Npc";
-import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
+import { TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
@@ -18,8 +18,9 @@ export default class Desert extends Phaser.Scene {
     super("Desert");
     const { cobrasKill } = keys.Enemy;
     this.deadCobra = cobrasKill;
-    const { desertMissionBegin, collect } = keys.DesertText
+    const { desertMissionBegin, desertMissionEnd, collect } = keys.DesertText
     this.desertBegin = desertMissionBegin;
+    this.desertEnd = desertMissionEnd;
     this.partCollected = collect;
     this.lvl;
     this.hp;
