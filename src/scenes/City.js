@@ -28,7 +28,7 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilled;
     this.squirrelsKilledText;
     this.damageAmount;
-    this.enemyHp;
+    this.enemyHp
   }
 
   init(data) {
@@ -43,6 +43,7 @@ export default class City extends Phaser.Scene {
     this.damageAmount = data.damageAmount || 100;
     this.squirrelsKilled = data.squirrelsKilled || 0;
     this.missionComplete = data.missionComplete || false;
+    this.missionDesertComplete=data.missionDesertComplete;
     this.playerX = data.x || 3700;
     this.playerY = data.y || 2300;
     this.initialX = 1000;
@@ -296,6 +297,27 @@ export default class City extends Phaser.Scene {
     });
     this.saveText.setVisible(false);
     this.saveText.setDepth(1);
+    this.owl=new Npc(
+      this,
+      3700,
+      120,
+      "Owl",
+    )
+
+    this.owl.setVisible(false)
+    if(this.missionComplete===true){
+      if(this.missionDesertComplete===true){
+        this.owl.setVisible(true);
+      }
+    }
+    this.owlText=this.add.text(60,800,"Se oyen sonidos de búho a la distancia",{
+      fontSize:"50px",
+      color: "FFFF00",
+      fontFamily:"Roboto Mono",
+    });
+    this.owlText.setScrollFactor(0,0)
+    this.owlText.setVisible(false);
+    this.physics.add.overlap(this.player,this.owl,this.owlInteraction,null,this);
   }
   update() {
     this.player.update();
@@ -473,6 +495,15 @@ export default class City extends Phaser.Scene {
         bullet
       );
     });
+  }
+  owlInteraction(player,owl){
+    this.owlText.setVisible(true)
+    this.rectangle.setVisible(true)
+    setTimeout(() => {
+      this.owlText.setVisible(false);
+      this.rectangle.setVisible(false);
+    }, 2000);
+
   }
 
   throwRockAtPlayer(player, squirrel) {
