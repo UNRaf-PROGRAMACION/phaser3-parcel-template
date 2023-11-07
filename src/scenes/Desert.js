@@ -32,6 +32,7 @@ export default class Desert extends Phaser.Scene {
     this.velocityCobra;
     this.objectCollected;
     this.missionComplete;
+    this.missionDesertComplete;
     this.inAttackRange = false;
     this.cobras = [];
   }
@@ -54,7 +55,7 @@ export default class Desert extends Phaser.Scene {
     this.initialX = 500;
     this.initialY = 900;
     this.objectCollected = data.objectCollected || 0;
-    this.missionComplete = data.missionComplete|| false
+    this.missionDesertComplete = data.missionDesertComplete|| false
     this.pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
   }
@@ -304,7 +305,8 @@ export default class Desert extends Phaser.Scene {
       velocityPlayer: this.velocityPlayer,
       x: 1300,
       y: 200,
-      missionComplete: this.missionComplete,
+      missionDesertComplete: this.missionDesertComplete,
+      missionComplete:this.missionComplete,
       squirrelsKilled: this.squirrelsKilled,
      
     };
@@ -334,14 +336,12 @@ export default class Desert extends Phaser.Scene {
           c.destroy(true, true);
         }
         this.cobras = [];
-        this.missionComplete = true;
+        this.missionDesertComplete = true;
       }
-      if ((this.missionComplete = true)) {
-        this.scene.launch("GameWin");
-        this.scene.pause("Desert");
-        this.scene.stop("UI");
-        this.mision2Text.setText("");
-        this.rectangle.setVisible(false);
+      if ((this.missionDesertComplete = true)) {
+     
+        this.mision2Text.setText(getPhrase(this.desertEnd));
+        this.DesignUI2.setVisible(false);
   
       }
     }
