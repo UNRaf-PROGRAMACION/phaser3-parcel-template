@@ -13,7 +13,7 @@ export default class Lobby extends Phaser.Scene {
 
   init(data) {
     this.velocity = data.velocity || 400;
-    this.level = data.level || 1;
+    this.level = data.level || 0;
     this.health = data.health || 3;
     this.dynamiteCuantity = 0;
   }
