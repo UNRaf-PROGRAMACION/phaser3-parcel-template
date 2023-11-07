@@ -15,7 +15,7 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   create() {
-    this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.3 });
+    this.menuMusic = this.sound.add("menuMusic", { loop: true, volume: 0.2 });
     this.menuMusic.play();
 
     this.click = this.sound.add("click", { volume: 0.3 });

@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Roboto Mono'; 
+  src: url('./fonts/RobotoMono-Regular.ttf') format('truetype'); 
+}
+
+@font-face {
+  font-family: 'Trebuchet MS'; 
+  src: url('./fonts/trebuc.ttf') format('truetype'); 
+}

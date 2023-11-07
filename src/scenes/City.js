@@ -246,11 +246,11 @@ export default class City extends Phaser.Scene {
     this.DesignUI2.scaleX = 2.2;
     this.DesignUI2.setVisible(false);
     this.squirrelsKilledText = this.add.text(
-      1380,
+      1340,
       60,
       getPhrase(this.deadSquirrel),
       {
-        fontSize: "50px",
+        fontSize: "40px",
         fontFamily: "Roboto Mono",
       }
     );

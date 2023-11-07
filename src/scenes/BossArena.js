@@ -30,6 +30,7 @@ export default class BossArena extends Phaser.Scene {
         this.missionComplete = data.missionComplete || false;
         this.damageAmount = data.damageAmount || 100;
         this.Bossvelocity=200
+        this.bossEnemyHp = data.bossEnemyHp || 10000;
         this.initialX = 1500;
         this.initialY = 900;
         this.velocityBoulder = data.velocityBoulder || 900;
@@ -70,6 +71,14 @@ export default class BossArena extends Phaser.Scene {
       this.physics.add.collider(this.player, obstacle);
       this.physics.add.overlap(this.player, this.boulderGroup, this.damage, null, this);
       this.physics.add.overlap(this.player,this.BackCity,this.goback,null,this)
+      this.physics.add.overlap(
+        this.hitbox,
+        this.boss,
+        this.playerHitEnemy,
+        null,
+        this
+      );
+
       for (let i = 0; i < 1; i++) {
         const boss = new BearEnemy(
           this,
@@ -104,6 +113,22 @@ export default class BossArena extends Phaser.Scene {
         this.boss[i] = boss;
 
  }}
+}
+
+playerHitEnemy(hitbox, boss) {
+  if (boss.active && hitbox.active) {
+    boss.takeDamage(this.hitbox.damageAmount);
+    boss.anims.play("cobraDamage", true);
+  }
+}
+
+takeDamage(damageAmount, biting, cobra) {
+  this.bossEnemyHp -= damageAmount;
+  console.log("daño");
+  if (this.bossEnemyHp <= 0) {
+    cobra.setActive(false).setVisible(false);
+    cobra.anims.stop();
+  }
 }
 
 createBoulder() {

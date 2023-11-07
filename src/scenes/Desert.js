@@ -43,7 +43,7 @@ export default class Desert extends Phaser.Scene {
     this.exp = data.exp || 0;
     this.velocityPlayer = data.velocityPlayer;
     this.velocityCobra = data.velocityCobra || 350;
-    this.enemyCobraHp = data.enemyCobrahp || 200;
+    this.enemyCobraHp = data.enemyCobrahp || 2000;
     this.damageAmount = data.damageAmount;
     this.missionComplete = data.missionComplete;
     this.squirrelsKilled = data.squirrelsKilled;
@@ -149,14 +149,14 @@ export default class Desert extends Phaser.Scene {
     this.DesignUI2.setScrollFactor(0);
     this.physics.add.overlap(this.player, this.fox, this.mision2, null, this);
     this.cobrasKilledText = this.add.text(1350, 30, getPhrase(this.deadCobra), {
-      fontSize: "50px",
+      fontSize: "35px",
       fontFamily: "Roboto Mono",
     });
     this.cobrasKilledText.setVisible(false);
     this.cobrasKilledText.setActive(false);
     this.cobrasKilledText.setScrollFactor(0);
     this.objectCollectedText = this.add.text(1350, 130, getPhrase(this.partCollected), {
-      fontSize: "50px",
+      fontSize: "35px",
       fontFamily: "Roboto Mono",
     });
     this.objectCollectedText.setVisible(false);
