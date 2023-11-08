@@ -16,6 +16,7 @@ export default class BossArena extends Phaser.Scene {
     this.missionComplete;
     this.inAttackRange = false;
     this.Bossvelocity;
+    this.bossEnemyHp;
     this.boss = []
     }
 

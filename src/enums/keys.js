@@ -37,6 +37,8 @@ const CityText = {
     cityMissionBegin: 'C4, desde la base nos informaron que vendrías. Desde hace un tiempo hemos estado combatiendo con las ardillas pero se han vuelto más fuerte y no contamos con suficientes refuerzos. Eliminalas lo antes posible y regresa.',
     cityMissionEnd: 'Bien hecho, eso será suficiente por aqui. Nos han informado desde el desierto que requieren asistencia, ve y habla con Fenec.',
     savePoint: 'Apretar "E" para guardar',
+    owlNoise: 'Se oyen sonidos de búho en la distancia',
+    owlMesseage: "¿Alguna vez te has preguntado cómo es el mundo detrás de la venda? He estado desde el comienzo, desde las primeras máquinas, y puedo decirte que no todo es como parece. Abre los ojos C4 y no dejes cegar.",
 }
 
 const DesertText = {

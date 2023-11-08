@@ -14,6 +14,10 @@ export default class MenuPause extends Phaser.Scene {
   }
 
   create() {
+
+    const canvasWidth = this.sys.game.config.width;
+    
+
     this.keys = this.input.keyboard.addKeys({
       p: Phaser.Input.Keyboard.KeyCodes.P,
     });
@@ -21,12 +25,12 @@ export default class MenuPause extends Phaser.Scene {
     this.add.image(963, 538, "gameover");
 
     const loadButton = this.add
-    .text(830, 300, getPhrase(this.continueGame), {
+    .text(canvasWidth / 2, 300, getPhrase(this.continueGame), {
       fontSize: "90px",
       fontFamily: "Trebuchet MS",
       fill: "#FFFFFF",
-    })
-    .setInteractive()
+    }).setOrigin(0.5)
+    .setInteractive();
 
   loadButton.on("pointerover", () => {
     loadButton.setFill("#F3E5AB");
@@ -41,11 +45,12 @@ export default class MenuPause extends Phaser.Scene {
     this.scene.stop("Menupause");
   });
 
-  let buttonM = this.add.text(830,500,getPhrase(this.menu),{
+  let buttonM = this.add.text(canvasWidth / 2,500,getPhrase(this.menu),{
     fontFamily: "Roboto Mono",
     fontSize: "90px",
     fill: "#FFFFFF",
-  }).setInteractive();
+  }).setOrigin(0.5)
+  .setInteractive();
 
   buttonM.on("pointerover", () => {
     buttonM.setFill("#F3E5AB");

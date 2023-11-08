@@ -92,8 +92,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       this.enemyHp = this.enemyHp - damageAmount;
      
       if (this.enemyHp <= 0) {
-        
        this.scene.exp=this.scene.exp + 200
+       console.log("xp awarded ", this.scene.exp)
        if(this.scene.exp>=1200){
         this.scene.lvl ++
         this.levelUpSound = this.scene.sound.add("levelup");
@@ -110,10 +110,8 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         this.scene.squirrelsKilledText.setText(
         `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`);
 
-       setTimeout(() => {
         this.setVisible(false)
-       }, 200);
-          this.setActive(false)
+        this.setActive(false)
        
         
 

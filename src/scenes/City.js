@@ -13,10 +13,11 @@ export default class City extends Phaser.Scene {
     super("City");
     const { squirrelsKill } = keys.Enemy;
     this.deadSquirrel = squirrelsKill;
-    const { cityMissionBegin, cityMissionEnd, savePoint } = keys.CityText;
+    const { cityMissionBegin, cityMissionEnd, savePoint, owlNoise } = keys.CityText;
     this.begin = cityMissionBegin;
     this.end = cityMissionEnd;
     this.save = savePoint;
+    this.hoot = owlNoise;
     this.lvl;
     this.hp;
     this.maxHp;
@@ -317,7 +318,7 @@ if(this.showtutorial){
         this.owl.setVisible(true);
       }
     }
-    this.owlText=this.add.text(60,800,"Se oyen sonidos de búho a la distancia",{
+    this.owlText=this.add.text(60,800,getPhrase(this.hoot),{
       fontSize:"50px",
       color: "FFFF00",
       fontFamily:"Roboto Mono",
@@ -419,6 +420,9 @@ if(this.showtutorial){
      events.emit("UpdateMaxHp", { maxHp: this.maxHp });
       this.levelUpSound = this.sound.add("levelup");
       this.levelUpSound.play();
+      this.maxHp += 25;
+      this.damageAmount += Math.round(this.damageAmount * 0.2);
+      events.emit("UpdateMaxHp", { maxHp: this.maxHp });
       events.emit("UpdateLVL", { lvl: this.lvl });
       this.missionComplete = true;
       this.misionText.setText(getPhrase(this.end));
