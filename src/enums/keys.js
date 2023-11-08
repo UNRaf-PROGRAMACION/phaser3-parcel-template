@@ -19,6 +19,7 @@ const LoginMenu = {
     login: 'Iniciar Sesión',
     guest: 'Ingresar como invitado',
     user: 'Ingresar con Google',
+    logout: 'Cerrar sesión'
 }
 
 const CreditsMenu = {

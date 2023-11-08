@@ -1,28 +1,20 @@
 import Phaser from "phaser";
-import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
-import { getPhrase } from "../services/translations";
-import keys from "../enums/keys";
-
-// //ending cutscenes
-// //Credits
 export default class GameWin extends Phaser.Scene {
-  #wasChangedLanguage = TODO;
   constructor() {
     super("GameWin");
-    const { retry, dead, menu } = keys.GameEnd;
-    this.retry = retry;
-    
-    this.menu = menu;
   }
 
   create() {
     const canvasWidth = this.sys.game.config.width;
     const canvasHeight = this.sys.game.config.height;
-    const theEnd = this.add.video(960, 500, "Ending").setInteractive()
-    theEnd.setScale(1.1);
+
+    const theEnd = this.add.video(960, 500, "Ending").setInteractive().setDepth(1);
+    theEnd.setScale(1.5);
+    theEnd.setPosition(canvasWidth / 2, canvasHeight / 2);
+    theEnd.setVolume(0.5)
     theEnd.play();
     theEnd.on('complete', () => {
-  location.reload();
+    location.reload();
     
     });
     theEnd.on("pointerdown", () => {
