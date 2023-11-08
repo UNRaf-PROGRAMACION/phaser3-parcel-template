@@ -326,6 +326,17 @@ export default class Desert extends Phaser.Scene {
     }, 2000);
     if (this.objectCollected >= 3) {
       if (this.cobrasKilled >= 6) {
+        this.lvl++;
+     this.maxHp+=25
+     events.emit("UpdateMaxHp", { maxHp: this.maxHp });
+      this.levelUpSound = this.sound.add("levelup");
+      this.levelUpSound.play();
+      this.maxHp += 25;
+      this.damageAmount += Math.round(this.damageAmount * 0.2);
+      events.emit("UpdateMaxHp", { maxHp: this.maxHp });
+      events.emit("UpdateLVL", { lvl: this.lvl });
+      this.cobrasKilledText.setText("");
+      this.objectCollectedText.setText("");
         for (const c of this.cobras) {
           c.destroy(true, true);
         }
@@ -433,6 +444,7 @@ export default class Desert extends Phaser.Scene {
         c.destroy(true, true);
       }
       this.cobras = [];
+      this.scene.stop("UI");
       this.scene.launch("GameEnd", { fromScene: "Desert" });
       this.scene.pause("Desert");
       

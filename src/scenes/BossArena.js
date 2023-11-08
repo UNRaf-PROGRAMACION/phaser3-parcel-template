@@ -35,6 +35,8 @@ export default class BossArena extends Phaser.Scene {
         this.initialX = 1500;
         this.initialY = 900;
         this.velocityBoulder = data.velocityBoulder || 900;
+        this.missionComplete=data.missionComplete;
+        this.missionDesertComplete = data.missionDesertComplete;
        
     }
  create(){
@@ -45,6 +47,8 @@ export default class BossArena extends Phaser.Scene {
     const layerObstacle = map.addTilesetImage("BossAreaTileset", "BossAreaTileset");
     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
     const objectsLayer = map.getObjectLayer("Objects");
+    this.CollectibleBoss= this.physics.add.group();
+    this.CollectibleBoss.allowGravity = false;
     this.BackCity = this.physics.add.group();
     this.BackCity.allowGravity = false;
     objectsLayer.objects.forEach((objData) => {
@@ -56,6 +60,14 @@ export default class BossArena extends Phaser.Scene {
               .setScale(1)
               .setSize(200, 200)
               .setVisible(true);
+  
+            break;
+          }
+          case "cura": {
+            let collectible1 = this.CollectibleBoss.create(x, y, "cura")
+              .setScale(1)
+              .setSize(200, 200);
+            collectible1.anims.play("cura-anim", true);
   
             break;
           }
@@ -72,6 +84,7 @@ export default class BossArena extends Phaser.Scene {
       this.physics.add.collider(this.player, obstacle);
       this.physics.add.overlap(this.player, this.boulderGroup, this.damage, null, this);
       this.physics.add.overlap(this.player,this.BackCity,this.goback,null,this)
+      this.physics.add.overlap(this.player,this.CollectibleBoss,this.heal,null,this)
       this.physics.add.overlap(
         this.hitbox,
         this.boss,
@@ -131,15 +144,33 @@ export default class BossArena extends Phaser.Scene {
         this.boss[i] = boss;
 
  }}
+ 
+
+
+}
+heal(player,Collectible){
+  if (this.hp < this.maxHp) {
+    this.hp = this.hp + 75;
+
+    if (this.hp > this.maxHp) {
+      this.hp = this.maxHp;
+    }
+    events.emit("UpdateHP", { hp: this.hp });
+    Collectible.disableBody(true, true);
+  }
+
 }
 
 playerHitEnemy(hitbox, boss) {
   if (boss.active && hitbox.active) {
    this.takeDamage(this.hitbox.damageAmount);
-    boss.anims.play("cobraDamage", true);
+    boss.anims.play("bossDamage", true);
   }
 }
 takeDamage(damageAmount,boss) {
+  if(this.missionComplete===true && this.missionDesertComplete===true){
+    this.bossEnemyHp=6000
+  }
 
     this.bossEnemyHp = this.bossEnemyHp - damageAmount;
 

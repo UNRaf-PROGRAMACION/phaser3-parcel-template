@@ -92,6 +92,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
       this.enemyHp = this.enemyHp - damageAmount;
      
       if (this.enemyHp <= 0) {
+        this.anims.play("explosion",true);
        this.scene.exp=this.scene.exp + 200
        console.log("xp awarded ", this.scene.exp)
        if(this.scene.exp>=1200){
@@ -112,10 +113,6 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
 
         this.setVisible(false)
         this.setActive(false)
-       
-        
-
-
     }
   }
 }

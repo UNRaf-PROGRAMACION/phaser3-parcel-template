@@ -386,6 +386,12 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
       frameRate: 1,
     });
     this.anims.create({
+      key: "bossDamage",
+      frames: [{ key: "Boss", frame: 18 }],
+      frameRate: 1,
+    });
+    
+    this.anims.create({
       key: "BearUp",
       frames: this.anims.generateFrameNumbers("Boss", {
         start: 14,

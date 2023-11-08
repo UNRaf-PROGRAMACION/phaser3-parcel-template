@@ -13,11 +13,13 @@ export default class City extends Phaser.Scene {
     super("City");
     const { squirrelsKill } = keys.Enemy;
     this.deadSquirrel = squirrelsKill;
-    const { cityMissionBegin, cityMissionEnd, savePoint, owlNoise } = keys.CityText;
+    const { cityMissionBegin, cityMissionEnd, savePoint, owlNoise, owlMesseage } = keys.CityText;
     this.begin = cityMissionBegin;
     this.end = cityMissionEnd;
     this.save = savePoint;
     this.hoot = owlNoise;
+    this.owlTruth= owlMesseage;
+
     this.lvl;
     this.hp;
     this.maxHp;
@@ -324,6 +326,8 @@ if(this.showtutorial){
     });
     this.owlText.setScrollFactor(0,0)
     this.owlText.setVisible(false);
+    this.owlText.setWordWrapWidth(this.rectangle.width);
+
     this.physics.add.overlap(this.player,this.owl,this.owlInteraction,null,this);
   }
   update() {
@@ -511,6 +515,11 @@ if(this.showtutorial){
       this.rectangle.setVisible(false);
     }, 2000);
 
+    if(this.missionComplete===true && this.missionDesertComplete===true){
+
+      this.owlText.setText(getPhrase(this.owlTruth));
+    }
+
   }
 
   throwRockAtPlayer(player, squirrel) {
@@ -559,6 +568,8 @@ if(this.showtutorial){
       exp: this.exp,
       damageAmount: this.damageAmount,
       velocityPlayer: this.velocityPlayer,
+      missionComplete:this.missionComplete,
+      missionDesertComplete:this.missionDesertComplete
     };
     for (const s of this.squirrels) {
       s.destroy(true, true);
