@@ -21,7 +21,7 @@ export default class BearEnemy extends Phaser.GameObjects.Sprite {
     this.velocity = velocity;
     this.targetX = 1500;
     this.targetY = 900;
-    this.bossEnemyHp = 10000;
+    this.bossEnemyHp = 100;
     this.bossVelocity=200;
     this.timeToThrowBoulder = 0;
 
@@ -85,13 +85,6 @@ export default class BearEnemy extends Phaser.GameObjects.Sprite {
     this.patrolling = true;
   }
 
-  takeDamage(damageAmount) {
-    if (this.active) {
-      this.bossEnemyHp = this.bossEnemyHp - damageAmount;
-
-      if (this.bossEnemyHp <= 0) {
-        this.anims.stop();
-      }
-    }
+  
   }
-}
+

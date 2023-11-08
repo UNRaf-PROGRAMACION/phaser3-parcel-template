@@ -89,38 +89,36 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
   takeDamage(damageAmount) {
 
     if (this.active) {
-      this.enemyHp = this.enemyHp - damageAmount; 
-  }
-  if (this.enemyHp <= 0) {
-    this.scene.exp = this.scene.exp + 200
-    this.anims.play("explosion",true);
-    if(this.scene.exp>=1200){
-     this.scene.lvl ++
-     this.levelUpSound = this.scene.sound.add("levelup");
-     this.levelUpSound.play();
-     this.scene.maxHp += 25;
-     this.scene.exp = 0
-     events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
-     events.emit("UpdateLVL", {lvl: this.scene.lvl });
-     this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
-    }
+      this.enemyHp = this.enemyHp - damageAmount;
      
-     
-     this.scene.squirrelsKilled++;
-     this.scene.squirrelsKilledText.setText(
-     `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`);
+      if (this.enemyHp <= 0) {
+        
+       this.scene.exp=this.scene.exp + 200
+       if(this.scene.exp>=1200){
+        this.scene.lvl ++
+        this.levelUpSound = this.scene.sound.add("levelup");
+        this.levelUpSound.play();
+        this.scene.maxHp += 25;
+        this.scene.exp = 0
+        events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
+        events.emit("UpdateLVL", {lvl: this.scene.lvl });
+        this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
+       }
+        
+        
+        this.scene.squirrelsKilled++;
+        this.scene.squirrelsKilledText.setText(
+        `${getPhrase(this.deadSquirrel)}: ${this.scene.squirrelsKilled} /4`);
 
-    setTimeout(() => {
-     this.setVisible(false)
-   
-    }, 200);
-    this.setActive(false)
-    
+       setTimeout(() => {
+        this.setVisible(false)
+       }, 200);
+          this.setActive(false)
        
-    
-     
+        
 
 
- }
+    }
+  }
 }
 }

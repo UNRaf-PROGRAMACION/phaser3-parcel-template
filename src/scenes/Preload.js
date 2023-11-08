@@ -32,6 +32,7 @@ export default class Preload extends Phaser.Scene {
 
     this.load.video("introScene", "./assets/videos/spaceIntro.mp4");
     this.load.video("logos", "./assets/videos/IntroLogos.mp4");
+    this.load.video("Ending","./assets/videos/C4pyFinal.mp4");
 
     this.load.image("ArrowUp", "./assets/images/ArrowUp.png");
     this.load.image("ArrowDown", "./assets/images/ArrowDown.png");

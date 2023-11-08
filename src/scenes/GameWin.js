@@ -16,27 +16,19 @@ export default class GameWin extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(0,0, "gameover").setOrigin(0);
-    this.add.text(500,190,"Has Ganado, Felicidades",{
-      fontSize: "100px",
-      fontFamily: "Trebuchet MS",
+    const canvasWidth = this.sys.game.config.width;
+    const canvasHeight = this.sys.game.config.height;
+    const theEnd = this.add.video(960, 500, "Ending").setInteractive()
+    theEnd.setScale(1.1);
+    theEnd.play();
+    theEnd.on('complete', () => {
+  location.reload();
+    
     });
-    this.buttonM = this.add.text(850,750,getPhrase(this.menu),{
-      fontFamily: "Roboto Mono",
-      fontSize: "50px",
-
-    }).setInteractive();
-    this.buttonM.on("pointerdown", () => {
-      this.scene.stop("UI");
-      this.scene.stop("Desert");
-      this.scene.start("MainMenu");
+    theEnd.on("pointerdown", () => {
+      location.reload();
     });
-  }
-
-  update() {
-    if (this.#wasChangedLanguage === FETCHED) {
-      this.died.setText(getPhrase(this.dead));
-      this.buttonM.setText(getPhrase(this.menu));
+ 
     }
-  }
+  
 }

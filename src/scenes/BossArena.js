@@ -30,7 +30,7 @@ export default class BossArena extends Phaser.Scene {
         this.missionComplete = data.missionComplete || false;
         this.damageAmount = data.damageAmount || 100;
         this.Bossvelocity=200
-        this.bossEnemyHp = data.bossEnemyHp || 10000;
+        this.bossEnemyHp = data.bossEnemyHp || 100;
         this.initialX = 1500;
         this.initialY = 900;
         this.velocityBoulder = data.velocityBoulder || 900;
@@ -92,6 +92,7 @@ export default class BossArena extends Phaser.Scene {
     
  }
  update(){
+ 
     this.player.update();
     this.hitbox.update();
     for (let i = 0; i < this.boss.length; i++) {
@@ -113,24 +114,27 @@ export default class BossArena extends Phaser.Scene {
         this.boss[i] = boss;
 
  }}
+ 
+
+
 }
 
 playerHitEnemy(hitbox, boss) {
   if (boss.active && hitbox.active) {
-    boss.takeDamage(this.hitbox.damageAmount);
+   this.takeDamage(this.hitbox.damageAmount);
     boss.anims.play("cobraDamage", true);
   }
 }
+takeDamage(damageAmount,boss) {
 
-takeDamage(damageAmount, biting, cobra) {
-  this.bossEnemyHp -= damageAmount;
-  console.log("daño");
-  if (this.bossEnemyHp <= 0) {
-    cobra.setActive(false).setVisible(false);
-    cobra.anims.stop();
+    this.bossEnemyHp = this.bossEnemyHp - damageAmount;
+
+    if (this.bossEnemyHp <= 0) {
+      this.scene.stop("UI");
+      this.scene.start("GameWin");
+      this.scene.stop("BossArena");
+      }
   }
-}
-
 createBoulder() {
     this.boulderGroup = this.physics.add.group({
       inmovable: true,

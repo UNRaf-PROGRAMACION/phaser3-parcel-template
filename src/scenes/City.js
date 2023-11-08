@@ -53,7 +53,7 @@ export default class City extends Phaser.Scene {
     this.pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
     this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     this.user = this.firebase.getUser();
-    this.showtutorial= data.showtutorial === false ? false : true
+    this.showtutorial= data.showtutorial === false ? false : trueñ
   }
 
   create() {
@@ -566,7 +566,7 @@ if(this.showtutorial){
     this.scene.pause("City");
   }
 
-  damage(player, rock, squirrel) {
+  damage(player, rock, squirrel,) {
     this.hp = this.hp - 25;
     events.emit("UpdateHP", { hp: this.hp });
     this.scene.get("UI").updateHealthBar();

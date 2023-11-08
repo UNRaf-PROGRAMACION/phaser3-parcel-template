@@ -13,6 +13,7 @@ export default class GameEnd extends Phaser.Scene {
     this.retry = retry;
     this.dead = dead;
     this.menu = menu;
+    this.playerData= [];
   }
 
   create(data) {
@@ -29,9 +30,10 @@ export default class GameEnd extends Phaser.Scene {
     .setInteractive();
 
     this.buttonR.on("pointerdown", () => {
+      
       this.scene.launch("UI");
       if (data.fromScene === "City") {
-        this.scene.start("City");
+        this.scene.start("City",this.playerData);
       } else if (data.fromScene === "Desert") {
         this.scene.start("Desert");
       }
