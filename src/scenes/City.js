@@ -13,10 +13,11 @@ export default class City extends Phaser.Scene {
     super("City");
     const { squirrelsKill } = keys.Enemy;
     this.deadSquirrel = squirrelsKill;
-    const { cityMissionBegin, cityMissionEnd, savePoint } = keys.CityText;
+    const { cityMissionBegin, cityMissionEnd, savePoint, owlNoise } = keys.CityText;
     this.begin = cityMissionBegin;
     this.end = cityMissionEnd;
     this.save = savePoint;
+    this.hoot = owlNoise;
     this.lvl;
     this.hp;
     this.maxHp;
@@ -310,7 +311,7 @@ export default class City extends Phaser.Scene {
         this.owl.setVisible(true);
       }
     }
-    this.owlText=this.add.text(60,800,"Se oyen sonidos de búho a la distancia",{
+    this.owlText=this.add.text(60,800,getPhrase(this.hoot),{
       fontSize:"50px",
       color: "FFFF00",
       fontFamily:"Roboto Mono",
@@ -391,15 +392,6 @@ export default class City extends Phaser.Scene {
     }
   }
 
-  takeDamage(damageAmount, rock, squirrel) {
-    this.enemyHp -= damageAmount;
-    if (this.enemyHp <= 0) {
-      squirrel.anims.play("Pum", true);
-      squirrel.anims.stop();
-      squirrel.setActive(false).setVisible(false);
-    }
-  }
-
   mision(player, Eagle) {
     this.DesignUI2.setVisible(true);
     this.squirrelsKilledText.setVisible(true);
@@ -415,6 +407,9 @@ export default class City extends Phaser.Scene {
       this.lvl++;
       this.levelUpSound = this.sound.add("levelup");
       this.levelUpSound.play();
+      this.maxHp += 25;
+      this.damageAmount += Math.round(this.damageAmount * 0.2);
+      events.emit("UpdateMaxHp", { maxHp: this.maxHp });
       events.emit("UpdateLVL", { lvl: this.lvl });
       this.missionComplete = true;
       this.misionText.setText(getPhrase(this.end));

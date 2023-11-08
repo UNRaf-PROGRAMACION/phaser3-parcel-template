@@ -16,16 +16,18 @@ export default class GameEnd extends Phaser.Scene {
   }
 
   create(data) {
+    const canvasWidth = this.sys.game.config.width;
+
     this.add.image(0,0, "gameover").setOrigin(0);
-    this.died = this.add.text(760,190,getPhrase(this.dead),{
+    this.died = this.add.text(canvasWidth / 2,190,getPhrase(this.dead),{
       fontSize: "100px",
       fontFamily: "Trebuchet MS",
-    });
+    }).setOrigin(0.5);
     this.buttonR = this.add
-    .text(900, 550, getPhrase(this.retry), {
+    .text(canvasWidth / 2, 550, getPhrase(this.retry), {
       fontSize: "50px",
       fontFamily: "Roboto Mono",
-    })
+    }).setOrigin(0.5)
     .setInteractive();
 
     this.buttonR.on("pointerdown", () => {
@@ -40,10 +42,11 @@ export default class GameEnd extends Phaser.Scene {
       }
      
     });
-    this.buttonM = this.add.text(850,750,getPhrase(this.menu),{
+    this.buttonM = this.add.text(canvasWidth / 2, 750,getPhrase(this.menu),{
       fontFamily: "Roboto Mono",
       fontSize: "50px",
-    }).setInteractive();
+    }).setOrigin(0.5)
+    .setInteractive();
     this.buttonM.on("pointerdown", () => {
       this.scene.stop("UI");
       this.scene.stop(data.fromScene);

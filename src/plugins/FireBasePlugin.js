@@ -21,6 +21,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   GithubAuthProvider,
+  signOut,
 } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -53,6 +54,17 @@ export default class FirebasePlugin extends Phaser.Plugins.BasePlugin {
         this.onLoggedInCallback();
       }
     });
+  }
+
+  logOut() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   }
 
   destroy() {

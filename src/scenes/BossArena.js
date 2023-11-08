@@ -16,6 +16,7 @@ export default class BossArena extends Phaser.Scene {
     this.missionComplete;
     this.inAttackRange = false;
     this.Bossvelocity;
+    this.bossEnemyHp;
     this.boss = []
     }
 
@@ -119,15 +120,6 @@ playerHitEnemy(hitbox, boss) {
   if (boss.active && hitbox.active) {
     boss.takeDamage(this.hitbox.damageAmount);
     boss.anims.play("cobraDamage", true);
-  }
-}
-
-takeDamage(damageAmount, biting, cobra) {
-  this.bossEnemyHp -= damageAmount;
-  console.log("daño");
-  if (this.bossEnemyHp <= 0) {
-    cobra.setActive(false).setVisible(false);
-    cobra.anims.stop();
   }
 }
 
