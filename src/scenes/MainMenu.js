@@ -110,6 +110,7 @@ export default class MainMenu extends Phaser.Scene {
     this.scene.launch("UI", {
       lvl: data.lvl,
       hp: data.hp,
+      maxHp: data.maxHp,
     });
   });
 });

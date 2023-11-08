@@ -175,6 +175,7 @@ createBoulder() {
       velocityPlayer:this.velocityPlayer,
       x: 1500,
       y: 3600,
+      showtutorial:false,
 
     }
     for (const b of this.boss) {

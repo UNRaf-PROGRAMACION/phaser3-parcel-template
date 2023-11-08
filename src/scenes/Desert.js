@@ -279,14 +279,6 @@ export default class Desert extends Phaser.Scene {
     }
   }
   
-  takeDamage(damageAmount, biting, cobra) {
-    this.enemyCobraHp -= damageAmount;
-    console.log("daño");
-    if (this.enemyCobraHp <= 0) {
-      cobra.setActive(false).setVisible(false);
-      cobra.anims.stop();
-    }
-  }
   ObjectCollected(player, collectible) {
     this.objectCollected = this.objectCollected + 1;
     this.objectCollectedText.setText(
@@ -308,6 +300,7 @@ export default class Desert extends Phaser.Scene {
       missionDesertComplete: this.missionDesertComplete,
       missionComplete:this.missionComplete,
       squirrelsKilled: this.squirrelsKilled,
+      showtutorial:false
      
     };
     for (const c of this.cobras) {
@@ -319,13 +312,14 @@ export default class Desert extends Phaser.Scene {
 
   }
   mision2(player, fox) {
+    this.mision2Text.setVisible(true);
+    this.rectangle.setVisible(true);
     this.cobrasKilledText.setVisible(true);
     this.cobrasKilledText.setActive(true);
     this.objectCollectedText.setVisible(true);
     this.objectCollectedText.setActive(true);
     this.DesignUI2.setVisible(true);
-    this.mision2Text.setVisible(true);
-    this.rectangle.setVisible(true);
+  
     setTimeout(() => {
       this.mision2Text.setVisible(false);
       this.rectangle.setVisible(false);

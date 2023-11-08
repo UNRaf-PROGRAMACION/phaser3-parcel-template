@@ -89,28 +89,33 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
     if (this.active) {
       this.enemyCobraHp = this.enemyCobraHp - damageAmount;
 
-      if (this.enemyCobraHp <= 0) {
-        this.scene.exp=this.scene.exp +200
+   
+    }
+    if (this.enemyCobraHp <= 0) {
+      this.anims.play("explosion",true)
+      this.scene.exp=this.scene.exp +200
 if (this.scene.exp>=1200){
-  this.scene.lvl++
-  this.levelUpSound = this.scene.sound.add("levelup");
-  this.levelUpSound.play();
-  this.scene.exp=0
-  this.scene.maxHp += 25;
-  events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
-  events.emit("UpdateLVL", {lvl: this.scene.lvl });
-  this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
+this.scene.lvl++
+this.levelUpSound = this.scene.sound.add("levelup");
+this.levelUpSound.play();
+this.scene.exp=0
+this.scene.maxHp += 25;
+events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
+events.emit("UpdateLVL", {lvl: this.scene.lvl });
+this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
 
 }
-        this.scene.cobrasKilled++;
-        this.scene.cobrasKilledText.setText(
-        `${getPhrase(this.deadCobra)}: ${this.scene.cobrasKilled} /6`
-      );
-        
-        this.setActive(false).setVisible(false);
+      this.scene.cobrasKilled++;
+      this.scene.cobrasKilledText.setText(
+      `${getPhrase(this.deadCobra)}: ${this.scene.cobrasKilled} /6`
+    );
+      setTimeout(() => {
+        this.setVisible(false);
+      }, 200);
+      this.setActive(false);
       
-        
-      }
+    
+      
     }
   }
 }

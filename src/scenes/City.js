@@ -28,10 +28,12 @@ export default class City extends Phaser.Scene {
     this.squirrelsKilled;
     this.squirrelsKilledText;
     this.damageAmount;
-    this.enemyHp
+    this.enemyHp;
+    this.showtutorial=true
   }
 
   init(data) {
+    console.table(data)
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
     this.maxHp = data.maxHp || 200;
@@ -51,6 +53,7 @@ export default class City extends Phaser.Scene {
     this.pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
     this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     this.user = this.firebase.getUser();
+    this.showtutorial= data.showtutorial === false ? false : true
   }
 
   create() {
@@ -165,50 +168,53 @@ export default class City extends Phaser.Scene {
       null,
       this
     );
+if(this.showtutorial){
+  this.tutorial = this.add.image(950, 500, "Tutorial").setScale(2);
+  this.moverseText = this.add.text(480, 600, "Moverse", {
+    color: "000000",
+    fontSize: "35px",
+    fontFamily: "Roboto Mono",
+  });
+  this.atacarText = this.add.text(880, 600, "Atacar", {
+    color: "000000",
+    fontSize: "35px",
+    fontFamily: "Roboto Mono",
+  });
+  this.fullScreentext = this.add.text(1360, 600, "Pantalla Completa", {
+    color: "000000",
+    fontSize: "35px",
+    fontFamily: "Roboto Mono",
+  });
+  this.pauseText = this.add.text(1165, 600, "Pausa", {
+    color: "000000",
+    fontSize: "35px",
+    fontFamily: "Roboto Mono",
+  });
+  this.moverseText.setScrollFactor(0, 0);
+  this.atacarText.setScrollFactor(0, 0);
+  this.fullScreentext.setScrollFactor(0, 0);
+  this.pauseText.setScrollFactor(0, 0);
 
-    this.tutorial = this.add.image(950, 500, "Tutorial").setScale(2);
+  this.tutorial.setScrollFactor(0, 0).setInteractive();
+  setTimeout(() => {
+    this.moverseText.setVisible(false);
+    this.atacarText.setVisible(false);
+    this.fullScreentext.setVisible(false);
+    this.pauseText.setVisible(false);
+    this.tutorial.setVisible(false);
+  }, 2000);
 
-    this.moverseText = this.add.text(480, 600, "Moverse", {
-      color: "000000",
-      fontSize: "35px",
-      fontFamily: "Roboto Mono",
-    });
-    this.atacarText = this.add.text(880, 600, "Atacar", {
-      color: "000000",
-      fontSize: "35px",
-      fontFamily: "Roboto Mono",
-    });
-    this.fullScreentext = this.add.text(1360, 600, "Pantalla Completa", {
-      color: "000000",
-      fontSize: "35px",
-      fontFamily: "Roboto Mono",
-    });
-    this.pauseText = this.add.text(1165, 600, "Pausa", {
-      color: "000000",
-      fontSize: "35px",
-      fontFamily: "Roboto Mono",
-    });
-    this.moverseText.setScrollFactor(0, 0);
-    this.atacarText.setScrollFactor(0, 0);
-    this.fullScreentext.setScrollFactor(0, 0);
-    this.pauseText.setScrollFactor(0, 0);
+  this.tutorial.on("pointerdown", () => {
+    this.moverseText.setVisible(false);
+    this.atacarText.setVisible(false);
+    this.fullScreentext.setVisible(false);
+    this.pauseText.setVisible(false);
+    this.tutorial.setVisible(false);
+  });
+}
 
-    this.tutorial.setScrollFactor(0, 0).setInteractive();
-    setTimeout(() => {
-      this.moverseText.setVisible(false);
-      this.atacarText.setVisible(false);
-      this.fullScreentext.setVisible(false);
-      this.pauseText.setVisible(false);
-      this.tutorial.setVisible(false);
-    }, 2000);
-
-    this.tutorial.on("pointerdown", () => {
-      this.moverseText.setVisible(false);
-      this.atacarText.setVisible(false);
-      this.fullScreentext.setVisible(false);
-      this.pauseText.setVisible(false);
-      this.tutorial.setVisible(false);
-    });
+   
+   
 
     this.physics.add.overlap(
       this.player,
@@ -241,6 +247,8 @@ export default class City extends Phaser.Scene {
       null,
       this
     );
+    this.savePlace = this.physics.add.image(4300, 2850, "savePoint");
+
     this.rectangle = this.add.image(957, 900, "rectangle");
     this.rectangle.scaleX = 1.1;
     this.DesignUI2 = this.add.image(1700, 57, "UIRectangle");
@@ -251,7 +259,7 @@ export default class City extends Phaser.Scene {
       60,
       getPhrase(this.deadSquirrel),
       {
-        fontSize: "40px",
+        fontSize: "35px",
         fontFamily: "Roboto Mono",
       }
     );
@@ -289,7 +297,6 @@ export default class City extends Phaser.Scene {
     });
     this.scale.fullscreenTarget = this.game.canvas;
 
-    this.savePlace = this.physics.add.image(4300, 2850, "savePoint");
     this.saveText = this.add.text(4200, 2850, getPhrase(this.save), {
       fontSize: "40px",
       fontFamily: "Roboto Mono",
@@ -381,24 +388,19 @@ export default class City extends Phaser.Scene {
 
   playerHitEnemy(hitbox, squirrel) {
     if (squirrel.active && hitbox.active) {
-      squirrel.takeDamage(this.hitbox.damageAmount);
+      
       squirrel.anims.play("Damage", true);
+      squirrel.takeDamage(this.hitbox.damageAmount);
+   
       squirrel.stopMovement();
 
       setTimeout(() => {
         squirrel.resumeMovement();
+        
       }, 700);
     }
   }
 
-  takeDamage(damageAmount, rock, squirrel) {
-    this.enemyHp -= damageAmount;
-    if (this.enemyHp <= 0) {
-      squirrel.anims.play("Pum", true);
-      squirrel.anims.stop();
-      squirrel.setActive(false).setVisible(false);
-    }
-  }
 
   mision(player, Eagle) {
     this.DesignUI2.setVisible(true);
@@ -413,6 +415,8 @@ export default class City extends Phaser.Scene {
 
     if (this.squirrelsKilled >= 4) {
       this.lvl++;
+     this.maxHp+=25
+     events.emit("UpdateMaxHp", { maxHp: this.maxHp });
       this.levelUpSound = this.sound.add("levelup");
       this.levelUpSound.play();
       events.emit("UpdateLVL", { lvl: this.lvl });

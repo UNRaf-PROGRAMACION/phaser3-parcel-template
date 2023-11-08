@@ -448,7 +448,7 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
     this.anims.create({
       key: "explosion",
       frames: this.anims.generateFrameNumbers("explosion", { start: 0, end: 3 }),
-      frameRate: 15,
+      frameRate: 10,
       repeat: 0,
     });
 
