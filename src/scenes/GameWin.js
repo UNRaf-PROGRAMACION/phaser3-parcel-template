@@ -3,8 +3,6 @@ import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
-// //ending cutscenes
-// //Credits
 export default class GameWin extends Phaser.Scene {
   #wasChangedLanguage = TODO;
   constructor() {
