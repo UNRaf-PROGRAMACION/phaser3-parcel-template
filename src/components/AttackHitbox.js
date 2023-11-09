@@ -19,9 +19,6 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
 
     this.facingDirection = null;
     this.damageAmount = 1000;
-    // this.attackSound = attackSound;
-    // this.isAttackSoundPlaying = false;
-    // this.isAttacking = false;
   }
 
   update() {
@@ -73,10 +70,8 @@ export default class Hitbox extends Phaser.GameObjects.Rectangle {
   }
 
   attack() {
-    console.log("Player attacked");
     this.setActive(true).setVisible(true);
     setTimeout(() => {
-      // Deactivate or hide the hitbox after a delay
       this.setActive(false).setVisible(false);
     }, 100);
   }

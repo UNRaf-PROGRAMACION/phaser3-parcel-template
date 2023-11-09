@@ -7,11 +7,6 @@ import Npc from "../components/Npc";
 import { TODO } from "../enums/status";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
-
-// //Second unlocked biome, after completing some tasks, unlocks forest
-// //holds secret collectibles
-// //has fast enemies
-// //save station
 export default class Desert extends Phaser.Scene {
   #wasChangedLanguage = TODO;
   constructor() {
@@ -110,13 +105,10 @@ export default class Desert extends Phaser.Scene {
     this.salidaDesierto = this.physics.add.group();
     this.salidaDesierto.allowGravity = false;
     objectsLayer.objects.forEach((objData) => {
-      //console.log(objData.name, objData.type, objData.x, objData.y);
       const { x = 0, y = 0, name } = objData;
 
       switch (name) {
         case "ciudad": {
-          // add star to scene
-          // console.log("estrella agregada: ", x, y);
           let salida = this.salidaDesierto
             .create(x, y, "ArrowDown")
             .setScale(1)
@@ -187,7 +179,6 @@ export default class Desert extends Phaser.Scene {
     this.mision2Text.setActive(false);
     this.mision2Text.setScrollFactor(0);
     this.input.keyboard.on("keydown-SPACE", () => {
-      // This code will be executed when the spacebar is pressed
       this.mision2Text.setVisible(false);
       this.rectangle.setVisible(false);
     });
@@ -424,7 +415,6 @@ export default class Desert extends Phaser.Scene {
     if (biting) {
       biting.setActive(true);
       biting.setVisible(true);
-      console.log("vel piedra", velocityX);
       this.physics.moveTo(biting, player.x, player.y, Math.abs(velocityX));
     }
 

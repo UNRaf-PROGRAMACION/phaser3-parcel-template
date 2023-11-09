@@ -182,8 +182,8 @@ takeDamage(damageAmount,boss) {
       this.scene.start("GameWin");
       this.scene.stop("BossArena");
       }
-    const maxWidth = 1700; // Adjust this value to fit your screen
-    const currentHpWidth = (this.bossEnemyHp / 10000) * maxWidth; // Assuming max HP is 10000
+    const maxWidth = 1700;
+    const currentHpWidth = (this.bossEnemyHp / 10000) * maxWidth;
     this.bossHpBars.getChildren()[1].setScale(currentHpWidth / maxWidth, 1);
   }
 createBoulder() {

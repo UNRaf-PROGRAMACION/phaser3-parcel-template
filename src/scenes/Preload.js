@@ -1,7 +1,4 @@
 import Phaser from "phaser";
-// // import events from "./EventCenter";
-
-// //Preload
 export default class Preload extends Phaser.Scene {
   constructor() {
     super("Preload");
@@ -73,7 +70,6 @@ export default class Preload extends Phaser.Scene {
     this.load.spritesheet("C4", "./assets/images/C4.png", {
       frameWidth: 212,
       frameHeight: 200,
-      // startFrame: 10
     });
 this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
   frameWidth:264,
@@ -287,7 +283,7 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
         end: 11,
       }),
       frameRate: 5,
-      repeat: -1, // Repetir indefinidamente
+      repeat: -1, 
     });
 
     this.anims.create({
@@ -320,7 +316,7 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
         end: 14,
       }),
       frameRate: 5,
-      repeat: -1, // Repetir indefinidamente
+      repeat: -1, 
     });
 
     this.anims.create({
@@ -405,7 +401,7 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
         end: 17,
       }),
       frameRate: 5,
-      repeat: -1, // Repetir indefinidamente
+      repeat: -1,
     });
 
     this.anims.create({
