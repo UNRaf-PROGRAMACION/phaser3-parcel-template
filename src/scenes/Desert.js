@@ -312,13 +312,14 @@ export default class Desert extends Phaser.Scene {
 
   }
   mision2(player, fox) {
+    this.DesignUI2.setVisible(true);
     this.mision2Text.setVisible(true);
     this.rectangle.setVisible(true);
     this.cobrasKilledText.setVisible(true);
     this.cobrasKilledText.setActive(true);
     this.objectCollectedText.setVisible(true);
     this.objectCollectedText.setActive(true);
-    this.DesignUI2.setVisible(true);
+   
   
     setTimeout(() => {
       this.mision2Text.setVisible(false);
@@ -335,6 +336,8 @@ export default class Desert extends Phaser.Scene {
       this.damageAmount += Math.round(this.damageAmount * 0.2);
       events.emit("UpdateMaxHp", { maxHp: this.maxHp });
       events.emit("UpdateLVL", { lvl: this.lvl });
+      this.cobrasKilled = 0
+      this.objectCollected = 0
       this.cobrasKilledText.setText("");
       this.objectCollectedText.setText("");
         for (const c of this.cobras) {
@@ -342,15 +345,13 @@ export default class Desert extends Phaser.Scene {
         }
         this.cobras = [];
         this.missionDesertComplete = true;
-      }
-      if ((this.missionDesertComplete = true)) {
-     
-        this.mision2Text.setText(getPhrase(this.desertEnd));
-        this.DesignUI2.setVisible(false);
-  
-      }
+      } 
     }
+    if (this.missionDesertComplete) {
+      this.DesignUI2.setVisible(false);
+      this.mision2Text.setText(getPhrase(this.desertEnd));
   }
+  };
 
   createBites() {
     this.biteGroup = this.physics.add.group({

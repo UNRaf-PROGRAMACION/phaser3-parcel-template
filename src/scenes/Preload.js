@@ -94,6 +94,8 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
     this.load.audio("menuMusic", "./assets/Audio/menuMusic.mp3");
     this.load.audio("levelup","./assets/Audio/Levelup.wav");
     this.load.audio("click","./assets/Audio/buttonClick.mp3");
+    this.load.audio("owlSound","./assets/Audio/OwlSound.mp3");
+    this.load.audio("collectibleSound","./assets/Audio/Collectible.mp3");
 
     this.load.spritesheet("Fox","./assets/images/Fox.png",{
       frameWidth:174,

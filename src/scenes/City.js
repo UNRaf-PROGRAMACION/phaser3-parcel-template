@@ -33,6 +33,7 @@ export default class City extends Phaser.Scene {
     this.damageAmount;
     this.enemyHp;
     this.showtutorial=true
+    this.owlSoundCanHear=false
   }
 
   init(data) {
@@ -329,7 +330,7 @@ if(this.showtutorial){
     this.owlText.setVisible(false);
     this.owlText.setWordWrapWidth(this.rectangle.width);
 
-    this.physics.add.overlap(this.player,this.owl,this.owlInteraction,null,this);
+    this.physics.add.overlap(this.player,this.owl,this.owlInteraction,() => {this.owlSoundCanHear===true} ,this);
   }
   update() {
     this.player.update();
@@ -440,6 +441,9 @@ if(this.showtutorial){
   }
 
   Heal(player, collectible) {
+    this.collectibleSound=this.sound.add("collectibleSound");
+    this.collectibleSound.play();
+    
     if (this.hp < this.maxHp) {
       this.hp = this.hp + 50;
 
@@ -509,6 +513,15 @@ if(this.showtutorial){
     });
   }
   owlInteraction(player,owl){
+    if(!this.owlSoundCanHear){
+      this.owlSound=this.sound.add("owlSound")
+      this.owlSound.play()
+      this.owlSoundCanHear=true
+    }
+    setTimeout(() => {
+    this.owlSound.stop()
+      this.owlSoundCanHear=false
+    }, 1000);
     this.owlText.setVisible(true)
     this.rectangle.setVisible(true)
     setTimeout(() => {
