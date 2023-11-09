@@ -85,7 +85,7 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
 
   takeDamage(damageAmount) {
     if (this.active) {
-      this.enemyCobraHp = this.enemyCobraHp - damageAmount;
+      this.enemyCobraHp = this.enemyCobraHp - this.scene.damageAmount;
       if (this.enemyCobraHp <= 0) {
         this.scene.exp = this.scene.exp + 200;
         console.log("xp awarded ", this.scene.exp);
@@ -97,7 +97,7 @@ export default class Enemies2 extends Phaser.GameObjects.Sprite {
           this.scene.exp = 0;
           events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
           events.emit("UpdateLVL", { lvl: this.scene.lvl });
-          this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
+          this.scene.damageAmount += 100;
         }
 
         this.scene.cobrasKilled++;

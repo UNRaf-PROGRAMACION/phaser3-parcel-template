@@ -151,14 +151,14 @@ export default class Desert extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.fox, this.mision2, null, this);
     this.cobrasKilledText = this.add.text(1350, 30, getPhrase(this.deadCobra), {
       fontSize: "35px",
-      fontFamily: "Roboto Mono",
+      fontFamily: "Trebuchet MS",
     });
     this.cobrasKilledText.setVisible(false);
     this.cobrasKilledText.setActive(false);
     this.cobrasKilledText.setScrollFactor(0);
     this.objectCollectedText = this.add.text(1350, 130, getPhrase(this.partCollected), {
       fontSize: "35px",
-      fontFamily: "Roboto Mono",
+      fontFamily: "Trebuchet MS",
     });
     this.objectCollectedText.setVisible(false);
     this.objectCollectedText.setActive(false);
@@ -171,7 +171,7 @@ export default class Desert extends Phaser.Scene {
         getPhrase(this.desertBegin),
         {
           fontSize: "40px",
-          fontFamily: "Roboto Mono",
+          fontFamily: "Trebuchet MS",
           color: "FFFF00",
         }
       )
@@ -332,9 +332,11 @@ export default class Desert extends Phaser.Scene {
       this.levelUpSound = this.sound.add("levelup");
       this.levelUpSound.play();
       this.maxHp += 25;
-      this.damageAmount += Math.round(this.damageAmount * 0.2);
+      this.damageAmount += 100;
       events.emit("UpdateMaxHp", { maxHp: this.maxHp });
       events.emit("UpdateLVL", { lvl: this.lvl });
+      this.cobrasKilled = 0;
+      this.objectCollected = 0;
       this.cobrasKilledText.setText("");
       this.objectCollectedText.setText("");
         for (const c of this.cobras) {

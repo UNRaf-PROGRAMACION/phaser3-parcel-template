@@ -89,7 +89,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
   takeDamage(damageAmount) {
 
     if (this.active) {
-      this.enemyHp = this.enemyHp - damageAmount;
+      this.enemyHp = this.enemyHp - this.scene.damageAmount;
      
       if (this.enemyHp <= 0) {
         this.anims.play("explosion",true);
@@ -103,7 +103,7 @@ export default class Enemies extends Phaser.GameObjects.Sprite {
         this.scene.exp = 0
         events.emit("UpdateMaxHp", { maxHp: this.scene.maxHp });
         events.emit("UpdateLVL", {lvl: this.scene.lvl });
-        this.scene.damageAmount += Math.round(this.scene.damageAmount * 0.2);
+        this.scene.damageAmount += 100;
        }
         
         
