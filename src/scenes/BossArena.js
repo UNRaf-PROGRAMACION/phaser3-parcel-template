@@ -30,7 +30,7 @@ export default class BossArena extends Phaser.Scene {
         this.exp = data.exp || 0;
         this.missionComplete = data.missionComplete || false;
         this.damageAmount = data.damageAmount || 100;
-        this.Bossvelocity=200
+        this.Bossvelocity = 200
         this.bossEnemyHp = data.bossEnemyHp || 10000;
         this.initialX = 1500;
         this.initialY = 900;
@@ -103,6 +103,22 @@ export default class BossArena extends Phaser.Scene {
         );
         this.boss.push(boss);
       }
+
+      // Create the black background bar
+    const bossMaxHpBar = this.add.rectangle(0, 0, 1000, 60, 0x000000);
+    bossMaxHpBar.setOrigin(0, 0);
+    bossMaxHpBar.setPosition(50, this.game.config.height - 50);
+    
+    // Create the red front bar
+    const bossCurrentHpBar = this.add.rectangle(0, 0, 1000, 60, 0xff0000);
+    bossCurrentHpBar.setOrigin(0, 0);
+    bossCurrentHpBar.setPosition(50, this.game.config.height - 50);
+
+    this.bossHpBars = this.add.group([bossMaxHpBar, bossCurrentHpBar]);
+    this.bossHpBars.setDepth(1); 
+
+    bossMaxHpBar.setScrollFactor(0, 0);
+    bossCurrentHpBar.setScrollFactor(0, 0);
     
  }
  update(){
@@ -163,6 +179,9 @@ takeDamage(damageAmount,boss) {
       this.scene.start("GameWin");
       this.scene.stop("BossArena");
       }
+    const maxWidth = 1000; // Adjust this value to fit your screen
+    const currentHpWidth = (this.bossEnemyHp / 10000) * maxWidth; // Assuming max HP is 10000
+    this.bossHpBars.getChildren()[1].setScale(currentHpWidth / maxWidth, 1);
   }
 createBoulder() {
     this.boulderGroup = this.physics.add.group({

@@ -37,7 +37,6 @@ export default class City extends Phaser.Scene {
   }
 
   init(data) {
-    console.table(data)
     this.lvl = data.lvl || 1;
     this.hp = data.hp || 200;
     this.maxHp = data.maxHp || 200;
@@ -57,7 +56,7 @@ export default class City extends Phaser.Scene {
     this.pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
     this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     this.user = this.firebase.getUser();
-    this.showtutorial= data.showtutorial === false ? false : true
+    this.showtutorial= data.showtutorial === false ? false : true;
   }
 
   create() {
