@@ -43,7 +43,6 @@ export default class Lobby extends Phaser.Scene {
       this.velocity
     );
     this.add.existing(this.character);
-    //  overlap entre level1door y character
     this.physics.add.collider(
       this.Level1Door,
       this.character,
