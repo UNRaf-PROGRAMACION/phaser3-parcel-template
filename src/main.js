@@ -1,32 +1,55 @@
-import Phaser from "phaser";
+ import Phaser from "phaser";
+ import Preload from "./scenes/Preload";
+ import MainMenu from "./scenes/MainMenu";
+ import City from "./scenes/City";
+ import Desert from "./scenes/Desert";
+ import UI from "./scenes/UI";
+ import GameEnd from "./scenes/GameEnd";
+ import Credits from "./scenes/Credits";
+ import Language from "./scenes/LanguagesSelector";
+import GameWin from "./scenes/GameWin";
+import MenuPause from "./scenes/PauseMenu";
+import FirebasePlugin from "./plugins/FireBasePlugin";
+import Login from "./scenes/Login";
+import BossArena from "./scenes/BossArena"
 
-import HelloWorldScene from "./scenes/HelloWorldScene";
-import UI from "./scenes/UI";
 
-const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    min: {
-      width: 800,
-      height: 600,
-    },
-    max: {
-      width: 1600,
-      height: 1200,
-    },
+
+ const config = {
+   type: Phaser.AUTO,
+   width: 1920,
+   height: 1080,
+   scale: {
+     mode: Phaser.Scale.FIT,
+     autoCenter: Phaser.Scale.CENTER_BOTH,
+     min: {
+       width: 1920,
+       height: 1080,
+     },
+     max: {
+       width: 1600,
+       height: 1200,
+     },
+   },
+   physics: {
+     default: "arcade",
+     arcade: {
+       gravity: { y: 0 },
+       debug: false,
+     },
+   },
+   scene: [Preload, Login, MainMenu, Credits, Language, City,BossArena, Desert, GameEnd,GameWin,MenuPause, UI],
+   plugins: {
+    global: [
+      {
+        key: "FirebasePlugin",
+        plugin: FirebasePlugin,
+        start: true,
+        mapping: "firebase",
+      },
+    ],
   },
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 200 },
-      debug: false,
-    },
-  },
-  scene: [HelloWorldScene, UI],
-};
+ };
 
-export default new Phaser.Game(config);
+
+const game= new Phaser.Game(config);
