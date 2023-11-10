@@ -56,6 +56,11 @@ export default class Desert extends Phaser.Scene {
   }
 
   create() {
+    this.scene.launch("UI", {
+      lvl: this.lvl,
+      hp: this.hp,
+      maxHp: this.maxHp,
+   });
     const map = this.make.tilemap({ key: "Desert" });
     const layerbackGround = map.addTilesetImage("desertTileset", "Mapdesert");
     const background = map.createLayer("Ground", layerbackGround, 0, 0);

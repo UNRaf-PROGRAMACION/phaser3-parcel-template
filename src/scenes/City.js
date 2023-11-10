@@ -72,17 +72,22 @@ export default class City extends Phaser.Scene {
       y: 3000,
       timeStamp: new Date(),
     });
+    this.scene.launch("UI", {
+      lvl: this.lvl,
+      hp: this.hp,
+      maxHp: this.maxHp,
+   });
 
     const map = this.make.tilemap({ key: "City" });
 
     const layerbackGround = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
     const background = map.createLayer("Ground", layerbackGround, 0, 0);
     const layerObstacle = map.addTilesetImage("TDJ2 - tileset", "Mapcity");
-    const layerObstacle2 = map.addTilesetImage("BossEntrance", "BossDoor");
     const obstacle = map.createLayer("Deco", layerObstacle, 0, 0);
 
     const objectsLayer = map.getObjectLayer("Objects");
     this.collectible = this.physics.add.group();
+    //this.savePlace = this.physics.add.group()
     this.collectible.allowGravity = false;
     this.door = this.physics.add.group();
     this.door.allowGravity = false;
@@ -250,8 +255,12 @@ if(this.showtutorial){
       null,
       this
     );
-    this.savePlace = this.physics.add.image(4300, 2850, "savePoint");
-
+   this.savePlace = this.physics.add.sprite(4300, 2850, "savePoint")
+   setTimeout(() => {
+    this.savePlace.anims.play("SavePoint",true);
+   }, 2000);
+   
+   
     this.rectangle = this.add.image(957, 900, "rectangle");
     this.rectangle.scaleX = 1.1;
     this.DesignUI2 = this.add.image(1700, 57, "UIRectangle");

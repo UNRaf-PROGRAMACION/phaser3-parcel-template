@@ -40,6 +40,11 @@ export default class BossArena extends Phaser.Scene {
        
     }
  create(){
+  this.scene.launch("UI", {
+    lvl: this.lvl,
+    hp: this.hp,
+    maxHp: this.maxHp,
+ });
     const map = this.make.tilemap({ key: "BossArena" });
 
     const layerbackGround = map.addTilesetImage("BossAreaTileset", "BossAreaTileset");

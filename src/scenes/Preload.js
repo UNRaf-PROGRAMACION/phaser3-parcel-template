@@ -38,6 +38,10 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 221,
       frameHeight:191,
     });
+    this.load.spritesheet("savePoint","./assets/images/SavePointSprites.png",{
+      frameWidth: 211.5,
+      frameHeight: 270,
+    });
     this.load.image("savePoint", "./assets/images/PointSave.png");
 
     this.load.spritesheet("Eagle", "./assets/images/NPC.png", {
@@ -140,6 +144,15 @@ this.load.spritesheet("Boulder","./assets/images/BearAttackRock.png",{
       }),
       frameRate: 15,
       repeat: 0,
+    });
+    this.anims.create({
+      key: "SavePoint",
+      frames: this.anims.generateFrameNumbers("savePoint", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 5,
+      repeat: -1,
     });
     this.anims.create({
       key: "gear-anim",
