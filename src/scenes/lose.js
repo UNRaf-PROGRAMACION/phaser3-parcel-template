@@ -13,7 +13,8 @@ export default class Lose extends Phaser.Scene {
 
     create () {
         // Fondo de la escena
-        this.add.rectangle(0, 0, 1920, 1980, 0x000000, 0.7).setOrigin(0, 0);
+        this.add.image(1920 / 2,
+        1080 / 2, "game-over");
 
         // Mensaje de victoria
         const winText = this.add.text(1920 / 2, 1080 / 2, '¡Has Perdido!', {

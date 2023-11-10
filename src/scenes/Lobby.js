@@ -19,22 +19,42 @@ export default class Lobby extends Phaser.Scene {
   }
 
   create() {
+    this.lobbyTile = this.make.tilemap({ key: "lobby-tile" });
+    this.objectsLayer = this.lobbyTile.getObjectLayer("doors");
+    this.atlas = this.lobbyTile.addTilesetImage("Atlas", "Atlas");
+    this.floorLayer = this.lobbyTile.createLayer("Floor", this.atlas, 0, 0);
+    this.wallCollisionLayer = this.lobbyTile.createLayer(
+      "WallC",
+      this.atlas,
+      0,
+      0
+    );
+    this.wallCollisionLayer.setDepth(1);
+    this.wallCollisionLayer.setCollisionByProperty({ colision: true });
+
     this.lobbySong = this.sound.add("lobby-song", { loop: true });
     this.lobbySong.play();
 
+    this.spawnPoint = this.lobbyTile.findObject("doors", (obj) => obj.name === "1");
+    this.spawnPoint2 = this.lobbyTile.findObject("doors", (obj) => obj.name === "2");
+    this.spawnPoint3 = this.lobbyTile.findObject("doors", (obj) => obj.name === "3");
+
     this.Level1Door = this.physics.add
-      .sprite(100, 100, "door")
+      .sprite(this.spawnPoint.x, this.spawnPoint.y, "door")
       .setScale(0.5)
       .setImmovable();
     this.Level1Door.setFrame(3);
+    this.Level1Door.setDepth(2);
     this.Level2Door = this.physics.add
-      .sprite(500, 100, "door")
+      .sprite(this.spawnPoint2.x, this.spawnPoint2.y, "door")
       .setScale(0.5)
       .setImmovable();
+      this.Level2Door.setDepth(2);
     this.Level3Door = this.physics.add
-      .sprite(1000, 100, "door")
+      .sprite(this.spawnPoint3.x, this.spawnPoint3.y, "door")
       .setScale(0.5)
       .setImmovable();
+      this.Level3Door.setDepth(2);
     this.character = new PrincipalCharacter(
       this,
       960,
@@ -42,6 +62,7 @@ export default class Lobby extends Phaser.Scene {
       "principal-character",
       this.velocity
     );
+    this.character.setDepth(2);
     this.add.existing(this.character);
     this.physics.add.collider(
       this.Level1Door,
@@ -64,6 +85,8 @@ export default class Lobby extends Phaser.Scene {
       null,
       this
     );
+
+    // this.physics.add.collider(this.character, this.wallCollisionLayer);
   }
 
   update() {
