@@ -25,8 +25,14 @@ export default class Game extends Phaser.Scene {
       level: this.level,
     });
 
-    this.gameSong = this.sound.add("game-song");
+    this.gameSong = this.sound.add("game-song").setVolume(0.3);
     this.gameSong.play({ loop: true });
+
+    this.gameSong2 = this.sound.add("game-song2").setVolume(0.5);
+    this.gameSong2.play({ loop: true });
+
+
+    this.dynamiteSound = this.sound.add("dynamite-sound");
 
     this.initializeLevel();
     this.createCharacter();
@@ -172,6 +178,8 @@ export default class Game extends Phaser.Scene {
         });
         this.gameSong.stop();
         this.gameSong.loop = false;
+        this.gameSong2.stop();
+        this.gameSong2.loop = false;
         this.saveGameData();
       }
 
@@ -187,6 +195,7 @@ export default class Game extends Phaser.Scene {
   hitDynamite(character, dynamite) {
     dynamite.disableBody(true, true);
     this.dynamiteCuantity -= 1;
+    this.dynamiteSound.play();
     events.emit("actualizarDatos", {
       level: this.level,
       dynamiteCuantity: this.dynamiteCuantity,
@@ -200,6 +209,8 @@ export default class Game extends Phaser.Scene {
     });
     this.gameSong.stop();
     this.gameSong.loop = false;
+    this.gameSong2.stop();
+    this.gameSong2.loop = false;
 
 
 

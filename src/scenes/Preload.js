@@ -40,8 +40,11 @@ export default class Preload extends Phaser.Scene {
     this.load.image("game-over", "./assets/sprites/gameOver.png");
     this.load.audio("main-menu-song", "./assets/audio/mainMenuSong.mp3");
     this.load.audio("game-song", "./assets/audio/gameSong.mp3");
+    this.load.audio("game-song2", "./assets/audio/gameSong2.mp3");
     this.load.audio("pointerOver", "./assets/audio/ui-pointerOver.mp3");
     this.load.audio("lobby-song", "./assets/audio/lobbySong.mp3");
+    this.load.audio ("dynamite-sound", "./assets/audio/dynamiteSound.mp3");
+    this.load.audio ("steps", "./assets/audio/steps.mp3");
     this.load.tilemapTiledJSON("level1", "./assets/tileMap/Level1.json");
     this.load.tilemapTiledJSON("lobby-tile", "./assets/tileMap/lobby.json");
   }
