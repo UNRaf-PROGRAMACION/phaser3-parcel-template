@@ -41,20 +41,17 @@ export default class Lobby extends Phaser.Scene {
 
     this.Level1Door = this.physics.add
       .sprite(this.spawnPoint.x, this.spawnPoint.y, "door")
-      .setScale(0.5)
       .setImmovable();
     this.Level1Door.setFrame(3);
-    this.Level1Door.setDepth(2);
+    this.Level1Door.setDepth(1);
     this.Level2Door = this.physics.add
       .sprite(this.spawnPoint2.x, this.spawnPoint2.y, "door")
-      .setScale(0.5)
       .setImmovable();
-      this.Level2Door.setDepth(2);
+      this.Level2Door.setDepth(1);
     this.Level3Door = this.physics.add
       .sprite(this.spawnPoint3.x, this.spawnPoint3.y, "door")
-      .setScale(0.5)
       .setImmovable();
-      this.Level3Door.setDepth(2);
+      this.Level3Door.setDepth(1);
     this.character = new PrincipalCharacter(
       this,
       960,
@@ -97,12 +94,18 @@ export default class Lobby extends Phaser.Scene {
     });
     this.character.update();
 
+    
+
     if (this.level >= 1) {
-      this.Level2Door.setFrame(3);
+      this.Level2Door.setFrame(0);
+    } else {
+      this.Level2Door.setFrame(1);
     }
 
     if (this.level >= 2) {
-      this.Level3Door.setFrame(3);
+      this.Level3Door.setFrame(0);
+    }  else {
+      this.Level3Door.setFrame(1);
     }
   }
 

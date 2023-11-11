@@ -79,7 +79,7 @@ export default class Game extends Phaser.Scene {
       0,
       0
     );
-    this.wallDecorativeLayer.setDepth(3);
+    this.wallDecorativeLayer.setDepth(4);
     this.wallCollisionLayer.setCollisionByProperty({ colision: true });
   }
 
@@ -108,7 +108,7 @@ export default class Game extends Phaser.Scene {
       );
       this.boostActive = false; 
     }
-    this.character.setDepth(2);
+    this.character.setDepth(3);
     this.add.existing(this.character);
     this.cameras.main.startFollow(this.character);
     this.physics.world.setBounds(

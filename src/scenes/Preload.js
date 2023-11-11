@@ -20,8 +20,8 @@ export default class Preload extends Phaser.Scene {
     this.load.image("flash-effect", "./assets/particles/flashEffect.webp");
     this.load.image("Atlas", "./assets/sprites/Atlas.png");
     this.load.spritesheet("door", "./assets/sprites/door.png", {
-      frameWidth: 300,
-      frameHeight: 600,
+      frameWidth: 580 / 2,
+      frameHeight: 250,
     });
     this.load.image("anonymous-logo", "./assets/sprites/anonymousLogo.png");
     this.load.image("github-logo", "./assets/sprites/githubLogo.png");
