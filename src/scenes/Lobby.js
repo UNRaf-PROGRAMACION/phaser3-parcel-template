@@ -41,16 +41,22 @@ export default class Lobby extends Phaser.Scene {
 
     this.Level1Door = this.physics.add
       .sprite(this.spawnPoint.x, this.spawnPoint.y, "door")
-      .setImmovable();
+      .setImmovable()
+      .setSize(580/2, 330) // Ancho x Alto de la hitbox
+      .setOffset(0, 0) 
     this.Level1Door.setFrame(3);
     this.Level1Door.setDepth(1);
     this.Level2Door = this.physics.add
       .sprite(this.spawnPoint2.x, this.spawnPoint2.y, "door")
-      .setImmovable();
+      .setImmovable()
+      .setSize(580/2, 330)
+      .setOffset(0, 0) 
       this.Level2Door.setDepth(1);
     this.Level3Door = this.physics.add
       .sprite(this.spawnPoint3.x, this.spawnPoint3.y, "door")
-      .setImmovable();
+      .setImmovable()
+      .setSize(580/2, 330)
+      .setOffset(0, 0)
       this.Level3Door.setDepth(1);
     this.character = new PrincipalCharacter(
       this,
@@ -83,7 +89,40 @@ export default class Lobby extends Phaser.Scene {
       this
     );
 
-    // this.physics.add.collider(this.character, this.wallCollisionLayer);
+
+    this.wasdImage = this.add.image(200, 100, "wasd");
+    this.wasdImage.setOrigin(0.5, 0.5);
+    this.wasdImage.setScale(1);
+    this.wasdImage.setDepth(5);
+
+    this.spaceImage = this.add.image(200, 300, "space");
+    this.spaceImage.setOrigin(0.5, 0.5);
+    this.spaceImage.setScale(1);
+    this.spaceImage.setDepth(5);
+    // Agregar el texto "moverse"
+    this.moveText = this.add.text(200, 100, "Moverse", {
+        fontFamily: "Arial",
+        fontSize: "24px",
+        color: "#ffffff",
+    });
+    this.moveText.setOrigin(0.5, 0.5);
+    
+
+    // Configurar temporizador para desvanecer la imagen y el texto después de dos segundos
+    this.time.delayedCall(2000, () => {
+        this.tweens.add({
+            targets: [this.wasdImage, this.moveText,this.spaceImage],
+            alpha: 0,
+            duration: 500,  // Duración de la animación de desvanecimiento en milisegundos
+            onComplete: () => {
+                this.wasdImage.destroy();  // Eliminar la imagen después de la animación
+                this.moveText.destroy();   // Eliminar el texto después de la animación
+            },
+        });
+    });
+
+
+  this.physics.add.collider(this.character, this.wallCollisionLayer);
   }
 
   update() {

@@ -33,7 +33,7 @@ export default class PrincipalCharacter extends Phaser.Physics.Arcade.Sprite {
         this.flashEffect.setDepth(1); // Asegurarse de que esté por encima del personaje
         this.flashEffect.setVisible(false); // Inicialmente oculto
 
-        this.darkness = scene.add.image(x, y, "darkness").setDepth(1);
+        this.darkness = scene.add.image(x, y, "darkness").setDepth(4);
 
         this.canUseFlash = canUseFlash || true;
 

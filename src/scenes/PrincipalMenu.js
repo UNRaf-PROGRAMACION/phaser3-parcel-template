@@ -34,7 +34,8 @@ export default class PrincipalMenu extends Phaser.Scene {
         0x000000
       )
       .setOrigin(0);
-    this.fadingOverlay.setAlpha(0);
+    this.fadingOverlay.setAlpha(0)
+    .setDepth(4);
 
     this.sounds();
 
@@ -65,16 +66,14 @@ export default class PrincipalMenu extends Phaser.Scene {
     });
 
     this.playText.on("pointerdown", () => {
-      this.scene.start("lobby");
-      this.mainMenuSong.stop();
-      this.mainMenuSong.loop = false;
-
       this.tweens.add({
         targets: this.fadingOverlay,
         alpha: 1,
         duration: 1000,
         onComplete: () => {
           this.playCinematic();
+          this.mainMenuSong.stop();
+          this.mainMenuSong.loop = false;
         },
       });
     });
@@ -105,30 +104,9 @@ export default class PrincipalMenu extends Phaser.Scene {
       this.scene.pause();
     });
 
-    this.tutorialText = this.add
-      .text(80, 790, getPhrase("¿Cómo jugar?"), {
-        fontFamily: this.fontFamily,
-        fontSize: "80px",
-        color: this.color,
-      })
-      .setInteractive();
-
-    //  hacer lo mismo que con settings
-    this.tutorialText.on("pointerover", () => {
-      this.tutorialText.setScale(1.2);
-      this.pointerSound.play();
-    });
-
-    this.tutorialText.on("pointerout", () => {
-      this.tutorialText.setScale(1);
-    });
-
-    this.tutorialText.on("pointerdown", () => {
-      this.scene.launch("tutorial");
-      this.scene.pause();
-    });
-
     events.on("music-settings", this.musicTransfer, this);
+
+    this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
 
   sounds() {
@@ -140,18 +118,26 @@ export default class PrincipalMenu extends Phaser.Scene {
   }
 
   playCinematic() {
-    this.fadeOutCinematic();
-  }
+    // Obtén una referencia al video usando la notación this
+    this.video = this.add.video(1980 / 2, 1080/2, "main-cinematic");
+
+    // Reproduce el video
+    this.video.play();
+    this.video.setDepth(4);
+
+    if(this.space.isDown) {
+      this.fadeOutCinematic();
+    }
+
+    // Establece un evento para cuando el video termine
+    this.video.on('complete', function () {
+        // Cuando el video termina, ejecuta la función fadeOutCinematic
+        this.fadeOutCinematic();
+    }, this);
+}
 
   fadeOutCinematic() {
-    this.tweens.add({
-      targets: this.fadingOverlay,
-      alpha: 0,
-      duration: 1000, // Ajusta la duración de la animación de desvanecimiento
-      onComplete: () => {
-        this.scene.start("lobby");
-      },
-    });
+    this.scene.start("lobby");
   }
 
   musicTransfer(data) {

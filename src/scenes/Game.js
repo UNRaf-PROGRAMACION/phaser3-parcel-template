@@ -88,7 +88,7 @@ export default class Game extends Phaser.Scene {
       "objects",
       (obj) => obj.name === "principalCharacter"
     );
-    if (this.level <= 1) {
+
       // Nivel 1: Flash activado
       this.character = new PrincipalCharacter(
         this,
@@ -97,17 +97,6 @@ export default class Game extends Phaser.Scene {
         "principal-character",
         this.velocity
       );
-    } else {
-      this.character = new PrincipalCharacter(
-        this,
-        this.spawnPoint.x,
-        this.spawnPoint.y,
-        "principal-character",
-        this.velocity + this.level * 100,
-        false
-      );
-      this.boostActive = false; 
-    }
     this.character.setDepth(3);
     this.add.existing(this.character);
     this.cameras.main.startFollow(this.character);
@@ -124,7 +113,6 @@ export default class Game extends Phaser.Scene {
       this.level1Tile.heightInPixels
     );
 
-    this.boostKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
   }
 
   createDynamite() {
@@ -203,22 +191,37 @@ export default class Game extends Phaser.Scene {
   }
 
   damage() {
-    this.level -= 1;
-    this.scene.start("lose", {
-      level: this.level,
-    });
+    this.scene.pause();
+
+    // Obtén las coordenadas actuales de la cámara
+    const cameraX = this.cameras.main.scrollX;
+    const cameraY = this.cameras.main.scrollY;
+
+    // Calcula las coordenadas del video en relación con la cámara
+    this.videoX = cameraX + 1980 / 2;
+    this.videoY = cameraY + 1080 / 2;
+
+    this.video = this.add.video(this.videoX, this.videoY, "jumpscare");
     this.gameSong.stop();
     this.gameSong.loop = false;
     this.gameSong2.stop();
     this.gameSong2.loop = false;
 
+    // Reproduce el video
+    this.video.play();
+    this.video.setDepth(4);
 
-
-    events.emit("actualizarDatos", {
-      level: this.level,
-      dynamiteCuantity: this.dynamiteCuantity,
-    });
-  }
+    this.video.on('complete', function () {
+        this.level -= 1;
+        this.scene.start("lose", {
+            level: this.level,
+        });
+        events.emit("actualizarDatos", {
+            level: this.level,
+            dynamiteCuantity: this.dynamiteCuantity,
+        });
+    }, this);
+}
 
   saveGameData() {
     this.firebase.saveGameData(this.user.uid, {
