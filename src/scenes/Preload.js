@@ -59,6 +59,7 @@ export default class Preload extends Phaser.Scene {
     this.load.audio ("dynamite-sound", "./assets/audio/dynamiteSound.mp3");
     this.load.audio ("steps", "./assets/audio/steps.mp3");
     this.load.audio ("enemyFollow", "./assets/audio/enemyFollow.mp3");
+    this.load.audio ("PointerdownFX", "./assets/audio/PointerdownFX.mp3")
     this.load.tilemapTiledJSON("level1", "./assets/tileMap/Level1.json");
     this.load.tilemapTiledJSON("lobby-tile", "./assets/tileMap/lobby.json");
   }

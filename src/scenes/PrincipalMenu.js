@@ -66,6 +66,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     });
 
     this.playText.on("pointerdown", () => {
+      this.pointerdownSound.play();
       this.tweens.add({
         targets: this.fadingOverlay,
         alpha: 1,
@@ -74,6 +75,7 @@ export default class PrincipalMenu extends Phaser.Scene {
           this.playCinematic();
           this.mainMenuSong.stop();
           this.mainMenuSong.loop = false;
+
         },
       });
     });
@@ -115,6 +117,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     this.mainMenuSong.loop = true;
 
     this.pointerSound = this.sound.add("pointerOver");
+    this.pointerdownSound = this.sound.add("PointerdownFX");
   }
 
   playCinematic() {
