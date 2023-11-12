@@ -137,7 +137,7 @@ export default class Game extends Phaser.Scene {
     this.objectsLayer.objects.forEach((objData) => {
       const { x = 0, y = 0, name } = objData;
       if (name === "enemy") {
-        const enemy = new Enemy(this, x, y, "enemy", this.character, 1000, this.level); 
+        const enemy = new Enemy(this, x, y, "enemy", this.character, 1000, this.level).setScale(0.8); 
         this.enemyGroup.add(enemy);
       }
     });
@@ -211,7 +211,7 @@ export default class Game extends Phaser.Scene {
     this.video.play();
     this.video.setDepth(4);
 
-    this.video.on('complete', function () {
+    this.video.on('complete', () => {
         this.level -= 1;
         this.scene.start("lose", {
             level: this.level,

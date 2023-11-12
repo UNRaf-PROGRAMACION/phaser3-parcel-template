@@ -125,12 +125,19 @@ export default class PrincipalMenu extends Phaser.Scene {
     this.video.play();
     this.video.setDepth(4);
 
-    if(this.space.isDown) {
-      this.fadeOutCinematic();
-    }
-
     // Establece un evento para cuando el video termine
-    this.video.on('complete', function () {
+    this.video.on('complete',  () => {
+        // Cuando el video termina, ejecuta la función fadeOutCinematic
+        this.fadeOutCinematic();
+    }, this);
+
+    // Establece un evento para verificar si la tecla de espacio es presionada durante la cinematica
+    this.input.keyboard.once('keydown-SPACE', () => {
+      // Si la tecla de espacio es presionada, ejecuta la función fadeOutCinematic
+      this.fadeOutCinematic();
+  }, this);
+    // Establece un evento para cuando el video termine
+    this.video.on('complete',  () =>  {
         // Cuando el video termina, ejecuta la función fadeOutCinematic
         this.fadeOutCinematic();
     }, this);

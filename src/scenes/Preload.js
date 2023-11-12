@@ -16,7 +16,10 @@ export default class Preload extends Phaser.Scene {
       frameHeight: 212,
     });
     this.load.image("dynamite", "./assets/sprites/dynamite.png");
-    this.load.image("enemy", "./assets/sprites/enemy.png");
+    this.load.spritesheet("enemy", "./assets/sprites/enemy.png", {
+      frameWidth: 180,
+      frameHeight: 250,
+    });
     this.load.image("flash-effect", "./assets/particles/flashEffect.webp");
     this.load.image("Atlas", "./assets/sprites/Atlas.png");
     this.load.spritesheet("door", "./assets/sprites/door.png", {
@@ -55,6 +58,7 @@ export default class Preload extends Phaser.Scene {
     this.load.audio("lobby-song", "./assets/audio/lobbySong.mp3");
     this.load.audio ("dynamite-sound", "./assets/audio/dynamiteSound.mp3");
     this.load.audio ("steps", "./assets/audio/steps.mp3");
+    this.load.audio ("enemyFollow", "./assets/audio/enemyFollow.mp3");
     this.load.tilemapTiledJSON("level1", "./assets/tileMap/Level1.json");
     this.load.tilemapTiledJSON("lobby-tile", "./assets/tileMap/lobby.json");
   }
@@ -174,7 +178,47 @@ export default class Preload extends Phaser.Scene {
       frameRate: 6,
       repeat: -1,
     });
+
+    this.anims.create({
+      key: "enemy-down",
+      frames: this.anims.generateFrameNumbers("enemy", {
+        start: 8,
+        end: 11,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "enemy-up",
+      frames: this.anims.generateFrameNumbers("enemy", {
+        start: 12,
+        end: 15,
+      }),
+      frameRate: 8,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "enemy-right",
+      frames: this.anims.generateFrameNumbers("enemy", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "enemy-left",
+      frames: this.anims.generateFrameNumbers("enemy", {
+        start: 4,
+        end: 7,
+      }),
+      frameRate: 6,
+      repeat: -1,
+    });
   }
+  
 
   updateLoadingText() {
     this.dotCount = (this.dotCount % 3) + 1; // Alterna entre 1, 2, 3, 4

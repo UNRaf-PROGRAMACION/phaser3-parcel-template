@@ -15,6 +15,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.isFlashed = false;
         this.flashRange = 980;
 
+        this.enemyFollowSong = scene.sound.add("enemyFollow");
 
 
         // Nueva variable y temporizador para el aturdimiento
@@ -49,6 +50,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
                 const velocity = new Phaser.Math.Vector2();
                 velocity.setToPolar(angle, this.speed);
                 this.setVelocity(-velocity.x, -velocity.y);
+                this.playAnimationByVelocity(velocity);
                 return; // No seguir al jugador mientras esté aturdido
             }
         }
@@ -61,12 +63,15 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             const velocity = new Phaser.Math.Vector2();
             velocity.setToPolar(angle, this.speed);
             this.setVelocity(velocity.x, velocity.y);
+
+            // Seleccionar y reproducir la animación según la dirección
+            this.playAnimationByVelocity(velocity);
         } else {
             if (!this.isMovingRandomly) {
                 this.isMovingRandomly = true;
                 this.changeRandomDirection();
             }
-
+            // this.enemyFollowSong.stop({loop: false});
             this.randomMoveTimer += delta;
             if (this.randomMoveTimer >= this.randomMoveDuration) {
                 this.isMovingRandomly = false;
@@ -81,11 +86,11 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         const randomVelocity = new Phaser.Math.Vector2();
         randomVelocity.setToPolar(randomAngle, this.speed);
         this.setVelocity(randomVelocity.x, randomVelocity.y);
+        this.playAnimationByVelocity(randomVelocity);
     }
 
     fleeFrom(flashData) {
         if (!this.body) {
-            console.log('ENEMY', this)
              return;
         }
         const angle = Phaser.Math.Angle.Between(this.x, this.y, flashData.x, flashData.y);
@@ -94,5 +99,31 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(-velocity.x, -velocity.y);
         this.isMovingRandomly = false;
         this.randomMoveTimer = 0;
+        this.playAnimationByVelocity(velocity);
     }
+
+    playAnimationByVelocity(velocity) {
+      this.angle = Phaser.Math.Angle.Between(0, 0, velocity.x, velocity.y);
+
+        if (this.isFlashed) {
+            this.angle += Math.PI; // Agregar 180 grados para invertir la dirección
+        }
+        const normalizedVelocity = new Phaser.Math.Vector2();
+        normalizedVelocity.setToPolar(this.angle, 1);
+    
+        if (Math.abs(normalizedVelocity.x) > Math.abs(normalizedVelocity.y)) {
+            if (normalizedVelocity.x > 0) {
+                this.play("enemy-right", true);
+            } else {
+                this.play("enemy-left", true);
+            }
+        } else if (normalizedVelocity.y > 0) {
+                this.play("enemy-down", true);
+            } else {
+                this.play("enemy-up", true);
+            }
+    }
+
 }
+
+
