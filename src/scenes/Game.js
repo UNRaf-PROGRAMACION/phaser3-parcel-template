@@ -25,6 +25,27 @@ export default class Game extends Phaser.Scene {
       level: this.level,
     });
 
+    this.fadingOverlay = this.add
+    .rectangle(
+      0,
+      0,
+      this.cameras.main.width,
+      this.cameras.main.height,
+      0x000000
+    )
+    this.fadingOverlay.setOrigin(0)
+    .setDepth(7);
+
+    this.tweens.add({
+      targets: this.fadingOverlay,
+      alpha: 0, // Cambiado a 0 para hacer desaparecer el overlay
+      duration: 4000,
+      onComplete: () => {
+        this.fadingOverlay.destroy();
+      },
+  });
+  
+
     this.gameSong = this.sound.add("game-song").setVolume(0.3);
     this.gameSong.play({ loop: true });
 
@@ -84,6 +105,7 @@ export default class Game extends Phaser.Scene {
   }
 
   createCharacter() {
+
     this.spawnPoint = this.level1Tile.findObject(
       "objects",
       (obj) => obj.name === "principalCharacter"
@@ -145,6 +167,8 @@ export default class Game extends Phaser.Scene {
   }
 
   update(time, delta) {
+
+    this.fadingOverlay.setPosition(this.cameras.main.scrollX, this.cameras.main.scrollY);
       this.character.update();
 
       this.enemyGroup.getChildren().forEach((enemy) => {
