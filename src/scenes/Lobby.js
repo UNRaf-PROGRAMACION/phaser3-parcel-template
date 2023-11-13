@@ -183,7 +183,7 @@ export default class Lobby extends Phaser.Scene {
           level: this.level,
           health: this.health,
           dynamiteCuantity: this.dynamiteCuantity,
-          levelspased: this.levelsPased
+          levelsPased: this.levelsPased
         });
       },
     });
@@ -205,7 +205,7 @@ export default class Lobby extends Phaser.Scene {
             level: this.level,
             health: this.health,
             dynamiteCuantity: this.dynamiteCuantity,
-            levelspased: this.levelsPased
+            levelsPased: this.levelsPased
           });
         },
       });
@@ -228,7 +228,7 @@ export default class Lobby extends Phaser.Scene {
             level: this.level,
             health: this.health,
             dynamiteCuantity: this.dynamiteCuantity,
-            levelspased: this.levelsPased
+            levelsPased: this.levelsPased
           });
         },
       });

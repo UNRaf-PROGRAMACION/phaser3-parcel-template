@@ -9,6 +9,7 @@ import Settings from "./scenes/Settings";
 import Pause from "./scenes/pause";
 import Win from "./scenes/win";
 import Lose from "./scenes/lose";
+import Credits from "./scenes/credits";
 
 import FirebasePlugin from "./plugins/FirebasePlugin";
 import Login from "./scenes/Login";
@@ -46,6 +47,7 @@ const config = {
     Pause,
     Win,
     Lose,
+    Credits
   ],
   plugins: {
     global: [

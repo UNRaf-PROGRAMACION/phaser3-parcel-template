@@ -13,7 +13,7 @@ export default class Win extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(1920 / 2,
+    this.gameOverImage = this.add.image(1920 / 2,
         1080 / 2, "game-over");
 
         this.pointerSound = this.sound.add("pointerOver");
@@ -69,6 +69,7 @@ export default class Win extends Phaser.Scene {
                     this.scene.start('lobby', {
                         level: this.level,
                         health: this.health,
+                        levelsPased: this.levelsPased
                     });
                 },
               });
@@ -83,14 +84,23 @@ export default class Win extends Phaser.Scene {
         });
 
         this.levelsPased += 1;
-  }
-}
+        if (this.levelsPased >= 3) {
+          this.finalVideo = this.add.video (1980 / 2, 1080/2, "final-cinematic");
 
-//   update(){
-//   //   if (this.levelsPased >= 3) {
-//   //     this.finalCinematic();
-//   //   }
-//   // }
-//   // finalCinematic() {
+          // Reproduce el video
+          this.finalVideo.play ();
+          this.finalVideo.setDepth(7);
+        
+          // Establece un evento para cuando el finalVideo termine
+          this.finalVideo.on('start', () => {
+        });
+        
+        this.finalVideo.on('complete', () => {
+            this.scene.start('credits')
+        });
+        }
+  }
+
+}
     
 

@@ -17,7 +17,7 @@ export default class Game extends Phaser.Scene {
     this.velocity = data.velocity || 400;
     this.level = data.level || 1;
     this.dynamiteCuantity = data.dynamiteCuantity || 22;
-    this.levelsPased = data.levelsPased ;
+    this.levelsPased = data.levelsPased  ;
   }
 
   create() {
