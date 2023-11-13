@@ -40,6 +40,10 @@ export default class Preload extends Phaser.Scene {
       "./assets/sprites/mainCinematic.mp4"
     );
     this.load.video(
+      "final-cinematic",
+      "./assets/sprites/finalCinematic.mp4"
+    );
+    this.load.video(
       "jumpscare",
       "./assets/sprites/jumpscare.mp4"
     );

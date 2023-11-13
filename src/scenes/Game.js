@@ -17,6 +17,7 @@ export default class Game extends Phaser.Scene {
     this.velocity = data.velocity || 400;
     this.level = data.level || 1;
     this.dynamiteCuantity = data.dynamiteCuantity || 22;
+    this.levelsPased = data.levelsPased ;
   }
 
   create() {
@@ -79,7 +80,7 @@ export default class Game extends Phaser.Scene {
 
     events.on("music", this.musicTransfer, this);
 
-    this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    this.keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
   }
 
   initializeLevel() {
@@ -177,7 +178,7 @@ export default class Game extends Phaser.Scene {
         }
       });
 
-      if (this.keyP.isDown) {
+      if (this.keyEsc.isDown) {
         this.scene.pause();
         this.scene.launch("pause", {
           gameSong: this.gameSong,
@@ -187,6 +188,7 @@ export default class Game extends Phaser.Scene {
       if (this.dynamiteCuantity <= 0) {
         this.scene.start("win", {
           level: this.level,
+          levelsPased: this.levelsPased 
         });
         this.gameSong.stop();
         this.gameSong.loop = false;
@@ -239,6 +241,7 @@ export default class Game extends Phaser.Scene {
         this.level -= 1;
         this.scene.start("lose", {
             level: this.level,
+            levelsPassed: this.levelsPased
         });
         events.emit("actualizarDatos", {
             level: this.level,

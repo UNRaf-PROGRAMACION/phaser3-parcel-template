@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { getPhrase } from "../services/translations";
 
 export default class Lose extends Phaser.Scene {
 
@@ -9,6 +10,7 @@ export default class Lose extends Phaser.Scene {
     init (data) {
         this.health = data.health;
         this.level = data.level;
+        this.levelsPased = data.levelsPased;
     }
 
     create () {
@@ -32,7 +34,7 @@ export default class Lose extends Phaser.Scene {
         this.pointerdownSound = this.sound.add("PointerdownFX");
 
         // Mensaje de victoria
-        const winText = this.add.text(1920 / 2, 1080 * 0.25, '¡Has Perdido!', {
+        const winText = this.add.text(1920 / 2, 1080 * 0.25,  getPhrase('¡Has Perdido!'), {
             fontFamily: 'Time New Roman',
             fontSize: '160px',
             color: '#7D080E'
@@ -40,7 +42,7 @@ export default class Lose extends Phaser.Scene {
         winText.setOrigin(0.5);
 
         // Mostrar la puntuación
-        const scoreText = this.add.text(1920 / 2, 1080 / 2 + 50, `Nivel: ${this.level + 1}`, {
+        const scoreText = this.add.text(1920 / 2, 1080 / 2 + 50,`${getPhrase("Nivel")} ${this.level + 1}`, {
             fontFamily: 'Time New Roman',
             fontSize: '140px',
             color: '#7D080E'
@@ -48,7 +50,7 @@ export default class Lose extends Phaser.Scene {
         scoreText.setOrigin(0.5);
 
         // Botón para reiniciar
-        const restartButton = this.add.text(1920/ 2, 1080 * 0.75, 'Reiniciar', {
+        const restartButton = this.add.text(1920/ 2, 1080 * 0.75, getPhrase('Reiniciar'), {
             fontFamily: 'Time New Roman',
             fontSize: '140px',
             color: '#7D080E',

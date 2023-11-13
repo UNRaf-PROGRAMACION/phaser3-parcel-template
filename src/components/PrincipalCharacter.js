@@ -109,6 +109,7 @@ update() {
             // Mostrar el destello y configurar su posición
             this.flashEffect.setVisible(true);
             this.flashEffect.setPosition(this.x, this.y);
+            this.darkness.setVisible(false);
 
             this.scene.events.emit('flashActivated', { x: this.x, y: this.y });
     
@@ -122,6 +123,7 @@ update() {
             // Establecer un temporizador para ocultar el destello después de un breve período
             this.scene.time.delayedCall(100, () => {
                 this.flashEffect.setVisible(false);
+                this.darkness.setVisible(true);
             });
         }
 

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { getPhrase } from "../services/translations";
 
 export default class Win extends Phaser.Scene {
   constructor() {
@@ -8,6 +9,7 @@ export default class Win extends Phaser.Scene {
   init(data) {
     this.health = data.health;
     this.level = data.level;
+    this.levelsPased = data.levelsPased 
   }
 
   create() {
@@ -30,7 +32,7 @@ export default class Win extends Phaser.Scene {
       .setDepth(4);
 
         // Mensaje de victoria
-        const winText = this.add.text(1920 / 2, 1080 * 0.25, '¡Has Ganado!', {
+        const winText = this.add.text(1920 / 2, 1080 * 0.25, getPhrase('¡Has Ganado!'), {
             fontFamily: 'Time New Roman',
             fontSize: '160px',
             color: '#7D080E'
@@ -38,7 +40,7 @@ export default class Win extends Phaser.Scene {
         winText.setOrigin(0.5);
 
         // Mostrar la puntuación
-        const scoreText = this.add.text(1920 / 2, 1080 / 2 + 50, `Nivel: ${this.level}`, {
+        const scoreText = this.add.text(1920 / 2, 1080 / 2 + 50, `${getPhrase("Nivel")} ${this.level}`, {
             fontFamily: 'Time New Roman',
             fontSize: '140px',
             color: '#7D080E'
@@ -46,7 +48,7 @@ export default class Win extends Phaser.Scene {
         scoreText.setOrigin(0.5);
 
         // Botón para reiniciar
-        const restartButton = this.add.text(1920/ 2, 1080 * 0.75, 'Continuar', {
+        const restartButton = this.add.text(1920/ 2, 1080 * 0.75, getPhrase('Continuar'), {
             fontFamily: 'Time New Roman',
             fontSize: '140px',
             color: '#7D080E',
@@ -79,5 +81,16 @@ export default class Win extends Phaser.Scene {
         restartButton.on('pointerout', () => {
             restartButton.setScale(1);
         });
+
+        this.levelsPased += 1;
   }
 }
+
+//   update(){
+//   //   if (this.levelsPased >= 3) {
+//   //     this.finalCinematic();
+//   //   }
+//   // }
+//   // finalCinematic() {
+    
+

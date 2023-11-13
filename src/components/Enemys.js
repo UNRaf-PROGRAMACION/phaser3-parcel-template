@@ -21,11 +21,14 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         // Nueva variable y temporizador para el aturdimiento
         this.stunDuration = 2000; // Duración del aturdimiento en milisegundos
         this.stunTimer = 0;
-
-        const hitboxHeight = this.height * 0.4;
-        const hitboxWidth = this.width * 0.8;
+        const hitboxHeight = this.height * 0.3; // Puedes ajustar este valor según tus necesidades
+        const hitboxWidth = this.width * 0.1; // Puedes ajustar este valor según tus necesidades
+        
+        // Calcular el offset para centrar la hitbox horizontalmente
+        const offsetX = (this.width - hitboxWidth) / 2;
+        
         this.body.setSize(hitboxWidth, hitboxHeight);
-        this.body.setOffset(0, this.height - hitboxHeight);
+        this.body.setOffset(offsetX, this.height - hitboxHeight);
 
         scene.events.on('flashActivated', (flashData) => {
             const distance = Phaser.Math.Distance.Between(this.x, this.y, flashData.x, flashData.y);
