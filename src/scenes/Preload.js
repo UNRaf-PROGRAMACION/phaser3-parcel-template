@@ -20,7 +20,7 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 180,
       frameHeight: 250,
     });
-    this.load.image("flash-effect", "./assets/particles/flashEffect.webp");
+    this.load.image("flash-effect", "./assets/particles/flashEffect.png");
     this.load.image("Atlas", "./assets/sprites/Atlas.png");
     this.load.spritesheet("door", "./assets/sprites/door.png", {
       frameWidth: 580 / 2,
@@ -42,6 +42,10 @@ export default class Preload extends Phaser.Scene {
     this.load.video(
       "final-cinematic",
       "./assets/sprites/finalCinematic.mp4"
+    );
+    this.load.video(
+      "win-cinematic",
+      "./assets/sprites/winCinematic.mp4"
     );
     this.load.video(
       "jumpscare",

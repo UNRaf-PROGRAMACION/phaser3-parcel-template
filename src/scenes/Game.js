@@ -186,15 +186,15 @@ export default class Game extends Phaser.Scene {
       }
 
       if (this.dynamiteCuantity <= 0) {
+        this.gameSong.stop();
+        this.gameSong.destroy();
+        this.gameSong2.stop();
+        this.gameSong2.destroy();
+        this.saveGameData();
         this.scene.start("win", {
           level: this.level,
           levelsPased: this.levelsPased 
         });
-        this.gameSong.stop();
-        this.gameSong.loop = false;
-        this.gameSong2.stop();
-        this.gameSong2.loop = false;
-        this.saveGameData();
       }
 
       this.timeElapsed += delta;
@@ -229,9 +229,9 @@ export default class Game extends Phaser.Scene {
 
     this.video = this.add.video(this.videoX, this.videoY, "jumpscare");
     this.gameSong.stop();
-    this.gameSong.loop = false;
+    this.gameSong.destroy();
     this.gameSong2.stop();
-    this.gameSong2.loop = false;
+    this.gameSong2.destroy();;
 
     // Reproduce el video
     this.video.play();
