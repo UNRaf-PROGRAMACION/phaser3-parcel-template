@@ -13,6 +13,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     this.volume = data.volume || 1;
     this.visibleVolume = data.visibleVolume || 100;
     this.language = language;
+    this.level = 0;
   }
 
   create() {
@@ -141,7 +142,9 @@ export default class PrincipalMenu extends Phaser.Scene {
 }
 
   fadeOutCinematic() {
-    this.scene.start("lobby");
+    this.scene.start("lobby", {
+      level: this.level
+    });
   }
 
   musicTransfer(data) {

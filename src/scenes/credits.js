@@ -7,6 +7,10 @@ export default class Credits extends Phaser.Scene {
         super({ key: 'credits' });
     }
 
+    init() {
+      this.level = 0;
+    }
+
     create() {
 
         this.fadingOverlay = this.add
