@@ -124,6 +124,7 @@ export default class PrincipalMenu extends Phaser.Scene {
   playCinematic() {
     // Obtén una referencia al video usando la notación this
     this.video = this.add.video(1980 / 2, 1080/2, "main-cinematic");
+    this.audio =this.sound.add ("main-cinematic-song");
 
     // Reproduce el video
     this.video.play();
@@ -134,8 +135,16 @@ export default class PrincipalMenu extends Phaser.Scene {
       // Si la tecla de espacio es presionada, ejecuta la función fadeOutCinematic
       this.fadeOutCinematic();
   }, this);
+
+  this.video.on('start',  () =>  {
+    // Cuando el video termina, ejecuta la función fadeOutCinematic
+    this.audio.play();
+}, this);
+
     // Establece un evento para cuando el video termine
     this.video.on('complete',  () =>  {
+      this.audio.stop();
+      this.audio.destroy();
         // Cuando el video termina, ejecuta la función fadeOutCinematic
         this.fadeOutCinematic();
     }, this);

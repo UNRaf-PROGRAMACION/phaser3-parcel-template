@@ -65,6 +65,7 @@ export default class Preload extends Phaser.Scene {
     this.load.audio("pointerOver", "./assets/audio/ui-pointerOver.mp3");
     this.load.audio("lobby-song", "./assets/audio/lobbySong.mp3");
     this.load.audio ("dynamite-sound", "./assets/audio/dynamiteSound.mp3");
+    this.load.audio ("main-cinemtic-song", "./assets/audio/mainCinematicSong.mp3");
     this.load.audio ("steps", "./assets/audio/steps.mp3");
     this.load.audio ("enemyFollow", "./assets/audio/enemyFollow.mp3");
     this.load.audio ("PointerdownFX", "./assets/audio/PointerdownFX.mp3")
