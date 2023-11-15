@@ -65,7 +65,7 @@ export default class Win extends Phaser.Scene {
         });
         
         this.finalVideo.on('complete', () => {
-            this.scene.start('credits')
+            this.scene.start('principal-menu');
         });
 
         this.input.keyboard.once('keydown-SPACE', () => {
