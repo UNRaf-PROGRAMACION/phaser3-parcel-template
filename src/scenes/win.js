@@ -17,13 +17,18 @@ export default class Win extends Phaser.Scene {
         this.winVideo = this.add.video(1920/2, 1080/2, "win-cinematic");
         this.winVideo.play();
         this.winVideo.setDepth(1);
+        this.explosionSound = this.sound.add ("dynamite-explosion");
+        this.explosionSound.play();
 
         this.winVideo.on('complete', () => {
+
           this.tweens.add({
             targets: this.fadingOverlay,
             alpha: 1,
             duration: 1000,
             onComplete: () => {
+              this.explosionSound.stop();
+              this.explosionSound.destroy();
                 this.scene.start('lobby', {
                     level: this.level,
                     health: this.health,

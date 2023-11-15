@@ -123,40 +123,56 @@ export default class PrincipalMenu extends Phaser.Scene {
 
   playCinematic() {
     // Obtén una referencia al video usando la notación this
-    this.video = this.add.video(1980 / 2, 1080/2, "main-cinematic");
-    this.audio =this.sound.add ("main-cinematic-song");
-
+    this.video = this.add.video(1980 / 2, 1080 / 2, "main-cinematic");
+    // this.video.setLoop(true);
+    this.audio = this.sound.add("main-cinematic-song");
+    this.audio.play
+  
     // Reproduce el video
     this.video.play();
+    this.video.setLoop(true);
     this.video.setDepth(4);
 
-    // Establece un evento para verificar si la tecla de espacio es presionada durante la cinematica
+    setTimeout(() => {
+      this.fadeOutCinematic();
+    }, 5000); // 
+  
+    // Agregar recuadro de texto negro para subtítulos
+    this.subtitleText = this.add.text(1920 *0.25, 1080 *0.75, 'Te tengo una tarea que no es fácil. Tendrás que ir a las cuevas de heian a encontrar una reliquia. Mucha suerte', {
+      font: '24px Arial',
+      color: '#ffffff',
+      backgroundColor: '#000000',
+      padding: {
+        x: 10,
+        y: 5
+      }
+
+      
+    }).setOrigin(0).setDepth(5).setAlpha(1); // Ajustar posición y propiedades del texto
+  
+  
     this.input.keyboard.once('keydown-SPACE', () => {
       // Si la tecla de espacio es presionada, ejecuta la función fadeOutCinematic
       this.fadeOutCinematic();
-  }, this);
+    }, this);
 
-  this.video.on('start',  () =>  {
-    // Cuando el video termina, ejecuta la función fadeOutCinematic
-    this.audio.play();
-}, this);
-
+  
     // Establece un evento para cuando el video termine
-    this.video.on('complete',  () =>  {
+    this.video.on('complete', () => {
       this.audio.stop();
       this.audio.destroy();
-        // Cuando el video termina, ejecuta la función fadeOutCinematic
-        this.fadeOutCinematic();
+      // Cuando el video termina, ejecuta la función fadeOutCinematic
+      this.fadeOutCinematic();
     }, this);
-}
-
+  }
+  
   fadeOutCinematic() {
     this.scene.start("lobby", {
       level: this.level
     });
   }
-
+  
   musicTransfer(data) {
     this.mainMenuSong = data.mainMenuSong;
   }
-}
+}  
