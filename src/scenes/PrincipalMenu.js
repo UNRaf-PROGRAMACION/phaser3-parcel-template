@@ -127,6 +127,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     // this.video.setLoop(true);
     this.audio = this.sound.add("main-cinematic-song");
     this.audio.play();
+    this.scene.pause();
   
     // Reproduce el video
     this.video.play();
@@ -152,6 +153,7 @@ export default class PrincipalMenu extends Phaser.Scene {
     this.video.on('complete', () => {
       this.audio.stop();
       this.audio.destroy();
+      this.scene.resume();
       // Cuando el video termina, ejecuta la función fadeOutCinematic
       this.fadeOutCinematic();
     }, this);

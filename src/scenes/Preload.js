@@ -52,6 +52,8 @@ export default class Preload extends Phaser.Scene {
       "./assets/sprites/jumpscare.mp4"
     );
     this.load.image("darkness", "./assets/particles/darkness.png");
+    this.load.image("arrow", "./assets/particles/arrow.png");
+    this.load.image("blue-arrow", "./assets/particles/blueArrow.png");
     this.load.image("spanish-button", "./assets/sprites/spanishButton.png");
     this.load.image(
       "portuguese-button",
