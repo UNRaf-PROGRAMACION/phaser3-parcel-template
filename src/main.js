@@ -1,12 +1,30 @@
 import Phaser from "phaser";
-
-import HelloWorldScene from "./scenes/HelloWorldScene";
+import Preload from "./scenes/Preload";
+import Menu from "./scenes/Menu";
+import Nivel1 from "./scenes/Nivel1";
+import GameOver from "./scenes/GameOver";
+import Win from "./scenes/Win";
+import Creditos from "./scenes/Creditos";
+import HowToPlay from "./scenes/HowToPlay";
 import UI from "./scenes/UI";
+import FirebasePlugin from "./plugins/FirebasePlugin";
+import Login from "./scenes/Login";
+import WinCinematica from "./scenes/WinCinematica";
 
-const config = {
+const config = { 
   type: Phaser.AUTO,
   width: 800,
   height: 600,
+  plugins: {
+        global: [
+          {
+            key: "FirebasePlugin",
+            plugin: FirebasePlugin,
+            start: true,
+            mapping: "firebase",
+          },
+        ],
+      },
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -22,11 +40,11 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 200 },
+      gravity: { y: 0 },
       debug: false,
     },
   },
-  scene: [HelloWorldScene, UI],
+  scene: [Preload, Login, Menu, HowToPlay, Nivel1, GameOver, WinCinematica, Win, Creditos, UI],
 };
 
 export default new Phaser.Game(config);
